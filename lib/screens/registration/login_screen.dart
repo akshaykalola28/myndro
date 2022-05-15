@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       children: [
                         socialButtonWidget(ImagePath.facebookLogo,ImagePath.facebook),
-                       SizedBox(width: 15,),
+                       const SizedBox(width: 15,),
                         socialButtonWidget(ImagePath.googleLogo,ImagePath.google),
                       ],
                   ),
