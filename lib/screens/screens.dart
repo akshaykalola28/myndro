@@ -6,3 +6,4 @@ export 'verification/enter_phone_number.dart';
 export 'your_category/your_category.dart';
 export 'registration/create_password.dart';
 export 'expert_registration/expert_registration_form.dart';
+export 'onBoarding/onBoarding_screen.dart';

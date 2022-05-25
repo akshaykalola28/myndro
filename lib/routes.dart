@@ -36,4 +36,8 @@ final List<GetPage> appPages = [
       name: ExpertRegistrationForm.pageId,
       page: () =>  const ExpertRegistrationForm(),
       binding: RegistrationBinding()),
+  GetPage(
+      name: OnBoardingScreen.pageId,
+      page: () =>   OnBoardingScreen(),
+      binding: OnBoardingBinding()),
 ];

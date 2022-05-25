@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../widgets/widgets.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../constant/constant.dart';
 import '../../util/common.dart';
+import '../../widgets/widgets.dart';
 
 class ExpertRegistrationForm extends StatefulWidget {
   static const pageId = "/ExpertRegistrationScreen";
@@ -32,7 +31,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   final TextStyle _headerStyle =
       const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold);
 
-  final TextStyle _stepStyle = const TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold);
+  final TextStyle _stepStyle =
+      const TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold);
 
   Size? _safeAreaSize;
 
@@ -98,14 +98,19 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                       color: ColorsConfig.colorBlue,
                       height: Get.height * 0.22,
                       width: Get.width,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text("Registration Form For Counsellors , Therapist & Psychologist ",style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.w500,
-                          color: ColorsConfig.colorWhite,
-                        )),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 50),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                              "Registration Form For Counsellors , Therapist & Psychologist ",
+                              style: TextStyle(
+                                fontFamily: AppTextStyle.microsoftJhengHei,
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.w500,
+                                color: ColorsConfig.colorWhite,
+                              )),
+                        ),
                       ),
                     ),
                   ),
@@ -283,9 +288,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 20,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         child: loginButtonWidget('Submit'),
-
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -297,7 +302,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                               Container(
                                 color: ColorsConfig.colorWhite,
                                 padding:
-                                const EdgeInsets.symmetric(horizontal: 15),
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
                                   children: [
                                     const SizedBox(
@@ -311,7 +316,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                     const SizedBox(
                                       height: 15,
                                     ),
-                                    attachDocWidget( 'Degree Certificate'),
+                                    attachDocWidget('Degree Certificate'),
                                     // DropDownWidget(
                                     //   dropdownValue: dropdownValue,
                                     //   hintText: 'Degree Certificate',
@@ -320,13 +325,14 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                     const SizedBox(
                                       height: 15,
                                     ),
-                                    attachDocWidget( 'Practice'),
+                                    attachDocWidget('Practice'),
 
                                     const SizedBox(
                                       height: 20,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
                                       child: loginButtonWidget('Submit'),
                                     ),
                                     const SizedBox(
@@ -338,7 +344,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                               Container(
                                 color: ColorsConfig.colorWhite,
                                 padding:
-                                const EdgeInsets.symmetric(horizontal: 15),
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: [
@@ -408,7 +414,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           SizedBox(
                                               width: Get.width * 0.45,
@@ -431,7 +437,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           SizedBox(
                                               width: Get.width * 0.45,
@@ -452,13 +458,14 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      attachDocWidget( 'Attach Your Cancel Cheque'),
-
+                                      attachDocWidget(
+                                          'Attach Your Cancel Cheque'),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         child: loginButtonWidget('Submit'),
                                       ),
                                       const SizedBox(
@@ -471,7 +478,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                               Container(
                                 color: ColorsConfig.colorWhite,
                                 padding:
-                                const EdgeInsets.symmetric(horizontal: 15),
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -482,21 +489,25 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                     Container(
                                       height: 50,
                                       width: Get.width,
-                                      decoration:  BoxDecoration(
+                                      decoration: BoxDecoration(
                                         color: ColorsConfig.colorBlue,
                                         shape: BoxShape.rectangle,
                                         borderRadius: BorderRadius.circular(12),
-                                        border:  Border.all(
+                                        border: Border.all(
                                           color: ColorsConfig.colorBlue,
                                           width: 1.0,
                                         ),
                                       ),
                                       child: Center(
-                                        child: Text('Are you register under GST?',style: TextStyle(
-                                          fontFamily: AppTextStyle.microsoftJhengHei,
-                                          fontSize: 16.0,
-                                          color: ColorsConfig.colorWhite,
-                                        ),),
+                                        child: Text(
+                                          'Are you register under GST?',
+                                          style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 16.0,
+                                            color: ColorsConfig.colorWhite,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(
@@ -507,24 +518,26 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       minWidth: 85.0,
                                       minHeight: 40,
                                       cornerRadius: 20.0,
-                                      activeBgColors: const [[ColorsConfig.colorBlue], [ColorsConfig.colorBlue]],
+                                      activeBgColors: const [
+                                        [ColorsConfig.colorBlue],
+                                        [ColorsConfig.colorBlue]
+                                      ],
                                       activeFgColor: Colors.black,
-                                      inactiveBgColor: ColorsConfig.colorLightBlue,
+                                      inactiveBgColor:
+                                          ColorsConfig.colorLightBlue,
                                       inactiveFgColor: Colors.black,
                                       initialLabelIndex: 1,
                                       totalSwitches: 2,
-                                      labels: const ['No',
-                                          'yes'],
+                                      labels: const ['No', 'yes'],
                                       radiusStyle: true,
-                                      onToggle: (index) {
-
-                                      },
+                                      onToggle: (index) {},
                                     ),
                                     const SizedBox(
                                       height: 20,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
                                       child: loginButtonWidget('Submit'),
                                     ),
                                     const SizedBox(
@@ -535,7 +548,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                               ),
                               Container(
                                 color: ColorsConfig.colorWhite,
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
                                   children: [
                                     const SizedBox(
@@ -544,36 +558,44 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                     Container(
                                       height: 75,
                                       width: Get.width,
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                      decoration:  BoxDecoration(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      decoration: BoxDecoration(
                                         color: ColorsConfig.colorBlue,
                                         shape: BoxShape.rectangle,
                                         borderRadius: BorderRadius.circular(12),
-                                        border:  Border.all(
+                                        border: Border.all(
                                           color: ColorsConfig.colorBlue,
                                           width: 1.0,
                                         ),
                                       ),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text('upload Your copy of GST Registration \nCertificate ',style: TextStyle(
-                                            fontFamily: AppTextStyle.microsoftJhengHei,
-                                            fontSize: 16.0,
-                                            color: ColorsConfig.colorWhite,
-                                          ),),
+                                          Text(
+                                            'upload Your copy of GST Registration \nCertificate ',
+                                            style: TextStyle(
+                                              fontFamily: AppTextStyle
+                                                  .microsoftJhengHei,
+                                              fontSize: 16.0,
+                                              color: ColorsConfig.colorWhite,
+                                            ),
+                                          ),
                                           const Icon(
-                                              Icons.attach_file,size: 35,color: ColorsConfig.colorWhite,
+                                            Icons.attach_file,
+                                            size: 35,
+                                            color: ColorsConfig.colorWhite,
                                           ),
                                         ],
                                       ),
                                     ),
-
                                     const SizedBox(
                                       height: 20,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
                                       child: loginButtonWidget('Submit'),
                                     ),
                                     const SizedBox(
@@ -763,17 +785,16 @@ class StepProgressView extends StatelessWidget {
   }
 }
 
-
-Widget attachDocWidget(String text){
-  return  Container(
+Widget attachDocWidget(String text) {
+  return Container(
     height: 50,
     width: Get.width,
     padding: const EdgeInsets.symmetric(horizontal: 10),
-    decoration:  BoxDecoration(
+    decoration: BoxDecoration(
       color: ColorsConfig.colorLightBlue,
       shape: BoxShape.rectangle,
       borderRadius: BorderRadius.circular(12),
-      border:  Border.all(
+      border: Border.all(
         color: ColorsConfig.colorBlue,
         width: 1.5,
       ),
@@ -781,14 +802,19 @@ Widget attachDocWidget(String text){
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(text,style: TextStyle(
-          fontFamily: AppTextStyle.microsoftJhengHei,
-          fontSize: 16.0,
-          color: ColorsConfig.colorBlue,
-        ),),
+        Text(
+          text,
+          style: TextStyle(
+            fontFamily: AppTextStyle.microsoftJhengHei,
+            fontSize: 16.0,
+            color: ColorsConfig.colorBlue,
+          ),
+        ),
         const Spacer(),
         const Icon(
-          Icons.attach_file,size: 25,color:  ColorsConfig.colorBlue,
+          Icons.attach_file,
+          size: 25,
+          color: ColorsConfig.colorBlue,
         ),
       ],
     ),

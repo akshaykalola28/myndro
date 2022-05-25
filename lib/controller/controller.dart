@@ -6,3 +6,4 @@ export 'splash_controller.dart';
 export 'phone_number_controller.dart';
 export 'your_category_controller.dart';
 export 'new_password_controller.dart';
+export 'onBoarding_controller.dart';
