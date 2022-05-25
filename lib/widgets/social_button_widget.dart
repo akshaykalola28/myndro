@@ -14,7 +14,7 @@ Widget socialButtonWidget(
         width: Get.width/2.3,
         decoration:  BoxDecoration(
             color: ColorsConfig.colorWhite,
-            border: Border.all(color: ColorsConfig.colorOutlineBorder),
+            border: Border.all(color: ColorsConfig.colorBlue),
             borderRadius: const BorderRadius.all(
               Radius.circular(30),
             ),

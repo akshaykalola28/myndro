@@ -8,38 +8,39 @@ Widget loginTextFieldWidget(
     FormFieldValidator<String> validator,
     TextInputType inputType,
     String hintTxt,
+    IconData prefixIcon
 ){
   return TextFormField(
     style: TextStyle(
-      fontFamily: AppTextStyle.poppinsMedium,
+      fontFamily: AppTextStyle.microsoftJhengHei,
       fontSize: 13.0,
       fontWeight: FontWeight.w400,
-      color: ColorsConfig.colorHintText,
+      color: ColorsConfig.colorBlue,
     ),
     controller: controller,
     obscureText: isPassword,
     validator: validator,
     keyboardType: inputType,
     decoration: InputDecoration(
-      //contentPadding: EdgeInsets.only(left: 20,top: 20,bottom: 20),
+      contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
+prefixIcon: Icon(prefixIcon,color: ColorsConfig.colorBlue,size: 23),
       hintText: hintTxt,
       hintStyle:  TextStyle(
-        fontFamily: AppTextStyle.poppinsMedium,
+        fontFamily: AppTextStyle.microsoftJhengHei,
         fontSize: 13.0,
-        fontWeight: FontWeight.w400,
-        color: ColorsConfig.colorHintText,
+        color: ColorsConfig.colorBlue,
       ),
       filled: true,
       fillColor: ColorsConfig.colorWhite,
-      focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: ColorsConfig.colorFocusedBorder),
+      focusedBorder:  OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: ColorsConfig.colorBlue),
       ),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
         borderSide: const BorderSide(
-          color: ColorsConfig.colorOutlineBorder,
-          width: 0,
-          style: BorderStyle.none,
+          color: ColorsConfig.colorBlue,
+          width: 1.0,
         ),
       ),
     ),

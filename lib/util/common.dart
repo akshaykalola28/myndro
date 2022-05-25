@@ -1,3 +1,5 @@
+
+
 class Common{
 
   static String? validateName(String? value) {
@@ -28,6 +30,4 @@ class Common{
     }
     return null;
   }
-
-
 }

@@ -10,68 +10,86 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
 
   ForgotPasswordScreen({Key? key}) : super(key: key);
 
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsConfig.colorWhite,
+      backgroundColor: ColorsConfig.colorBlue,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: ColorsConfig.colorWhite,
+        backgroundColor: ColorsConfig.colorBlue,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
-            color: ColorsConfig.colorBackButton,
+            color: ColorsConfig.colorWhite,
           ),
           onPressed: () {},
         ),
       ),
-      body: SafeArea(
-        bottom: false,
-        child: GestureDetector(
-          onTap: () {
-            Get.focusScope!.unfocus();
-          },
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: Get.width * 0.06),
-            child: Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: Get.height * 0.05),
-                  Text('Forgot Password',
-                      style: TextStyle(
-                        fontFamily: AppTextStyle.poppinsMedium,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w500,
-                        color: ColorsConfig.colorBlue,
-                      )),
-                  const SizedBox(height: 15),
-                  Wrap(
-                    children: [
-                      Text('We just need your register e-mail ID to send reset link',
+      body: GestureDetector(
+        onTap: () {
+          Get.focusScope!.unfocus();
+        },
+        child: SafeArea(
+          bottom: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Wrap(
+                  children: [
+                    Center(
+                      child: Text('Enter your Registration phone number to Reset your password',
                           style: TextStyle(
-                            fontFamily: AppTextStyle.poppinsMedium,
-                            fontSize: 14.0,
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 18.0,
                             fontWeight: FontWeight.w400,
-                            color: ColorsConfig.colorHintText,
+                            color: ColorsConfig.colorWhite,
                           ),),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                  loginTextFieldWidget(
-                      emailController,
-                      false,
-                      Common.validateEmail,
-                      TextInputType.emailAddress,
-                      'E-Mail'
-                  ),
-                  const SizedBox(height: 27),
-                  loginButtonWidget('Reset Password')
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 45),
+                child: loginTextFieldWidget(
+                  phoneController,
+                    false,
+                    Common.validateName,
+                    TextInputType.phone,
+                    'Phone No', Icons.phone,
+                ),
+              ),
+              const SizedBox(height: 35),
+              Container(
+                height: 45,
+                width: Get.width,
+                margin: const EdgeInsets.symmetric(horizontal: 45),
+                decoration: const BoxDecoration(
+                  color: ColorsConfig.colorWhite,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+
+                child: Center(
+                  child: Text(
+                    'Reset Password',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: AppTextStyle.microsoftJhengHei,
+                      fontSize: 16.0,
+                      color: ColorsConfig.colorBlue,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
