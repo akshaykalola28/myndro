@@ -96,7 +96,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                     child: Container(
                       // padding: const EdgeInsets.symmetric(horizontal: 15),
                       color: ColorsConfig.colorBlue,
-                      height: Get.height * 0.22,
+                      height: Get.height * 0.20,
                       width: Get.width,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 50),

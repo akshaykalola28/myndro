@@ -14,23 +14,25 @@ class YourCategory extends GetView<YourCategoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConfig.colorWhite,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned(
-                top: 0,
-                child: RotatedBox(
-                    quarterTurns: 10,
-                    child: Transform.scale(
-                      scaleX: -1,
-                      child: Image.asset(
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            child: RotatedBox(
+              quarterTurns: 10,
+              child: Transform.scale(
+                scaleX: -1,
+                child: Image.asset(
                   ImagePath.semiBlueGreen,
                   fit: BoxFit.fill,
                   height: 165,
                   width: Get.width,
                 ),
-                    ))),
-            Container(
+              ),
+            ),
+          ),
+          SafeArea(
+            child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -89,16 +91,17 @@ class YourCategory extends GetView<YourCategoryController> {
                 ],
               ),
             ),
-            Positioned(
-                bottom: 0,
-                child: Image.asset(
-                  ImagePath.semiBlueGreen,
-                  fit: BoxFit.fill,
-                  height: 165,
-                  width: Get.width,
-                ))
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Image.asset(
+              ImagePath.semiBlueGreen,
+              fit: BoxFit.fill,
+              height: 165,
+              width: Get.width,
+            ),
+          )
+        ],
       ),
     );
   }
