@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'screens/screens.dart';
 import 'routes.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -13,11 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute:OnBoardingScreen.pageId,
-        getPages: appPages,
+      debugShowCheckedModeBanner: false,
+      initialRoute: OnBoardingScreen.pageId,
+      getPages: appPages,
     );
   }
 }
-
-
