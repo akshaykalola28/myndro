@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
+import 'package:myndro/screens/verification/verification_code_screen.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
@@ -111,7 +112,12 @@ class RegistrationScreen extends GetView<RegistrationController> {
                         const SizedBox(
                           height: 25,
                         ),
-                        loginButtonWidget('SIGN UP'),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(VerificationCodeScreen.pageId);
+                          },
+                          child: loginButtonWidget('SIGN UP'),
+                        ),
                         const SizedBox(
                           height: 15,
                         ),

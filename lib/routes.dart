@@ -21,23 +21,26 @@ final List<GetPage> appPages = [
       binding: ForgotPasswordBinding()),
   GetPage(
       name: EnterPhoneNumber.pageId,
-      page: () =>  EnterPhoneNumber(),
+      page: () => EnterPhoneNumber(),
       binding: PhoneNumberBinding()),
   GetPage(
       name: YourCategory.pageId,
-      page: () =>  const YourCategory(),
+      page: () => const YourCategory(),
       binding: YourCategoryBinding()),
   GetPage(
       name: CreatePasswordScreen.pageId,
       page: () => const CreatePasswordScreen(),
       binding: NewPasswordBinding()),
-
   GetPage(
       name: ExpertRegistrationForm.pageId,
-      page: () =>  const ExpertRegistrationForm(),
+      page: () => const ExpertRegistrationForm(),
       binding: RegistrationBinding()),
   GetPage(
       name: OnBoardingScreen.pageId,
-      page: () =>   OnBoardingScreen(),
+      page: () => OnBoardingScreen(),
       binding: OnBoardingBinding()),
+  GetPage(
+      name: VerificationCodeScreen.pageId,
+      page: () => const VerificationCodeScreen(),
+      binding: RegistrationBinding()),
 ];
