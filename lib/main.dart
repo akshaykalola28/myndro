@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: VerificationCodeScreen.pageId,
+      initialRoute: ExpertRegistrationForm.pageId,
       getPages: appPages,
     );
   }

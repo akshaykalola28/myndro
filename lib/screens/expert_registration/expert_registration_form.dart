@@ -515,8 +515,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                     ),
                                     ToggleSwitch(
                                       fontSize: 20,
-                                      minWidth: 85.0,
-                                      minHeight: 40,
+                                      minWidth: 72.0,
+                                      minHeight: 38,
                                       cornerRadius: 20.0,
                                       activeBgColors: const [
                                         [ColorsConfig.colorBlue],
@@ -533,7 +533,45 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       onToggle: (index) {},
                                     ),
                                     const SizedBox(
-                                      height: 20,
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      height: 75,
+                                      width: Get.width,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color: ColorsConfig.colorBlue,
+                                        shape: BoxShape.rectangle,
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: ColorsConfig.colorBlue,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            'upload Your copy of GST Registration \nCertificate ',
+                                            style: TextStyle(
+                                              fontFamily: AppTextStyle
+                                                  .microsoftJhengHei,
+                                              fontSize: 16.0,
+                                              color: ColorsConfig.colorWhite,
+                                            ),
+                                          ),
+                                          const Icon(
+                                            Icons.attach_file,
+                                            size: 35,
+                                            color: ColorsConfig.colorWhite,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(

@@ -17,5 +17,9 @@ mixin ImagePath{
   static String onBoard2 = 'assets/images/onboard_2.png';
   static String onBoard3 = 'assets/images/onboard_3.png';
   static String onBoard4 = 'assets/images/onboard_4.png';
+  static String verification1 = 'assets/images/verification_1.png';
+  static String verification2 = 'assets/images/verification_2.png';
+  static String topCurved = 'assets/images/top_curved.png';
+
 
 }

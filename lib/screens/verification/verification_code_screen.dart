@@ -66,15 +66,12 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 color: ColorsConfig.colorWhite,
               ),
             ),
-            const SizedBox(
-              height: 38,
-            ),
             Image.asset(
               MediaQuery.of(context).viewInsets.bottom == 0
-                  ? ImagePath.humanPhone
-                  : ImagePath.humanPhone,
-              height: 190,
-              width: 240,
+                  ? ImagePath.verification1
+                  : ImagePath.verification2,
+              height: Get.height*0.3,
+              width: Get.width*0.42,
             ),
           ],
         ),
