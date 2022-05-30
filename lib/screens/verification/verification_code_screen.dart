@@ -70,8 +70,8 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? ImagePath.verification1
                   : ImagePath.verification2,
-              height: Get.height*0.3,
-              width: Get.width*0.42,
+              height: Get.height * 0.25,
+              width: Get.width * 0.42,
             ),
           ],
         ),

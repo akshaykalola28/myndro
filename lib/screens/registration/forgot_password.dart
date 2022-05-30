@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/screens/registration/create_password.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
@@ -25,7 +26,9 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
             Icons.arrow_back_ios_rounded,
             color: ColorsConfig.colorWhite,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
         ),
       ),
       body: GestureDetector(
@@ -49,8 +52,11 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
                         width: Get.width,
                         child: Align(
                             alignment: Alignment.bottomCenter,
-                            child: Image.asset(ImagePath.forgotPasswordImg,height: 105,width: 125,)
-                        ),
+                            child: Image.asset(
+                              ImagePath.forgotPasswordImg,
+                              height: 105,
+                              width: 125,
+                            )),
                       ),
                       ClipPath(
                         clipper: CurvedBottomClipper(),
@@ -116,24 +122,29 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
                     ),
                   ),
                   const SizedBox(height: 22),
-                  Container(
-                    height: 45,
-                    width: Get.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 45),
-                    decoration: const BoxDecoration(
-                      color: ColorsConfig.colorWhite,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(CreatePasswordScreen.pageId);
+                    },
+                    child: Container(
+                      height: 45,
+                      width: Get.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 45),
+                      decoration: const BoxDecoration(
+                        color: ColorsConfig.colorWhite,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Reset Password',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 16.0,
-                          color: ColorsConfig.colorBlue,
+                      child: Center(
+                        child: Text(
+                          'Reset Password',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 16.0,
+                            color: ColorsConfig.colorBlue,
+                          ),
                         ),
                       ),
                     ),

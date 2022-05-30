@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/constant.dart';
@@ -11,14 +10,13 @@ class SplashScreen extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-   return  SizedBox(
-       height: double.infinity,
-       width: double.infinity,
-       child: Image.asset(ImagePath.splashScreen,
-         fit: BoxFit.cover,
-        ),
-     );
+    return SizedBox(
+      height: double.infinity,
+      width: double.infinity,
+      child: Image.asset(
+        ImagePath.splashScreen,
+        fit: BoxFit.cover,
+      ),
+    );
   }
-
-
 }
