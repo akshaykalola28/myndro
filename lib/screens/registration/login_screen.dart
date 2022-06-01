@@ -410,7 +410,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () => Get.toNamed(YourCategory.pageId),
+                                  onTap: () => Get.toNamed(
+                                      ExpertRegistrationForm.pageId),
                                   child: Text(
                                     "SIGN UP",
                                     style: TextStyle(

@@ -5,14 +5,13 @@ import 'package:myndro/screens/screens.dart';
 import '../constant/constant.dart';
 import '../model/model.dart';
 
-class OnBoardingController extends GetxController{
+class OnBoardingController extends GetxController {
+  var onPageIndex = 0.obs;
+  bool get isLastPage => onPageIndex.value == onBoardingPages.length - 1;
+  var pageController = PageController();
 
-  var onPageIndex=0.obs;
-  bool  get isLastPage =>onPageIndex.value==onBoardingPages.length-1;
-  var pageController=PageController();
-
-  forward(){
-    if(isLastPage){
+  forward() {
+    if (isLastPage) {
       //go to Dashboard
       Get.toNamed(LoginScreen.pageId);
     }
@@ -29,5 +28,4 @@ class OnBoardingController extends GetxController{
     OnBoardingModel(imageAsset:  ImagePath.onBoard4,name:"Our minds, like our bodies, require nurturing and care. When you can't do it on your own,it's okay to seek help from someone else."),
 
   ];
-
 }
