@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/screens/screens.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../constant/constant.dart';
@@ -18,7 +19,14 @@ class ExpertRegistrationForm extends StatefulWidget {
 }
 
 class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
-  final _stepsText = ['Profile', 'Degree', 'Bank', 'GST', 'KYC'];
+  final _stepsText = [
+    'Profile',
+    'Degree',
+    'Bank',
+    'GST',
+    'KYC',
+    'Agree\n-ment'
+  ];
 
   final _stepCircleRadius = 10.0;
 
@@ -73,6 +81,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   //   'Item8',
   // ];
   String? dropdownValue;
+  int? showIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -333,7 +342,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: loginButtonWidget('Submit'),
+                                      child: loginButtonWidget(
+                                        'Submit',
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 20,
@@ -466,7 +477,217 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
-                                        child: loginButtonWidget('Submit'),
+                                        child: loginButtonWidget(
+                                          'Submit',
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                color: ColorsConfig.colorWhite,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        width: Get.width,
+                                        decoration: BoxDecoration(
+                                          color: ColorsConfig.colorBlue,
+                                          shape: BoxShape.rectangle,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          border: Border.all(
+                                            color: ColorsConfig.colorBlue,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Are you register under GST?',
+                                            style: TextStyle(
+                                              fontFamily: AppTextStyle
+                                                  .microsoftJhengHei,
+                                              fontSize: 16.0,
+                                              color: ColorsConfig.colorWhite,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      ToggleSwitch(
+                                        fontSize: 20,
+                                        minWidth: 72.0,
+                                        minHeight: 38,
+                                        cornerRadius: 20.0,
+                                        activeBgColors: const [
+                                          [ColorsConfig.colorBlue],
+                                          [ColorsConfig.colorBlue]
+                                        ],
+                                        activeFgColor: Colors.white,
+                                        inactiveBgColor:
+                                            ColorsConfig.colorLightBlue,
+                                        inactiveFgColor: Colors.black,
+                                        initialLabelIndex: 1,
+                                        totalSwitches: 2,
+                                        labels: const ['No', 'yes'],
+                                        radiusStyle: true,
+                                        onToggle: (index) {
+                                          print('switched to: $index');
+
+                                          showIndex = index;
+                                          setState(() {});
+                                          print('showIndex to: $showIndex');
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      showIndex == 1
+                                          ? Container(
+                                              height: 75,
+                                              width: Get.width,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                color: ColorsConfig.colorBlue,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                border: Border.all(
+                                                  color: ColorsConfig.colorBlue,
+                                                  width: 1.0,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Text(
+                                                    'upload Your copy of GST Registration \nCertificate ',
+                                                    style: TextStyle(
+                                                      fontFamily: AppTextStyle
+                                                          .microsoftJhengHei,
+                                                      fontSize: 16.0,
+                                                      color: ColorsConfig
+                                                          .colorWhite,
+                                                    ),
+                                                  ),
+                                                  const Icon(
+                                                    Icons.attach_file,
+                                                    size: 35,
+                                                    color:
+                                                        ColorsConfig.colorWhite,
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          : Container(
+                                              height: 75,
+                                              width: Get.width,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                color: ColorsConfig.colorBlue,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                border: Border.all(
+                                                  color: ColorsConfig.colorBlue,
+                                                  width: 1.0,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Text(
+                                                    'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
+                                                    style: TextStyle(
+                                                      fontFamily: AppTextStyle
+                                                          .microsoftJhengHei,
+                                                      fontSize: 16.0,
+                                                      color: ColorsConfig
+                                                          .colorWhite,
+                                                    ),
+                                                    maxLines: 3,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.attach_file,
+                                                    size: 35,
+                                                    color:
+                                                        ColorsConfig.colorWhite,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      /* showIndex == 0 ?
+                                      Container(
+                                        height: 75,
+                                        width: Get.width,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        decoration: BoxDecoration(
+                                          color: ColorsConfig.colorBlue,
+                                          shape: BoxShape.rectangle,
+                                          borderRadius: BorderRadius.circular(12),
+                                          border: Border.all(
+                                            color: ColorsConfig.colorBlue,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
+                                              style: TextStyle(
+                                                fontFamily: AppTextStyle
+                                                    .microsoftJhengHei,
+                                                fontSize: 16.0,
+                                                color: ColorsConfig.colorWhite,
+                                              ),
+                                              maxLines: 3,
+                                            ),
+                                            const Icon(
+                                              Icons.attach_file,
+                                              size: 35,
+                                              color: ColorsConfig.colorWhite,
+                                            ),
+                                          ],
+                                        ),
+                                      ) : Container(),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),*/
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: loginButtonWidget(
+                                          'Submit',
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -480,103 +701,29 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                    Container(
-                                      height: 50,
-                                      width: Get.width,
-                                      decoration: BoxDecoration(
-                                        color: ColorsConfig.colorBlue,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
-                                          color: ColorsConfig.colorBlue,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Are you register under GST?',
-                                          style: TextStyle(
-                                            fontFamily:
-                                                AppTextStyle.microsoftJhengHei,
-                                            fontSize: 16.0,
-                                            color: ColorsConfig.colorWhite,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    attachDocWidget('Aadhar Card'),
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                    ToggleSwitch(
-                                      fontSize: 20,
-                                      minWidth: 72.0,
-                                      minHeight: 38,
-                                      cornerRadius: 20.0,
-                                      activeBgColors: const [
-                                        [ColorsConfig.colorBlue],
-                                        [ColorsConfig.colorBlue]
-                                      ],
-                                      activeFgColor: Colors.black,
-                                      inactiveBgColor:
-                                          ColorsConfig.colorLightBlue,
-                                      inactiveFgColor: Colors.black,
-                                      initialLabelIndex: 1,
-                                      totalSwitches: 2,
-                                      labels: const ['No', 'yes'],
-                                      radiusStyle: true,
-                                      onToggle: (index) {},
-                                    ),
+                                    attachDocWidget('Pan Card'),
                                     const SizedBox(
-                                      height: 15,
+                                      height: 20,
                                     ),
-                                    Container(
-                                      height: 75,
-                                      width: Get.width,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        color: ColorsConfig.colorBlue,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
-                                          color: ColorsConfig.colorBlue,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            'upload Your copy of GST Registration \nCertificate ',
-                                            style: TextStyle(
-                                              fontFamily: AppTextStyle
-                                                  .microsoftJhengHei,
-                                              fontSize: 16.0,
-                                              color: ColorsConfig.colorWhite,
-                                            ),
-                                          ),
-                                          const Icon(
-                                            Icons.attach_file,
-                                            size: 35,
-                                            color: ColorsConfig.colorWhite,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    attachDocWidget(
+                                        'Driving/ Voter Id / Passport'),
                                     const SizedBox(
-                                      height: 15,
+                                      height: 20,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: loginButtonWidget('Submit'),
+                                      child: loginButtonWidget(
+                                        'Submit',
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 20,
@@ -585,6 +732,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                 ),
                               ),
                               Container(
+                                height: Get.height,
                                 color: ColorsConfig.colorWhite,
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 15),
@@ -594,10 +742,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       height: 20,
                                     ),
                                     Container(
-                                      height: 75,
-                                      width: Get.width,
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
+                                          horizontal: 25, vertical: 10),
                                       decoration: BoxDecoration(
                                         color: ColorsConfig.colorBlue,
                                         shape: BoxShape.rectangle,
@@ -607,25 +753,39 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           width: 1.0,
                                         ),
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            'upload Your copy of GST Registration \nCertificate ',
-                                            style: TextStyle(
-                                              fontFamily: AppTextStyle
-                                                  .microsoftJhengHei,
-                                              fontSize: 16.0,
-                                              color: ColorsConfig.colorWhite,
-                                            ),
-                                          ),
-                                          const Icon(
-                                            Icons.attach_file,
-                                            size: 35,
-                                            color: ColorsConfig.colorWhite,
-                                          ),
-                                        ],
+                                      child: Text(
+                                        'Vendor Agreement',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              AppTextStyle.microsoftJhengHei,
+                                          fontSize: 22.0,
+                                          color: ColorsConfig.colorWhite,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 25, vertical: 15),
+                                      decoration: BoxDecoration(
+                                        color: ColorsConfig.colorBlue,
+                                        shape: BoxShape.rectangle,
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: ColorsConfig.colorBlue,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Complete your registration with Myndro by signingthis vendor agreement.(Please read the agreement carefully, provinecessary details and attach your digital signature.)',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              AppTextStyle.microsoftJhengHei,
+                                          fontSize: 14.0,
+                                          color: ColorsConfig.colorWhite,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(
@@ -633,15 +793,22 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: loginButtonWidget('Submit'),
+                                          horizontal: 25),
+                                      child: InkWell(
+                                        onTap: (){
+                                          Get.toNamed(CongAdminApproval.pageId);
+                                        },
+                                        child: loginButtonWidget(
+                                          'Submit',
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 20,
                                     ),
                                   ],
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         )

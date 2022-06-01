@@ -16,6 +16,6 @@ class SplashController extends BaseController{
     super.onInit();
   }
   void goToLogin() async {
-      return Get.toNamed(LoginScreen.pageId);
+      return Get.toNamed(OnBoardingScreen.pageId);
   }
 }

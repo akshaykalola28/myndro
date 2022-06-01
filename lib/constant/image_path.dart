@@ -20,6 +20,11 @@ mixin ImagePath{
   static String verification1 = 'assets/images/verification_1.png';
   static String verification2 = 'assets/images/verification_2.png';
   static String topCurved = 'assets/images/top_curved.png';
+  static String congScreen = 'assets/images/cong_screen.png';
+  static String cartoon = 'assets/images/cartoon.png';
+  static String catBottom = 'assets/images/cat_bottom.png';
+  static String catTop = 'assets/images/cat_top.png';
+  static String dropBottom = 'assets/images/drop_bottom.png';
 
 
 }

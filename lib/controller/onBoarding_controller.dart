@@ -14,7 +14,7 @@ class OnBoardingController extends GetxController{
   forward(){
     if(isLastPage){
       //go to Dashboard
-      Get.toNamed(ExpertRegistrationForm.pageId);
+      Get.toNamed(LoginScreen.pageId);
     }
     else{
 
@@ -23,10 +23,10 @@ class OnBoardingController extends GetxController{
   }
 
   List<OnBoardingModel> onBoardingPages=[
-    OnBoardingModel(imageAsset: ImagePath.onBoard1,name:'Image Hola'),
-    OnBoardingModel(imageAsset:  ImagePath.onBoard2,name:'Image Second'),
-    OnBoardingModel(imageAsset:  ImagePath.onBoard3,name:'Image Third'),
-    OnBoardingModel(imageAsset:  ImagePath.onBoard4,name:'Image Third'),
+    OnBoardingModel(imageAsset: ImagePath.onBoard1,name:"A shoulder to cry on, a space to vent, a person to talk to; all of this is what you can find in a therapist"),
+    OnBoardingModel(imageAsset:  ImagePath.onBoard2,name:"We all deserve a space where we can voice our thoughts and feelings without a fear of judgement."),
+    OnBoardingModel(imageAsset:  ImagePath.onBoard3,name:"Happiness is a habit-cultivate it. \n-Elbert Hubbard"),
+    OnBoardingModel(imageAsset:  ImagePath.onBoard4,name:"Our minds, like our bodies, require nurturing and care. When you can't do it on your own,it's okay to seek help from someone else."),
 
   ];
 

@@ -48,28 +48,31 @@ class YourCategory extends GetView<YourCategoryController> {
                   const SizedBox(
                     height: 40,
                   ),
-                  Container(
-                    width: Get.width,
-                    height: 52.0,
-                    decoration: BoxDecoration(
-                      color: ColorsConfig.colorBlue,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Center(
-                      child: Text("I'm a Patient",
-                          style: TextStyle(
-                            fontFamily: AppTextStyle.microsoftJhengHei,
-                            fontWeight: FontWeight.w100,
-                            fontSize: 20.0,
-                            color: ColorsConfig.colorWhite,
-                          )),
+                  GestureDetector(
+                    onTap: () => Get.toNamed(EnterPhoneNumber.pageId),
+                    child: Container(
+                      width: Get.width,
+                      height: 52.0,
+                      decoration: BoxDecoration(
+                        color: ColorsConfig.colorBlue,
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Center(
+                        child: Text("I'm a Patient",
+                            style: TextStyle(
+                              fontFamily: AppTextStyle.microsoftJhengHei,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 20.0,
+                              color: ColorsConfig.colorWhite,
+                            )),
+                      ),
                     ),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   GestureDetector(
-                    onTap: () => Get.toNamed(RegistrationScreen.pageId),
+                    onTap: () => Get.toNamed(SelectExpertise.pageId),
                     child: Container(
                       width: Get.width,
                       height: 52.0,

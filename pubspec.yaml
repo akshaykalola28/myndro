@@ -79,6 +79,9 @@ flutter:
     - family: Microsoft JhengHei
       fonts:
         - asset: font/Microsoft_JhengHei.ttf
+    - family: Madley Bold
+      fonts:
+        - asset: font/Madley_Bold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

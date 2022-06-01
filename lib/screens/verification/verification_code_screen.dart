@@ -111,7 +111,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-          child: loginButtonWidget('Submit'),
+          child: loginButtonWidget('Submit',),
         )
       ],
     );

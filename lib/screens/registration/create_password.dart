@@ -203,7 +203,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     const SizedBox(height :25,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 45),
-                      child: loginButtonWidget('Reset Password'),
+                      child: loginButtonWidget('Reset Password',),
                     ),
                   ],
                 ),

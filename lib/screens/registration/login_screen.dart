@@ -254,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Expert Login',
+                          Text('Login',
                               style: TextStyle(
                                 fontFamily: AppTextStyle.microsoftJhengHei,
                                 fontSize: 25.0,
@@ -285,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: 30,
                           ),
-                          loginButtonWidget('SIGN IN'),
+                          loginButtonWidget('SIGN IN',),
                           const SizedBox(
                             height: 15,
                           ),

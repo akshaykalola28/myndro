@@ -28,12 +28,24 @@ final List<GetPage> appPages = [
       page: () => const YourCategory(),
       binding: YourCategoryBinding()),
   GetPage(
+      name: PsycologistDropdown.pageId,
+      page: () => const PsycologistDropdown(),
+      binding: YourCategoryBinding()),
+  GetPage(
+      name: SelectExpertise.pageId,
+      page: () => const SelectExpertise(),
+      binding: YourCategoryBinding()),
+  GetPage(
       name: CreatePasswordScreen.pageId,
       page: () => const CreatePasswordScreen(),
       binding: NewPasswordBinding()),
   GetPage(
       name: ExpertRegistrationForm.pageId,
       page: () => const ExpertRegistrationForm(),
+      binding: RegistrationBinding()),
+  GetPage(
+      name: CongAdminApproval.pageId,
+      page: () => const CongAdminApproval(),
       binding: RegistrationBinding()),
   GetPage(
       name: OnBoardingScreen.pageId,

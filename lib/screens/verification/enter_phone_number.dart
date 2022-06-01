@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
@@ -88,7 +89,11 @@ class EnterPhoneNumber extends GetView<PhoneNumberController> {
                         ),
                       ),
                       const SizedBox(height: 30,),
-                      loginButtonWidget('Submit'),
+                      GestureDetector(
+                        onTap: (){
+                          Get.toNamed(VerificationCodeScreen.pageId);
+                        },
+                          child: loginButtonWidget('Submit',)),
                     ],
                   ),
                 )
