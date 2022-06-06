@@ -4,3 +4,5 @@ export 'social_button_widget.dart';
 export 'curved_bottom_clipper.dart';
 export 'profile_text_field.dart';
 export 'dropdown_widget.dart';
+export 'animated_dialog.dart';
+export 'animated_check.dart';

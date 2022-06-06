@@ -11,9 +11,9 @@ Widget loginButtonWidget(
     width: Get.width,
     decoration: const BoxDecoration(
       color: ColorsConfig.colorBlue,
-      borderRadius: BorderRadius.all(
-        Radius.circular(8),
-      ),
+      // borderRadius: BorderRadius.all(
+      //   Radius.circular(8),
+      // ),
       // boxShadow: [BoxShadow(
       //   color:Color.fromRGBO(0, 0, 0, 0.15),
       //   offset: Offset(4, 15),

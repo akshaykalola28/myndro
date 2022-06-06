@@ -25,6 +25,7 @@ mixin ImagePath{
   static String catBottom = 'assets/images/cat_bottom.png';
   static String catTop = 'assets/images/cat_top.png';
   static String dropBottom = 'assets/images/drop_bottom.png';
-
-
+  static String myndroBlue = 'assets/images/myndro_blue.png';
+  static String myndroWhite = 'assets/images/myndro_white.png';
+  static String giphy = 'assets/images/giphy.gif';
 }

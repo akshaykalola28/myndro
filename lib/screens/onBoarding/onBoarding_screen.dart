@@ -16,6 +16,28 @@ class OnBoardingScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: ClipPath(
+              clipper: CurvedBottomClipper(),
+              child: Container(
+                color: ColorsConfig.colorBlue,
+                height: Get.height * 0.21,
+                width: Get.width,
+                child: SafeArea(
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                          height: Get.height * 0.4,
+                          width: Get.width * 0.4,
+                          child: Image.asset(
+                            ImagePath.myndroWhite,
+                            fit: BoxFit.contain,
+                          ))),
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: PageView.builder(
               controller: _controller.pageController,
@@ -26,20 +48,24 @@ class OnBoardingScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.asset(
                         _controller.onBoardingPages[index].imageAsset,
-                        height: Get.height * 0.5,
+                        height: Get.height * 0.45,
                         width: Get.width,
                         fit: BoxFit.contain,
                       ),
-                      const SizedBox(height: 10),
-                      Text(_controller.onBoardingPages[index].name,style: TextStyle(
-                        fontFamily: AppTextStyle.madleyBold,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
-                        color: ColorsConfig.colorBlack,
-                      ),),
+                      const SizedBox(height: 8),
+                      Text(
+                        _controller.onBoardingPages[index].name,
+                        style: TextStyle(
+                          fontFamily: AppTextStyle.madleyBold,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                          color: ColorsConfig.colorBlack,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -69,7 +95,7 @@ class OnBoardingScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: _controller.onPageIndex.value == index
                                     ? ColorsConfig.colorBlue
-                                    : ColorsConfig.colorGreen,
+                                    : ColorsConfig.colorBlue.withOpacity(0.6),
                                 borderRadius: BorderRadius.circular(10)),
                           );
                         },

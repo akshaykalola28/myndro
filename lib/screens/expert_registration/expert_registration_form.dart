@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myndro/screens/screens.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../constant/constant.dart';
@@ -19,16 +18,9 @@ class ExpertRegistrationForm extends StatefulWidget {
 }
 
 class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
-  final _stepsText = [
-    'Profile',
-    'Degree',
-    'Bank',
-    'GST',
-    'KYC',
-    'Agree\n-ment'
-  ];
+  final _stepsText = ['Profile', 'Degree', 'Bank', 'GST', 'KYC', 'Agreement'];
 
-  final _stepCircleRadius = 10.0;
+  final _stepCircleRadius = 12.0;
 
   final _stepProgressViewHeight = 100.0;
 
@@ -40,7 +32,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
       const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold);
 
   final TextStyle _stepStyle =
-      const TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold);
+      const TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold);
 
   Size? _safeAreaSize;
 
@@ -60,8 +52,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
       decoration: const BoxDecoration(color: Colors.white),
       padding: const EdgeInsets.only(
         top: 0.0,
-        left: 24.0,
-        right: 24.0,
+        left: 18.0,
+        right: 18.0,
       ),
       onTap: () {},
     );
@@ -81,7 +73,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   //   'Item8',
   // ];
   String? dropdownValue;
-  int? showIndex;
+  int? showIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -103,39 +95,57 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                   child: ClipPath(
                     clipper: CurvedBottomClipper(),
                     child: Container(
-                      // padding: const EdgeInsets.symmetric(horizontal: 15),
                       color: ColorsConfig.colorBlue,
-                      height: Get.height * 0.20,
+                      height: Get.height * 0.21,
                       width: Get.width,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 50),
+                      child: SafeArea(
                         child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                              "Registration Form For Counsellors , Therapist & Psychologist ",
-                              style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w500,
-                                color: ColorsConfig.colorWhite,
-                              )),
-                        ),
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                                height: Get.height * 0.4,
+                                width: Get.width * 0.4,
+                                child: Image.asset(
+                                  ImagePath.myndroWhite,
+                                  fit: BoxFit.contain,
+                                ))),
                       ),
                     ),
                   ),
                 ),
+                // Positioned(
+                //   top: 0,
+                //   child: ClipPath(
+                //     clipper: CurvedBottomClipper(),
+                //     child: Container(
+                //       // padding: const EdgeInsets.symmetric(horizontal: 15),
+                //       color: ColorsConfig.colorBlue,
+                //       height: Get.height * 0.20,
+                //       width: Get.width,
+                //       child: Padding(
+                //         padding: const EdgeInsets.only(left: 50),
+                //         child: Align(
+                //           alignment: Alignment.centerRight,
+                //           child: Text(
+                //               "Registration Form For Counsellors , Therapist & Psychologist ",
+                //               style: TextStyle(
+                //                 fontFamily: AppTextStyle.microsoftJhengHei,
+                //                 fontSize: 25.0,
+                //                 fontWeight: FontWeight.w500,
+                //                 color: ColorsConfig.colorWhite,
+                //               )),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Positioned.fill(
-                  top: 175,
+                  top: 200,
                   child: SizedBox(
-                    height: Get.height * 0.45,
+                    height: Get.height,
                     child: Column(
                       children: <Widget>[
+                        SizedBox(height: 80.0, child: _getStepProgress()),
                         Expanded(
-                            flex: 0,
-                            child: SizedBox(
-                                height: 80.0, child: _getStepProgress())),
-                        SizedBox(
-                          height: Get.height * 0.43,
                           child: PageView(
                             onPageChanged: (i) {
                               setState(() {
@@ -153,81 +163,55 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                            width: Get.width * 0.45,
-                                            child: profileTextFieldWidget(
-                                              passController,
-                                              Common.validatePassword,
-                                              TextInputType.text,
-                                              'First Name',
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: Get.width * 0.45,
-                                            child: profileTextFieldWidget(
-                                              passController,
-                                              Common.validatePassword,
-                                              TextInputType.text,
-                                              'Last Name',
-                                            ),
-                                          ),
-                                        ],
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validatePassword,
+                                        TextInputType.text,
+                                        'First Name',
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                            width: Get.width * 0.45,
-                                            child: profileTextFieldWidget(
-                                              passController,
-                                              Common.validatePassword,
-                                              TextInputType.phone,
-                                              'Contact',
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: Get.width * 0.45,
-                                            child: profileTextFieldWidget(
-                                              passController,
-                                              Common.validateEmail,
-                                              TextInputType.text,
-                                              'Email',
-                                            ),
-                                          ),
-                                        ],
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validatePassword,
+                                        TextInputType.text,
+                                        'Last Name',
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                            width: Get.width * 0.45,
-                                            child: profileTextFieldWidget(
-                                              passController,
-                                              Common.validatePassword,
-                                              TextInputType.phone,
-                                              'Contact',
-                                            ),
-                                          ),
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'Gender',
-                                                isExpanded: false,
-                                              )),
-                                        ],
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validatePassword,
+                                        TextInputType.phone,
+                                        'Contact',
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validateEmail,
+                                        TextInputType.text,
+                                        'Email',
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validateEmail,
+                                        TextInputType.emailAddress,
+                                        'DOB',
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'Gender',
+                                        isExpanded: true,
                                       ),
                                       const SizedBox(
                                         height: 12,
@@ -236,62 +220,39 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         passController,
                                         Common.validatePassword,
                                         TextInputType.multiline,
-                                        'Street Address',
+                                        'Address',
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      profileTextFieldWidget(
-                                        passController,
-                                        Common.validatePassword,
-                                        TextInputType.multiline,
-                                        'Street Address Line 2',
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'Country',
+                                        isExpanded: true,
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'City',
-                                                isExpanded: false,
-                                              )),
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'Postal/Zip Code',
-                                                isExpanded: false,
-                                              )),
-                                        ],
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'state',
+                                        isExpanded: true,
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'State',
-                                                isExpanded: false,
-                                              )),
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'Country',
-                                                isExpanded: false,
-                                              )),
-                                        ],
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'City',
+                                        isExpanded: true,
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'Zipcode',
+                                        isExpanded: true,
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -334,7 +295,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                     const SizedBox(
                                       height: 15,
                                     ),
-                                    attachDocWidget('Practice'),
+                                    attachDocWidget('Practice Certificate'),
 
                                     const SizedBox(
                                       height: 20,
@@ -409,62 +370,39 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         passController,
                                         Common.validatePassword,
                                         TextInputType.multiline,
-                                        'Street Address',
+                                        'Address',
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      profileTextFieldWidget(
-                                        passController,
-                                        Common.validatePassword,
-                                        TextInputType.multiline,
-                                        'Street Address Line 2',
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'Country',
+                                        isExpanded: true,
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'City',
-                                                isExpanded: false,
-                                              )),
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'Postal/Zip Code',
-                                                isExpanded: false,
-                                              )),
-                                        ],
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'state',
+                                        isExpanded: true,
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'State',
-                                                isExpanded: false,
-                                              )),
-                                          SizedBox(
-                                              width: Get.width * 0.45,
-                                              child: DropDownWidget(
-                                                dropdownValue: dropdownValue,
-                                                hintText: 'Country',
-                                                isExpanded: false,
-                                              )),
-                                        ],
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'City',
+                                        isExpanded: true,
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'Zipcode',
+                                        isExpanded: true,
                                       ),
                                       const SizedBox(
                                         height: 12,
@@ -508,7 +446,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           color: ColorsConfig.colorBlue,
                                           shape: BoxShape.rectangle,
                                           borderRadius:
-                                              BorderRadius.circular(12),
+                                              BorderRadius.circular(0),
                                           border: Border.all(
                                             color: ColorsConfig.colorBlue,
                                             width: 1.0,
@@ -550,8 +488,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           print('switched to: $index');
 
                                           showIndex = index;
-                                          setState(() {});
+
                                           print('showIndex to: $showIndex');
+                                          setState(() {});
                                         },
                                       ),
                                       const SizedBox(
@@ -559,16 +498,17 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       ),
                                       showIndex == 1
                                           ? Container(
-                                              height: 75,
+                                        height: 75,
                                               width: Get.width,
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: 10),
+                                                      horizontal: 12,
+                                                      vertical: 10),
                                               decoration: BoxDecoration(
-                                                color: ColorsConfig.colorBlue,
+                                                color: ColorsConfig.colorWhite,
                                                 shape: BoxShape.rectangle,
                                                 borderRadius:
-                                                    BorderRadius.circular(12),
+                                                    BorderRadius.circular(0),
                                                 border: Border.all(
                                                   color: ColorsConfig.colorBlue,
                                                   width: 1.0,
@@ -580,13 +520,13 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                                         .spaceEvenly,
                                                 children: [
                                                   Text(
-                                                    'upload Your copy of GST Registration \nCertificate ',
+                                                    'upload Your copy of GST Registration\nCertificate ',
                                                     style: TextStyle(
                                                       fontFamily: AppTextStyle
                                                           .microsoftJhengHei,
-                                                      fontSize: 16.0,
+                                                      fontSize: 17.0,
                                                       color: ColorsConfig
-                                                          .colorWhite,
+                                                          .colorBlue,
                                                     ),
                                                   ),
                                                   const Icon(
@@ -599,16 +539,17 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               ),
                                             )
                                           : Container(
-                                              height: 75,
+                                        height: 75,
                                               width: Get.width,
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: 10),
+                                                      horizontal: 12,
+                                                      vertical: 10),
                                               decoration: BoxDecoration(
-                                                color: ColorsConfig.colorBlue,
+                                                color: ColorsConfig.colorWhite,
                                                 shape: BoxShape.rectangle,
                                                 borderRadius:
-                                                    BorderRadius.circular(12),
+                                                    BorderRadius.circular(0),
                                                 border: Border.all(
                                                   color: ColorsConfig.colorBlue,
                                                   width: 1.0,
@@ -624,9 +565,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                                     style: TextStyle(
                                                       fontFamily: AppTextStyle
                                                           .microsoftJhengHei,
-                                                      fontSize: 16.0,
+                                                      fontSize: 17.0,
                                                       color: ColorsConfig
-                                                          .colorWhite,
+                                                          .colorBlue,
                                                     ),
                                                     maxLines: 3,
                                                   ),
@@ -747,7 +688,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       decoration: BoxDecoration(
                                         color: ColorsConfig.colorBlue,
                                         shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius: BorderRadius.circular(0),
                                         border: Border.all(
                                           color: ColorsConfig.colorBlue,
                                           width: 1.0,
@@ -770,9 +711,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 25, vertical: 15),
                                       decoration: BoxDecoration(
-                                        color: ColorsConfig.colorBlue,
+                                        color: ColorsConfig.colorWhite,
                                         shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius: BorderRadius.circular(0),
                                         border: Border.all(
                                           color: ColorsConfig.colorBlue,
                                           width: 1.0,
@@ -784,7 +725,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           fontFamily:
                                               AppTextStyle.microsoftJhengHei,
                                           fontSize: 14.0,
-                                          color: ColorsConfig.colorWhite,
+                                          color: ColorsConfig.colorBlue,
                                         ),
                                       ),
                                     ),
@@ -795,8 +736,19 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 25),
                                       child: InkWell(
-                                        onTap: (){
-                                          Get.toNamed(CongAdminApproval.pageId);
+                                        onTap: () {
+                                          // Get.toNamed(CongAdminApproval.pageId);
+                                          showDialog(
+                                            context: context,
+                                            builder: (_) =>
+                                                const AnimatedDialog(
+                                              outputText: 'Congratulations',
+                                              subText:
+                                                  'Your Profile is Successfully Completed.',
+                                              titleSubtext:
+                                                  'Please Wait For Admin Approval.',
+                                            ),
+                                          );
                                         },
                                         child: loginButtonWidget(
                                           'Submit',
@@ -816,14 +768,14 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                     ),
                   ),
                 ),
-                Positioned(
-                    bottom: 0,
-                    child: Image.asset(
-                      ImagePath.designBottom1,
-                      width: Get.width * 0.95,
-                      height: Get.height * 0.18,
-                      fit: BoxFit.fill,
-                    ))
+                // Positioned(
+                //     bottom: 0,
+                //     child: Image.asset(
+                //       ImagePath.designBottom1,
+                //       width: Get.width * 0.95,
+                //       height: Get.height * 0.18,
+                //       fit: BoxFit.fill,
+                //     ))
               ],
             ),
           ),
@@ -903,7 +855,7 @@ class StepProgressView extends StatelessWidget {
     var wids = <Widget>[];
     _stepsText.asMap().forEach((i, text) {
       var circleColor =
-          (i == 0 || _curStep > i + 1) ? _activeColor : _inactiveColor;
+          (i == 0 || _curStep > i) ? _activeColor : _inactiveColor;
 
       var lineColor = _curStep > i + 1 ? _activeColor : _inactiveColor;
 
@@ -996,9 +948,9 @@ Widget attachDocWidget(String text) {
     width: Get.width,
     padding: const EdgeInsets.symmetric(horizontal: 10),
     decoration: BoxDecoration(
-      color: ColorsConfig.colorLightBlue,
+      color: ColorsConfig.colorWhite,
       shape: BoxShape.rectangle,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(0),
       border: Border.all(
         color: ColorsConfig.colorBlue,
         width: 1.5,

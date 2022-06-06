@@ -19,22 +19,31 @@ Widget profileTextFieldWidget(
     validator: validator,
     keyboardType: inputType,
     decoration: InputDecoration(
-      contentPadding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 10),
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10),
       hintText: hintTxt,
       labelText: hintTxt,
-      hintStyle:  TextStyle(
+      hintStyle: TextStyle(
         fontFamily: AppTextStyle.microsoftJhengHei,
-        fontSize: 13.0,
+        fontSize: 15.0,
+        color: ColorsConfig.colorBlue,
+      ),
+      labelStyle: TextStyle(
+        fontFamily: AppTextStyle.microsoftJhengHei,
+        fontSize: 15.0,
         color: ColorsConfig.colorBlue,
       ),
       filled: true,
-      fillColor: ColorsConfig.colorLightBlue,
-      focusedBorder:  OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: ColorsConfig.colorBlue, width: 1.5,),
+      fillColor: ColorsConfig.colorWhite,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(
+          color: ColorsConfig.colorBlue,
+          width: 1.5,
+        ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(0),
         borderSide: const BorderSide(
           color: ColorsConfig.colorBlue,
           width: 1.5,

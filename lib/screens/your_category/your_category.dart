@@ -4,6 +4,7 @@ import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../widgets/widgets.dart';
 
 class YourCategory extends GetView<YourCategoryController> {
   static const pageId = "/YourCategory";
@@ -18,6 +19,28 @@ class YourCategory extends GetView<YourCategoryController> {
         children: [
           Positioned(
             top: 0,
+            child: ClipPath(
+              clipper: CurvedBottomClipper(),
+              child: Container(
+                color: ColorsConfig.colorBlue,
+                height: Get.height * 0.26,
+                width: Get.width,
+                child: SafeArea(
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                          height: Get.height * 0.4,
+                          width: Get.width * 0.4,
+                          child: Image.asset(
+                            ImagePath.myndroWhite,
+                            fit: BoxFit.contain,
+                          ))),
+                ),
+              ),
+            ),
+          ),
+          /*Positioned(
+            top: 0,
             child: RotatedBox(
               quarterTurns: 10,
               child: Transform.scale(
@@ -30,7 +53,7 @@ class YourCategory extends GetView<YourCategoryController> {
                 ),
               ),
             ),
-          ),
+          ),*/
           SafeArea(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -41,7 +64,7 @@ class YourCategory extends GetView<YourCategoryController> {
                   Text('Please Select Your Category',
                       style: TextStyle(
                         fontFamily: AppTextStyle.microsoftJhengHei,
-                        fontWeight: FontWeight.w100,
+                        fontWeight: FontWeight.w600,
                         fontSize: 22.0,
                         color: ColorsConfig.colorBlue,
                       )),
@@ -53,12 +76,12 @@ class YourCategory extends GetView<YourCategoryController> {
                     child: Container(
                       width: Get.width,
                       height: 52.0,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: ColorsConfig.colorBlue,
-                        borderRadius: BorderRadius.circular(15.0),
+                        // borderRadius: BorderRadius.circular(15.0),
                       ),
                       child: Center(
-                        child: Text("I'm a Patient",
+                        child: Text("I'm a User",
                             style: TextStyle(
                               fontFamily: AppTextStyle.microsoftJhengHei,
                               fontWeight: FontWeight.w100,
@@ -76,9 +99,9 @@ class YourCategory extends GetView<YourCategoryController> {
                     child: Container(
                       width: Get.width,
                       height: 52.0,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: ColorsConfig.colorBlue,
-                        borderRadius: BorderRadius.circular(15.0),
+                        // borderRadius: BorderRadius.circular(15.0),
                       ),
                       child: Center(
                         child: Text("I'm an Expert",
@@ -95,15 +118,15 @@ class YourCategory extends GetView<YourCategoryController> {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            child: Image.asset(
-              ImagePath.semiBlueGreen,
-              fit: BoxFit.fill,
-              height: 165,
-              width: Get.width,
-            ),
-          )
+          // Positioned(
+          //   bottom: 0,
+          //   child: Image.asset(
+          //     ImagePath.semiBlueGreen,
+          //     fit: BoxFit.fill,
+          //     height: 165,
+          //     width: Get.width,
+          //   ),
+          // )
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../widgets/widgets.dart';
 import '../screens.dart';
 
 class SelectExpertise extends GetView<YourCategoryController> {
@@ -18,20 +19,44 @@ class SelectExpertise extends GetView<YourCategoryController> {
         children: [
           Positioned(
             top: 0,
-            right: 0,
-            child: Image.asset(
-              ImagePath.catTop,
-              fit: BoxFit.fill,
-              height: Get.height*0.25,
-              width: Get.width*0.7,
+            child: ClipPath(
+              clipper: CurvedBottomClipper(),
+              child: Container(
+                color: ColorsConfig.colorBlue,
+                height: Get.height * 0.26,
+                width: Get.width,
+                child: SafeArea(
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                          height: Get.height * 0.4,
+                          width: Get.width * 0.4,
+                          child: Image.asset(
+                            ImagePath.myndroWhite,
+                            fit: BoxFit.contain,
+                          ))),
+                ),
+              ),
             ),
           ),
+          // Positioned(
+          //   top: 0,
+          //   right: 0,
+          //   child: Image.asset(
+          //     ImagePath.catTop,
+          //     fit: BoxFit.fill,
+          //     height: Get.height*0.25,
+          //     width: Get.width*0.7,
+          //   ),
+          // ),
           SafeArea(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  SizedBox(  height: Get.height*0.18,),
+                  SizedBox(
+                    height: Get.height * 0.25,
+                  ),
                   Text('Please Select Your Category',
                       style: TextStyle(
                         fontFamily: AppTextStyle.microsoftJhengHei,
@@ -49,7 +74,7 @@ class SelectExpertise extends GetView<YourCategoryController> {
                       height: 52.0,
                       decoration: BoxDecoration(
                         color: ColorsConfig.colorWhite,
-                        borderRadius: BorderRadius.circular(10.0),
+                          // borderRadius: BorderRadius.circular(10.0),
                           border: Border.all(color: ColorsConfig.colorBlue)
                       ),
                       child: Center(
@@ -73,7 +98,7 @@ class SelectExpertise extends GetView<YourCategoryController> {
                       height: 52.0,
                       decoration: BoxDecoration(
                         color: ColorsConfig.colorWhite,
-                        borderRadius: BorderRadius.circular(10.0),
+                          // borderRadius: BorderRadius.circular(10.0),
                           border: Border.all(color: ColorsConfig.colorBlue)
                       ),
                       child: Center(
@@ -97,7 +122,7 @@ class SelectExpertise extends GetView<YourCategoryController> {
                       height: 52.0,
                       decoration: BoxDecoration(
                         color: ColorsConfig.colorWhite,
-                        borderRadius: BorderRadius.circular(10.0),
+                          // borderRadius: BorderRadius.circular(10.0),
                           border: Border.all(color: ColorsConfig.colorBlue)
                       ),
                       child: Center(
@@ -115,7 +140,7 @@ class SelectExpertise extends GetView<YourCategoryController> {
               ),
             ),
           ),
-          Positioned(
+          /*   Positioned(
             bottom: 80,
             left: 25,
             child: Image.asset(
@@ -134,7 +159,7 @@ class SelectExpertise extends GetView<YourCategoryController> {
               height: Get.height*0.25,
               width: Get.width*0.7,
             ),
-          )
+          )*/
         ],
       ),
     );

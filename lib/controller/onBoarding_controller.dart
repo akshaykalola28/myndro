@@ -17,7 +17,7 @@ class OnBoardingController extends GetxController {
     }
     else{
 
-      pageController.nextPage(duration:300.milliseconds, curve: Curves.bounceOut);
+      pageController.nextPage(duration: 300.milliseconds, curve: Curves.easeIn);
     }
   }
 

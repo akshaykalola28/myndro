@@ -18,7 +18,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: MediaQuery.of(context).viewInsets.bottom == 0
-            ? ColorsConfig.colorGreen
+            ? ColorsConfig.colorBlue
             : ColorsConfig.colorBlue,
         leading: IconButton(
           icon: const Icon(
@@ -52,7 +52,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
           bottomRight: Radius.circular(Get.width * 0.6),
         ),
         color: MediaQuery.of(context).viewInsets.bottom == 0
-            ? ColorsConfig.colorGreen
+            ? ColorsConfig.colorBlue
             : ColorsConfig.colorBlue,
       ),
       child: SafeArea(
@@ -63,8 +63,12 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
               style: TextStyle(
                 fontFamily: AppTextStyle.microsoftJhengHei,
                 fontSize: 25.0,
+                fontWeight: FontWeight.w100,
                 color: ColorsConfig.colorWhite,
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Image.asset(
               MediaQuery.of(context).viewInsets.bottom == 0
