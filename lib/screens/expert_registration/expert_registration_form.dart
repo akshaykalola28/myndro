@@ -19,7 +19,7 @@ class ExpertRegistrationForm extends StatefulWidget {
 
 class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   final _stepsText = ['Profile', 'Degree', 'Bank', 'GST', 'KYC', 'Agreement'];
-
+  bool addVisibility = false;
   final _stepCircleRadius = 12.0;
 
   final _stepProgressViewHeight = 100.0;
@@ -217,10 +217,29 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
-                                        Common.validatePassword,
-                                        TextInputType.multiline,
-                                        'Address',
+                                          passController,
+                                          Common.validatePassword,
+                                          TextInputType.multiline,
+                                          'Address', () {
+                                        setState(() {
+                                          addVisibility = !addVisibility;
+                                        });
+                                      }, Icons.add),
+                                      Visibility(
+                                        visible: addVisibility,
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            profileTextFieldWidget(
+                                              passController,
+                                              Common.validatePassword,
+                                              TextInputType.multiline,
+                                              'Address Line 1',
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 12,
@@ -260,7 +279,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
-                                        child: loginButtonWidget('Submit'),
+                                        child: loginButtonWidget('Next'),
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -304,7 +323,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       child: loginButtonWidget(
-                                        'Submit',
+                                        'Next',
                                       ),
                                     ),
                                     const SizedBox(
@@ -367,10 +386,29 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
-                                        Common.validatePassword,
-                                        TextInputType.multiline,
-                                        'Address',
+                                          passController,
+                                          Common.validatePassword,
+                                          TextInputType.multiline,
+                                          'Address', () {
+                                        setState(() {
+                                          addVisibility = !addVisibility;
+                                        });
+                                      }, Icons.add),
+                                      Visibility(
+                                        visible: addVisibility,
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            profileTextFieldWidget(
+                                              passController,
+                                              Common.validatePassword,
+                                              TextInputType.multiline,
+                                              'Address Line 1',
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 12,
@@ -416,7 +454,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
                                         child: loginButtonWidget(
-                                          'Submit',
+                                          'Next',
                                         ),
                                       ),
                                       const SizedBox(
@@ -469,9 +507,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       ),
                                       ToggleSwitch(
                                         fontSize: 20,
-                                        minWidth: 72.0,
+                                        minWidth: 60.0,
                                         minHeight: 38,
-                                        cornerRadius: 20.0,
+                                        cornerRadius: 25.0,
                                         activeBgColors: const [
                                           [ColorsConfig.colorBlue],
                                           [ColorsConfig.colorBlue]
@@ -539,7 +577,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               ),
                                             )
                                           : Container(
-                                        height: 75,
+                                        // height: 75,
                                               width: Get.width,
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -627,7 +665,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
                                         child: loginButtonWidget(
-                                          'Submit',
+                                          'Next',
                                         ),
                                       ),
                                       const SizedBox(
@@ -663,7 +701,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       child: loginButtonWidget(
-                                        'Submit',
+                                        'Next',
                                       ),
                                     ),
                                     const SizedBox(
@@ -739,14 +777,15 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         onTap: () {
                                           // Get.toNamed(CongAdminApproval.pageId);
                                           showDialog(
+                                            barrierDismissible: false,
                                             context: context,
-                                            builder: (_) =>
-                                                const AnimatedDialog(
+                                            builder: (_) => AnimatedDialog(
                                               outputText: 'Congratulations',
                                               subText:
                                                   'Your Profile is Successfully Completed.',
                                               titleSubtext:
                                                   'Please Wait For Admin Approval.',
+                                              onClose: () => Get.back(),
                                             ),
                                           );
                                         },

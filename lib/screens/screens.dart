@@ -11,3 +11,5 @@ export 'onBoarding/onBoarding_screen.dart';
 export 'admin_approval/cong_admin_approval.dart';
 export 'your_category/select_expertise.dart';
 export 'your_category/psychologist_dropdown.dart';
+export 'dashboard/dashboard.dart';
+export 'home/home_screen.dart';

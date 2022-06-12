@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:myndro/binding/home_binding.dart';
 import 'binding/binding.dart';
 import 'screens/screens.dart';
 
@@ -8,8 +9,8 @@ final List<GetPage> appPages = [
       page: () => const SplashScreen(),
       binding: SplashScreenBinding()),
   GetPage(
-      name: RegistrationScreen.pageId,
-      page: () => RegistrationScreen(),
+      name: UserRegistration.pageId,
+      page: () => UserRegistration(),
       binding: RegistrationBinding()),
   GetPage(
       name: LoginScreen.pageId,
@@ -55,4 +56,12 @@ final List<GetPage> appPages = [
       name: VerificationCodeScreen.pageId,
       page: () => const VerificationCodeScreen(),
       binding: RegistrationBinding()),
+  GetPage(
+      name: DashboardScreen.pageId,
+      page: () => const DashboardScreen(),
+      binding: DashboardBinding()),
+  GetPage(
+      name: HomeScreen.pageId,
+      page: () => const HomeScreen(),
+      binding: HomeBinding()),
 ];

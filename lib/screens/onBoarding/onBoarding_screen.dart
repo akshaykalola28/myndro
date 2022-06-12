@@ -22,7 +22,7 @@ class OnBoardingScreen extends StatelessWidget {
               clipper: CurvedBottomClipper(),
               child: Container(
                 color: ColorsConfig.colorBlue,
-                height: Get.height * 0.21,
+                height: Get.height * 0.25,
                 width: Get.width,
                 child: SafeArea(
                   child: Align(
@@ -50,11 +50,13 @@ class OnBoardingScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        _controller.onBoardingPages[index].imageAsset,
-                        height: Get.height * 0.45,
-                        width: Get.width,
-                        fit: BoxFit.contain,
+                      Expanded(
+                        child: Image.asset(
+                          _controller.onBoardingPages[index].imageAsset,
+                          height: Get.height * 0.45,
+                          width: Get.width,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Text(

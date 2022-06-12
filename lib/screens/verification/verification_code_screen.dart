@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/screens/screens.dart';
 import 'package:myndro/widgets/login_button_widget.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -67,7 +68,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 color: ColorsConfig.colorWhite,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Image.asset(
@@ -115,7 +116,9 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-          child: loginButtonWidget('Submit',),
+          child: loginButtonWidget('Submit', () {
+            Get.toNamed(UserRegistration.pageId);
+          }),
         )
       ],
     );

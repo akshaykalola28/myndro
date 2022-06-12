@@ -1,21 +1,27 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
-import '../../controller/controller.dart';
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
 
-class RegistrationScreen extends GetView<RegistrationController> {
+/*class RegistrationScreen extends StatefulWidget {
   static const pageId = "/RegistrationScreen";
+  const RegistrationScreen({Key? key}) : super(key: key);
 
-  RegistrationScreen({Key? key}) : super(key: key);
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController passController = TextEditingController();
-
+  bool selected = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,23 +31,22 @@ class RegistrationScreen extends GetView<RegistrationController> {
         onTap: () {
           Get.focusScope!.unfocus();
         },
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              child: Image.asset(
-                ImagePath.semiGreenBlue,
-                width: Get.width * 0.95,
-                height: Get.height * 0.2,
-                fit: BoxFit.fill,
+        child: SafeArea(bottom:false ,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                child: Image.asset(
+                  ImagePath.myndroWhite,
+                  width: Get.width * 0.95,
+                  height: Get.height * 0.2,
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            SafeArea(
-              bottom: false,
-              child: Align(
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: Get.height * 0.75,
+                  height: Get.height * 0.7,
                   width: Get.width,
                   padding: EdgeInsets.fromLTRB(
                       Get.width * 0.12, Get.width * 0.09, Get.width * 0.12, 0),
@@ -54,18 +59,18 @@ class RegistrationScreen extends GetView<RegistrationController> {
                     ),
                     color: ColorsConfig.colorWhite,
                   ),
-                  child: SingleChildScrollView(
+                  child: Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Create account',
+                        Text('Sign Up',
                             style: TextStyle(
                               fontFamily: AppTextStyle.microsoftJhengHei,
                               fontSize: 25.0,
                               color: ColorsConfig.colorBlue,
                             )),
                         const SizedBox(
-                          height: 35,
+                          height: 30,
                         ),
                         loginTextFieldWidget(
                           nameController,
@@ -76,7 +81,7 @@ class RegistrationScreen extends GetView<RegistrationController> {
                           Icons.person,
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 20,
                         ),
                         loginTextFieldWidget(
                           emailController,
@@ -98,18 +103,72 @@ class RegistrationScreen extends GetView<RegistrationController> {
                           Icons.phone,
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 20,
                         ),
                         loginTextFieldWidget(
-                          passController,
-                          true,
-                          Common.validatePassword,
-                          TextInputType.text,
-                          'Password',
-                          Icons.lock,
+                            passController,
+                            true,
+                            Common.validatePassword,
+                            TextInputType.text,
+                            'Password',
+                            Icons.lock,
+                            Icons.visibility
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 20,
+                        ),
+                        loginTextFieldWidget(
+                            passController,
+                            true,
+                            Common.validatePassword,
+                            TextInputType.text,
+                            'Confirm Password',
+                            Icons.lock,
+                            Icons.visibility
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 12,
+                                    width: 12,
+                                    child: Theme(
+                                      data: ThemeData(
+                                          unselectedWidgetColor:
+                                          ColorsConfig.colorBlue),
+                                      child: Checkbox(
+                                        focusColor: ColorsConfig.colorBlue,
+                                        activeColor: ColorsConfig.colorBlue,
+                                        value: selected,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            selected = value!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text('Remember Password',
+                                      style: TextStyle(
+                                        fontFamily:
+                                        AppTextStyle.microsoftJhengHei,
+                                        fontSize: 14.0,
+                                        color: ColorsConfig.colorBlue,
+                                      )),
+                                ],
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 20,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -149,7 +208,7 @@ class RegistrationScreen extends GetView<RegistrationController> {
                             ],
                           ),
                         ),
-                        const SizedBox(
+                        */ /*  const SizedBox(
                           height: 15,
                         ),
                         Row(
@@ -203,16 +262,211 @@ class RegistrationScreen extends GetView<RegistrationController> {
                               ),
                             ),
                           ],
-                        ),
+                        ),*/ /*
                       ],
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+}*/
+
+class UserRegistration extends StatefulWidget {
+  static const pageId = "/UserRegistration";
+
+  const UserRegistration({Key? key}) : super(key: key);
+
+  @override
+  State<UserRegistration> createState() => _UserRegistrationState();
+}
+
+class _UserRegistrationState extends State<UserRegistration> {
+  final TextEditingController passController = TextEditingController();
+  String? dropdownValue;
+  bool addVisibility = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: ColorsConfig.colorWhite,
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+          bottom: false,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                child: ClipPath(
+                  clipper: CurvedBottomClipper(),
+                  child: Container(
+                    color: ColorsConfig.colorBlue,
+                    height: Get.height * 0.21,
+                    width: Get.width,
+                    child: SafeArea(
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                              height: Get.height * 0.4,
+                              width: Get.width * 0.4,
+                              child: Image.asset(
+                                ImagePath.myndroWhite,
+                                fit: BoxFit.contain,
+                              ))),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                  top: 190,
+                  child: Container(
+                    height: Get.height,
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          profileTextFieldWidget(
+                            passController,
+                            Common.validatePassword,
+                            TextInputType.text,
+                            'First Name',
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          profileTextFieldWidget(
+                            passController,
+                            Common.validatePassword,
+                            TextInputType.text,
+                            'Last Name',
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          profileTextFieldWidget(
+                            passController,
+                            Common.validateEmail,
+                            TextInputType.emailAddress,
+                            'DOB',
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          DropDownWidget(
+                            dropdownValue: dropdownValue,
+                            hintText: 'Gender',
+                            isExpanded: true,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          profileTextFieldWidget(
+                              passController,
+                              Common.validatePassword,
+                              TextInputType.multiline,
+                              'Address', () {
+                            setState(() {
+                              addVisibility = !addVisibility;
+                            });
+                          }, Icons.add),
+                          Visibility(
+                            visible: addVisibility,
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                profileTextFieldWidget(
+                                  passController,
+                                  Common.validatePassword,
+                                  TextInputType.multiline,
+                                  'Address Line 1',
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          DropDownWidget(
+                            dropdownValue: dropdownValue,
+                            hintText: 'Country',
+                            isExpanded: true,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          DropDownWidget(
+                            dropdownValue: dropdownValue,
+                            hintText: 'state',
+                            isExpanded: true,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          DropDownWidget(
+                            dropdownValue: dropdownValue,
+                            hintText: 'City',
+                            isExpanded: true,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          DropDownWidget(
+                            dropdownValue: dropdownValue,
+                            hintText: 'Zipcode',
+                            isExpanded: true,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: loginButtonWidget('Submit', () {
+                              showDialog(
+                                  // barrierDismissible: false,
+                                  context: context,
+                                  builder: (_) {
+                                    return AnimatedDialog(
+                                      outputText: 'Congratulations',
+                                      subText:
+                                          'Your Account has Created Successfully.',
+                                      titleSubtext: '  ',
+                                      onClose: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomeScreen()),
+                                        ).then((result) {
+                                          Navigator.of(context).pop();
+                                        });
+                                      },
+                                    );
+                                    // Timer(const Duration(seconds: 3), goToDashboard);
+                                  });
+                            }),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ))
+            ],
+          )),
+    );
+  }
+
+  void goToDashboard() async {
+    return Get.toNamed(DashboardScreen.pageId);
   }
 }

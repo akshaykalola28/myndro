@@ -27,5 +27,11 @@ mixin ImagePath{
   static String dropBottom = 'assets/images/drop_bottom.png';
   static String myndroBlue = 'assets/images/myndro_blue.png';
   static String myndroWhite = 'assets/images/myndro_white.png';
+  static String myndroLogoW = 'assets/images/Myndro_Logo_W.png';
+  static String addMoneyImg = 'assets/images/add_money.png';
   static String giphy = 'assets/images/giphy.gif';
+  static String doc1 = 'assets/images/doc1.png';
+  static String hospital1 = 'assets/images/hospital1.png';
+  static String girl = 'assets/images/girl.png';
+  static String iconList = 'assets/images/icon_list.png';
 }

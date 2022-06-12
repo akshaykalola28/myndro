@@ -7,7 +7,8 @@ Widget profileTextFieldWidget(
     FormFieldValidator<String> validator,
     TextInputType inputType,
     String hintTxt,
-    ){
+    [VoidCallback? onSufficIcon,
+    IconData? suffixIcon]) {
   return TextFormField(
     style: TextStyle(
       fontFamily: AppTextStyle.microsoftJhengHei,
@@ -27,6 +28,11 @@ Widget profileTextFieldWidget(
         fontFamily: AppTextStyle.microsoftJhengHei,
         fontSize: 15.0,
         color: ColorsConfig.colorBlue,
+      ),
+      suffixIcon: IconButton(
+        color: ColorsConfig.colorBlue,
+        onPressed: onSufficIcon,
+        icon: Icon(suffixIcon, size: 24),
       ),
       labelStyle: TextStyle(
         fontFamily: AppTextStyle.microsoftJhengHei,
