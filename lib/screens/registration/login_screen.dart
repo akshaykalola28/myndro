@@ -259,10 +259,10 @@ class _LoginScreenState extends State<LoginScreen> {
               //   ),
               // ),
               Positioned(
-                bottom: 60,
+                bottom: 15,
                 right: 15,
                 child: Container(
-                  height: Get.height * 0.65,
+                  height: Get.height * 0.72,
                   width: Get.width * 0.92,
                   // margin: EdgeInsets.fromLTRB(
                   //     Get.width * 0.07, 0, Get.width * 0.07, Get.width * 0.23),

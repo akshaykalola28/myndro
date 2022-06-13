@@ -64,7 +64,7 @@ class _AnimatedDialogState extends State<AnimatedDialog>
                           color: ColorsConfig.colorBlack,
                           size: 25,
                         ))),
-                Container(
+                SizedBox(
                   width: Get.width,
                   // height: Get.height*0.4,
                   height: 300,

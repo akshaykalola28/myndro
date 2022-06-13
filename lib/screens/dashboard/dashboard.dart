@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/constant/constant.dart';
 import 'package:myndro/screens/screens.dart';
 
 import '../../controller/controller.dart';
@@ -15,51 +16,50 @@ class DashboardScreen extends StatelessWidget {
     return GetBuilder<dashboardController>(builder: (controller) {
       return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.black,
-          selectedItemColor: Colors.redAccent,
+          unselectedItemColor: ColorsConfig.colorBlue,
+          selectedItemColor: ColorsConfig.colorBlack,
           onTap: controller.changeTabIndex,
           currentIndex: controller.tabIndex,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
           elevation: 0,
           items: [
             _bottomNavigationBarItem(
-              icon: CupertinoIcons.home,
+              icon: ImagePath.nav1,
               label: 'Home',
             ),
             _bottomNavigationBarItem(
-              icon: CupertinoIcons.sportscourt,
-              label: 'News',
+              icon: ImagePath.nav2,
+              label: 'Service',
             ),
             _bottomNavigationBarItem(
-              icon: CupertinoIcons.bell,
-              label: 'Alerts',
-            ),
-            _bottomNavigationBarItem(
-              icon: CupertinoIcons.person,
-              label: 'Account',
+              icon: ImagePath.nav3,
+              label: 'Profile',
             ),
           ],
         ),
         body: IndexedStack(
           index: controller.tabIndex,
-          children: [
-            EnterPhoneNumber(),
-            EnterPhoneNumber(),
-            EnterPhoneNumber(),
-            EnterPhoneNumber(),
+          children: const [
+            HomeScreen(),
+            LoginScreen(),
+            CreatePasswordScreen(),
           ],
         ),
       );
     });
   }
 
-  _bottomNavigationBarItem({IconData? icon, String? label}) {
+  _bottomNavigationBarItem({String? icon, String? label}) {
     return BottomNavigationBarItem(
-      icon: Icon(icon),
-      label: label,
+      icon: Image.asset(
+        icon!,
+        height: 25,
+        width: 25,
+      ),
+      label: label ?? '',
     );
   }
 }

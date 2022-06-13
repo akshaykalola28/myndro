@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -295,174 +294,181 @@ class _UserRegistrationState extends State<UserRegistration> {
     return Scaffold(
       backgroundColor: ColorsConfig.colorWhite,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-          bottom: false,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 0,
-                child: ClipPath(
-                  clipper: CurvedBottomClipper(),
-                  child: Container(
-                    color: ColorsConfig.colorBlue,
-                    height: Get.height * 0.21,
-                    width: Get.width,
-                    child: SafeArea(
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: SizedBox(
-                              height: Get.height * 0.4,
-                              width: Get.width * 0.4,
-                              child: Image.asset(
-                                ImagePath.myndroWhite,
-                                fit: BoxFit.contain,
-                              ))),
+      body: GestureDetector(
+        onTap: () {
+          Get.focusScope!.unfocus();
+        },
+        child: SafeArea(
+            bottom: false,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 0,
+                  child: ClipPath(
+                    clipper: CurvedBottomClipper(),
+                    child: Container(
+                      color: ColorsConfig.colorBlue,
+                      height: Get.height * 0.21,
+                      width: Get.width,
+                      child: SafeArea(
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                                height: Get.height * 0.4,
+                                width: Get.width * 0.4,
+                                child: Image.asset(
+                                  ImagePath.myndroWhite,
+                                  fit: BoxFit.contain,
+                                ))),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned.fill(
-                  top: 190,
-                  child: Container(
-                    height: Get.height,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          profileTextFieldWidget(
-                            passController,
-                            Common.validatePassword,
-                            TextInputType.text,
-                            'First Name',
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          profileTextFieldWidget(
-                            passController,
-                            Common.validatePassword,
-                            TextInputType.text,
-                            'Last Name',
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          profileTextFieldWidget(
-                            passController,
-                            Common.validateEmail,
-                            TextInputType.emailAddress,
-                            'DOB',
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          DropDownWidget(
-                            dropdownValue: dropdownValue,
-                            hintText: 'Gender',
-                            isExpanded: true,
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          profileTextFieldWidget(
+                Positioned.fill(
+                    top: 190,
+                    child: Container(
+                      height: Get.height,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            profileTextFieldWidget(
                               passController,
                               Common.validatePassword,
-                              TextInputType.multiline,
-                              'Address', () {
-                            setState(() {
-                              addVisibility = !addVisibility;
-                            });
-                          }, Icons.add),
-                          Visibility(
-                            visible: addVisibility,
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                profileTextFieldWidget(
-                                  passController,
-                                  Common.validatePassword,
-                                  TextInputType.multiline,
-                                  'Address Line 1',
-                                ),
-                              ],
+                              TextInputType.text,
+                              'First Name',
                             ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          DropDownWidget(
-                            dropdownValue: dropdownValue,
-                            hintText: 'Country',
-                            isExpanded: true,
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          DropDownWidget(
-                            dropdownValue: dropdownValue,
-                            hintText: 'state',
-                            isExpanded: true,
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          DropDownWidget(
-                            dropdownValue: dropdownValue,
-                            hintText: 'City',
-                            isExpanded: true,
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          DropDownWidget(
-                            dropdownValue: dropdownValue,
-                            hintText: 'Zipcode',
-                            isExpanded: true,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: loginButtonWidget('Submit', () {
-                              showDialog(
-                                  // barrierDismissible: false,
-                                  context: context,
-                                  builder: (_) {
-                                    return AnimatedDialog(
-                                      outputText: 'Congratulations',
-                                      subText:
-                                          'Your Account has Created Successfully.',
-                                      titleSubtext: '  ',
-                                      onClose: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomeScreen()),
-                                        ).then((result) {
-                                          Navigator.of(context).pop();
-                                        });
-                                      },
-                                    );
-                                    // Timer(const Duration(seconds: 3), goToDashboard);
-                                  });
-                            }),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            profileTextFieldWidget(
+                              passController,
+                              Common.validatePassword,
+                              TextInputType.text,
+                              'Last Name',
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            profileTextFieldWidget(
+                              passController,
+                              Common.validateEmail,
+                              TextInputType.emailAddress,
+                              'DOB',
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            DropDownWidget(
+                              dropdownValue: dropdownValue,
+                              hintText: 'Gender',
+                              isExpanded: true,
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            profileTextFieldWidget(
+                                passController,
+                                Common.validatePassword,
+                                TextInputType.multiline,
+                                'Address', () {
+                              setState(() {
+                                addVisibility = !addVisibility;
+                              });
+                            }, Icons.add),
+                            Visibility(
+                              visible: addVisibility,
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  profileTextFieldWidget(
+                                    passController,
+                                    Common.validatePassword,
+                                    TextInputType.multiline,
+                                    'Address Line 1',
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            DropDownWidget(
+                              dropdownValue: dropdownValue,
+                              hintText: 'Country',
+                              isExpanded: true,
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            DropDownWidget(
+                              dropdownValue: dropdownValue,
+                              hintText: 'state',
+                              isExpanded: true,
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            DropDownWidget(
+                              dropdownValue: dropdownValue,
+                              hintText: 'City',
+                              isExpanded: true,
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            DropDownWidget(
+                              dropdownValue: dropdownValue,
+                              hintText: 'Zipcode',
+                              isExpanded: true,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: loginButtonWidget('Submit', () {
+                                showDialog(
+                                    // barrierDismissible: false,
+                                    context: context,
+                                    builder: (_) {
+                                      return AnimatedDialog(
+                                        outputText: 'Congratulations',
+                                        subText:
+                                            'Your Account has Created Successfully.',
+                                        titleSubtext: '  ',
+                                        onClose: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                              return const DashboardScreen();
+                                            }),
+                                          ).then((result) {
+                                            Navigator.of(context).pop();
+                                          });
+                                        },
+                                      );
+                                      // Timer(const Duration(seconds: 3), goToDashboard);
+                                    });
+                              }),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ))
-            ],
-          )),
+                    ))
+              ],
+            )),
+      ),
     );
   }
 

@@ -34,4 +34,7 @@ mixin ImagePath{
   static String hospital1 = 'assets/images/hospital1.png';
   static String girl = 'assets/images/girl.png';
   static String iconList = 'assets/images/icon_list.png';
+  static String nav1 = 'assets/images/nav1.png';
+  static String nav2 = 'assets/images/nav2.png';
+  static String nav3 = 'assets/images/nav3.png';
 }
