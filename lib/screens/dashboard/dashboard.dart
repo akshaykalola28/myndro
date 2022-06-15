@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/constant/constant.dart';
@@ -17,7 +16,7 @@ class DashboardScreen extends StatelessWidget {
       return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: ColorsConfig.colorBlue,
-          selectedItemColor: ColorsConfig.colorBlack,
+          selectedItemColor: ColorsConfig.colorBlue,
           onTap: controller.changeTabIndex,
           currentIndex: controller.tabIndex,
           showSelectedLabels: true,
@@ -54,8 +53,31 @@ class DashboardScreen extends StatelessWidget {
 
   _bottomNavigationBarItem({String? icon, String? label}) {
     return BottomNavigationBarItem(
+      activeIcon: Container(
+        height: 32,
+        width: 32,
+        decoration: BoxDecoration(
+          color: ColorsConfig.colorBlue,
+          border: Border.all(
+            color: ColorsConfig.colorBlue,
+            style: BorderStyle.solid,
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Image.asset(
+            icon!,
+            height: 25,
+            width: 25,
+            color: ColorsConfig.colorWhite,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
       icon: Image.asset(
-        icon!,
+        icon,
         height: 25,
         width: 25,
       ),

@@ -413,7 +413,7 @@ IconButton(onPressed: (){
                                     ],
                                   )),*/
                               SizedBox(
-                                height: Get.height * 0.24,
+                                height: Get.height * 0.2,
                               ),
                               Column(children: [
                                 CarouselSlider(
@@ -757,8 +757,8 @@ IconButton(onPressed: (){
                                                         ColorsConfig.colorBlack,
                                                   ),
                                                 ),
-                                                const SizedBox(
-                                                  width: 50,
+                                                SizedBox(
+                                                  width: Get.width * 0.099,
                                                 ),
                                                 Text(
                                                   '4.9 Review',
@@ -784,13 +784,13 @@ IconButton(onPressed: (){
                                                         ColorsConfig.colorBlack,
                                                   ),
                                                 ),
-                                                const SizedBox(
-                                                  width: 26,
+                                                SizedBox(
+                                                  width: Get.width * 0.04,
                                                 ),
                                                 RatingBar.builder(
                                                   itemSize: 22,
                                                   initialRating: 3,
-                                                  minRating: 1,
+                                                  minRating: 0,
                                                   direction: Axis.horizontal,
                                                   allowHalfRating: true,
                                                   itemCount: 5,
