@@ -444,15 +444,8 @@ class _UserRegistrationState extends State<UserRegistration> {
                                             'Your Account has Created Successfully.',
                                         titleSubtext: '  ',
                                         onClose: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                              return const DashboardScreen();
-                                            }),
-                                          ).then((result) {
-                                            Navigator.of(context).pop();
-                                          });
+                                          Get.offAllNamed(
+                                              DashboardScreen.pageId);
                                         },
                                       );
                                       // Timer(const Duration(seconds: 3), goToDashboard);

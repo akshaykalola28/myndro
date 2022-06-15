@@ -8,8 +8,9 @@ import '../../controller/controller.dart';
 class DashboardScreen extends StatelessWidget {
   static const pageId = "/DashboardScreen";
 
-  const DashboardScreen({Key? key}) : super(key: key);
+  DashboardScreen({Key? key}) : super(key: key);
 
+  // final controller = Get.put(dashboardController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<dashboardController>(builder: (controller) {

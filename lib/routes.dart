@@ -58,7 +58,7 @@ final List<GetPage> appPages = [
       binding: RegistrationBinding()),
   GetPage(
       name: DashboardScreen.pageId,
-      page: () => const DashboardScreen(),
+      page: () => DashboardScreen(),
       binding: DashboardBinding()),
   GetPage(
       name: HomeScreen.pageId,

@@ -262,7 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 bottom: 15,
                 right: 15,
                 child: Container(
-                  height: Get.height * 0.72,
+                  height: Get.height * 0.68,
                   width: Get.width * 0.92,
                   // margin: EdgeInsets.fromLTRB(
                   //     Get.width * 0.07, 0, Get.width * 0.07, Get.width * 0.23),
@@ -401,7 +401,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 15,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -409,8 +409,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Image.asset(
                               ImagePath.googleLogo,
-                              height: 23,
-                              width: 23,
+                              height: 25,
+                              width: 25,
                             ),
                             const SizedBox(
                               width: 12,
@@ -419,7 +419,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Log in with Google',
                               style: TextStyle(
                                 fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 14.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w400,
                                 color: ColorsConfig.colorBlue,
                               ),
@@ -438,8 +438,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             Image.asset(
                               ImagePath.facebookLogo,
-                              height: 22,
-                              width: 22,
+                              height: 25,
+                              width: 25,
                             ),
                             const SizedBox(
                               width: 12,
@@ -448,7 +448,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Log in with Facebook',
                               style: TextStyle(
                                 fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 14.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w400,
                                 color: ColorsConfig.colorBlue,
                               ),
