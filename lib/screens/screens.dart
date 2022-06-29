@@ -13,3 +13,8 @@ export 'your_category/select_expertise.dart';
 export 'your_category/psychologist_dropdown.dart';
 export 'dashboard/dashboard.dart';
 export 'home/home_screen.dart';
+export 'expert_detail/expert_detail.dart';
+export 'assesment_screen/assesment_screen.dart';
+export 'assesment_screen/assesment_start.dart';
+export 'assesment_screen/assessment_end.dart';
+export 'wallet_screen/wallet_screen.dart';

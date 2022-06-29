@@ -42,9 +42,9 @@ class DashboardScreen extends StatelessWidget {
         ),
         body: IndexedStack(
           index: controller.tabIndex,
-          children: const [
+          children: [
             HomeScreen(),
-            LoginScreen(),
+            AssessmentScreen(),
             CreatePasswordScreen(),
           ],
         ),

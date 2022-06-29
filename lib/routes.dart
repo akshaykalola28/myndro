@@ -64,4 +64,24 @@ final List<GetPage> appPages = [
       name: HomeScreen.pageId,
       page: () => const HomeScreen(),
       binding: HomeBinding()),
+  GetPage(
+      name: ExpertDetailScreen.pageId,
+      page: () => ExpertDetailScreen(),
+      binding: ExpertDetailBinding()),
+  GetPage(
+      name: AssessmentScreen.pageId,
+      page: () => AssessmentScreen(),
+      binding: AssessmentBinding()),
+  GetPage(
+      name: AssessmentStartScreen.pageId,
+      page: () => AssessmentStartScreen(),
+      binding: AssessmentBinding()),
+  GetPage(
+      name: AssessmentEndScreen.pageId,
+      page: () => AssessmentEndScreen(),
+      binding: AssessmentBinding()),
+  GetPage(
+      name: WalletScreen.pageId,
+      page: () => WalletScreen(),
+      binding: WalletBinding()),
 ];

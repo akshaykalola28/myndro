@@ -9,3 +9,6 @@ export 'new_password_controller.dart';
 export 'onBoarding_controller.dart';
 export 'dashboard_controller.dart';
 export 'home_controller.dart';
+export 'expert_detail_controller.dart';
+export 'assesment_controller.dart';
+export 'wallet_controller.dart';

@@ -467,7 +467,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   fontFamily: AppTextStyle.microsoftJhengHei,
                                   fontSize: 15.0,
-                                  color: ColorsConfig.colorGrey,
+                                  color: ColorsConfig.colorGreyy,
                                 ),
                               ),
                               GestureDetector(

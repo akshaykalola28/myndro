@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myndro/screens/screens.dart';
+import '../screens/screens.dart';
 
 import '../constant/constant.dart';
 import '../model/model.dart';

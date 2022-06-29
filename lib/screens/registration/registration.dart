@@ -304,28 +304,51 @@ class _UserRegistrationState extends State<UserRegistration> {
               children: [
                 Positioned(
                   top: 0,
-                  child: ClipPath(
-                    clipper: CurvedBottomClipper(),
-                    child: Container(
-                      color: ColorsConfig.colorBlue,
-                      height: Get.height * 0.21,
-                      width: Get.width,
-                      child: SafeArea(
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: SizedBox(
-                                height: Get.height * 0.4,
-                                width: Get.width * 0.4,
-                                child: Image.asset(
-                                  ImagePath.myndroWhite,
-                                  fit: BoxFit.contain,
-                                ))),
+                  child: Column(
+                    children: [
+                      ClipPath(
+                        clipper: CurvedBottomClipper(),
+                        child: Container(
+                          color: ColorsConfig.colorBlue,
+                          height: Get.height * 0.21,
+                          width: Get.width,
+                          child: SafeArea(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: SizedBox(
+                                    height: Get.height * 0.4,
+                                    width: Get.width * 0.4,
+                                    child: Image.asset(
+                                      ImagePath.myndroWhite,
+                                      fit: BoxFit.contain,
+                                    ))),
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(
+                          color: ColorsConfig.colorBlue,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Text(
+                          'Profile Details',
+                          style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w500,
+                            color: ColorsConfig.colorWhite,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 Positioned.fill(
-                    top: 190,
+                    top: 220,
                     child: Container(
                       height: Get.height,
                       margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -426,6 +449,24 @@ class _UserRegistrationState extends State<UserRegistration> {
                               dropdownValue: dropdownValue,
                               hintText: 'Zipcode',
                               isExpanded: true,
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            profileTextFieldWidget(
+                              passController,
+                              Common.validateEmail,
+                              TextInputType.emailAddress,
+                              'Password',
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            profileTextFieldWidget(
+                              passController,
+                              Common.validateEmail,
+                              TextInputType.emailAddress,
+                              'Confirm Password',
                             ),
                             const SizedBox(
                               height: 20,

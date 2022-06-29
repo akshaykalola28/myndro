@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
 
@@ -685,142 +686,149 @@ IconButton(onPressed: (){
                               const SizedBox(
                                 height: 15,
                               ),
-                              Container(
-                                width: Get.width,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 6, horizontal: 10),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: ColorsConfig.colorBlack,
-                                    style: BorderStyle.solid,
-                                    width: 1.5,
+                              GestureDetector(
+                                onTap: () =>
+                                    Get.toNamed(ExpertDetailScreen.pageId),
+                                child: Container(
+                                  width: Get.width,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 6, horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: ColorsConfig.colorBlack,
+                                      style: BorderStyle.solid,
+                                      width: 1.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Similar Experts',
-                                      style: TextStyle(
-                                        fontFamily:
-                                            AppTextStyle.microsoftJhengHei,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: ColorsConfig.colorBlack,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Similar Experts',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              AppTextStyle.microsoftJhengHei,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: ColorsConfig.colorBlack,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: ColorsConfig.colorBlack,
-                                                style: BorderStyle.solid,
-                                                width: 1.0,
-                                              ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color:
+                                                      ColorsConfig.colorBlack,
+                                                  style: BorderStyle.solid,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0)),
+                                            child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(8.0)),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.asset(
-                                              ImagePath.girl,
-                                              fit: BoxFit.cover,
-                                              height: 80,
-                                              width: 80,
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                ImagePath.girl,
+                                                fit: BoxFit.cover,
+                                                height: 80,
+                                                width: 80,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 12,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  'Dr.Sophia',
-                                                  style: TextStyle(
-                                                    fontFamily: AppTextStyle
-                                                        .microsoftJhengHei,
-                                                    fontSize: 18.0,
-                                                    color:
-                                                        ColorsConfig.colorBlack,
+                                          const SizedBox(
+                                            width: 12,
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Dr.Sophia',
+                                                    style: TextStyle(
+                                                      fontFamily: AppTextStyle
+                                                          .microsoftJhengHei,
+                                                      fontSize: 18.0,
+                                                      color: ColorsConfig
+                                                          .colorBlack,
+                                                    ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  width: Get.width * 0.099,
-                                                ),
-                                                Text(
-                                                  '4.9 Review',
-                                                  style: TextStyle(
-                                                    fontFamily: AppTextStyle
-                                                        .microsoftJhengHei,
-                                                    fontSize: 18.0,
-                                                    color:
-                                                        ColorsConfig.colorBlack,
+                                                  SizedBox(
+                                                    width: Get.width * 0.099,
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  'Psychologist',
-                                                  style: TextStyle(
-                                                    fontFamily: AppTextStyle
-                                                        .microsoftJhengHei,
-                                                    fontSize: 18.0,
-                                                    color:
-                                                        ColorsConfig.colorBlack,
+                                                  Text(
+                                                    '4.9 Review',
+                                                    style: TextStyle(
+                                                      fontFamily: AppTextStyle
+                                                          .microsoftJhengHei,
+                                                      fontSize: 18.0,
+                                                      color: ColorsConfig
+                                                          .colorBlack,
+                                                    ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  width: Get.width * 0.04,
-                                                ),
-                                                RatingBar.builder(
-                                                  itemSize: 22,
-                                                  initialRating: 3,
-                                                  minRating: 0,
-                                                  direction: Axis.horizontal,
-                                                  allowHalfRating: true,
-                                                  itemCount: 5,
-                                                  // itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                                                  itemBuilder: (context, _) =>
-                                                      const Icon(
-                                                    Icons.star,
-                                                    color:
-                                                        ColorsConfig.colorBlue,
-                                                  ),
-                                                  onRatingUpdate: (rating) {
-                                                    print(rating);
-                                                  },
-                                                )
-                                              ],
-                                            ),
-                                            Text(
-                                              'Experiance :- 5 Years',
-                                              style: TextStyle(
-                                                fontFamily: AppTextStyle
-                                                    .microsoftJhengHei,
-                                                fontSize: 18.0,
-                                                color: ColorsConfig.colorBlack,
+                                                ],
                                               ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ],
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Psychologist',
+                                                    style: TextStyle(
+                                                      fontFamily: AppTextStyle
+                                                          .microsoftJhengHei,
+                                                      fontSize: 18.0,
+                                                      color: ColorsConfig
+                                                          .colorBlack,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: Get.width * 0.04,
+                                                  ),
+                                                  RatingBar.builder(
+                                                    itemSize: 22,
+                                                    initialRating: 3,
+                                                    minRating: 0,
+                                                    direction: Axis.horizontal,
+                                                    allowHalfRating: true,
+                                                    itemCount: 5,
+                                                    // itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                                                    itemBuilder: (context, _) =>
+                                                        const Icon(
+                                                      Icons.star,
+                                                      color: ColorsConfig
+                                                          .colorBlue,
+                                                    ),
+                                                    onRatingUpdate: (rating) {
+                                                      print(rating);
+                                                    },
+                                                  )
+                                                ],
+                                              ),
+                                              Text(
+                                                'Experiance :- 5 Years',
+                                                style: TextStyle(
+                                                  fontFamily: AppTextStyle
+                                                      .microsoftJhengHei,
+                                                  fontSize: 18.0,
+                                                  color:
+                                                      ColorsConfig.colorBlack,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(
@@ -946,40 +954,46 @@ IconButton(onPressed: (){
                                       const SizedBox(
                                         height: 8,
                                       ),
-                                      Container(
-                                          padding: const EdgeInsets.all(6),
-                                          decoration: BoxDecoration(
-                                            color: ColorsConfig.colorBlue,
-                                            border: Border.all(
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(WalletScreen.pageId);
+                                        },
+                                        child: Container(
+                                            padding: const EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
                                               color: ColorsConfig.colorBlue,
-                                              style: BorderStyle.solid,
-                                              width: 1.0,
+                                              border: Border.all(
+                                                color: ColorsConfig.colorBlue,
+                                                style: BorderStyle.solid,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.add,
-                                                color: ColorsConfig.colorWhite,
-                                                size: 20,
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                'Add Money',
-                                                style: TextStyle(
-                                                  fontFamily: AppTextStyle
-                                                      .microsoftJhengHei,
-                                                  fontSize: 18.0,
+                                            child: Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.add,
                                                   color:
                                                       ColorsConfig.colorWhite,
+                                                  size: 20,
                                                 ),
-                                              ),
-                                            ],
-                                          )),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  'Add Money',
+                                                  style: TextStyle(
+                                                    fontFamily: AppTextStyle
+                                                        .microsoftJhengHei,
+                                                    fontSize: 18.0,
+                                                    color:
+                                                        ColorsConfig.colorWhite,
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                      ),
                                     ],
                                   ),
                                 ),

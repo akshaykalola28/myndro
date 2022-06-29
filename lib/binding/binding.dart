@@ -7,3 +7,7 @@ export 'your_category_binding.dart';
 export 'new_password_binding.dart';
 export 'onBoarding_Binding.dart';
 export 'dashboard_binding.dart';
+export 'expert_detail_binding.dart';
+export 'home_binding.dart';
+export 'assesment_binding.dart';
+export 'wallet_binding.dart';
