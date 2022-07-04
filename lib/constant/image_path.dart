@@ -39,4 +39,7 @@ mixin ImagePath{
   static String nav3 = 'assets/images/nav3.png';
   static String panicImg = 'assets/images/panic_img.png';
   static String assessmentImg = 'assets/images/assessment_img.png';
+  static String askImg = 'assets/images/ask_img.png';
+  static String imgNote = 'assets/images/img_note.png';
+  static String lockerImg = 'assets/images/locker_img.png';
 }

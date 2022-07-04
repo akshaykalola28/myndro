@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
 import 'package:myndro/widgets/login_button_widget.dart';
+import 'package:myndro/widgets/widgets.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -11,35 +12,64 @@ import '../../controller/controller.dart';
 class VerificationCodeScreen extends GetView<RegistrationController> {
   static const pageId = "/verification_code";
 
-  const VerificationCodeScreen({Key? key}) : super(key: key);
+  VerificationCodeScreen({Key? key}) : super(key: key);
+  bool fromVerification = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: MediaQuery.of(context).viewInsets.bottom == 0
-            ? ColorsConfig.colorBlue
-            : ColorsConfig.colorBlue,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: ColorsConfig.colorWhite,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            headerWidget(context),
-            const SizedBox(height: 20),
-            bodyContent(context),
-          ],
-        ),
-      ),
+      backgroundColor: ColorsConfig.colorWhite,
+      appBar: fromVerification
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(-40.0), child: Container())
+          : AppBar(
+              elevation: 0,
+              backgroundColor: MediaQuery.of(context).viewInsets.bottom == 0
+                  ? ColorsConfig.colorBlue
+                  : ColorsConfig.colorBlue,
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_rounded,
+                  color: ColorsConfig.colorWhite,
+                ),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+            ),
+      body: fromVerification
+          ? LayoutWidget(
+              body: Column(
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    '2 - Step Verification Settings',
+                    style: TextStyle(
+                        fontFamily: AppTextStyle.microsoftJhengHei,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w800,
+                        color: ColorsConfig.colorGreyy),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  bodyContent(context),
+                ],
+              ),
+              text: 'Settings',
+              isAssessment: false,
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  headerWidget(context),
+                  const SizedBox(height: 20),
+                  bodyContent(context),
+                ],
+              ),
+            ),
     );
   }
 

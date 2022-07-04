@@ -1,6 +1,6 @@
 import 'controller.dart';
 
-class dashboardController extends BaseController {
+class DashboardController extends BaseController {
   @override
   void errorHandler(e) {}
   var tabIndex = 0;

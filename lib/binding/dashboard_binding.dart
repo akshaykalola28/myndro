@@ -9,7 +9,7 @@ class DashboardBinding extends Bindings {
   // }
   @override
   void dependencies() {
-    Get.lazyPut<dashboardController>(() => dashboardController());
+    Get.lazyPut<DashboardController>(() => DashboardController());
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<RegistrationController>(() => RegistrationController());
     Get.lazyPut<PhoneNumberController>(() => PhoneNumberController());

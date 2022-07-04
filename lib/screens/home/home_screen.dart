@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
+import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
 
@@ -24,7 +25,8 @@ final List<String> hosImg = [
 class HomeScreen extends StatefulWidget {
   static const pageId = "/HomeScreen";
 
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, this.onDrawerClick}) : super(key: key);
+  final VoidCallback? onDrawerClick;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -33,7 +35,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
-
   late List<Widget> imageSliders = imgList
       .asMap()
       .entries
@@ -50,72 +51,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: Center(
                 child: Image.asset(
-          item.value,
-          fit: BoxFit.cover,
-          width: Get.width * 0.7,
-          height: Get.height,
-        )),
+              item.value,
+              fit: BoxFit.cover,
+              width: Get.width * 0.7,
+              height: Get.height,
+            )),
           ))
       .toList();
 
-  late List<Widget> imgData = hosImg
-      .map((item) => Container(
-    width: Get.width,
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: ColorsConfig.colorBlack,
-                style: BorderStyle.solid,
-                width: 1.0,
-              ),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hospital Happiness Program',
-                  style: TextStyle(
-                      fontFamily: AppTextStyle.microsoftJhengHei,
-                      fontSize: 20.0,
-                      color: ColorsConfig.colorBlack,
-                      fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(
-                  height: 0,
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: Get.width * 0.4,
-                        child: Text(
-                          'Frontline employees in hospitals have worked lengthy hours without rest during the COVID-19 outbreak. They continued to work despite.',
-                          style: TextStyle(
-                            fontFamily: AppTextStyle.microsoftJhengHei,
-                            fontSize: 13.0,
-                            color: ColorsConfig.colorBlack,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      SizedBox(
-                          width: Get.width * 0.35,
-                          child: Image.asset(
-                            item,
-                            fit: BoxFit.cover,
-                          )),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ))
-      .toList();
+  late List<Widget> imgData = hosImg.map((item) => PackagesWidget(item: item)).toList();
 
 /*  late List<Widget> imageSliders = imgList
       .map((item) => Container(
@@ -184,34 +128,46 @@ IconButton(onPressed: (){
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 50,
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: TextField(
-                  style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 15.0,
-                    color: ColorsConfig.colorBlue.withOpacity(0.8),
+            Row(
+              children: [
+                IconButton(
+                    icon: const Icon(Icons.menu,
+                        color: ColorsConfig.colorWhite, size: 35),
+                    onPressed: widget.onDrawerClick),
+                Expanded(
+                  child: Container(
+                    height: 50,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: TextField(
+                        style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 15.0,
+                          color: ColorsConfig.colorBlue.withOpacity(0.8),
+                        ),
+                        onChanged: (_) {},
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 12),
+                          fillColor: ColorsConfig.colorWhite,
+                          filled: true,
+                          suffixIcon: const Icon(
+                            Icons.search,
+                            color: ColorsConfig.colorBlue,
+                          ),
+                          hintText: 'Search something ...',
+                          hintStyle: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 15.0,
+                            color: ColorsConfig.colorBlue.withOpacity(0.8),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide.none),
+                        )),
                   ),
-                  onChanged: (_) {},
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                    fillColor: ColorsConfig.colorWhite,
-                    filled: true,
-                    suffixIcon: const Icon(
-                      Icons.search,
-                      color: ColorsConfig.colorBlue,
-                    ),
-                    hintText: 'Search something ...',
-                    hintStyle: TextStyle(
-                      fontFamily: AppTextStyle.microsoftJhengHei,
-                      fontSize: 15.0,
-                      color: ColorsConfig.colorBlue.withOpacity(0.8),
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide.none),
-                  )),
+                ),
+              ],
             ),
             const SizedBox(
               height: 10,
@@ -288,7 +244,7 @@ IconButton(onPressed: (){
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           decoration: const BoxDecoration(
                             color: ColorsConfig.colorWhite,
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
                               topRight: Radius.circular(25),
                             ),
@@ -707,7 +663,7 @@ IconButton(onPressed: (){
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Similar Experts',
+                                        'Recommended  Experts',
                                         style: TextStyle(
                                           fontFamily:
                                               AppTextStyle.microsoftJhengHei,

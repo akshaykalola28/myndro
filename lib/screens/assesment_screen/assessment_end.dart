@@ -42,7 +42,7 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                                       GaugeRange(
                                           startValue: 0,
                                           endValue: 33,
-                                          color: Color(0xFF00AB47),
+                                          color: const Color(0xFF00AB47),
                                           label: 'Mild\n0-3',
                                           sizeUnit: GaugeSizeUnit.factor,
                                           labelStyle: GaugeTextStyle(
@@ -54,7 +54,7 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                                       GaugeRange(
                                         startValue: 33,
                                         endValue: 66,
-                                        color: Color(0xFFFFBA00),
+                                        color: const Color(0xFFFFBA00),
                                         label: 'Moderate\n4-7',
                                         labelStyle: GaugeTextStyle(
                                             fontFamily:
@@ -67,7 +67,7 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                                       GaugeRange(
                                         startValue: 66,
                                         endValue: 99,
-                                        color: Color(0xFFFE2A25),
+                                        color: const Color(0xFFFE2A25),
                                         label: 'Severe\n8-11',
                                         labelStyle: GaugeTextStyle(
                                             fontFamily:
@@ -78,13 +78,13 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                                         endWidth: 0.65,
                                       ),
                                     ],
-                                    pointers: <GaugePointer>[
+                                    pointers: const <GaugePointer>[
                                       NeedlePointer(value: 90)
                                     ])
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
@@ -98,7 +98,7 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                                     fontSize: 18.0),
                                 textAlign: TextAlign.center),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
@@ -112,11 +112,11 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                                     fontSize: 13.0),
                                 textAlign: TextAlign.center),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 12,
                           ),
                           ElevatedButton(
-                            child: Text('Similar Experts'),
+                            child: const Text('Similar Experts'),
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                                 elevation: 0,
@@ -153,7 +153,7 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                                     fontSize: 20.0),
                                 textAlign: TextAlign.center),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Image.asset(
@@ -187,11 +187,11 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                                 fontSize: 20.0),
                             textAlign: TextAlign.center),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       ElevatedButton(
-                        child: Text('Submit Assessment'),
+                        child: const Text('Submit Assessment'),
                         onPressed: () {
                           isLoading.value = !isLoading.value;
                           Timer(const Duration(seconds: 5), controller.goToEnd);

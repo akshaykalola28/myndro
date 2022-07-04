@@ -12,3 +12,4 @@ export 'home_controller.dart';
 export 'expert_detail_controller.dart';
 export 'assesment_controller.dart';
 export 'wallet_controller.dart';
+export 'setting_controller.dart';

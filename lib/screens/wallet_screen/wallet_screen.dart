@@ -56,7 +56,7 @@ class WalletScreen extends GetView<WalletController> {
                         Text(
                           'Wallet Balance',
                           style: TextStyle(
-                            fontFamily: AppTextStyle.openSans,
+                            fontFamily: AppTextStyle.microsoftJhengHei,
                             fontSize: 25.0,
                             color: ColorsConfig.colorWhite,
                           ),
@@ -67,7 +67,7 @@ class WalletScreen extends GetView<WalletController> {
                         Text(
                           '\u{20B9}${' 305'}',
                           style: TextStyle(
-                            fontFamily: AppTextStyle.openSans,
+                            fontFamily: AppTextStyle.microsoftJhengHei,
                             fontSize: 35.0,
                             color: ColorsConfig.colorWhite,
                           ),
@@ -92,7 +92,7 @@ class WalletScreen extends GetView<WalletController> {
                                   style: TextStyle(
                                     // height: 1.0,
                                     // letterSpacing: 1,
-                                    fontFamily: AppTextStyle.openSans,
+                                    fontFamily: AppTextStyle.microsoftJhengHei,
                                     fontSize: 50.0,
                                     color: ColorsConfig.colorBlue,
                                   ),
@@ -121,7 +121,7 @@ class WalletScreen extends GetView<WalletController> {
                     child: Text(
                       'Transaction History',
                       style: TextStyle(
-                        fontFamily: AppTextStyle.openSans,
+                        fontFamily: AppTextStyle.microsoftJhengHei,
                         fontSize: 20.0,
                         color: ColorsConfig.colorBlack,
                       ),
@@ -160,7 +160,7 @@ class WalletScreen extends GetView<WalletController> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Container(
+                  SizedBox(
                     height: Get.height * 0.5,
                     child: TabBarView(
                         controller: controller.controller,

@@ -1,4 +1,4 @@
-import 'package:draggable_scrollbar/draggable_scrollbar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +15,11 @@ class ExpertDetailScreen extends StatefulWidget {
 }
 
 class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
   ScrollController controller = ScrollController();
+  late List<Widget> imgData =
+      hosImg.map((item) => PackagesWidget(item: item)).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -26,53 +30,13 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
           Get.focusScope!.unfocus();
         },
         child: LayoutWidget(
-          text: 'Expert Details',
+          text: 'Appointment',
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 20),
-                    child: TextField(
-                        style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 15.0,
-                          color: ColorsConfig.colorWhite,
-                        ),
-                        onChanged: (_) {},
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 12),
-                          fillColor: ColorsConfig.colorBlue,
-                          filled: true,
-                          suffixIcon: const Icon(
-                            Icons.search,
-                            color: ColorsConfig.colorWhite,
-                          ),
-                          hintText: 'Experts,Languages,etc......',
-                          hintStyle: TextStyle(
-                            fontFamily: AppTextStyle.microsoftJhengHei,
-                            fontSize: 15.0,
-                            color: ColorsConfig.colorWhite,
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide.none),
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      'Expert Detail',
-                      style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 16.0,
-                          color: ColorsConfig.colorGreyy,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -80,7 +44,12 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Padding(
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: const Divider(
+                        color: ColorsConfig.colorBlack, thickness: 0.5),
+                  ),
+                  /*  Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: Text(
                       'Appointment Request',
@@ -90,11 +59,50 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                           color: ColorsConfig.colorGreyy,
                           fontWeight: FontWeight.w600),
                     ),
-                  ),
+                  ),*/
                   const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
+                  Column(children: [
+                    CarouselSlider(
+                      items: imgData,
+                      carouselController: _controller,
+                      options: CarouselOptions(
+                          enableInfiniteScroll: false,
+                          viewportFraction: 1,
+                          autoPlay: false,
+                          enlargeCenterPage: false,
+                          // aspectRatio: 1.0,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          }),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: hosImg.asMap().entries.map((entry) {
+                        return GestureDetector(
+                          onTap: () => _controller.animateToPage(entry.key),
+                          child: Container(
+                            width: 12.0,
+                            height: 12.0,
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 4.0),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: (Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : ColorsConfig.colorBlue)
+                                    .withOpacity(
+                                        _current == entry.key ? 0.99 : 0.6)),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ]),
+                  /* SizedBox(
                     height: Get.height * 0.3,
                     child: Card(
                       color: ColorsConfig.colorLightGrey,
@@ -113,7 +121,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                           padding: EdgeInsets.zero,
                           itemBuilder: (context, index) {
                             return Container(
-                              margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                              margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                               child: Row(
                                 children: [
                                   Stack(
@@ -127,7 +135,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                                 color: ColorsConfig.colorBlue),
                                             borderRadius:
                                                 const BorderRadius.all(
-                                                    const Radius.circular(50))),
+                                                    Radius.circular(50))),
                                       ),
                                       Positioned(
                                         bottom: 0,
@@ -150,12 +158,12 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                                       ColorsConfig.colorBlue),
                                               borderRadius: const BorderRadius
                                                       .all(
-                                                  const Radius.circular(50))),
+                                                  Radius.circular(50))),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   Column(
@@ -184,7 +192,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                       ),
                                     ],
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Container(
                                       padding: const EdgeInsets.fromLTRB(
                                           12, 3, 12, 3),
@@ -211,7 +219,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                           },
                         ),
                         heightScrollThumb: 48.0,
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         backgroundColor: ColorsConfig.colorGreyy,
                         scrollThumbBuilder: (
                           Color backgroundColor,
@@ -233,7 +241,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                         },
                       ),
                     ),
-                  ),
+                  ),*/
                   const SizedBox(
                     height: 20,
                   ),

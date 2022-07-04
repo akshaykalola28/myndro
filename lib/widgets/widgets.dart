@@ -9,3 +9,4 @@ export 'animated_check.dart';
 export 'expert_appbar.dart';
 export 'expert_detail_container.dart';
 export 'layout_widget.dart';
+export 'packages_widget.dart';

@@ -40,77 +40,89 @@ class AssessmentScreen extends GetView<AssessmentController> {
                             const BorderRadius.all(Radius.circular(25))),
                     child: Column(
                       children: [
-                        CircularPercentIndicator(
-                          radius: 60.0,
-                          lineWidth: 13.0,
-                          animation: true,
-                          progressColor: ColorsConfig.colorBlue,
-                          backgroundColor:
-                              ColorsConfig.colorBlue.withOpacity(0.2),
-                          percent: (100 / controller.questions.length) *
-                              (index + 1) /
-                              100,
-                          center: Text(
-                            (index + 1).toString(),
-                            style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0),
+                        Expanded(
+                          child: CircularPercentIndicator(
+                            radius: 60.0,
+                            lineWidth: 13.0,
+                            animation: true,
+                            progressColor: ColorsConfig.colorBlue,
+                            backgroundColor:
+                                ColorsConfig.colorBlue.withOpacity(0.2),
+                            percent: (100 / controller.questions.length) *
+                                (index + 1) /
+                                100,
+                            center: Text(
+                              (index + 1).toString(),
+                              style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0),
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          controller.questions[index].name,
-                          style: TextStyle(
-                            fontFamily: AppTextStyle.microsoftJhengHei,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                            color: ColorsConfig.colorBlack,
-                          ),
-                          maxLines: 6,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ElevatedButton(
-                          child: Text('Yes'),
-                          onPressed: () {
-                            controller.forward();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: ColorsConfig.colorWhite,
-                              onPrimary: ColorsConfig.colorBlack,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 30, vertical: 3),
-                              textStyle: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.bold,
-                                color: ColorsConfig.colorBlack,
-                              )),
-                        ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        ElevatedButton(
-                          child: Text('No'),
-                          onPressed: () {
-                            controller.forward();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: ColorsConfig.colorWhite,
-                              onPrimary: ColorsConfig.colorBlack,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 30, vertical: 3),
-                              textStyle: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.bold,
-                                color: ColorsConfig.colorBlack,
-                              )),
+                        Expanded(
+                          child: Text(
+                            controller.questions[index].name,
+                            style: TextStyle(
+                              fontFamily: AppTextStyle.microsoftJhengHei,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w500,
+                              color: ColorsConfig.colorBlack,
+                            ),
+                            maxLines: 6,
+                          ),
                         ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              ElevatedButton(
+                                child: const Text('Yes'),
+                                onPressed: () {
+                                  controller.forward();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: ColorsConfig.colorWhite,
+                                    onPrimary: ColorsConfig.colorBlack,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30, vertical: 3),
+                                    textStyle: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorsConfig.colorBlack,
+                                    )),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ElevatedButton(
+                                child: const Text('No'),
+                                onPressed: () {
+                                  controller.forward();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: ColorsConfig.colorWhite,
+                                    onPrimary: ColorsConfig.colorBlack,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30, vertical: 3),
+                                    textStyle: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorsConfig.colorBlack,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),

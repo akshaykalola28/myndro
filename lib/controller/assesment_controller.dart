@@ -48,6 +48,5 @@ class AssessmentController extends BaseController {
 
   void goToEnd() async {
     isCompleted.value = !isCompleted.value;
-    ;
   }
 }

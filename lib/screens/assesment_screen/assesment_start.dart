@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/constant/constant.dart';
@@ -56,11 +55,11 @@ class AssessmentStartScreen extends GetView<AssessmentController> {
                       fontSize: 16.0),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               ElevatedButton(
-                child: Text('Get Started'),
+                child: const Text('Get Started'),
                 onPressed: () {
                   Get.toNamed(AssessmentScreen.pageId);
                 },

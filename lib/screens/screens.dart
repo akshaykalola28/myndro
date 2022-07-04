@@ -17,4 +17,7 @@ export 'expert_detail/expert_detail.dart';
 export 'assesment_screen/assesment_screen.dart';
 export 'assesment_screen/assesment_start.dart';
 export 'assesment_screen/assessment_end.dart';
+export 'assesment_screen/all_assesments_navigation.dart';
 export 'wallet_screen/wallet_screen.dart';
+export 'setting_screen/setting_screen.dart';
+export 'setting_screen/2_step_verification.dart';

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:myndro/binding/home_binding.dart';
 import 'binding/binding.dart';
 import 'screens/screens.dart';
 
@@ -10,7 +9,7 @@ final List<GetPage> appPages = [
       binding: SplashScreenBinding()),
   GetPage(
       name: UserRegistration.pageId,
-      page: () => UserRegistration(),
+      page: () => const UserRegistration(),
       binding: RegistrationBinding()),
   GetPage(
       name: LoginScreen.pageId,
@@ -54,7 +53,7 @@ final List<GetPage> appPages = [
       binding: OnBoardingBinding()),
   GetPage(
       name: VerificationCodeScreen.pageId,
-      page: () => const VerificationCodeScreen(),
+      page: () => VerificationCodeScreen(),
       binding: RegistrationBinding()),
   GetPage(
       name: DashboardScreen.pageId,
@@ -66,22 +65,34 @@ final List<GetPage> appPages = [
       binding: HomeBinding()),
   GetPage(
       name: ExpertDetailScreen.pageId,
-      page: () => ExpertDetailScreen(),
+      page: () => const ExpertDetailScreen(),
       binding: ExpertDetailBinding()),
   GetPage(
       name: AssessmentScreen.pageId,
-      page: () => AssessmentScreen(),
+      page: () => const AssessmentScreen(),
       binding: AssessmentBinding()),
   GetPage(
       name: AssessmentStartScreen.pageId,
-      page: () => AssessmentStartScreen(),
+      page: () => const AssessmentStartScreen(),
       binding: AssessmentBinding()),
   GetPage(
       name: AssessmentEndScreen.pageId,
       page: () => AssessmentEndScreen(),
       binding: AssessmentBinding()),
   GetPage(
+      name: AllAssessmentsNav.pageId,
+      page: () => AllAssessmentsNav(),
+      binding: AssessmentBinding()),
+  GetPage(
       name: WalletScreen.pageId,
-      page: () => WalletScreen(),
+      page: () => const WalletScreen(),
       binding: WalletBinding()),
+  GetPage(
+      name: SettingScreen.pageId,
+      page: () => SettingScreen(),
+      binding: SettingBinding()),
+  GetPage(
+      name: TwoStepVerification.pageId,
+      page: () => TwoStepVerification(),
+      binding: SettingBinding()),
 ];

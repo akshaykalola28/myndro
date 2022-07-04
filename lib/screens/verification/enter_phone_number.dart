@@ -111,8 +111,9 @@ class EnterPhoneNumber extends GetView<PhoneNumberController> {
                       const SizedBox(height: 30,),
                       GestureDetector(
                         onTap: (){
-                          Get.toNamed(VerificationCodeScreen.pageId);
-                        },
+                          Get.toNamed(VerificationCodeScreen.pageId,
+                                arguments: false);
+                          },
                           child: loginButtonWidget('Submit',)),
                     ],
                   ),
