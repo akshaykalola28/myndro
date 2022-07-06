@@ -24,64 +24,17 @@ class ExpertDetailContainer extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: 70,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          color: ColorsConfig.colorBlue,
-                          border: Border.all(color: ColorsConfig.colorBlue),
-                          borderRadius:
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.contain,
+                          image: AssetImage(ImagePath.iconHuman)),
+                      color: ColorsConfig.colorBlue,
+                      borderRadius:
                           const BorderRadius.all(Radius.circular(50))),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 10,
-                      child: Container(
-                        width: 55.0,
-                        height: 55.0,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                ImagePath.humanPhone,
-                              ),
-                              fit: BoxFit.fill,
-                              alignment: Alignment.bottomCenter,
-                            ),
-                            color: ColorsConfig.colorBlue,
-                            border: Border.all(color: ColorsConfig.colorBlue),
-                            borderRadius:
-                            const BorderRadius.all(Radius.circular(50))),
-                      ),
-                    ),
-                  ],
                 ),
-                /*  Container(
-                 width: 80.0,
-                 height: 80.0,
-
-                 decoration: BoxDecoration(
-                   color: ColorsConfig.colorBlue,
-                     border: Border.all(
-                       color:ColorsConfig.colorBlue
-                     ),
-                     borderRadius: BorderRadius.all(Radius.circular(50))
-                 ),
-                 alignment: Alignment.bottomCenter, // where to position the child
-                 child: Container(
-                   width: 65.0,
-                   height: 55.0,
-                 child: Icon(Icons.person_sharp,color: ColorsConfig.colorWhite,size: 65,),
-                   decoration: BoxDecoration(
-                       border: Border.all(
-                           color:ColorsConfig.colorBlue
-                       ),
-                       borderRadius: BorderRadius.all(Radius.circular(50))
-                   ),
-                 ),
-               ),*/
-
                 const SizedBox(
                   width: 20,
                 ),

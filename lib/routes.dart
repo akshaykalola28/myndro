@@ -95,4 +95,8 @@ final List<GetPage> appPages = [
       name: TwoStepVerification.pageId,
       page: () => TwoStepVerification(),
       binding: SettingBinding()),
+  GetPage(
+      name: SearchScreen.pageId,
+      page: () => SearchScreen(),
+      binding: HomeBinding()),
 ];

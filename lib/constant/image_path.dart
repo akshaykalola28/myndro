@@ -42,4 +42,5 @@ mixin ImagePath{
   static String askImg = 'assets/images/ask_img.png';
   static String imgNote = 'assets/images/img_note.png';
   static String lockerImg = 'assets/images/locker_img.png';
+  static String iconHuman = 'assets/images/icon_human.png';
 }

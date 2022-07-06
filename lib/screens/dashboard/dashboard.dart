@@ -26,40 +26,16 @@ class DashboardScreen extends StatelessWidget {
                 child: Center(
                   child: Column(
                     children: [
-                      Stack(
-                        children: [
-                          Container(
-                            height: 90,
-                            width: 90,
-                            decoration: BoxDecoration(
-                                color: ColorsConfig.colorGreen,
-                                border:
-                                    Border.all(color: ColorsConfig.colorBlue),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(50))),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            left: 10,
-                            child: Container(
-                              width: 75.0,
-                              height: 70.0,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      ImagePath.humanPhone,
-                                    ),
-                                    fit: BoxFit.fill,
-                                    alignment: Alignment.bottomCenter,
-                                  ),
-                                  color: ColorsConfig.colorGreen,
-                                  border: Border.all(
-                                      color: ColorsConfig.colorGreen),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50))),
-                            ),
-                          ),
-                        ],
+                      Container(
+                        height: 90,
+                        width: 90,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.contain,
+                                image: AssetImage(ImagePath.iconHuman)),
+                            color: ColorsConfig.colorGreen,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50))),
                       ),
                       SizedBox(
                         height: 10,

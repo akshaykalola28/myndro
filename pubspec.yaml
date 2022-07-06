@@ -45,6 +45,7 @@ dependencies:
   syncfusion_flutter_gauges: ^20.1.61
   like_button: ^2.0.4
   table_calendar: ^3.0.6
+  filter_list: ^1.0.2
 
 dev_dependencies:
   flutter_test:
