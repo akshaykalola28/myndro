@@ -44,6 +44,7 @@ dependencies:
   percent_indicator: ^4.2.2
   syncfusion_flutter_gauges: ^20.1.61
   like_button: ^2.0.4
+  table_calendar: ^3.0.6
 
 dev_dependencies:
   flutter_test:

@@ -33,13 +33,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<User>? selectedUserList = [];
   int _current = 0;
   final CarouselController _controller = CarouselController();
   late List<Widget> imageSliders = imgList
       .asMap()
       .entries
       .map((item) => Container(
-    margin: const EdgeInsets.symmetric(horizontal: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
             width: Get.width,
             decoration: BoxDecoration(
               border: Border.all(
@@ -59,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ))
       .toList();
 
-  late List<Widget> imgData = hosImg.map((item) => PackagesWidget(item: item)).toList();
+  late List<Widget> imgData =
+      hosImg.map((item) => PackagesWidget(item: item)).toList();
 
 /*  late List<Widget> imageSliders = imgList
       .map((item) => Container(
@@ -136,10 +138,32 @@ IconButton(onPressed: (){
                     onPressed: widget.onDrawerClick),
                 Expanded(
                   child: Container(
-                    height: 50,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    child: TextField(
+                      height: 50,
+                      decoration: const BoxDecoration(
+                        color: ColorsConfig.colorWhite,
+                        borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Search something ...',
+                            style: TextStyle(
+                              fontFamily: AppTextStyle.microsoftJhengHei,
+                              fontSize: 15.0,
+                              color: ColorsConfig.colorBlue.withOpacity(0.8),
+                            ),
+                          ),
+                          Spacer(),
+                          Icon(
+                            Icons.search,
+                            color: ColorsConfig.colorBlue,
+                          ),
+                        ],
+                      )
+                      /*TextField(
                         style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
                           fontSize: 15.0,
@@ -164,8 +188,9 @@ IconButton(onPressed: (){
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none),
-                        )),
-                  ),
+                        ))*/
+
+                      ),
                 ),
               ],
             ),
@@ -188,7 +213,7 @@ IconButton(onPressed: (){
                               Container(
                                 color: ColorsConfig.colorBlue,
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
+                                const EdgeInsets.symmetric(horizontal: 25),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +222,7 @@ IconButton(onPressed: (){
                                       'Welcome!',
                                       style: TextStyle(
                                         fontFamily:
-                                            AppTextStyle.microsoftJhengHei,
+                                        AppTextStyle.microsoftJhengHei,
                                         fontSize: 23.0,
                                         fontWeight: FontWeight.w600,
                                         color: ColorsConfig.colorWhite,
@@ -210,7 +235,7 @@ IconButton(onPressed: (){
                                       'Hello, Josheff!',
                                       style: TextStyle(
                                         fontFamily:
-                                            AppTextStyle.microsoftJhengHei,
+                                        AppTextStyle.microsoftJhengHei,
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600,
                                         color: ColorsConfig.colorWhite,
@@ -223,7 +248,7 @@ IconButton(onPressed: (){
                                       'How can we help you?',
                                       style: TextStyle(
                                         fontFamily:
-                                            AppTextStyle.microsoftJhengHei,
+                                        AppTextStyle.microsoftJhengHei,
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600,
                                         color: ColorsConfig.colorWhite,
@@ -391,7 +416,7 @@ IconButton(onPressed: (){
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children:
-                                      imgList.asMap().entries.map((entry) {
+                                  imgList.asMap().entries.map((entry) {
                                     return GestureDetector(
                                       onTap: () =>
                                           _controller.animateToPage(entry.key),
@@ -403,14 +428,14 @@ IconButton(onPressed: (){
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: (Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : ColorsConfig.colorBlue)
+                                                .brightness ==
+                                                Brightness.dark
+                                                ? Colors.white
+                                                : ColorsConfig.colorBlue)
                                                 .withOpacity(
-                                                    _current == entry.key
-                                                        ? 0.99
-                                                        : 0.6)),
+                                                _current == entry.key
+                                                    ? 0.99
+                                                    : 0.6)),
                                       ),
                                     );
                                   }).toList(),
@@ -421,7 +446,7 @@ IconButton(onPressed: (){
                               ),
                               Container(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 6),
+                                const EdgeInsets.symmetric(vertical: 6),
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: ColorsConfig.colorBlack,
@@ -440,7 +465,7 @@ IconButton(onPressed: (){
                                         'Upcoming Appointment',
                                         style: TextStyle(
                                           fontFamily:
-                                              AppTextStyle.microsoftJhengHei,
+                                          AppTextStyle.microsoftJhengHei,
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w600,
                                           color: ColorsConfig.colorBlack,
@@ -461,7 +486,7 @@ IconButton(onPressed: (){
                                             children: [
                                               Padding(
                                                 padding:
-                                                    const EdgeInsets.all(5.0),
+                                                const EdgeInsets.all(5.0),
                                                 child: Center(
                                                   child: Text('Name',
                                                       style: TextStyle(
@@ -469,7 +494,7 @@ IconButton(onPressed: (){
                                                             .microsoftJhengHei,
                                                         fontSize: 15.0,
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                        FontWeight.w600,
                                                         color: ColorsConfig
                                                             .colorWhite,
                                                       )),
@@ -477,7 +502,7 @@ IconButton(onPressed: (){
                                               ),
                                               Padding(
                                                 padding:
-                                                    const EdgeInsets.all(5.0),
+                                                const EdgeInsets.all(5.0),
                                                 child: Center(
                                                   child: Text('Timing',
                                                       style: TextStyle(
@@ -485,7 +510,7 @@ IconButton(onPressed: (){
                                                             .microsoftJhengHei,
                                                         fontSize: 15.0,
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                        FontWeight.w600,
                                                         color: ColorsConfig
                                                             .colorWhite,
                                                       )),
@@ -493,13 +518,13 @@ IconButton(onPressed: (){
                                               ),
                                               Padding(
                                                 padding:
-                                                    const EdgeInsets.all(5.0),
+                                                const EdgeInsets.all(5.0),
                                                 child: Center(
                                                     child: Image.asset(
-                                                  ImagePath.iconList,
-                                                  height: 20,
-                                                  width: 20,
-                                                )),
+                                                      ImagePath.iconList,
+                                                      height: 20,
+                                                      width: 20,
+                                                    )),
                                               ),
                                             ]),
                                         TableRow(children: [
@@ -536,17 +561,17 @@ IconButton(onPressed: (){
                                                         .microsoftJhengHei,
                                                     fontSize: 15.0,
                                                     color:
-                                                        ColorsConfig.colorBlack,
+                                                    ColorsConfig.colorBlack,
                                                   )),
                                             ),
                                           ),
                                           Center(
                                             child: Container(
                                               margin:
-                                                  const EdgeInsets.only(top: 5),
+                                              const EdgeInsets.only(top: 5),
                                               padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 5, 10, 5),
+                                              const EdgeInsets.fromLTRB(
+                                                  10, 5, 10, 5),
                                               decoration: BoxDecoration(
                                                 color: ColorsConfig.colorBlue,
                                                 border: Border.all(
@@ -555,7 +580,7 @@ IconButton(onPressed: (){
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(3.0),
+                                                BorderRadius.circular(3.0),
                                               ),
                                               child: Text('View',
                                                   style: TextStyle(
@@ -563,7 +588,7 @@ IconButton(onPressed: (){
                                                         .microsoftJhengHei,
                                                     fontSize: 12.0,
                                                     color:
-                                                        ColorsConfig.colorWhite,
+                                                    ColorsConfig.colorWhite,
                                                   )),
                                             ),
                                           ),
@@ -602,17 +627,17 @@ IconButton(onPressed: (){
                                                         .microsoftJhengHei,
                                                     fontSize: 15.0,
                                                     color:
-                                                        ColorsConfig.colorBlack,
+                                                    ColorsConfig.colorBlack,
                                                   )),
                                             ),
                                           ),
                                           Center(
                                             child: Container(
                                               margin:
-                                                  const EdgeInsets.only(top: 5),
+                                              const EdgeInsets.only(top: 5),
                                               padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 5, 10, 5),
+                                              const EdgeInsets.fromLTRB(
+                                                  10, 5, 10, 5),
                                               decoration: BoxDecoration(
                                                 color: ColorsConfig.colorBlue,
                                                 border: Border.all(
@@ -621,7 +646,7 @@ IconButton(onPressed: (){
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(3.0),
+                                                BorderRadius.circular(3.0),
                                               ),
                                               child: Text('View',
                                                   style: TextStyle(
@@ -629,7 +654,7 @@ IconButton(onPressed: (){
                                                         .microsoftJhengHei,
                                                     fontSize: 12.0,
                                                     color:
-                                                        ColorsConfig.colorWhite,
+                                                    ColorsConfig.colorWhite,
                                                   )),
                                             ),
                                           ),
@@ -660,13 +685,13 @@ IconButton(onPressed: (){
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Recommended  Experts',
                                         style: TextStyle(
                                           fontFamily:
-                                              AppTextStyle.microsoftJhengHei,
+                                          AppTextStyle.microsoftJhengHei,
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w600,
                                           color: ColorsConfig.colorBlack,
@@ -681,15 +706,15 @@ IconButton(onPressed: (){
                                             decoration: BoxDecoration(
                                                 border: Border.all(
                                                   color:
-                                                      ColorsConfig.colorBlack,
+                                                  ColorsConfig.colorBlack,
                                                   style: BorderStyle.solid,
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(8.0)),
+                                                BorderRadius.circular(8.0)),
                                             child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                              BorderRadius.circular(8.0),
                                               child: Image.asset(
                                                 ImagePath.girl,
                                                 fit: BoxFit.cover,
@@ -703,9 +728,9 @@ IconButton(onPressed: (){
                                           ),
                                           Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
@@ -758,7 +783,7 @@ IconButton(onPressed: (){
                                                     itemCount: 5,
                                                     // itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                                                     itemBuilder: (context, _) =>
-                                                        const Icon(
+                                                    const Icon(
                                                       Icons.star,
                                                       color: ColorsConfig
                                                           .colorBlue,
@@ -776,7 +801,7 @@ IconButton(onPressed: (){
                                                       .microsoftJhengHei,
                                                   fontSize: 18.0,
                                                   color:
-                                                      ColorsConfig.colorBlack,
+                                                  ColorsConfig.colorBlack,
                                                 ),
                                               ),
                                             ],
@@ -820,14 +845,14 @@ IconButton(onPressed: (){
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: (Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : ColorsConfig.colorBlue)
+                                                .brightness ==
+                                                Brightness.dark
+                                                ? Colors.white
+                                                : ColorsConfig.colorBlue)
                                                 .withOpacity(
-                                                    _current == entry.key
-                                                        ? 0.99
-                                                        : 0.6)),
+                                                _current == entry.key
+                                                    ? 0.99
+                                                    : 0.6)),
                                       ),
                                     );
                                   }).toList(),
@@ -857,11 +882,11 @@ IconButton(onPressed: (){
                               children: [
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(15, 15, 0, 15),
+                                  const EdgeInsets.fromLTRB(15, 15, 0, 15),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                           padding: const EdgeInsets.all(6),
@@ -872,7 +897,7 @@ IconButton(onPressed: (){
                                               width: 1.0,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(8.0),
+                                            BorderRadius.circular(8.0),
                                           ),
                                           child: Text(
                                             'Wallet',
@@ -890,7 +915,7 @@ IconButton(onPressed: (){
                                         'Myndro Balance',
                                         style: TextStyle(
                                             fontFamily:
-                                                AppTextStyle.microsoftJhengHei,
+                                            AppTextStyle.microsoftJhengHei,
                                             fontSize: 20.0,
                                             color: ColorsConfig.colorBlue,
                                             fontWeight: FontWeight.w800),
@@ -902,7 +927,7 @@ IconButton(onPressed: (){
                                         '100',
                                         style: TextStyle(
                                             fontFamily:
-                                                AppTextStyle.microsoftJhengHei,
+                                            AppTextStyle.microsoftJhengHei,
                                             fontSize: 20.0,
                                             color: ColorsConfig.colorBlack,
                                             fontWeight: FontWeight.w800),
@@ -924,14 +949,14 @@ IconButton(onPressed: (){
                                                 width: 1.0,
                                               ),
                                               borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                              BorderRadius.circular(8.0),
                                             ),
                                             child: Row(
                                               children: [
                                                 const Icon(
                                                   Icons.add,
                                                   color:
-                                                      ColorsConfig.colorWhite,
+                                                  ColorsConfig.colorWhite,
                                                   size: 20,
                                                 ),
                                                 const SizedBox(
@@ -944,7 +969,7 @@ IconButton(onPressed: (){
                                                         .microsoftJhengHei,
                                                     fontSize: 18.0,
                                                     color:
-                                                        ColorsConfig.colorWhite,
+                                                    ColorsConfig.colorWhite,
                                                   ),
                                                 ),
                                               ],
@@ -977,3 +1002,33 @@ IconButton(onPressed: (){
     );
   }
 }
+
+class User {
+  final String? name;
+  final String? avatar;
+
+  User({this.name, this.avatar});
+}
+
+List<User> userList = [
+  User(name: "Abigail", avatar: "user.png"),
+  User(name: "Audrey", avatar: "user.png"),
+  User(name: "Ava", avatar: "user.png"),
+  User(name: "Bella", avatar: "user.png"),
+  User(name: "Bernadette", avatar: "user.png"),
+  User(name: "Carol", avatar: "user.png"),
+  User(name: "Claire", avatar: "user.png"),
+  User(name: "Deirdre", avatar: "user.png"),
+  User(name: "Donna", avatar: "user.png"),
+  User(name: "Dorothy", avatar: "user.png"),
+  User(name: "Faith", avatar: "user.png"),
+  User(name: "Gabrielle", avatar: "user.png"),
+  User(name: "Grace", avatar: "user.png"),
+  User(name: "Hannah", avatar: "user.png"),
+  User(name: "Heather", avatar: "user.png"),
+  User(name: "Irene", avatar: "user.png"),
+  User(name: "Jan", avatar: "user.png"),
+  User(name: "Jane", avatar: "user.png"),
+  User(name: "Julia", avatar: "user.png"),
+  User(name: "Kylie", avatar: "user.png"),
+];

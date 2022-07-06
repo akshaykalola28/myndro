@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../../constant/constant.dart';
+import '../../controller/controller.dart';
+import '../../util/events_temp.dart';
 import '../../widgets/widgets.dart';
 
 class ExpertDetailScreen extends StatefulWidget {
@@ -20,6 +23,75 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
   ScrollController controller = ScrollController();
   late List<Widget> imgData =
       hosImg.map((item) => PackagesWidget(item: item)).toList();
+  ExpertDetailController expertDetailController = ExpertDetailController();
+  late final ValueNotifier<List<Event>> _selectedEvents;
+  CalendarFormat _calendarFormat = CalendarFormat.week;
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  DateTime? _rangeStart;
+  DateTime? _rangeEnd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _selectedDay = _focusedDay;
+    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+  }
+
+  @override
+  void dispose() {
+    _selectedEvents.dispose();
+    super.dispose();
+  }
+
+  List<Event> _getEventsForDay(DateTime day) {
+    // Implementation example
+    return kEvents[day] ?? [];
+  }
+
+  List<Event> _getEventsForRange(DateTime start, DateTime end) {
+    // Implementation example
+    final days = daysInRange(start, end);
+
+    return [
+      for (final d in days) ..._getEventsForDay(d),
+    ];
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+        _rangeStart = null; // Important to clean those
+        _rangeEnd = null;
+        _rangeSelectionMode = RangeSelectionMode.toggledOff;
+      });
+
+      _selectedEvents.value = _getEventsForDay(selectedDay);
+    }
+  }
+
+  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
+    setState(() {
+      _selectedDay = null;
+      _focusedDay = focusedDay;
+      _rangeStart = start;
+      _rangeEnd = end;
+      _rangeSelectionMode = RangeSelectionMode.toggledOn;
+    });
+
+    // `start` or `end` could be null
+    if (start != null && end != null) {
+      _selectedEvents.value = _getEventsForRange(start, end);
+    } else if (start != null) {
+      _selectedEvents.value = _getEventsForDay(start);
+    } else if (end != null) {
+      _selectedEvents.value = _getEventsForDay(end);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +114,178 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                   ),
                   const ExpertDetailContainer(),
                   const SizedBox(
-                    height: 20,
+                    height: 18,
+                  ),
+                  Card(
+                    color: ColorsConfig.colorLightGrey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 15),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Please Select & Book Appointment',
+                            style: TextStyle(
+                              fontFamily: AppTextStyle.microsoftJhengHei,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w800,
+                              color: ColorsConfig.colorBlack,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    iconContainer(Icons.videocam, 'Video call',
+                                        isPriceVisible: true,
+                                        subText: '\u{20B9}${' 500'}'),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 25),
+                                      child: dropDown(),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                  child: Column(
+                                children: [
+                                  iconContainer(
+                                      Icons.phone_in_talk_rounded, 'Audio call',
+                                      isPriceVisible: true,
+                                      subText: '\u{20B9}${' 400'}'),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: dropDown(),
+                                  )
+                                ],
+                              ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 18,
+                  ),
+                  Card(
+                    color: ColorsConfig.colorLightGrey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 15),
+                      child: Column(
+                        children: [
+                          TableCalendar<Event>(
+                            firstDay: kFirstDay,
+                            lastDay: kLastDay,
+                            focusedDay: _focusedDay,
+                            selectedDayPredicate: (day) =>
+                                isSameDay(_selectedDay, day),
+                            rangeStartDay: _rangeStart,
+                            rangeEndDay: _rangeEnd,
+                            calendarFormat: _calendarFormat,
+                            rangeSelectionMode: _rangeSelectionMode,
+                            // eventLoader: _getEventsForDay,
+                            availableGestures: AvailableGestures.none,
+                            startingDayOfWeek: StartingDayOfWeek.monday,
+                            availableCalendarFormats: const {
+                              CalendarFormat.week: 'Week',
+                            },
+                            calendarStyle: CalendarStyle(
+                              outsideDaysVisible: false,
+                              todayDecoration: BoxDecoration(
+                                color: ColorsConfig.colorBlue.withOpacity(0.5),
+                                shape: BoxShape.circle,
+                              ),
+                              selectedDecoration: BoxDecoration(
+                                color: ColorsConfig.colorBlue,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            onDaySelected: _onDaySelected,
+                            onRangeSelected: _onRangeSelected,
+                            onPageChanged: (focusedDay) {
+                              _focusedDay = focusedDay;
+                            },
+                          ),
+                          ValueListenableBuilder<List<Event>>(
+                            valueListenable: _selectedEvents,
+                            builder: (context, value, _) {
+                              return GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  crossAxisSpacing: 15.0,
+                                  mainAxisSpacing: 15.0,
+                                  childAspectRatio: (Get.width / 4) / 40,
+                                ),
+                                padding: EdgeInsets.zero,
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: value.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                      border: Border.all(
+                                        color: ColorsConfig.colorBlack,
+                                        style: BorderStyle.solid,
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '0$index:10',
+                                        style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 15.0,
+                                            color: ColorsConfig.colorBlack,
+                                            fontWeight: FontWeight.w600),
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 18,
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: const Divider(
-                        color: ColorsConfig.colorBlack, thickness: 0.5),
+                    child:
+                        Divider(color: ColorsConfig.colorBlack, thickness: 0.5),
                   ),
-                  /*  Padding(
+                  Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: Text(
                       'Appointment Request',
@@ -59,7 +295,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                           color: ColorsConfig.colorGreyy,
                           fontWeight: FontWeight.w600),
                     ),
-                  ),*/
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -102,146 +338,6 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                       }).toList(),
                     ),
                   ]),
-                  /* SizedBox(
-                    height: Get.height * 0.3,
-                    child: Card(
-                      color: ColorsConfig.colorLightGrey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      elevation: 2,
-                      semanticContainer: true,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      child: DraggableScrollbar(
-                        controller: controller,
-                        child: ListView.builder(
-                          controller: controller,
-                          itemCount: 10,
-                          // itemExtent: 100.0,
-                          padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                              child: Row(
-                                children: [
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        height: 50,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                            color: ColorsConfig.colorBlue,
-                                            border: Border.all(
-                                                color: ColorsConfig.colorBlue),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(50))),
-                                      ),
-                                      Positioned(
-                                        bottom: 0,
-                                        left: 10,
-                                        child: Container(
-                                          width: 40.0,
-                                          height: 40.0,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                  ImagePath.humanPhone,
-                                                ),
-                                                fit: BoxFit.fill,
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                              ),
-                                              color: ColorsConfig.colorBlue,
-                                              border: Border.all(
-                                                  color:
-                                                      ColorsConfig.colorBlue),
-                                              borderRadius: const BorderRadius
-                                                      .all(
-                                                  Radius.circular(50))),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Vandana Kapoor',
-                                        style: TextStyle(
-                                          fontFamily:
-                                              AppTextStyle.microsoftJhengHei,
-                                          fontSize: 13.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorsConfig.colorGreyy,
-                                        ),
-                                      ),
-                                      Text(
-                                        'data',
-                                        style: TextStyle(
-                                          fontFamily:
-                                              AppTextStyle.microsoftJhengHei,
-                                          fontSize: 11.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorsConfig.colorGreyy,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          12, 3, 12, 3),
-                                      decoration: BoxDecoration(
-                                          color: ColorsConfig.colorBlue
-                                              .withOpacity(0.2),
-                                          border: Border.all(
-                                              color: Colors.transparent),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(25))),
-                                      child: Text(
-                                        'Accept',
-                                        style: TextStyle(
-                                          fontFamily:
-                                              AppTextStyle.microsoftJhengHei,
-                                          fontSize: 13.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorsConfig.colorBlue,
-                                        ),
-                                      )),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                        heightScrollThumb: 48.0,
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        backgroundColor: ColorsConfig.colorGreyy,
-                        scrollThumbBuilder: (
-                          Color backgroundColor,
-                          Animation<double> thumbAnimation,
-                          Animation<double> labelAnimation,
-                          double height, {
-                          Text? labelText,
-                          BoxConstraints? labelConstraints,
-                        }) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: backgroundColor,
-                                border: Border.all(color: Colors.transparent),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(25))),
-                            height: height,
-                            width: 8.0,
-                          );
-                        },
-                      ),
-                    ),
-                  ),*/
                   const SizedBox(
                     height: 20,
                   ),
@@ -251,6 +347,71 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget dropDown() {
+    return DropdownButtonFormField<String>(
+      iconDisabledColor: ColorsConfig.colorBlue,
+      iconEnabledColor: ColorsConfig.colorBlue,
+      isExpanded: false,
+      value: expertDetailController.dropdownValue,
+      decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+        hintText: 'Select',
+        // labelText: 'Select',
+        iconColor: ColorsConfig.colorGreyy,
+        hintStyle: TextStyle(
+          fontFamily: AppTextStyle.microsoftJhengHei,
+          fontSize: 15.0,
+          color: ColorsConfig.colorGreyy,
+        ),
+        labelStyle: TextStyle(
+          fontFamily: AppTextStyle.microsoftJhengHei,
+          fontSize: 15.0,
+          color: ColorsConfig.colorGreyy,
+        ),
+        filled: true,
+        fillColor: ColorsConfig.colorWhite,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: ColorsConfig.colorGreyy,
+            width: 1.5,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: ColorsConfig.colorGreyy,
+            width: 1.5,
+          ),
+        ),
+      ),
+      items: <String>[
+        'Lot 1',
+        'Lot 2',
+        'Lot 3',
+        'Lot 4',
+      ].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(
+            value,
+            style: TextStyle(
+              fontFamily: AppTextStyle.microsoftJhengHei,
+              fontSize: 13.0,
+              color: ColorsConfig.colorGreyy,
+            ),
+          ),
+        );
+      }).toList(),
+      onChanged: (String? newValue) {
+        setState(() {
+          expertDetailController.dropdownValue = newValue;
+        });
+      },
     );
   }
 }

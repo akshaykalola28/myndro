@@ -21,3 +21,4 @@ export 'assesment_screen/all_assesments_navigation.dart';
 export 'wallet_screen/wallet_screen.dart';
 export 'setting_screen/setting_screen.dart';
 export 'setting_screen/2_step_verification.dart';
+export 'search_screen/search_screen.dart';

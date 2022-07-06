@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 
@@ -32,7 +33,7 @@ class ExpertDetailContainer extends StatelessWidget {
                           color: ColorsConfig.colorBlue,
                           border: Border.all(color: ColorsConfig.colorBlue),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(50))),
+                          const BorderRadius.all(Radius.circular(50))),
                     ),
                     Positioned(
                       bottom: 0,
@@ -51,7 +52,7 @@ class ExpertDetailContainer extends StatelessWidget {
                             color: ColorsConfig.colorBlue,
                             border: Border.all(color: ColorsConfig.colorBlue),
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(50))),
+                            const BorderRadius.all(Radius.circular(50))),
                       ),
                     ),
                   ],
@@ -97,8 +98,8 @@ class ExpertDetailContainer extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
                           fontSize: 18.0,
-                          fontWeight: FontWeight.w600,
-                          color: ColorsConfig.colorGreyy,
+                          fontWeight: FontWeight.w800,
+                          color: ColorsConfig.colorBlack,
                         ),
                       ),
                       const SizedBox(
@@ -122,9 +123,9 @@ class ExpertDetailContainer extends StatelessWidget {
                         'Specialities',
                         style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 13.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w600,
-                          color: ColorsConfig.colorGreyy,
+                          color: ColorsConfig.colorBlack.withOpacity(0.8),
                         ),
                       ),
                       const SizedBox(
@@ -134,7 +135,7 @@ class ExpertDetailContainer extends StatelessWidget {
                         'dcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskf',
                         style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 11.0,
+                          fontSize: 13.0,
                           fontWeight: FontWeight.w400,
                           color: ColorsConfig.colorGreyy,
                         ),
@@ -197,145 +198,67 @@ class ExpertDetailContainer extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 12,
+              height: 10,
             ),
-            /*    Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Column(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
                 children: [
-                  */ /*Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'D.O.B',
-                              style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w600,
-                                color: ColorsConfig.colorGreyy,
-                              ),
-                            ),
-                            Text(
-                              'data',
-                              style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 11.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorsConfig.colorGreyy,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),*/ /*
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  */ /*Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Container(
-                            margin: const EdgeInsets.only(right: 8),
-                            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                            decoration: BoxDecoration(
-                                color: ColorsConfig.colorBlue,
-                                border: Border.all(color: Colors.transparent),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(25))),
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.phone,
-                                  size: 13,
-                                  color: ColorsConfig.colorWhite,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  '+91 0123456789',
-                                  style: TextStyle(
-                                    fontFamily: AppTextStyle.microsoftJhengHei,
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: ColorsConfig.colorWhite,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                      Container(
-                          margin: const EdgeInsets.only(right: 8),
-                          padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border:
-                                  Border.all(color: ColorsConfig.colorGreyy),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(25))),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.folder_open_outlined,
-                                size: 13,
-                                color: ColorsConfig.colorGreyy,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Docs',
-                                style: TextStyle(
-                                  fontFamily: AppTextStyle.microsoftJhengHei,
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorsConfig.colorGreyy,
-                                ),
-                              ),
-                            ],
-                          )),
-                      Container(
-                          padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border:
-                                  Border.all(color: ColorsConfig.colorGreyy),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(25))),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.chat_bubble_outline,
-                                size: 13,
-                                color: ColorsConfig.colorGreyy,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'chat',
-                                style: TextStyle(
-                                  fontFamily: AppTextStyle.microsoftJhengHei,
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorsConfig.colorGreyy,
-                                ),
-                              ),
-                            ],
-                          )),
-                    ],
-                  ),*/ /*
+                  Expanded(child: iconContainer(Icons.videocam, 'Video call')),
+                  Expanded(
+                      child: iconContainer(
+                          Icons.phone_in_talk_rounded, 'Audio call'))
                 ],
               ),
-            ),*/
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Widget iconContainer(IconData icon, String text,
+    {bool isPriceVisible = false, String? subText}) {
+  return Row(
+    children: [
+      Container(
+        padding: EdgeInsets.all(6),
+        child: Icon(icon, size: 25, color: ColorsConfig.colorWhite),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle, color: ColorsConfig.colorBlue),
+      ),
+      SizedBox(
+        width: 15,
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontFamily: AppTextStyle.microsoftJhengHei,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+              color: ColorsConfig.colorBlack,
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          isPriceVisible
+              ? Text(
+                  subText!,
+                  style: TextStyle(
+                    fontFamily: AppTextStyle.microsoftJhengHei,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                    color: ColorsConfig.colorBlack,
+                  ),
+                )
+              : Container(),
+        ],
+      )
+    ],
+  );
 }

@@ -258,7 +258,7 @@ class DashboardScreen extends StatelessWidget {
             HomeScreen(onDrawerClick: () {
               _scaffoldKey.currentState!.openDrawer();
             }),
-            AllAssessmentsNav(),
+            AssessmentStartScreen(),
             CreatePasswordScreen(),
           ],
         ),
