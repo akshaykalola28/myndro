@@ -79,7 +79,9 @@ class AssessmentScreen extends GetView<AssessmentController> {
                         //   height: 20,
                         // ),
                         Expanded(
-                          child: Column(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               ElevatedButton(
                                 child: const Text('Yes'),
@@ -100,7 +102,7 @@ class AssessmentScreen extends GetView<AssessmentController> {
                                     )),
                               ),
                               const SizedBox(
-                                height: 10,
+                                width: 10,
                               ),
                               ElevatedButton(
                                 child: const Text('No'),
@@ -122,6 +124,9 @@ class AssessmentScreen extends GetView<AssessmentController> {
                               ),
                             ],
                           ),
+                        ),
+                        const SizedBox(
+                          height: 50,
                         )
                       ],
                     ),
