@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
-import 'package:myndro/screens/search_screen/search_screen.dart';
 import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
+import '../../util/common.dart';
 
 final List<String> imgList = [
   ImagePath.doc1,
@@ -64,6 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
   late List<Widget> imgData =
       hosImg.map((item) => PackagesWidget(item: item)).toList();
 
+  late List<Widget> experts =
+      expertImg.map((item) => RecommendedExperts(imgItem: item)).toList();
 /*  late List<Widget> imageSliders = imgList
       .map((item) => Container(
     width: Get.width,
@@ -435,7 +437,7 @@ IconButton(onPressed: (){
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children:
-                                  imgList.asMap().entries.map((entry) {
+                                      imgList.asMap().entries.map((entry) {
                                     return GestureDetector(
                                       onTap: () =>
                                           _controller.animateToPage(entry.key),
@@ -464,6 +466,7 @@ IconButton(onPressed: (){
                                 height: 25,
                               ),
                               Container(
+                                width: Get.width,
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 6),
                                 decoration: BoxDecoration(
@@ -494,7 +497,92 @@ IconButton(onPressed: (){
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Table(
+                                    SizedBox(
+                                      height: 100,
+                                      child: ListView.separated(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        itemCount: 2,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Icon(
+                                                  Icons.account_circle_rounded,
+                                                  size: 38,
+                                                  color:
+                                                      ColorsConfig.colorBlue),
+                                              Column(
+                                                children: [
+                                                  Text('Dr. Anil Patel',
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: ColorsConfig
+                                                            .colorBlack,
+                                                      )),
+                                                  Text('Psychiatrist',
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 13.0,
+                                                        color: ColorsConfig
+                                                            .colorGreyy,
+                                                      )),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text('14th july 2022',
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 15.0,
+                                                        color: ColorsConfig
+                                                            .colorBlack,
+                                                      )),
+                                                  Text('01:10',
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 15.0,
+                                                        color: ColorsConfig
+                                                            .colorBlack,
+                                                      )),
+                                                ],
+                                              ),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(6),
+                                                child: const Icon(
+                                                    Icons.videocam,
+                                                    size: 25,
+                                                    color: ColorsConfig
+                                                        .colorWhite),
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color:
+                                                        ColorsConfig.colorBlue),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                        separatorBuilder: (context, index) {
+                                          return const Divider(
+                                            color: ColorsConfig.colorBlack,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    /*  Table(
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
@@ -679,14 +767,15 @@ IconButton(onPressed: (){
                                           ),
                                         ]),
                                       ],
-                                    ),
+                                    ), */
                                   ],
                                 ),
                               ),
                               const SizedBox(
                                 height: 15,
                               ),
-                              GestureDetector(
+
+                              /* GestureDetector(
                                 onTap: () =>
                                     Get.toNamed(ExpertDetailScreen.pageId),
                                 child: Container(
@@ -737,100 +826,138 @@ IconButton(onPressed: (){
                                               child: Image.asset(
                                                 ImagePath.girl,
                                                 fit: BoxFit.cover,
-                                                height: 80,
-                                                width: 80,
+                                                // height: 80,
+                                                width: Get.width * 0.2,
                                               ),
                                             ),
                                           ),
                                           const SizedBox(
                                             width: 12,
                                           ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Dr.Sophia',
-                                                    style: TextStyle(
-                                                      fontFamily: AppTextStyle
-                                                          .microsoftJhengHei,
-                                                      fontSize: 18.0,
-                                                      color: ColorsConfig
-                                                          .colorBlack,
-                                                    ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Dr.Sophia',
+                                                  style: TextStyle(
+                                                    fontFamily: AppTextStyle
+                                                        .microsoftJhengHei,
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        ColorsConfig.colorBlack,
                                                   ),
-                                                  SizedBox(
-                                                    width: Get.width * 0.099,
-                                                  ),
-                                                  Text(
-                                                    '4.9 Review',
-                                                    style: TextStyle(
-                                                      fontFamily: AppTextStyle
-                                                          .microsoftJhengHei,
-                                                      fontSize: 18.0,
-                                                      color: ColorsConfig
-                                                          .colorBlack,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Psychologist',
-                                                    style: TextStyle(
-                                                      fontFamily: AppTextStyle
-                                                          .microsoftJhengHei,
-                                                      fontSize: 18.0,
-                                                      color: ColorsConfig
-                                                          .colorBlack,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: Get.width * 0.04,
-                                                  ),
-                                                  RatingBar.builder(
-                                                    itemSize: 22,
-                                                    initialRating: 3,
-                                                    minRating: 0,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: true,
-                                                    itemCount: 5,
-                                                    // itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                                                    itemBuilder: (context, _) =>
-                                                    const Icon(
-                                                      Icons.star,
-                                                      color: ColorsConfig
-                                                          .colorBlue,
-                                                    ),
-                                                    onRatingUpdate: (rating) {
-                                                      print(rating);
-                                                    },
-                                                  )
-                                                ],
-                                              ),
-                                              Text(
-                                                'Experiance :- 5 Years',
-                                                style: TextStyle(
-                                                  fontFamily: AppTextStyle
-                                                      .microsoftJhengHei,
-                                                  fontSize: 18.0,
-                                                  color:
-                                                      ColorsConfig.colorBlack,
                                                 ),
-                                              ),
-                                            ],
-                                          )
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  'Psychologist',
+                                                  style: TextStyle(
+                                                    fontFamily: AppTextStyle
+                                                        .microsoftJhengHei,
+                                                    fontSize: 15.0,
+                                                    color:
+                                                        ColorsConfig.colorBlack,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                RatingBar.builder(
+                                                  itemSize: 22,
+                                                  initialRating: 3,
+                                                  minRating: 0,
+                                                  direction: Axis.horizontal,
+                                                  allowHalfRating: true,
+                                                  itemCount: 5,
+                                                  // itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                                                  itemBuilder: (context, _) =>
+                                                      const Icon(
+                                                    Icons.star,
+                                                    color:
+                                                        ColorsConfig.colorBlue,
+                                                  ),
+                                                  onRatingUpdate: (rating) {
+                                                    print(rating);
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ],
-                                      )
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Common.iconContainer(
+                                                Icons.phone_in_talk_rounded,
+                                                'Audio call',
+                                                isPriceVisible: true,
+                                                subText: '\u{20B9}${' 400'}'),
+                                          ),
+                                          Expanded(
+                                            child: Common.iconContainer(
+                                                Icons.videocam, 'Video call',
+                                                isPriceVisible: true,
+                                                subText: '\u{20B9}${' 500'}'),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
-                              ),
+                              ), */
+                              Column(children: [
+                                CarouselSlider(
+                                  items: experts,
+                                  carouselController: _controller,
+                                  options: CarouselOptions(
+                                      enableInfiniteScroll: false,
+                                      viewportFraction: 1,
+                                      autoPlay: false,
+                                      enlargeCenterPage: false,
+                                      // aspectRatio: 1.0,
+                                      onPageChanged: (index, reason) {
+                                        setState(() {
+                                          _current = index;
+                                        });
+                                      }),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: hosImg.asMap().entries.map((entry) {
+                                    return GestureDetector(
+                                      onTap: () =>
+                                          _controller.animateToPage(entry.key),
+                                      child: Container(
+                                        width: 12.0,
+                                        height: 12.0,
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 8.0, horizontal: 4.0),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: (Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : ColorsConfig.colorBlue)
+                                                .withOpacity(
+                                                    _current == entry.key
+                                                        ? 0.99
+                                                        : 0.6)),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ]),
                               const SizedBox(
                                 height: 25,
                               ),

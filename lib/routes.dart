@@ -99,4 +99,16 @@ final List<GetPage> appPages = [
       name: SearchScreen.pageId,
       page: () => SearchScreen(),
       binding: HomeBinding()),
+  GetPage(
+      name: AskUSScreen.pageId,
+      page: () => const AskUSScreen(),
+      binding: AskUsBinding()),
+  GetPage(
+      name: DoctorNotesScreen.pageId,
+      page: () => const DoctorNotesScreen(),
+      binding: DoctorNotesBinding()),
+  GetPage(
+      name: OffersScreen.pageId,
+      page: () => OffersScreen(),
+      binding: OffersBinding()),
 ];

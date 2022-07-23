@@ -12,3 +12,7 @@ export 'home_binding.dart';
 export 'assesment_binding.dart';
 export 'wallet_binding.dart';
 export 'setting_binding.dart';
+export 'ask_us_binding.dart';
+export 'assesment_binding.dart';
+export 'doctor_notes_binding.dart';
+export 'offers_binding.dart';

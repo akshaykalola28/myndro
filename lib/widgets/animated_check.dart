@@ -9,7 +9,8 @@ class CheckAnimation extends StatefulWidget {
   final double? size;
   final VoidCallback? onComplete;
 
-  CheckAnimation({Key? key, this.size, this.onComplete}) : super(key: key);
+  const CheckAnimation({Key? key, this.size, this.onComplete})
+      : super(key: key);
 
   @override
   _CheckAnimationState createState() => _CheckAnimationState();
@@ -22,7 +23,6 @@ class _CheckAnimationState extends State<CheckAnimation>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller =
         AnimationController(duration: const Duration(seconds: 2), vsync: this);
@@ -52,7 +52,6 @@ class _CheckAnimationState extends State<CheckAnimation>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller!.dispose();
     super.dispose();
   }

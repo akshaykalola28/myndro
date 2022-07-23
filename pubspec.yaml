@@ -46,6 +46,8 @@ dependencies:
   like_button: ^2.0.4
   table_calendar: ^3.0.6
   filter_list: ^1.0.2
+  flutter_chat_bubble: ^2.0.0
+  coupon_uikit: ^0.0.1
 
 dev_dependencies:
   flutter_test:

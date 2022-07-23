@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
-import 'package:myndro/widgets/login_button_widget.dart';
 import 'package:myndro/widgets/widgets.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';

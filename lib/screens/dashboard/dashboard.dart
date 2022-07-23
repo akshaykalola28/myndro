@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/constant/constant.dart';
-import 'package:myndro/screens/screens.dart';
+import '../screens.dart';
 
 import '../../controller/controller.dart';
 
@@ -37,7 +37,7 @@ class DashboardScreen extends StatelessWidget {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(50))),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Expanded(
@@ -70,7 +70,8 @@ class DashboardScreen extends StatelessWidget {
                       color: ColorsConfig.colorWhite),
                 ),
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
+                  Get.toNamed(WalletScreen.pageId);
                 },
               ),
               ListTile(
@@ -88,7 +89,27 @@ class DashboardScreen extends StatelessWidget {
                       color: ColorsConfig.colorWhite),
                 ),
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
+                  Get.toNamed(ExpertDetailScreen.pageId);
+                },
+              ),
+              ListTile(
+                leading: Image.asset(
+                  ImagePath.assessmentIcon,
+                  color: ColorsConfig.colorWhite,
+                  height: 30,
+                ),
+                title: Text(
+                  'Assessment',
+                  style: TextStyle(
+                      fontFamily: AppTextStyle.microsoftJhengHei,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w600,
+                      color: ColorsConfig.colorWhite),
+                ),
+                onTap: () {
+                  Get.back();
+                  Get.toNamed(AllAssessmentsNav.pageId);
                 },
               ),
               ListTile(
@@ -106,7 +127,7 @@ class DashboardScreen extends StatelessWidget {
                       color: ColorsConfig.colorWhite),
                 ),
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
               ),
               ListTile(
@@ -124,7 +145,8 @@ class DashboardScreen extends StatelessWidget {
                       color: ColorsConfig.colorWhite),
                 ),
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
+                  Get.toNamed(AskUSScreen.pageId);
                 },
               ),
               ListTile(
@@ -142,7 +164,8 @@ class DashboardScreen extends StatelessWidget {
                       color: ColorsConfig.colorWhite),
                 ),
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
+                  Get.toNamed(DoctorNotesScreen.pageId);
                 },
               ),
               ListTile(
@@ -160,7 +183,7 @@ class DashboardScreen extends StatelessWidget {
                       color: ColorsConfig.colorWhite),
                 ),
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
               ),
               ListTile(
@@ -197,7 +220,7 @@ class DashboardScreen extends StatelessWidget {
                       color: ColorsConfig.colorWhite),
                 ),
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
               ),
             ],
@@ -234,8 +257,8 @@ class DashboardScreen extends StatelessWidget {
             HomeScreen(onDrawerClick: () {
               _scaffoldKey.currentState!.openDrawer();
             }),
-            AssessmentStartScreen(),
-            CreatePasswordScreen(),
+            const ExpertDetailScreen(),
+            OffersScreen(),
           ],
         ),
 

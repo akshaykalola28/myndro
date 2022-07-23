@@ -13,3 +13,6 @@ export 'expert_detail_controller.dart';
 export 'assesment_controller.dart';
 export 'wallet_controller.dart';
 export 'setting_controller.dart';
+export 'ask_us_controller.dart';
+export 'doctor_notes_controller.dart';
+export 'offers_controller.dart';

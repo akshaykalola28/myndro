@@ -5,9 +5,52 @@ import '../../constant/constant.dart';
 import '../../controller/controller.dart';
 import '../../widgets/widgets.dart';
 
-class WalletScreen extends GetView<WalletController> {
-  const WalletScreen({Key? key}) : super(key: key);
+// class WalletScreen extends StatefulWidget {
+//   const WalletScreen({Key? key}) : super(key: key);
+//   static const pageId = "/WalletScreen";
+
+//   @override
+//   State<StatefulWidget> createState() {
+//   return
+//   }
+// }
+
+class WalletScreen extends StatefulWidget {
   static const pageId = "/WalletScreen";
+  const WalletScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WalletScreen> createState() => _WalletScreenState();
+}
+
+class _WalletScreenState extends State<WalletScreen>
+    with SingleTickerProviderStateMixin {
+  final WalletController controller = WalletController();
+  final List<Tab> myTabs = <Tab>[
+    const Tab(text: 'Monthly'),
+    const Tab(text: 'Weekly'),
+    const Tab(text: 'Today'),
+  ];
+  TabController? tabController;
+
+  @override
+  void dispose() {
+    tabController!.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    tabController = TabController(length: 3, vsync: this);
+    tabController!.addListener(handleTabSelection);
+    super.initState();
+  }
+
+  handleTabSelection() {
+    if (tabController!.indexIsChanging) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +64,7 @@ class WalletScreen extends GetView<WalletController> {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
                     height: 20,
@@ -142,9 +185,9 @@ class WalletScreen extends GetView<WalletController> {
                           width: 1.0,
                         ),
                       ),
-                      width: Get.width * 0.65,
+                      // width: Get.width * 0.65,
                       child: TabBar(
-                          controller: controller.controller,
+                          controller: tabController,
                           isScrollable: false,
                           indicator: BoxDecoration(
                             borderRadius: BorderRadius.circular(
@@ -154,55 +197,52 @@ class WalletScreen extends GetView<WalletController> {
                           ),
                           labelColor: Colors.white,
                           unselectedLabelColor: Colors.black,
-                          tabs: controller.myTabs),
+                          tabs: myTabs),
                     ),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  SizedBox(
-                    height: Get.height * 0.5,
-                    child: TabBarView(
-                        controller: controller.controller,
-                        children: [
-                          Container(
-                            color: Colors.red,
+                  Center(
+                    child: [
+                      Container(
+                        height: 200,
+                        color: Colors.red,
+                      ),
+                      Container(
+                        color: Colors.yellow,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: ColorsConfig.colorLightGrey,
+                          borderRadius: BorderRadius.circular(
+                            25.0,
                           ),
-                          Container(
-                            color: Colors.yellow,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: ColorsConfig.colorLightGrey,
-                              borderRadius: BorderRadius.circular(
-                                25.0,
-                              ),
-                            ),
-                            child: ListView.builder(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: 5,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return ListTile(
-                                    visualDensity: const VisualDensity(
-                                        horizontal: -4, vertical: 0),
-                                    leading: const Icon(
-                                      Icons.add_circle,
-                                    ),
-                                    title: const Text('sakshi Agrawal'),
-                                    trailing: Wrap(
-                                      spacing: 12, // space between two icons
-                                      children: const <Widget>[
-                                        Text('15 june 2022, 4:00 PM'),
-                                        Text('${'+1000 '}\u{20B9}'), // icon-2
-                                      ],
-                                    ),
-                                  );
-                                }),
-                          ),
-                        ]),
+                        ),
+                        child: ListView.builder(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: 15,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                visualDensity: const VisualDensity(
+                                    horizontal: -4, vertical: 0),
+                                leading: const Icon(
+                                  Icons.add_circle,
+                                ),
+                                title: const Text('sakshi Agrawal'),
+                                trailing: Wrap(
+                                  spacing: 12, // space between two icons
+                                  children: const <Widget>[
+                                    Text('15 june 2022, 4:00 PM'),
+                                    Text('${'+1000 '}\u{20B9}'), // icon-2
+                                  ],
+                                ),
+                              );
+                            }),
+                      ),
+                    ][tabController!.index],
                   ),
                   const SizedBox(
                     height: 20,

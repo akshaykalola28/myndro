@@ -63,17 +63,15 @@ class AssessmentScreen extends GetView<AssessmentController> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Expanded(
-                          child: Text(
-                            controller.questions[index].name,
-                            style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w500,
-                              color: ColorsConfig.colorBlack,
-                            ),
-                            maxLines: 6,
+                        Text(
+                          controller.questions[index].name,
+                          style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.w500,
+                            color: ColorsConfig.colorBlack,
                           ),
+                          maxLines: 6,
                         ),
                         // SizedBox(
                         //   height: 20,

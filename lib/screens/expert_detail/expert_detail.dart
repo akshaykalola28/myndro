@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../util/common.dart';
 import '../../util/events_temp.dart';
 import '../../widgets/widgets.dart';
 
@@ -25,7 +26,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
       hosImg.map((item) => PackagesWidget(item: item)).toList();
   ExpertDetailController expertDetailController = ExpertDetailController();
   late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.week;
+  final CalendarFormat _calendarFormat = CalendarFormat.week;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -144,10 +145,11 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    iconContainer(Icons.videocam, 'Video call',
+                                    Common.iconContainer(
+                                        Icons.videocam, 'Video call',
                                         isPriceVisible: true,
                                         subText: '\u{20B9}${' 500'}'),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Padding(
@@ -161,11 +163,11 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                               Expanded(
                                   child: Column(
                                 children: [
-                                  iconContainer(
+                                  Common.iconContainer(
                                       Icons.phone_in_talk_rounded, 'Audio call',
                                       isPriceVisible: true,
                                       subText: '\u{20B9}${' 400'}'),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Padding(
@@ -195,6 +197,14 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                           horizontal: 15, vertical: 15),
                       child: Column(
                         children: [
+                          Text(
+                            'Appointment Request',
+                            style: TextStyle(
+                                fontFamily: AppTextStyle.microsoftJhengHei,
+                                fontSize: 15.0,
+                                color: ColorsConfig.colorGreyy,
+                                fontWeight: FontWeight.w600),
+                          ),
                           TableCalendar<Event>(
                             firstDay: kFirstDay,
                             lastDay: kLastDay,
@@ -217,7 +227,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                 color: ColorsConfig.colorBlue.withOpacity(0.5),
                                 shape: BoxShape.circle,
                               ),
-                              selectedDecoration: BoxDecoration(
+                              selectedDecoration: const BoxDecoration(
                                 color: ColorsConfig.colorBlue,
                                 shape: BoxShape.circle,
                               ),
@@ -247,7 +257,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                   return Container(
                                     decoration: BoxDecoration(
                                       color: Colors.transparent,
-                                      borderRadius: BorderRadius.all(
+                                      borderRadius: const BorderRadius.all(
                                         Radius.circular(10.0),
                                       ),
                                       border: Border.all(
@@ -273,6 +283,33 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                               );
                             },
                           ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          GestureDetector(
+                            onTap: (() {}),
+                            child: Container(
+                              // height: 45,
+                              // width: Get.width,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 15),
+                              decoration: const BoxDecoration(
+                                color: ColorsConfig.colorBlue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              child: Text(
+                                'Book Appointment',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontSize: 16.0,
+                                  color: ColorsConfig.colorWhite,
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -280,22 +317,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                   const SizedBox(
                     height: 18,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child:
-                        Divider(color: ColorsConfig.colorBlack, thickness: 0.5),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      'Appointment Request',
-                      style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 15.0,
-                          color: ColorsConfig.colorGreyy,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
+                  const Divider(color: ColorsConfig.colorBlack, thickness: 0.5),
                   const SizedBox(
                     height: 10,
                   ),

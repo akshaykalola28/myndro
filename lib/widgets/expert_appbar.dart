@@ -34,7 +34,7 @@ class ExpertAppbar extends StatelessWidget {
               color: ColorsConfig.colorBlue,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           if (isAssessment == true)
             Container()
           else

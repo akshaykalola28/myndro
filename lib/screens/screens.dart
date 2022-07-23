@@ -22,3 +22,6 @@ export 'wallet_screen/wallet_screen.dart';
 export 'setting_screen/setting_screen.dart';
 export 'setting_screen/2_step_verification.dart';
 export 'search_screen/search_screen.dart';
+export 'ask_us/ask_us_screen.dart';
+export 'doctor_notes/doctor_notes.dart';
+export 'offers/offers.dart';

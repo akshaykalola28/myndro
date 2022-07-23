@@ -1,4 +1,4 @@
-mixin ImagePath{
+mixin ImagePath {
   static String facebook = 'assets/images/Facebook.png';
   static String facebookLogo = 'assets/images/Facebook_logo.png';
   static String google = 'assets/images/Google.png';
@@ -43,4 +43,7 @@ mixin ImagePath{
   static String imgNote = 'assets/images/img_note.png';
   static String lockerImg = 'assets/images/locker_img.png';
   static String iconHuman = 'assets/images/icon_human.png';
+  static String assessmentIcon = 'assets/images/assesment_icon.png';
+  static String iconFile = 'assets/images/icon_file.png';
+  static String iconPrescription = 'assets/images/icon_prescription.png';
 }

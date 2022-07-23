@@ -127,12 +127,12 @@ Widget settingTextContainer(String text, String SubText, VoidCallback onClick) {
   return GestureDetector(
     onTap: onClick,
     child: Container(
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
       decoration: BoxDecoration(
         color: ColorsConfig.colorWhite,
 
         border: Border.all(color: ColorsConfig.colorGreyy, width: 1.0),
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
             Radius.circular(10.0)), // Set rounded corner radius
         // Make rounded corner of border
       ),

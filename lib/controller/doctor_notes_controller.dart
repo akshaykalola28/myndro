@@ -1,6 +1,6 @@
 import 'controller.dart';
 
-class WalletController extends BaseController {
+class DoctorNotesController extends BaseController {
   @override
   void errorHandler(e) {}
 }

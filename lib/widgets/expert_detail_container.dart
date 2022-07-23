@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 
 import '../constant/constant.dart';
+import '../util/common.dart';
 
 class ExpertDetailContainer extends StatelessWidget {
   const ExpertDetailContainer({Key? key}) : super(key: key);
@@ -157,9 +157,11 @@ class ExpertDetailContainer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 children: [
-                  Expanded(child: iconContainer(Icons.videocam, 'Video call')),
                   Expanded(
-                      child: iconContainer(
+                      child:
+                          Common.iconContainer(Icons.videocam, 'Video call')),
+                  Expanded(
+                      child: Common.iconContainer(
                           Icons.phone_in_talk_rounded, 'Audio call'))
                 ],
               ),
@@ -169,49 +171,4 @@ class ExpertDetailContainer extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget iconContainer(IconData icon, String text,
-    {bool isPriceVisible = false, String? subText}) {
-  return Row(
-    children: [
-      Container(
-        padding: EdgeInsets.all(6),
-        child: Icon(icon, size: 25, color: ColorsConfig.colorWhite),
-        decoration: BoxDecoration(
-            shape: BoxShape.circle, color: ColorsConfig.colorBlue),
-      ),
-      SizedBox(
-        width: 15,
-      ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-              fontFamily: AppTextStyle.microsoftJhengHei,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-              color: ColorsConfig.colorBlack,
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          isPriceVisible
-              ? Text(
-                  subText!,
-                  style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w500,
-                    color: ColorsConfig.colorBlack,
-                  ),
-                )
-              : Container(),
-        ],
-      )
-    ],
-  );
 }

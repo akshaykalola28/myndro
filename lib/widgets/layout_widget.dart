@@ -14,33 +14,38 @@ class LayoutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipPath(
-          clipper: CurvedBottomClipper(),
-          child: Container(
-            color: ColorsConfig.colorBlue,
-            height: Get.height * 0.25,
-            width: Get.width,
-            child: SafeArea(
-              child: Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                      height: Get.height * 0.4,
-                      width: Get.width * 0.4,
-                      child: Image.asset(
-                        ImagePath.myndroWhite,
-                        fit: BoxFit.contain,
-                      ))),
+    return GestureDetector(
+      onTap: () {
+        Get.focusScope!.unfocus();
+      },
+      child: Column(
+        children: [
+          ClipPath(
+            clipper: CurvedBottomClipper(),
+            child: Container(
+              color: ColorsConfig.colorBlue,
+              height: Get.height * 0.25,
+              width: Get.width,
+              child: SafeArea(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                        height: Get.height * 0.4,
+                        width: Get.width * 0.4,
+                        child: Image.asset(
+                          ImagePath.myndroWhite,
+                          fit: BoxFit.contain,
+                        ))),
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        ExpertAppbar(text: text!, isAssessment: isAssessment),
-        Expanded(child: body)
-      ],
+          SizedBox(
+            height: 20,
+          ),
+          ExpertAppbar(text: text!, isAssessment: isAssessment),
+          Expanded(child: body)
+        ],
+      ),
     );
   }
 }
