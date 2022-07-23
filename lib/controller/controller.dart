@@ -16,3 +16,5 @@ export 'setting_controller.dart';
 export 'ask_us_controller.dart';
 export 'doctor_notes_controller.dart';
 export 'offers_controller.dart';
+export 'myndro_locker_controller.dart';
+export 'packages_controller.dart';

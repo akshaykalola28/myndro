@@ -11,7 +11,7 @@ class OffersScreen extends GetView<OffersController> {
   static const pageId = "/OffersScreen";
 
   OffersScreen({Key? key}) : super(key: key);
-  var list = [CouponWidget(), CouponWidgetNew()];
+  var list = [const CouponWidget(), const CouponWidgetNew()];
   final _random = Random();
   // var element = list[_random.nextInt(list.length)];
   @override

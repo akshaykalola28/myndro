@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/constant/constant.dart';
+import 'package:myndro/screens/packages/packages.dart';
 import '../screens.dart';
 
 import '../../controller/controller.dart';
@@ -128,6 +129,7 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 onTap: () {
                   Get.back();
+                  Get.toNamed(PackagesScreen.pageId);
                 },
               ),
               ListTile(
@@ -184,6 +186,7 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 onTap: () {
                   Get.back();
+                  Get.toNamed(MyndroLockerScreen.pageId);
                 },
               ),
               ListTile(

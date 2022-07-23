@@ -27,49 +27,51 @@ class SettingScreen extends GetView<SettingController> {
             onTap: () {
               Get.focusScope!.unfocus();
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Login & Security',
-                    style: TextStyle(
-                        fontFamily: AppTextStyle.microsoftJhengHei,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w800,
-                        color: ColorsConfig.colorGreyy),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  settingTextField(emailController, false, Common.validateName,
-                      TextInputType.text, 'Name'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  settingTextField(emailController, false, Common.validateName,
-                      TextInputType.text, 'Email'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  settingTextField(emailController, false, Common.validateName,
-                      TextInputType.text, 'Mobile No'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  settingTextField(emailController, false, Common.validateName,
-                      TextInputType.text, 'Password'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  settingTextContainer(
-                      'Two-Step Verification(2SV) Settings',
-                      'Manage your Two Step Verification(2SV) Authenticators',
-                      () => Get.toNamed(TwoStepVerification.pageId))
-                ],
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      'Login & Security',
+                      style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w800,
+                          color: ColorsConfig.colorGreyy),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    settingTextField(emailController, false,
+                        Common.validateName, TextInputType.text, 'Name'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    settingTextField(emailController, false,
+                        Common.validateName, TextInputType.text, 'Email'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    settingTextField(emailController, false,
+                        Common.validateName, TextInputType.text, 'Mobile No'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    settingTextField(emailController, false,
+                        Common.validateName, TextInputType.text, 'Password'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    settingTextContainer(
+                        'Two-Step Verification(2SV) Settings',
+                        'Manage your Two Step Verification(2SV) Authenticators',
+                        () => Get.toNamed(TwoStepVerification.pageId))
+                  ],
+                ),
               ),
             ),
           ),
@@ -130,11 +132,8 @@ Widget settingTextContainer(String text, String SubText, VoidCallback onClick) {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
       decoration: BoxDecoration(
         color: ColorsConfig.colorWhite,
-
         border: Border.all(color: ColorsConfig.colorGreyy, width: 1.0),
-        borderRadius: const BorderRadius.all(
-            Radius.circular(10.0)), // Set rounded corner radius
-        // Make rounded corner of border
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       ),
       child: Center(
         child: Column(

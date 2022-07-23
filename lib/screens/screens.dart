@@ -25,3 +25,5 @@ export 'search_screen/search_screen.dart';
 export 'ask_us/ask_us_screen.dart';
 export 'doctor_notes/doctor_notes.dart';
 export 'offers/offers.dart';
+export 'myndro_locker/myndro_locker.dart';
+export 'myndro_locker/myndro_document.dart';

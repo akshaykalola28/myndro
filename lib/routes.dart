@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:myndro/binding/myndro_locker_binding.dart';
+import 'package:myndro/screens/packages/packages.dart';
 import 'binding/binding.dart';
 import 'screens/screens.dart';
 
@@ -111,4 +113,16 @@ final List<GetPage> appPages = [
       name: OffersScreen.pageId,
       page: () => OffersScreen(),
       binding: OffersBinding()),
+  GetPage(
+      name: MyndroLockerScreen.pageId,
+      page: () => MyndroLockerScreen(),
+      binding: MyndroLockerBinding()),
+  GetPage(
+      name: MyndroDocumentScreen.pageId,
+      page: () => const MyndroDocumentScreen(),
+      binding: MyndroLockerBinding()),
+  GetPage(
+      name: PackagesScreen.pageId,
+      page: () => const PackagesScreen(),
+      binding: PackagesBinding()),
 ];
