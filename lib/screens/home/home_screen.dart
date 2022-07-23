@@ -1,12 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
 import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
-import '../../util/common.dart';
 
 final List<String> imgList = [
   ImagePath.doc1,

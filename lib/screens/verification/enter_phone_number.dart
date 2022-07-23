@@ -9,12 +9,12 @@ import '../../widgets/widgets.dart';
 class EnterPhoneNumber extends GetView<PhoneNumberController> {
   static const pageId = "/EnterPhoneNumber";
 
-   EnterPhoneNumber({Key? key}) : super(key: key);
+  EnterPhoneNumber({Key? key}) : super(key: key);
   final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: ColorsConfig.colorBlue,
           elevation: 0,
@@ -39,8 +39,6 @@ class EnterPhoneNumber extends GetView<PhoneNumberController> {
                     height: Get.height * 0.48,
                     width: Get.width,
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           'Enter Your phone Number',
@@ -80,6 +78,52 @@ class EnterPhoneNumber extends GetView<PhoneNumberController> {
                   margin: const EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
                     children: [
+                      DropdownButtonFormField<String>(
+                        iconDisabledColor: ColorsConfig.colorBlue,
+                        iconEnabledColor: ColorsConfig.colorBlue,
+                        isExpanded: true,
+                        iconSize: 0,
+                        value: controller.dropdownValue,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          hintText: 'Select',
+                          // labelText: 'Select',
+                          suffixIcon: Icon(Icons.keyboard_arrow_down),
+                          iconColor: ColorsConfig.colorBlue,
+                          hintStyle: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 15.0,
+                            color: ColorsConfig.colorBlue,
+                          ),
+                          labelStyle: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 15.0,
+                            color: ColorsConfig.colorBlue,
+                          ),
+                        ),
+                        items: <String>[
+                          'Lot 1',
+                          'Lot 2',
+                          'Lot 3',
+                          'Lot 4',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                fontFamily: AppTextStyle.microsoftJhengHei,
+                                fontSize: 17.0,
+                                color: ColorsConfig.colorBlue,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          controller.dropdownValue = newValue;
+                        },
+                      ),
                       TextFormField(
                         style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
@@ -108,13 +152,17 @@ class EnterPhoneNumber extends GetView<PhoneNumberController> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 30,),
+                      const SizedBox(
+                        height: 30,
+                      ),
                       GestureDetector(
-                        onTap: (){
-                          Get.toNamed(VerificationCodeScreen.pageId,
+                          onTap: () {
+                            Get.toNamed(VerificationCodeScreen.pageId,
                                 arguments: false);
                           },
-                          child: loginButtonWidget('Submit',)),
+                          child: loginButtonWidget(
+                            'Submit',
+                          )),
                     ],
                   ),
                 )

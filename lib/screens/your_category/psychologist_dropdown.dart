@@ -45,16 +45,7 @@ class _PsycologistDropdownState extends State<PsycologistDropdown> {
               ),
             ),
           ),
-          // Positioned(
-          //   top: 0,
-          //   right: 0,
-          //   child: Image.asset(
-          //     ImagePath.catTop,
-          //     fit: BoxFit.fill,
-          //     height: Get.height * 0.25,
-          //     width: Get.width * 0.7,
-          //   ),
-          // ),
+
           SafeArea(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),

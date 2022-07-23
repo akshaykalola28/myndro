@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_password_strength/flutter_password_strength.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
 
@@ -19,7 +20,7 @@ class _UserRegistrationState extends State<UserRegistration> {
   final TextEditingController passController = TextEditingController();
   String? dropdownValue;
   bool addVisibility = false;
-
+  String _password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,6 +203,14 @@ class _UserRegistrationState extends State<UserRegistration> {
                               TextInputType.emailAddress,
                               'Confirm Password',
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            // FlutterPasswordStrength(
+                            //     password: _password,
+                            //     strengthCallback: (strength) {
+                            //       debugPrint(strength.toString());
+                            //     }),
                             const SizedBox(
                               height: 20,
                             ),

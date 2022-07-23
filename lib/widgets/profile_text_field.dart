@@ -8,7 +8,8 @@ Widget profileTextFieldWidget(
     TextInputType inputType,
     String hintTxt,
     [VoidCallback? onSufficIcon,
-    IconData? suffixIcon]) {
+    IconData? suffixIcon,
+    Function(String value)? onChanged]) {
   return TextFormField(
     style: TextStyle(
       fontFamily: AppTextStyle.microsoftJhengHei,
@@ -16,6 +17,7 @@ Widget profileTextFieldWidget(
       fontWeight: FontWeight.w400,
       color: ColorsConfig.colorBlue,
     ),
+    onChanged: (value) => onChanged!(value),
     controller: controller,
     validator: validator,
     keyboardType: inputType,

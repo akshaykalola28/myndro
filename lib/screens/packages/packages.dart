@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:myndro/constant/colors_config.dart';
 import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
