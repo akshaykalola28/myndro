@@ -60,18 +60,25 @@ class AssessmentScreen extends GetView<AssessmentController> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          controller.questions[index].name,
-                          style: TextStyle(
-                            fontFamily: AppTextStyle.microsoftJhengHei,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                            color: ColorsConfig.colorBlack,
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: Text(
+                                controller.questions[index].name,
+                                style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorsConfig.colorBlack,
+                                ),
+                                maxLines: 6,
+                              ),
+                            ),
                           ),
-                          maxLines: 6,
                         ),
                         // SizedBox(
                         //   height: 20,

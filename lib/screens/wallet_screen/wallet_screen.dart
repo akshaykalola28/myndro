@@ -206,8 +206,34 @@ class _WalletScreenState extends State<WalletScreen>
                   Center(
                     child: [
                       Container(
-                        height: 200,
-                        color: Colors.red,
+                        decoration: BoxDecoration(
+                          color: ColorsConfig.colorLightGrey,
+                          borderRadius: BorderRadius.circular(
+                            25.0,
+                          ),
+                        ),
+                        child: ListView.builder(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: 5,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                visualDensity: const VisualDensity(
+                                    horizontal: -4, vertical: 0),
+                                leading: const Icon(
+                                  Icons.add_circle,
+                                ),
+                                title: const Text('sakshi Agrawal'),
+                                trailing: Wrap(
+                                  spacing: 12, // space between two icons
+                                  children: const <Widget>[
+                                    Text('15 june 2022, 4:00 PM'),
+                                    Text('${'+1000 '}\u{20B9}'), // icon-2
+                                  ],
+                                ),
+                              );
+                            }),
                       ),
                       Container(
                         color: Colors.yellow,

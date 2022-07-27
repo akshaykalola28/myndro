@@ -97,12 +97,15 @@ class _AnimatedDialogState extends State<AnimatedDialog>
                       const SizedBox(
                         height: 8,
                       ),
-                      Text(
-                        widget.subText!,
-                        style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 18.0,
-                          color: ColorsConfig.colorBlue,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.subText!,
+                          style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 18.0,
+                            color: ColorsConfig.colorBlue,
+                          ),
                         ),
                       ),
                       const SizedBox(

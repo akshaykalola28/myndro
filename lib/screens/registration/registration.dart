@@ -219,7 +219,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: loginButtonWidget('Submit', () {
                                 showDialog(
-                                    // barrierDismissible: false,
+                                    barrierDismissible: false,
                                     context: context,
                                     builder: (_) {
                                       return AnimatedDialog(
