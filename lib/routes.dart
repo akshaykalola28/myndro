@@ -102,12 +102,24 @@ final List<GetPage> appPages = [
       page: () => SearchScreen(),
       binding: HomeBinding()),
   GetPage(
+      name: UpcomingAppointments.pageId,
+      page: () => const UpcomingAppointments(),
+      binding: HomeBinding()),
+  GetPage(
       name: AskUSScreen.pageId,
       page: () => const AskUSScreen(),
       binding: AskUsBinding()),
   GetPage(
       name: DoctorNotesScreen.pageId,
       page: () => const DoctorNotesScreen(),
+      binding: DoctorNotesBinding()),
+  GetPage(
+      name: DoctorNotesDetail.pageId,
+      page: () => const DoctorNotesDetail(),
+      binding: DoctorNotesBinding()),
+  GetPage(
+      name: PrescriptionScreen.pageId,
+      page: () => const PrescriptionScreen(),
       binding: DoctorNotesBinding()),
   GetPage(
       name: OffersScreen.pageId,

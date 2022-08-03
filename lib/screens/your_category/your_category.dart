@@ -15,6 +15,15 @@ class YourCategory extends GetView<YourCategoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConfig.colorWhite,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: ColorsConfig.colorBlue,
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Get.back();
+            }),
+      ),
       body: Stack(
         children: [
           Positioned(
@@ -23,7 +32,7 @@ class YourCategory extends GetView<YourCategoryController> {
               clipper: CurvedBottomClipper(),
               child: Container(
                 color: ColorsConfig.colorBlue,
-                height: Get.height * 0.26,
+                height: Get.height * 0.18,
                 width: Get.width,
                 child: SafeArea(
                   child: Align(

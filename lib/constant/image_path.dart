@@ -46,4 +46,6 @@ mixin ImagePath {
   static String assessmentIcon = 'assets/images/assesment_icon.png';
   static String iconFile = 'assets/images/icon_file.png';
   static String iconPrescription = 'assets/images/icon_prescription.png';
+  static String packagesImg = 'assets/images/packages_img.png';
+  static String offersImg = 'assets/images/offers_img.png';
 }

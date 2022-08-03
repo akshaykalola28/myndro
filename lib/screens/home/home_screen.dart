@@ -504,73 +504,81 @@ IconButton(onPressed: (){
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) {
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Icon(
-                                                  Icons.account_circle_rounded,
-                                                  size: 38,
-                                                  color:
-                                                      ColorsConfig.colorBlue),
-                                              Column(
-                                                children: [
-                                                  Text('Dr. Anil Patel',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: ColorsConfig
-                                                            .colorBlack,
-                                                      )),
-                                                  Text('Psychiatrist',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 13.0,
-                                                        color: ColorsConfig
-                                                            .colorGreyy,
-                                                      )),
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Text('14th july 2022',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 15.0,
-                                                        color: ColorsConfig
-                                                            .colorBlack,
-                                                      )),
-                                                  Text('01:10',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 15.0,
-                                                        color: ColorsConfig
-                                                            .colorBlack,
-                                                      )),
-                                                ],
-                                              ),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.all(6),
-                                                child: const Icon(
-                                                    Icons.videocam,
-                                                    size: 25,
-                                                    color: ColorsConfig
-                                                        .colorWhite),
-                                                decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
+                                          return GestureDetector(
+                                            onTap: () => Get.toNamed(
+                                                UpcomingAppointments.pageId),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Icon(
+                                                    Icons
+                                                        .account_circle_rounded,
+                                                    size: 38,
                                                     color:
                                                         ColorsConfig.colorBlue),
-                                              ),
-                                            ],
+                                                Column(
+                                                  children: [
+                                                    Text('Dr. Anil Patel',
+                                                        style: TextStyle(
+                                                          fontFamily: AppTextStyle
+                                                              .microsoftJhengHei,
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: ColorsConfig
+                                                              .colorBlack,
+                                                        )),
+                                                    Text('Psychiatrist',
+                                                        style: TextStyle(
+                                                          fontFamily: AppTextStyle
+                                                              .microsoftJhengHei,
+                                                          fontSize: 13.0,
+                                                          color: ColorsConfig
+                                                              .colorGreyy,
+                                                        )),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Text('14th july 2022',
+                                                        style: TextStyle(
+                                                          fontFamily: AppTextStyle
+                                                              .microsoftJhengHei,
+                                                          fontSize: 15.0,
+                                                          color: ColorsConfig
+                                                              .colorBlack,
+                                                        )),
+                                                    Text('01:10',
+                                                        style: TextStyle(
+                                                          fontFamily: AppTextStyle
+                                                              .microsoftJhengHei,
+                                                          fontSize: 15.0,
+                                                          color: ColorsConfig
+                                                              .colorBlack,
+                                                        )),
+                                                  ],
+                                                ),
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.all(6),
+                                                  child: const Icon(
+                                                      Icons.videocam,
+                                                      size: 25,
+                                                      color: ColorsConfig
+                                                          .colorWhite),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: ColorsConfig
+                                                              .colorBlue),
+                                                ),
+                                              ],
+                                            ),
                                           );
                                         },
                                         separatorBuilder: (context, index) {
@@ -580,192 +588,6 @@ IconButton(onPressed: (){
                                         },
                                       ),
                                     ),
-                                    /*  Table(
-                                      border: TableBorder.all(
-                                          color: Colors.transparent),
-                                      children: [
-                                        TableRow(
-                                            decoration: const BoxDecoration(
-                                              color: ColorsConfig.colorBlue,
-                                            ),
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                child: Center(
-                                                  child: Text('Name',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: ColorsConfig
-                                                            .colorWhite,
-                                                      )),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                child: Center(
-                                                  child: Text('Timing',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: ColorsConfig
-                                                            .colorWhite,
-                                                      )),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                child: Center(
-                                                    child: Image.asset(
-                                                  ImagePath.iconList,
-                                                  height: 20,
-                                                  width: 20,
-                                                )),
-                                              ),
-                                            ]),
-                                        TableRow(children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.person_sharp,
-                                                  color: ColorsConfig.colorBlue,
-                                                ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Center(
-                                                  child: Text('Suryaraj',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 15.0,
-                                                        color: ColorsConfig
-                                                            .colorBlack,
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Center(
-                                              child: Text('01:10',
-                                                  style: TextStyle(
-                                                    fontFamily: AppTextStyle
-                                                        .microsoftJhengHei,
-                                                    fontSize: 15.0,
-                                                    color:
-                                                        ColorsConfig.colorBlack,
-                                                  )),
-                                            ),
-                                          ),
-                                          Center(
-                                            child: Container(
-                                              margin:
-                                                  const EdgeInsets.only(top: 5),
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 5, 10, 5),
-                                              decoration: BoxDecoration(
-                                                color: ColorsConfig.colorBlue,
-                                                border: Border.all(
-                                                  color: ColorsConfig.colorBlue,
-                                                  style: BorderStyle.solid,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(3.0),
-                                              ),
-                                              child: Text('View',
-                                                  style: TextStyle(
-                                                    fontFamily: AppTextStyle
-                                                        .microsoftJhengHei,
-                                                    fontSize: 12.0,
-                                                    color:
-                                                        ColorsConfig.colorWhite,
-                                                  )),
-                                            ),
-                                          ),
-                                        ]),
-                                        TableRow(children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.person_sharp,
-                                                  color: ColorsConfig.colorBlue,
-                                                ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Center(
-                                                  child: Text('Payal',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 15.0,
-                                                        color: ColorsConfig
-                                                            .colorBlack,
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Center(
-                                              child: Text('01:10',
-                                                  style: TextStyle(
-                                                    fontFamily: AppTextStyle
-                                                        .microsoftJhengHei,
-                                                    fontSize: 15.0,
-                                                    color:
-                                                        ColorsConfig.colorBlack,
-                                                  )),
-                                            ),
-                                          ),
-                                          Center(
-                                            child: Container(
-                                              margin:
-                                                  const EdgeInsets.only(top: 5),
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 5, 10, 5),
-                                              decoration: BoxDecoration(
-                                                color: ColorsConfig.colorBlue,
-                                                border: Border.all(
-                                                  color: ColorsConfig.colorBlue,
-                                                  style: BorderStyle.solid,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(3.0),
-                                              ),
-                                              child: Text('View',
-                                                  style: TextStyle(
-                                                    fontFamily: AppTextStyle
-                                                        .microsoftJhengHei,
-                                                    fontSize: 12.0,
-                                                    color:
-                                                        ColorsConfig.colorWhite,
-                                                  )),
-                                            ),
-                                          ),
-                                        ]),
-                                      ],
-                                    ), */
                                   ],
                                 ),
                               ),
@@ -920,9 +742,9 @@ IconButton(onPressed: (){
                                   options: CarouselOptions(
                                       enableInfiniteScroll: false,
                                       viewportFraction: 1,
+                                      aspectRatio: 1.7,
                                       autoPlay: false,
                                       enlargeCenterPage: false,
-                                      // aspectRatio: 1.0,
                                       onPageChanged: (index, reason) {
                                         setState(() {
                                           _current = index;

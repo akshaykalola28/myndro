@@ -16,22 +16,24 @@ class OffersScreen extends GetView<OffersController> {
   // var element = list[_random.nextInt(list.length)];
   @override
   Widget build(BuildContext context) {
-    return LayoutWidget(
-      body: Padding(
-          padding: const EdgeInsets.all(14),
-          child: ListView.separated(
-              itemCount: 5,
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: 15,
-                );
-              },
-              itemBuilder: (context, index) {
-                return list[_random.nextInt(list
-                    .length)] /* (list.toList()..shuffle()).any((element) => element) */;
-              })),
-      isAssessment: false,
-      text: 'Offers',
+    return Scaffold(
+      body: LayoutWidget(
+        body: Padding(
+            padding: const EdgeInsets.all(14),
+            child: ListView.separated(
+                itemCount: 5,
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    height: 15,
+                  );
+                },
+                itemBuilder: (context, index) {
+                  return list[_random.nextInt(list
+                      .length)] /* (list.toList()..shuffle()).any((element) => element) */;
+                })),
+        isAssessment: false,
+        text: 'Offers',
+      ),
     );
   }
 }

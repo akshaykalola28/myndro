@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../constant/constant.dart';
 
@@ -30,6 +34,24 @@ class Common {
       return 'Password must be a 6 character';
     }
     return null;
+  }
+
+  static Future<bool> checkInternetConnection() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      await Fluttertoast.showToast(msg: 'no internet connection');
+      return false;
+    }
+    return true;
+  }
+
+  // Display error message from response json
+  static void displayErrorMessage(String response) {
+    var data;
+    var error;
+    data = json.decode(response);
+    error = data['errors'] as List;
+    Fluttertoast.showToast(msg: error[0]['message'] as String);
   }
 
   static Widget iconContainer(IconData icon, String text,

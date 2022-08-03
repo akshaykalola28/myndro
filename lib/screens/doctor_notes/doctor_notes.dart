@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
 import '../../widgets/widgets.dart';
+import '../screens.dart';
 
 class DoctorNotesScreen extends GetView<DoctorNotesController> {
   static const pageId = "/DoctorNotesScreen";
@@ -23,7 +24,8 @@ class DoctorNotesScreen extends GetView<DoctorNotesController> {
                 const SizedBox(
                   height: 15,
                 ),
-                iconConatiner(ImagePath.iconFile),
+                iconConatiner(ImagePath.iconFile,
+                    () => Get.toNamed(DoctorNotesDetail.pageId)),
                 const SizedBox(
                   height: 40,
                 ),
@@ -31,7 +33,8 @@ class DoctorNotesScreen extends GetView<DoctorNotesController> {
                 const SizedBox(
                   height: 15,
                 ),
-                iconConatiner(ImagePath.iconPrescription),
+                iconConatiner(ImagePath.iconPrescription,
+                    () => Get.toNamed(PrescriptionScreen.pageId)),
                 const SizedBox(
                   height: 40,
                 ),
@@ -66,22 +69,25 @@ class DoctorNotesScreen extends GetView<DoctorNotesController> {
     );
   }
 
-  Widget iconConatiner(String imagePath) {
-    return Material(
-      elevation: 8,
-      borderRadius: const BorderRadius.all(
-        Radius.circular(10),
-      ),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-            vertical: Get.height * 0.1, horizontal: Get.width * 0.28),
-        decoration: BoxDecoration(
-          color: ColorsConfig.colorGreyy.withOpacity(0.4),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
+  Widget iconConatiner(String imagePath, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Material(
+        elevation: 8,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10),
         ),
-        child: Image.asset(imagePath, fit: BoxFit.cover, height: 150),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              vertical: Get.height * 0.1, horizontal: Get.width * 0.28),
+          decoration: BoxDecoration(
+            color: ColorsConfig.colorGreyy.withOpacity(0.4),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          child: Image.asset(imagePath, fit: BoxFit.cover, height: 150),
+        ),
       ),
     );
   }

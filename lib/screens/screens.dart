@@ -27,3 +27,6 @@ export 'doctor_notes/doctor_notes.dart';
 export 'offers/offers.dart';
 export 'myndro_locker/myndro_locker.dart';
 export 'myndro_locker/myndro_document.dart';
+export 'doctor_notes/doctor_notes_detail.dart';
+export 'doctor_notes/prescription_screen.dart';
+export 'upcoming_appointments/upcoming_appointments.dart';

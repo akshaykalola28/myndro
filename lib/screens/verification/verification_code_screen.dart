@@ -27,10 +27,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                   ? ColorsConfig.colorBlue
                   : ColorsConfig.colorBlue,
               leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios_rounded,
-                  color: ColorsConfig.colorWhite,
-                ),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   Get.back();
                 },

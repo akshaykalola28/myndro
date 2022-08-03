@@ -114,10 +114,10 @@ class DashboardScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(
-                  Icons.person,
-                  size: 30,
+                leading: Image.asset(
+                  ImagePath.assessmentIcon,
                   color: ColorsConfig.colorWhite,
+                  height: 30,
                 ),
                 title: Text(
                   'Packages',
@@ -130,6 +130,25 @@ class DashboardScreen extends StatelessWidget {
                 onTap: () {
                   Get.back();
                   Get.toNamed(PackagesScreen.pageId);
+                },
+              ),
+              ListTile(
+                leading: Image.asset(
+                  ImagePath.offersImg,
+                  color: ColorsConfig.colorWhite,
+                  height: 30,
+                ),
+                title: Text(
+                  'Offers',
+                  style: TextStyle(
+                      fontFamily: AppTextStyle.microsoftJhengHei,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w600,
+                      color: ColorsConfig.colorWhite),
+                ),
+                onTap: () {
+                  Get.back();
+                  Get.toNamed(OffersScreen.pageId);
                 },
               ),
               ListTile(

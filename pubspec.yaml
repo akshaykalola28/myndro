@@ -50,6 +50,9 @@ dependencies:
   coupon_uikit: ^0.0.1
   dotted_line: ^3.1.0
   flutter_password_strength: ^0.1.6
+  http: ^0.13.4
+  connectivity: any
+  fluttertoast: any
 
 dev_dependencies:
   flutter_test:

@@ -78,7 +78,7 @@ class RecommendedExperts extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Dr.Sophia',
+                        'Dr. Sophia',
                         style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
                           fontSize: 20.0,
@@ -87,35 +87,54 @@ class RecommendedExperts extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
                       Text(
-                        'Psychologist',
+                        'psychiatrist',
                         style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 15.0,
+                          fontSize: 14.0,
+                          color: ColorsConfig.colorGreyy,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        'specialities',
+                        style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 16.0,
                           color: ColorsConfig.colorBlack,
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      RatingBar.builder(
-                        itemSize: 22,
-                        initialRating: 3,
-                        minRating: 0,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        // itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: ColorsConfig.colorBlue,
+                      Text(
+                        'psychiatrist',
+                        style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 14.0,
+                          color: ColorsConfig.colorGreyy,
                         ),
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
-                      )
+                      ),
+                      // RatingBar.builder(
+                      //   itemSize: 22,
+                      //   initialRating: 3,
+                      //   minRating: 0,
+                      //   direction: Axis.horizontal,
+                      //   allowHalfRating: true,
+                      //   itemCount: 5,
+                      //   // itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                      //   itemBuilder: (context, _) => const Icon(
+                      //     Icons.star,
+                      //     color: ColorsConfig.colorBlue,
+                      //   ),
+                      //   onRatingUpdate: (rating) {
+                      //     print(rating);
+                      //   },
+                      // )
                     ],
                   ),
                 ),

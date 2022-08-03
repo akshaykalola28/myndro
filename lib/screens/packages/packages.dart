@@ -66,14 +66,32 @@ Widget packagesContainer(String title, String text, String imgPath) {
         Row(
           children: [
             Expanded(
-              child: Text(
-                text,
-                style: TextStyle(
-                  fontFamily: AppTextStyle.microsoftJhengHei,
-                  fontSize: 15.0,
-                  color: ColorsConfig.colorBlack,
-                ),
-                // maxLines: 6,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    text,
+                    style: TextStyle(
+                      fontFamily: AppTextStyle.microsoftJhengHei,
+                      fontSize: 15.0,
+                      color: ColorsConfig.colorBlack,
+                    ),
+                    // maxLines: 6,
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    'Know More >',
+                    style: TextStyle(
+                      fontFamily: AppTextStyle.microsoftJhengHei,
+                      fontSize: 15.0,
+                      color: ColorsConfig.colorBlue,
+                    ),
+                    // maxLines: 6,
+                  ),
+                ],
               ),
             ),
             const SizedBox(
