@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:myndro/screens/screens.dart';
-import 'package:myndro/widgets/widgets.dart';
-import 'package:otp_text_field/otp_text_field.dart';
-import 'package:otp_text_field/style.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import '../screens.dart';
+import '../../widgets/widgets.dart';
+
+// import 'package:otp_text_field/otp_text_field.dart';
+// import 'package:otp_text_field/style.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
@@ -12,13 +15,14 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
   static const pageId = "/verification_code";
 
   VerificationCodeScreen({Key? key}) : super(key: key);
-  bool fromVerification = Get.arguments;
+  var fromVerification = Get.arguments;
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConfig.colorWhite,
-      appBar: fromVerification
+      appBar: fromVerification[1]
           ? PreferredSize(
               preferredSize: const Size.fromHeight(-40.0), child: Container())
           : AppBar(
@@ -33,7 +37,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 },
               ),
             ),
-      body: fromVerification
+      body: fromVerification[1]
           ? LayoutWidget(
               body: Column(
                 children: [
@@ -111,42 +115,86 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
   }
 
   Widget bodyContent(context) {
-    return Column(
-      children: [
-        if (MediaQuery.of(context).viewInsets.bottom == 0)
-          Text(
-            'The Verification code was sent to the phone\nnumber +91 998800 0000. please enter the code.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: ColorsConfig.colorBlue),
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          if (MediaQuery.of(context).viewInsets.bottom == 0)
+            Text(
+              'The Verification code was sent to the phone\nnumber ${fromVerification[0]['patient_phone_no']} . please enter the code.',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: ColorsConfig.colorBlue),
+            ),
+          const SizedBox(height: 24),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 25),
+            child: PinCodeTextField(
+              length: 6,
+              obscureText: false,
+              animationType: AnimationType.fade,
+              pinTheme: PinTheme(
+                activeColor: Colors.grey,
+                selectedColor: ColorsConfig.colorBlue,
+                inactiveColor: Colors.grey,
+                shape: PinCodeFieldShape.underline,
+                activeFillColor: Colors.transparent,
+              ),
+              // validator: (v) {
+              //   if (v!.length <6) {
+              //     return "Please enter all digits";
+              //   } else {
+              //     return null;
+              //   }
+              // },
+              animationDuration: const Duration(milliseconds: 300),
+              enableActiveFill: false,
+              keyboardType: TextInputType.number,
+              controller: controller.otpController,
+              onCompleted: (v) {
+                print("Completed");
+              },
+              onChanged: (value) {
+                print(value);
+              },
+              beforeTextPaste: (text) {
+                print("Allowing to paste $text");
+                return true;
+              },
+              appContext: context,
+            ),
           ),
-        const SizedBox(height: 24),
-        OTPTextField(
-          length: 6,
-          width: Get.width * 0.7,
-          style: Theme.of(context).textTheme.bodyLarge!,
-          textFieldAlignment: MainAxisAlignment.spaceAround,
-          fieldStyle: FieldStyle.underline,
-          onCompleted: (pin) {
-            print("Completed: " + pin);
-          },
-        ),
-        const SizedBox(height: 36),
-        Text(
-          'Resend Verification Code',
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
-              ?.copyWith(color: ColorsConfig.colorBlue),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
-          child: loginButtonWidget('Submit', () {
-            Get.toNamed(UserRegistration.pageId);
-          }),
-        )
-      ],
+          const SizedBox(height: 36),
+          GestureDetector(
+            onTap: () {
+              controller.otpController.clear();
+              controller.resendOtp(fromVerification[2], fromVerification[3],
+                  fromVerification[0]['patient_id']);
+            },
+            child: Text(
+              'Resend Verification Code',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: ColorsConfig.colorBlue),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+            child: loginButtonWidget('Submit', () {
+              formKey.currentState?.validate();
+              if (controller.otpController != null &&
+                  controller.otpController != '') {
+                controller.verifyOtp(fromVerification[0]['patient_id'],
+                    controller.otpController.text);
+              } else {
+                Fluttertoast.showToast(msg: 'please enter valid OTP');
+              }
+            }),
+          )
+        ],
+      ),
     );
   }
 }

@@ -51,4 +51,50 @@ class RemoteServices {
 
     return response;
   }
+
+//verify OTP
+  static Future<http.Response> verifyOtp(
+    int patientId,
+    String otp,
+  ) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      'patient_id': patientId,
+      'otp': otp,
+    });
+
+    http.Response response = await http.post(
+      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.verifyOtp}'),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+//resend OTP
+  static Future<http.Response> resendOtp(
+    String phoneNo,
+    String countryCode,
+    int patientId,
+  ) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      'patient_id': patientId,
+      'country_code': countryCode,
+      'phone_no': phoneNo,
+    });
+
+    http.Response response = await http.post(
+      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.resendOtp}'),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
 }
