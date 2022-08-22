@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myndro/screens/screens.dart';
-import 'package:myndro/services/services.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';

@@ -97,4 +97,103 @@ class RemoteServices {
 
     return response;
   }
+
+  //patient Login
+  static Future<http.Response> patientLogin(
+      String email,
+      String password,
+
+      ) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      "email":email,
+      "password":password
+    });
+
+    http.Response response = await http.post(
+      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.patientLogin}'),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //add patient data
+  static Future<http.Response> addPatientData(
+      int patientId,
+      String firstName,
+      String lastName,
+      String email,
+      String date,
+      String addLine1,
+      String addLine2,
+      String addLine3,
+      int countryCode,
+      int stateId,
+      int cityId,
+      String zipCode,
+      String password,
+      String gender) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      'patient_id': patientId,
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email,
+      'date': date,
+      'address_line_1': addLine1,
+      'address_line_2': addLine2,
+      'address_line_3': addLine3,
+      'country': countryCode,
+      'state_id': stateId,
+      'city_id': cityId,
+      'zip_code': zipCode,
+      'password': password,
+      'gender': gender
+    });
+
+    http.Response response = await http.post(
+      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.addPatient}'),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+
+  //get state list
+  static Future<http.Response> getStates(
+      int countryId,
+      ) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+    http.Response response = await http.post(
+      Uri.parse('${Apis.baseUrl}${Apis.stateList}?country_id=$countryId'),
+      headers: header,
+      // body: postBody,
+    );
+    printResponse(header, '', response);
+
+    return response;
+  }
+
+  //get city list
+  static Future<http.Response> getCity(
+      int stateId,
+      ) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+    http.Response response = await http.post(
+      Uri.parse('${Apis.baseUrl}${Apis.cityList}?state_id=$stateId'),
+      headers: header,
+      // body: postBody,
+    );
+    printResponse(header, '', response);
+
+    return response;
+  }
 }

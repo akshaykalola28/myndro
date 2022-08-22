@@ -47,6 +47,8 @@ class PhoneNumberController extends BaseController {
         for (dynamic i in data) {
           countryListData.add(CountryData.fromJson(i));
         }
+      } else {
+        Common.displayErrorMessage(response.body);
       }
     }
   }

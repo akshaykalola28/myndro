@@ -15,14 +15,14 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
   static const pageId = "/verification_code";
 
   VerificationCodeScreen({Key? key}) : super(key: key);
-  var fromVerification = Get.arguments;
+
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConfig.colorWhite,
-      appBar: fromVerification[1]
+      appBar: controller.fromVerification[1]
           ? PreferredSize(
               preferredSize: const Size.fromHeight(-40.0), child: Container())
           : AppBar(
@@ -37,7 +37,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 },
               ),
             ),
-      body: fromVerification[1]
+      body: controller.fromVerification[1]
           ? LayoutWidget(
               body: Column(
                 children: [
@@ -121,7 +121,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
         children: [
           if (MediaQuery.of(context).viewInsets.bottom == 0)
             Text(
-              'The Verification code was sent to the phone\nnumber ${fromVerification[0]['patient_phone_no']} . please enter the code.',
+              'The Verification code was sent to the phone\nnumber ${controller.fromVerification[0]['patient_phone_no']} . please enter the code.',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
@@ -169,8 +169,8 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
           GestureDetector(
             onTap: () {
               controller.otpController.clear();
-              controller.resendOtp(fromVerification[2], fromVerification[3],
-                  fromVerification[0]['patient_id']);
+              controller.resendOtp(controller.fromVerification[2], controller.fromVerification[3],
+                  controller.fromVerification[0]['patient_id']);
             },
             child: Text(
               'Resend Verification Code',
@@ -186,7 +186,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
               formKey.currentState?.validate();
               if (controller.otpController != null &&
                   controller.otpController != '') {
-                controller.verifyOtp(fromVerification[0]['patient_id'],
+                controller.verifyOtp(controller.fromVerification[0]['patient_id'],
                     controller.otpController.text);
               } else {
                 Fluttertoast.showToast(msg: 'please enter valid OTP');

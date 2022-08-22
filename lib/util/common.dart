@@ -15,6 +15,22 @@ class Common {
     }
   }
 
+  static String? validateAddress(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Address';
+    } else {
+      return null;
+    }
+  }
+  static String? validateZipcode(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Zipcode';
+    } else {
+      return null;
+    }
+  }
+
+
   static String? validateEmail(String? value) {
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -29,8 +45,7 @@ class Common {
   static String? validatePassword(String? value) {
     if (value!.isEmpty) {
       return 'Enter valid Password!!!';
-    }
-    if (value.length < 6) {
+    } else if (value.length < 6) {
       return 'Password must be a 6 character';
     }
     return null;
@@ -50,7 +65,7 @@ class Common {
     var data;
     var error;
     data = json.decode(response);
-    error = data['errors'] as List;
+    error = data['msg'] as List;
     Fluttertoast.showToast(msg: error[0]['message'] as String);
   }
 

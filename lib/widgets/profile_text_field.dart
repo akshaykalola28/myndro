@@ -9,15 +9,16 @@ Widget profileTextFieldWidget(
     String hintTxt,
     [VoidCallback? onSufficIcon,
     IconData? suffixIcon,
-    Function(String value)? onChanged]) {
+    ]) {
   return TextFormField(
+    // autovalidateMode: AutovalidateMode.always,
     style: TextStyle(
       fontFamily: AppTextStyle.microsoftJhengHei,
       fontSize: 13.0,
       fontWeight: FontWeight.w400,
       color: ColorsConfig.colorBlue,
     ),
-    onChanged: (value) => onChanged!(value),
+    // onChanged: (value) => onChanged!(value),
     controller: controller,
     validator: validator,
     keyboardType: inputType,
@@ -44,6 +45,20 @@ Widget profileTextFieldWidget(
       filled: true,
       fillColor: ColorsConfig.colorWhite,
       focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(
+          color: ColorsConfig.colorBlue,
+          width: 1.5,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(
+          color: ColorsConfig.colorBlue,
+          width: 1.5,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
         borderSide: const BorderSide(
           color: ColorsConfig.colorBlue,
