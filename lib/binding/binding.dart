@@ -17,3 +17,4 @@ export 'assesment_binding.dart';
 export 'doctor_notes_binding.dart';
 export 'offers_binding.dart';
 export 'packages_binding.dart';
+export 'expert_home_binding.dart';

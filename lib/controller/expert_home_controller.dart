@@ -1,6 +1,6 @@
 import 'controller.dart';
 
-class ExpertDashboardController extends BaseController {
+class ExpertHomeController extends BaseController {
   @override
   void errorHandler(e) {}
 

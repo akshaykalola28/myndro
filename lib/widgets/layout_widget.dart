@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myndro/widgets/widgets.dart';
+import 'widgets.dart';
 
 import '../constant/constant.dart';
 
@@ -42,7 +42,7 @@ class LayoutWidget extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          ExpertAppbar(text: text!, isAssessment: isAssessment),
+          UserAppbar(text: text!, isAssessment: isAssessment),
           Expanded(child: body)
         ],
       ),

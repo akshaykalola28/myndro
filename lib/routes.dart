@@ -137,4 +137,8 @@ final List<GetPage> appPages = [
       name: PackagesScreen.pageId,
       page: () => const PackagesScreen(),
       binding: PackagesBinding()),
+  GetPage(
+      name: ExpertHome.pageId,
+      page: () =>  ExpertHome(),
+      binding: ExpertHomeBinding()),
 ];

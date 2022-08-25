@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../constant/constant.dart';
 
-class ExpertAppbar extends StatelessWidget {
-  ExpertAppbar({Key? key, this.text, this.isAssessment}) : super(key: key);
+class UserAppbar extends StatelessWidget {
+  UserAppbar({Key? key, this.text, this.isAssessment}) : super(key: key);
 
   final String? text;
   bool? isAssessment = false;

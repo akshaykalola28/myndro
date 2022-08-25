@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 
 import '../controller/controller.dart';
 
-class ExpertDashboardBinding extends Bindings {
+class ExpertHomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<ExpertDashboardController>(ExpertDashboardController(), permanent: false);
+    Get.put<ExpertHomeController>(ExpertHomeController(), permanent: false);
   }
 }

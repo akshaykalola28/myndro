@@ -5,6 +5,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../constant/constant.dart';
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
+import '../screens.dart';
 
 class ExpertRegistrationForm extends StatefulWidget {
   static const pageId = "/ExpertRegistrationScreen";
@@ -785,7 +786,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                                   'Your Profile is Successfully Completed.',
                                               titleSubtext:
                                                   'Please Wait For Admin Approval.',
-                                              onClose: () => Get.back(),
+                                              onClose: () {
+                                                Get.toNamed(ExpertHome.pageId);
+                                              },
                                             ),
                                           );
                                         },

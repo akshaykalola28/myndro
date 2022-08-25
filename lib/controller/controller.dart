@@ -18,3 +18,4 @@ export 'doctor_notes_controller.dart';
 export 'offers_controller.dart';
 export 'myndro_locker_controller.dart';
 export 'packages_controller.dart';
+export 'expert_home_controller.dart';

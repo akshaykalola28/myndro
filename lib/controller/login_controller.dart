@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../screens/screens.dart';
