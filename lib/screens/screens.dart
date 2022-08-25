@@ -31,3 +31,5 @@ export 'doctor_notes/doctor_notes_detail.dart';
 export 'doctor_notes/prescription_screen.dart';
 export 'upcoming_appointments/upcoming_appointments.dart';
 export 'expert_home/expert_home.dart';
+export 'expert_appointment/expert_appointment.dart';
+export 'expert_appointment/expert_today_appointment.dart';

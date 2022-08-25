@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_password_strength/flutter_password_strength.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
 
@@ -24,7 +22,7 @@ class _UserRegistrationState extends State<UserRegistration> {
   final RegistrationController controller = RegistrationController();
   String? dropdownValue;
   bool addVisibility = false;
-  String _password = "";
+  final String _password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,19 +141,19 @@ class _UserRegistrationState extends State<UserRegistration> {
                               const SizedBox(
                                 height: 12,
                               ),
-                            //     DropDownWidget(
-                            //   dropdownValue: dropdownValue,
-                            //   hintText: 'Gender',
-                            //   isExpanded: true,
-                            // ),
+                              //     DropDownWidget(
+                              //   dropdownValue: dropdownValue,
+                              //   hintText: 'Gender',
+                              //   isExpanded: true,
+                              // ),
                               DropdownButtonFormField<String>(
                                 iconDisabledColor: ColorsConfig.colorBlue,
                                 iconEnabledColor: ColorsConfig.colorBlue,
-                                isExpanded:true ,
+                                isExpanded: true,
                                 value: controller.genderDropdownValue,
                                 decoration: InputDecoration(
-                                  contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 12.0, horizontal: 10),
                                   hintText: 'Gender',
                                   labelText: 'Gender',
                                   hintStyle: TextStyle(
@@ -191,11 +189,15 @@ class _UserRegistrationState extends State<UserRegistration> {
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
-                                    child: Text(value,style:  TextStyle(
-                                      fontFamily: AppTextStyle.microsoftJhengHei,
-                                      fontSize: 13.0,
-                                      color: ColorsConfig.colorBlue,
-                                    ),),
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                        fontFamily:
+                                            AppTextStyle.microsoftJhengHei,
+                                        fontSize: 13.0,
+                                        color: ColorsConfig.colorBlue,
+                                      ),
+                                    ),
                                   );
                                 }).toList(),
                                 onChanged: (String? newValue) {
@@ -247,11 +249,11 @@ class _UserRegistrationState extends State<UserRegistration> {
                               DropdownButtonFormField<CountryData>(
                                 iconDisabledColor: ColorsConfig.colorBlue,
                                 iconEnabledColor: ColorsConfig.colorBlue,
-                                isExpanded:true ,
+                                isExpanded: true,
                                 value: controller.countryDropdown,
                                 decoration: InputDecoration(
-                                  contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 12.0, horizontal: 10),
                                   hintText: 'Country',
                                   // labelText: 'Country',
                                   hintStyle: TextStyle(
@@ -281,14 +283,18 @@ class _UserRegistrationState extends State<UserRegistration> {
                                     ),
                                   ),
                                 ),
-                                items: controller.countryListData.map(( value) {
+                                items: controller.countryListData.map((value) {
                                   return DropdownMenuItem(
                                     value: value,
-                                    child: Text(value.countryCode!,style:  TextStyle(
-                                      fontFamily: AppTextStyle.microsoftJhengHei,
-                                      fontSize: 13.0,
-                                      color: ColorsConfig.colorBlue,
-                                    ),),
+                                    child: Text(
+                                      value.countryCode!,
+                                      style: TextStyle(
+                                        fontFamily:
+                                            AppTextStyle.microsoftJhengHei,
+                                        fontSize: 13.0,
+                                        color: ColorsConfig.colorBlue,
+                                      ),
+                                    ),
                                   );
                                 }).toList(),
                                 onChanged: (newValue) {
@@ -392,8 +398,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                                 child: loginButtonWidget('Submit', () {
                                   print('object');
 
-
-                                  if ( formKey.currentState!.validate()) {
+                                  if (formKey.currentState!.validate()) {
                                     controller.addPatient(
                                         context,
                                         controller.firstNameController.text,

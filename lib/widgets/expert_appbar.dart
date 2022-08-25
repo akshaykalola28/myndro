@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import '../constant/constant.dart';
 
 class ExpertAppbar extends StatelessWidget {
-  const ExpertAppbar({Key? key, this.text,this.onDrawerClick}) : super(key: key);
+  const ExpertAppbar(
+      {Key? key, this.text, this.onDrawerClick, this.leadingIcon})
+      : super(key: key);
 
   final String? text;
   final VoidCallback? onDrawerClick;
+  final IconData? leadingIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +23,8 @@ class ExpertAppbar extends StatelessWidget {
         children: [
           IconButton(
               onPressed: onDrawerClick,
-              icon: const Icon(
-                Icons.menu,
+              icon: Icon(
+                leadingIcon,
                 color: ColorsConfig.colorWhite,
                 size: 30,
               )),

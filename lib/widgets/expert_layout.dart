@@ -5,16 +5,17 @@ import '../constant/constant.dart';
 import 'widgets.dart';
 
 class ExpertLayout extends StatelessWidget {
-  const ExpertLayout({
-    Key? key,
-    this.text,
-    required this.body,
-    this.onDrawerClick
-  }) : super(key: key);
+  const ExpertLayout(
+      {Key? key,
+      this.text,
+      required this.body,
+      this.onDrawerClick,
+      this.leadingIcon})
+      : super(key: key);
   final Widget body;
   final String? text;
   final VoidCallback? onDrawerClick;
-
+  final IconData? leadingIcon;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -47,7 +48,8 @@ class ExpertLayout extends StatelessWidget {
           ),
           ExpertAppbar(
             text: text!,
-            onDrawerClick:onDrawerClick ,
+            onDrawerClick: onDrawerClick,
+            leadingIcon: leadingIcon,
           ),
           Expanded(
               child: GestureDetector(

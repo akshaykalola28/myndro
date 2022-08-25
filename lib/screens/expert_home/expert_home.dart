@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
@@ -122,7 +123,7 @@ class _ExpertHomeState extends State<ExpertHome>
               ),
               onTap: () {
                 Get.back();
-                // Get.toNamed(ExpertDetailScreen.pageId);
+                Get.toNamed(ExpertAppointment.pageId);
               },
             ),
             ListTile(
@@ -242,6 +243,7 @@ class _ExpertHomeState extends State<ExpertHome>
         ),
       ),
       body: ExpertLayout(
+        leadingIcon: Icons.menu,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -323,88 +325,102 @@ class _ExpertHomeState extends State<ExpertHome>
                               return appointmentContainer(
                                   'data', '19Jan,5:45', 'M 0001');
                             }),
-                       SingleChildScrollView(
-                         child: Column(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           crossAxisAlignment: CrossAxisAlignment.center,
-                           children: [
-                             Text(
-                               'Today',
-                               softWrap: true,
-                               style: TextStyle(
-                                   fontFamily: AppTextStyle.microsoftJhengHei,
-                                   fontSize: 25.0,
-                                   color: ColorsConfig.colorBlue,
-                                   fontWeight: FontWeight.bold),
-                             ),
-                             SizedBox(height: 10,),
-                             Text(
-                               '3 Slots Available',
-                               softWrap: true,
-                               style: TextStyle(
-                                   fontFamily: AppTextStyle.microsoftJhengHei,
-                                   fontSize: 25.0,
-                                   color: ColorsConfig.colorGreen,
-                                   fontWeight: FontWeight.bold),
-                             ),
-                             SizedBox(height: 10,),
-                             GridView.builder(
-                               shrinkWrap: true,
-                               physics: NeverScrollableScrollPhysics(),
-                               itemCount: 10,
-                               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                   crossAxisCount:3,crossAxisSpacing: 20,mainAxisSpacing: 20,childAspectRatio: 3),
-                               itemBuilder: (BuildContext context, int index) {
-                                 return Container(
-                                   decoration: BoxDecoration(
-                                     color: Colors.transparent,
-                                     borderRadius: const BorderRadius.all(
-                                       Radius.circular(15.0),
-                                     ),
-                                     border: Border.all(
-                                       color: ColorsConfig.colorBlack,
-                                       style: BorderStyle.solid,
-                                       width: 1.0,
-                                     ),
-                                   ),
-                                   child: Center(
-                                     child: Text(
-                                       '0:10',
-                                       style: TextStyle(
-                                           fontFamily:
-                                           AppTextStyle.microsoftJhengHei,
-                                           fontSize: 15.0,
-                                           color: ColorsConfig.colorBlack,
-                                           fontWeight: FontWeight.w600),
-                                       maxLines: 1,
-                                     ),
-                                   ),
-                                 );
-                               },
-                             ),
-                             SizedBox(height: 10,),
-                             Container(
-                               padding: const EdgeInsets.symmetric(horizontal: 22,vertical: 15),
-                               decoration: BoxDecoration(
-                                 color: ColorsConfig.colorBlue,
-                                   borderRadius:
-                                   const BorderRadius.all(Radius.circular(10)),
-                                   border: Border.all(
-                                     color: ColorsConfig.colorBlue,
-                                   )),
-                               child: Text(
-                                 'Edit Slot',
-                                 style: TextStyle(
-                                     fontFamily: AppTextStyle.microsoftJhengHei,
-                                     fontSize: 20.0,
-                                     color: ColorsConfig.colorWhite,
-                                     fontWeight: FontWeight.bold),
-                               ),
-                             ),
-                             SizedBox(height: 20,),
-                           ],
-                         ),
-                       )
+                        SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Today',
+                                softWrap: true,
+                                style: TextStyle(
+                                    fontFamily: AppTextStyle.microsoftJhengHei,
+                                    fontSize: 25.0,
+                                    color: ColorsConfig.colorBlue,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '3 Slots Available',
+                                softWrap: true,
+                                style: TextStyle(
+                                    fontFamily: AppTextStyle.microsoftJhengHei,
+                                    fontSize: 25.0,
+                                    color: ColorsConfig.colorGreen,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: 10,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20,
+                                        childAspectRatio: 3),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(15.0),
+                                      ),
+                                      border: Border.all(
+                                        color: ColorsConfig.colorBlack,
+                                        style: BorderStyle.solid,
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '0:10',
+                                        style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 15.0,
+                                            color: ColorsConfig.colorBlack,
+                                            fontWeight: FontWeight.w600),
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 22, vertical: 15),
+                                decoration: BoxDecoration(
+                                    color: ColorsConfig.colorBlue,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    border: Border.all(
+                                      color: ColorsConfig.colorBlue,
+                                    )),
+                                child: Text(
+                                  'Edit Slot',
+                                  style: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontSize: 20.0,
+                                      color: ColorsConfig.colorWhite,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        )
                       ][tabController!.index],
                     ),
                   ],
@@ -478,128 +494,11 @@ class _ExpertHomeState extends State<ExpertHome>
 
   Widget appointmentContainer(String name, String date, String caseNo) {
     return Card(
+        elevation: 5,
         child: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.contain,
-                    image: AssetImage(ImagePath.iconHuman)),
-                color: ColorsConfig.colorBlue,
-                borderRadius: const BorderRadius.all(Radius.circular(50))),
-          ),
-          SizedBox(
-            width: 15,
-          ),
-          Column(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 20.0,
-                    color: ColorsConfig.colorGreyy,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                date,
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 15.0,
-                    color: ColorsConfig.colorGreyy.withOpacity(0.8),
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        border: Border.all(
-                          color: ColorsConfig.colorBlue,
-                        )),
-                    child: Text(
-                      'package',
-                      style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 15.0,
-                          color: ColorsConfig.colorBlue,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        border: Border.all(
-                          color: ColorsConfig.colorGreyy,
-                        )),
-                    child: Text(
-                      'view',
-                      style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 15.0,
-                          color: ColorsConfig.colorGreyy,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                'Case No.: $caseNo',
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 20.0,
-                    color: ColorsConfig.colorGreyy,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          Spacer(),
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                color: ColorsConfig.colorBlue,
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-            child:
-                Icon(Icons.videocam, color: ColorsConfig.colorWhite, size: 32),
-          ),
-        ],
-      ),
-    ));
-  }
-
-  Widget quickConnect(String name, String date, String caseNo) {
-    return Card(
-        child: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -612,63 +511,190 @@ class _ExpertHomeState extends State<ExpertHome>
                     color: ColorsConfig.colorBlue,
                     borderRadius: const BorderRadius.all(Radius.circular(50))),
               ),
-              Text(
-                name,
-                softWrap: true,
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 20.0,
-                    color: ColorsConfig.colorGreyy,
-                    fontWeight: FontWeight.bold),
+              const SizedBox(
+                width: 15,
               ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                        fontFamily: AppTextStyle.microsoftJhengHei,
+                        fontSize: 20.0,
+                        color: ColorsConfig.colorGreyy,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    date,
+                    style: TextStyle(
+                        fontFamily: AppTextStyle.microsoftJhengHei,
+                        fontSize: 15.0,
+                        color: ColorsConfig.colorGreyy.withOpacity(0.8),
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                            border: Border.all(
+                              color: ColorsConfig.colorBlue,
+                            )),
+                        child: Text(
+                          'package',
+                          style: TextStyle(
+                              fontFamily: AppTextStyle.microsoftJhengHei,
+                              fontSize: 15.0,
+                              color: ColorsConfig.colorBlue,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(ExpertTodayAppointment.pageId);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 5),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              border: Border.all(
+                                color: ColorsConfig.colorGreyy,
+                              )),
+                          child: Text(
+                            'view',
+                            style: TextStyle(
+                                fontFamily: AppTextStyle.microsoftJhengHei,
+                                fontSize: 15.0,
+                                color: ColorsConfig.colorGreyy,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    'Case No.: $caseNo',
+                    style: TextStyle(
+                        fontFamily: AppTextStyle.microsoftJhengHei,
+                        fontSize: 20.0,
+                        color: ColorsConfig.colorGreyy,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const Spacer(),
               Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
                     color: ColorsConfig.colorBlue,
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: Icon(Icons.videocam,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: const Icon(Icons.videocam,
                     color: ColorsConfig.colorWhite, size: 32),
               ),
-              Icon(Icons.check_circle_outline_outlined,
-                  color: Colors.green, size: 40),
-              Container(
-                padding: EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 3,
-                      color: Colors.red,
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(25))),
-                child: Center(
-                    child: Icon(Icons.close, color: Colors.red, size: 25)),
-              ),
-
             ],
           ),
-          SizedBox(height: 12,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        ));
+  }
+
+  Widget quickConnect(String name, String date, String caseNo) {
+    return Card(
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
             children: [
-              Text(
-                'Case No.: $caseNo',
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 15.0,
-                    color: ColorsConfig.colorGreyy,
-                    fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.contain,
+                            image: AssetImage(ImagePath.iconHuman)),
+                        color: ColorsConfig.colorBlue,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50))),
+                  ),
+                  Text(
+                    name,
+                    softWrap: true,
+                    style: TextStyle(
+                        fontFamily: AppTextStyle.microsoftJhengHei,
+                        fontSize: 20.0,
+                        color: ColorsConfig.colorGreyy,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: const BoxDecoration(
+                        color: ColorsConfig.colorBlue,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: const Icon(Icons.videocam,
+                        color: ColorsConfig.colorWhite, size: 32),
+                  ),
+                  const Icon(Icons.check_circle_outline_outlined,
+                      color: Colors.green, size: 40),
+                  Container(
+                    padding: const EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 3,
+                          color: Colors.red,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25))),
+                    child: const Center(
+                        child: Icon(Icons.close, color: Colors.red, size: 25)),
+                  ),
+                ],
               ),
-              Text(
-                date,
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 15.0,
-                    color: ColorsConfig.colorGreyy.withOpacity(0.8),
-                    fontWeight: FontWeight.bold),
+              const SizedBox(
+                height: 12,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    'Case No.: $caseNo',
+                    style: TextStyle(
+                        fontFamily: AppTextStyle.microsoftJhengHei,
+                        fontSize: 15.0,
+                        color: ColorsConfig.colorGreyy,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    date,
+                    style: TextStyle(
+                        fontFamily: AppTextStyle.microsoftJhengHei,
+                        fontSize: 15.0,
+                        color: ColorsConfig.colorGreyy.withOpacity(0.8),
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
-      ),
-    ));
+          ),
+        ));
   }
 }

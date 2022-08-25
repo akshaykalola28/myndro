@@ -19,3 +19,4 @@ export 'offers_controller.dart';
 export 'myndro_locker_controller.dart';
 export 'packages_controller.dart';
 export 'expert_home_controller.dart';
+export 'expert_appointment_controller.dart';

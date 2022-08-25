@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../screens.dart';
 import '../../widgets/widgets.dart';
 
 // import 'package:otp_text_field/otp_text_field.dart';
@@ -169,7 +168,9 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
           GestureDetector(
             onTap: () {
               controller.otpController.clear();
-              controller.resendOtp(controller.fromVerification[2], controller.fromVerification[3],
+              controller.resendOtp(
+                  controller.fromVerification[2],
+                  controller.fromVerification[3],
                   controller.fromVerification[0]['patient_id']);
             },
             child: Text(
@@ -186,7 +187,8 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
               formKey.currentState?.validate();
               if (controller.otpController != null &&
                   controller.otpController != '') {
-                controller.verifyOtp(controller.fromVerification[0]['patient_id'],
+                controller.verifyOtp(
+                    controller.fromVerification[0]['patient_id'],
                     controller.otpController.text);
               } else {
                 Fluttertoast.showToast(msg: 'please enter valid OTP');

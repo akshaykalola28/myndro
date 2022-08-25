@@ -207,7 +207,7 @@ class PrescriptionScreen extends GetView<DoctorNotesController> {
                                     ),
                                     Icon(
                                       Icons.attach_file,
-                                      color: ColorsConfig.colorBlack,
+                                      color: Colors.red,
                                       size: 25,
                                     )
                                   ],
