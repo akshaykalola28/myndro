@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
 import '../../widgets/widgets.dart';
@@ -212,12 +213,12 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                         );
                       },
                       itemBuilder: (BuildContext context, int index) {
-                        return dataContainer(
-                            'case NO',
-                            'Date of Appointment',
-                            'hello',
-                            'loreal ipsum loreal ipsum loreal ipsum loreal ipsum',
-                            "10th june 2022");
+                        return ExpertNotesWidget(
+                          date: '10th june 2022',
+                          title: 'hello',
+                          subject:
+                              'loreal ipsum loreal ipsum loreal ipsum loreal ',
+                        );
                       }),
                 ][tabController!.index])
               ],
@@ -405,7 +406,6 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                       height: 10,
                     ),
                     Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Individual',

@@ -4,17 +4,6 @@ import 'package:get/get.dart';
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
 import '../../widgets/widgets.dart';
-
-// class WalletScreen extends StatefulWidget {
-//   const WalletScreen({Key? key}) : super(key: key);
-//   static const pageId = "/WalletScreen";
-
-//   @override
-//   State<StatefulWidget> createState() {
-//   return
-//   }
-// }
-
 class WalletScreen extends StatefulWidget {
   static const pageId = "/WalletScreen";
   const WalletScreen({Key? key}) : super(key: key);

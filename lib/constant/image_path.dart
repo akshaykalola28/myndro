@@ -48,8 +48,9 @@ mixin ImagePath {
   static String iconPrescription = 'assets/images/icon_prescription.png';
   static String packagesImg = 'assets/images/packages_img.png';
   static String offersImg = 'assets/images/offers_img.png';
-  static String  patientInfoImg= 'assets/images/patient_info_img.png';
+  static String patientInfoImg = 'assets/images/patient_info_img.png';
   static String myPackagesImg = 'assets/images/my_packages_img.png';
   static String reportImg = 'assets/images/report_img.png';
-
+  static String pdfIconImg = 'assets/images/pdf_icon_img.png';
+  static String docIcon = 'assets/images/doc_icon.png';
 }

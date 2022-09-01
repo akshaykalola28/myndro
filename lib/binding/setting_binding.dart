@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:myndro/controller/controller.dart';
+
+import '../controller/controller.dart';
 
 class SettingBinding extends Bindings {
   @override

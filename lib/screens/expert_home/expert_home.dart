@@ -142,7 +142,7 @@ class _ExpertHomeState extends State<ExpertHome>
               ),
               onTap: () {
                 Get.back();
-                // Get.toNamed(PackagesScreen.pageId);
+                Get.toNamed(ExpertPackages.pageId);
               },
             ),
             ListTile(
@@ -161,7 +161,7 @@ class _ExpertHomeState extends State<ExpertHome>
               ),
               onTap: () {
                 Get.back();
-                // Get.toNamed(SettingScreen.pageId);
+                Get.toNamed(ExpertCalender.pageId);
               },
             ),
             ListTile(
@@ -180,7 +180,7 @@ class _ExpertHomeState extends State<ExpertHome>
               ),
               onTap: () {
                 Get.back();
-                // Get.toNamed(PackagesScreen.pageId);
+                Get.toNamed(ExpertAllPatients.pageId);
               },
             ),
             ListTile(
@@ -199,7 +199,7 @@ class _ExpertHomeState extends State<ExpertHome>
               ),
               onTap: () {
                 Get.back();
-                // Get.toNamed(AskUSScreen.pageId);
+                Get.toNamed(ExpertMessages.pageId);
               },
             ),
             ListTile(
@@ -218,7 +218,7 @@ class _ExpertHomeState extends State<ExpertHome>
               ),
               onTap: () {
                 Get.back();
-                // Get.toNamed(PackagesScreen.pageId);
+                Get.toNamed(ExpertReports.pageId);
               },
             ),
             ListTile(

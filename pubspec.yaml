@@ -54,6 +54,7 @@ dependencies:
   connectivity: any
   fluttertoast: any
   pin_code_fields: ^7.4.0
+  intl: any
 
 dev_dependencies:
   flutter_test:

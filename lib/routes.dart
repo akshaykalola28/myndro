@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:myndro/binding/myndro_locker_binding.dart';
 import 'package:myndro/screens/packages/packages.dart';
+
 import 'binding/binding.dart';
 import 'screens/screens.dart';
 
@@ -23,7 +24,7 @@ final List<GetPage> appPages = [
       binding: ForgotPasswordBinding()),
   GetPage(
       name: EnterPhoneNumber.pageId,
-      page: () => EnterPhoneNumber(),
+      page: () => const EnterPhoneNumber(),
       binding: PhoneNumberBinding()),
   GetPage(
       name: YourCategory.pageId,
@@ -143,10 +144,46 @@ final List<GetPage> appPages = [
       binding: ExpertHomeBinding()),
   GetPage(
       name: ExpertAppointment.pageId,
-      page: () => ExpertAppointment(),
+      page: () => const ExpertAppointment(),
       binding: ExpertAppointmentBinding()),
   GetPage(
       name: ExpertTodayAppointment.pageId,
-      page: () => ExpertTodayAppointment(),
+      page: () => const ExpertTodayAppointment(),
       binding: ExpertHomeBinding()),
+  GetPage(
+      name: ExpertMessages.pageId,
+      page: () => const ExpertMessages(),
+      binding: ExpertMessagesBinding()),
+  GetPage(
+      name: ExpertPackages.pageId,
+      page: () => const ExpertPackages(),
+      binding: ExpertPackagesBinding()),
+  GetPage(
+      name: ExpertPackagesList.pageId,
+      page: () => const ExpertPackagesList(),
+      binding: ExpertPackagesBinding()),
+  GetPage(
+      name: ExpertReports.pageId,
+      page: () => const ExpertReports(),
+      binding: ExpertReportsBinding()),
+  GetPage(
+      name: ExpertCalender.pageId,
+      page: () => const ExpertCalender(),
+      binding: ExpertCalenderBinding()),
+  GetPage(
+      name: ExpertAllPatients.pageId,
+      page: () => const ExpertAllPatients(),
+      binding: ExpertPatientInfoBinding()),
+  GetPage(
+      name: ExpertPatientDetail.pageId,
+      page: () => const ExpertPatientDetail(),
+      binding: ExpertPatientInfoBinding()),
+  GetPage(
+      name: ExpertPatientNotes.pageId,
+      page: () => const ExpertPatientNotes(),
+      binding: ExpertPatientInfoBinding()),
+  GetPage(
+      name: ExpertPatientReports.pageId,
+      page: () => const ExpertPatientReports(),
+      binding: ExpertPatientInfoBinding()),
 ];
