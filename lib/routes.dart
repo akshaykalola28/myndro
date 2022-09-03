@@ -186,4 +186,12 @@ final List<GetPage> appPages = [
       name: ExpertPatientReports.pageId,
       page: () => const ExpertPatientReports(),
       binding: ExpertPatientInfoBinding()),
+  GetPage(
+      name: ExpertProfile.pageId,
+      page: () => ExpertProfile(),
+      binding: ExpertProfileBinding()),
+  GetPage(
+      name: ExpertProfileNonMandatory.pageId,
+      page: () => ExpertProfileNonMandatory(),
+      binding: ExpertProfileBinding()),
 ];

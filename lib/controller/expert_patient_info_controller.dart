@@ -9,8 +9,6 @@ class ExpertPatientInfoController extends GetxController
   RxString formattedToDate = 'To'.obs;
   RxString formattedFromDate = 'From'.obs;
 
-  @override
-  void errorHandler(e) {}
   String? sortValue;
 
   void setSelectedSortValue(String value) {

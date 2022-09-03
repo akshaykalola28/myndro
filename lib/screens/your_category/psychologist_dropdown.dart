@@ -123,7 +123,8 @@ class _PsycologistDropdownState extends State<PsycologistDropdown> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: GestureDetector(
-                      onTap: () => Get.toNamed(ExpertRegistrationForm.pageId),
+                      onTap: () => Get.toNamed(ExpertRegistrationForm.pageId,
+                          arguments: false),
                       child: loginButtonWidget(
                         'Done',
                       ),

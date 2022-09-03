@@ -104,7 +104,7 @@ class _ExpertHomeState extends State<ExpertHome>
               ),
               onTap: () {
                 Get.back();
-                // Get.toNamed(SettingScreen.pageId);
+                Get.toNamed(ExpertProfile.pageId);
               },
             ),
             ListTile(

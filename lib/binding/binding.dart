@@ -10,6 +10,7 @@ export 'expert_home_binding.dart';
 export 'expert_messages_binding.dart';
 export 'expert_packages_binding.dart';
 export 'expert_patient_info_binding.dart';
+export 'expert_profile_binding.dart';
 export 'expert_reports_binding.dart';
 export 'forgot_password_binding.dart';
 export 'home_binding.dart';

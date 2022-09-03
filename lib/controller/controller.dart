@@ -10,6 +10,7 @@ export 'expert_home_controller.dart';
 export 'expert_messages_controller.dart';
 export 'expert_packages_controller.dart';
 export 'expert_patient_info_controller.dart';
+export 'expert_profile_controller.dart';
 export 'expert_reports_controller.dart';
 export 'forgot_password_controller.dart';
 export 'home_controller.dart';

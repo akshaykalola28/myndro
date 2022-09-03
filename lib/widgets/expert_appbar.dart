@@ -32,7 +32,7 @@ class ExpertAppbar extends StatelessWidget {
             text!,
             style: TextStyle(
               fontFamily: AppTextStyle.microsoftJhengHei,
-              fontSize: 20.0,
+              fontSize: 18.0,
               fontWeight: FontWeight.w600,
               color: ColorsConfig.colorWhite,
             ),

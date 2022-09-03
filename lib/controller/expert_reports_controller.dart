@@ -60,4 +60,33 @@ class ExpertReportsController extends GetxController
       formattedToDate.value = DateFormat('dd-MM-yyyy').format(toDate.value);
     }
   }
+
+  showPopupMenu(BuildContext context, Offset offset) {
+    double left = offset.dx;
+    double top = offset.dy;
+
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(left, top, 0, 0),
+      items: [
+        PopupMenuItem<String>(
+          value: '1',
+          child: const Text('Download Single Invoice'),
+        ),
+        PopupMenuItem<String>(
+          value: '2',
+          child: Text('Download All Invoice'),
+        ),
+      ],
+      elevation: 8.0,
+    ).then<void>((String? itemSelected) {
+      if (itemSelected == null) return;
+
+      if (itemSelected == "1") {
+      } else if (itemSelected == "2") {
+      } else {
+        //code here
+      }
+    });
+  }
 }

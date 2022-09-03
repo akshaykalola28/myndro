@@ -55,6 +55,7 @@ dependencies:
   fluttertoast: any
   pin_code_fields: ^7.4.0
   intl: any
+  multiselect: ^0.0.7
 
 dev_dependencies:
   flutter_test:

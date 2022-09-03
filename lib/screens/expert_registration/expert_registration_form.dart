@@ -38,6 +38,13 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   Size? _safeAreaSize;
 
   int _curPage = 1;
+  dynamic fromEdit;
+
+  @override
+  void initState() {
+    super.initState();
+    fromEdit = Get.arguments;
+  }
 
   StepProgressView _getStepProgress() {
     return StepProgressView(
@@ -62,6 +69,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
 
   final TextEditingController passController = TextEditingController();
   bool status = false;
+  int _radioSelected = 1;
+  String? _radioVal;
 
   // final List<String> items = [
   //   'Item1',
@@ -75,6 +84,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   // ];
   String? dropdownValue;
   int? showIndex = 1;
+  bool selected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -91,17 +101,51 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
             },
             child: Stack(
               children: [
-                Positioned(
-                  top: 0,
-                  child: ClipPath(
-                    clipper: CurvedBottomClipper(),
-                    child: Container(
-                      color: ColorsConfig.colorBlue,
-                      height: Get.height * 0.21,
-                      width: Get.width,
-                      child: SafeArea(
-                        child: Align(
-                            alignment: Alignment.center,
+                fromEdit
+                    ? Column(
+                        children: [
+                          ClipPath(
+                            clipper: CurvedBottomClipper(),
+                            child: Container(
+                              color: ColorsConfig.colorBlue,
+                              height: Get.height * 0.18,
+                              width: Get.width,
+                              child: SafeArea(
+                                child: Align(
+                                    alignment: Alignment.center,
+                                    child: SizedBox(
+                                        height: Get.height * 0.4,
+                                        width: Get.width * 0.4,
+                                        child: Image.asset(
+                                          ImagePath.myndroWhite,
+                                          fit: BoxFit.contain,
+                                        ))),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ExpertAppbar(
+                            text: 'Expert Profile (Mandatory)',
+                            onDrawerClick: () {
+                              Get.back();
+                            },
+                            leadingIcon: Icons.arrow_back,
+                          ),
+                        ],
+                      )
+                    : Positioned(
+                        top: 0,
+                        child: ClipPath(
+                          clipper: CurvedBottomClipper(),
+                          child: Container(
+                            color: ColorsConfig.colorBlue,
+                            height: Get.height * 0.21,
+                            width: Get.width,
+                            child: SafeArea(
+                              child: Align(
+                                  alignment: Alignment.center,
                             child: SizedBox(
                                 height: Get.height * 0.4,
                                 width: Get.width * 0.4,
@@ -140,7 +184,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                 //   ),
                 // ),
                 Positioned.fill(
-                  top: 200,
+                  top: fromEdit ? 215 : 200,
                   child: SizedBox(
                     height: Get.height,
                     child: Column(
@@ -293,44 +337,83 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                 color: ColorsConfig.colorWhite,
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 15),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
-                                    DropDownWidget(
-                                      dropdownValue: dropdownValue,
-                                      hintText: 'Profession',
-                                      isExpanded: true,
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    attachDocWidget('Degree Certificate'),
-                                    // DropDownWidget(
-                                    //   dropdownValue: dropdownValue,
-                                    //   hintText: 'Degree Certificate',
-                                    //   isExpanded: true,
-                                    // ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    attachDocWidget('Practice Certificate'),
-
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: loginButtonWidget(
-                                        'Next',
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 12,
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'Medical Master',
+                                        isExpanded: true,
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validatePassword,
+                                        TextInputType.text,
+                                        'Degree Name',
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'Degree Year',
+                                        isExpanded: true,
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Common.attachDocWidget(
+                                          'Degree Certificate'),
+                                      // DropDownWidget(
+                                      //   dropdownValue: dropdownValue,
+                                      //   hintText: 'Degree Certificate',
+                                      //   isExpanded: true,
+                                      // ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      DropDownWidget(
+                                        dropdownValue: dropdownValue,
+                                        hintText: 'Practice Certificate No',
+                                        isExpanded: true,
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Common.attachDocWidget(
+                                          'Practice Certificate'),
+
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: loginButtonWidget(
+                                              'Save',
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Expanded(
+                                            child: loginButtonWidget(
+                                              'Next',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Container(
@@ -390,7 +473,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           passController,
                                           Common.validatePassword,
                                           TextInputType.multiline,
-                                          'Address', () {
+                                          'Branch Address', () {
                                         setState(() {
                                           addVisibility = !addVisibility;
                                         });
@@ -446,17 +529,27 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      attachDocWidget(
+                                      Common.attachDocWidget(
                                           'Attach Your Cancel Cheque'),
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: loginButtonWidget(
-                                          'Next',
-                                        ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: loginButtonWidget(
+                                              'Save',
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Expanded(
+                                            child: loginButtonWidget(
+                                              'Next',
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -536,88 +629,198 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 15,
                                       ),
                                       showIndex == 1
-                                          ? Container(
-                                        height: 75,
-                                              width: Get.width,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
+                                          ? Column(
+                                              children: [
+                                                profileTextFieldWidget(
+                                                  passController,
+                                                  Common.validatePassword,
+                                                  TextInputType.text,
+                                                  'GST No',
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
                                                       horizontal: 12,
                                                       vertical: 10),
-                                              decoration: BoxDecoration(
-                                                color: ColorsConfig.colorWhite,
-                                                shape: BoxShape.rectangle,
-                                                borderRadius:
-                                                    BorderRadius.circular(0),
-                                                border: Border.all(
-                                                  color: ColorsConfig.colorBlue,
-                                                  width: 1.0,
-                                                ),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Text(
-                                                    'upload Your copy of GST Registration\nCertificate ',
-                                                    style: TextStyle(
-                                                      fontFamily: AppTextStyle
-                                                          .microsoftJhengHei,
-                                                      fontSize: 17.0,
-                                                      color: ColorsConfig
-                                                          .colorBlue,
-                                                    ),
-                                                  ),
-                                                  const Icon(
-                                                    Icons.attach_file,
-                                                    size: 35,
+                                                  decoration: BoxDecoration(
                                                     color:
                                                         ColorsConfig.colorWhite,
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0),
+                                                    border: Border.all(
+                                                      color: ColorsConfig
+                                                          .colorBlue,
+                                                      width: 1.0,
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          'upload Your copy of GST Registration Certificate ',
+                                                          maxLines: 2,
+                                                          style: TextStyle(
+                                                            fontFamily: AppTextStyle
+                                                                .microsoftJhengHei,
+                                                            fontSize: 17.0,
+                                                            color: ColorsConfig
+                                                                .colorBlue,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const Icon(
+                                                        Icons.attach_file,
+                                                        size: 35,
+                                                        color: ColorsConfig
+                                                            .colorBlue,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 12,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 12,
+                                                      width: 12,
+                                                      child: Theme(
+                                                        data: ThemeData(
+                                                            unselectedWidgetColor:
+                                                                ColorsConfig
+                                                                    .colorBlue),
+                                                        child: Checkbox(
+                                                          focusColor:
+                                                              ColorsConfig
+                                                                  .colorBlue,
+                                                          activeColor:
+                                                              ColorsConfig
+                                                                  .colorBlue,
+                                                          value: selected,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            setState(() {
+                                                              selected = value!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                          'I hereby solemnly affirm and declare that the information given herein above is true and correct to the best of my knowledge and belief, and nothing has been concealed therefrom. ',
+                                                          style: TextStyle(
+                                                            fontFamily: AppTextStyle
+                                                                .microsoftJhengHei,
+                                                            fontSize: 12.0,
+                                                            color: ColorsConfig
+                                                                .colorGreyy,
+                                                          )),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
                                             )
-                                          : Container(
-                                        // height: 75,
-                                              width: Get.width,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 12,
-                                                      vertical: 10),
-                                              decoration: BoxDecoration(
-                                                color: ColorsConfig.colorWhite,
-                                                shape: BoxShape.rectangle,
-                                                borderRadius:
-                                                    BorderRadius.circular(0),
-                                                border: Border.all(
-                                                  color: ColorsConfig.colorBlue,
-                                                  width: 1.0,
-                                                ),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Text(
-                                                    'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
-                                                    style: TextStyle(
-                                                      fontFamily: AppTextStyle
-                                                          .microsoftJhengHei,
-                                                      fontSize: 17.0,
-                                                      color: ColorsConfig
-                                                          .colorBlue,
-                                                    ),
-                                                    maxLines: 3,
-                                                  ),
-                                                  const Icon(
-                                                    Icons.attach_file,
-                                                    size: 35,
+                                          : Column(
+                                              children: [
+                                                Container(
+                                                  width: Get.width,
+                                                  decoration: BoxDecoration(
                                                     color:
                                                         ColorsConfig.colorWhite,
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0),
+                                                    border: Border.all(
+                                                      color: ColorsConfig
+                                                          .colorBlue,
+                                                      width: 1.0,
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Text(
+                                                        'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
+                                                        style: TextStyle(
+                                                          fontFamily: AppTextStyle
+                                                              .microsoftJhengHei,
+                                                          fontSize: 15.0,
+                                                          color: ColorsConfig
+                                                              .colorGreyy,
+                                                        ),
+                                                        maxLines: 3,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 15,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 12,
+                                                      width: 12,
+                                                      child: Theme(
+                                                        data: ThemeData(
+                                                            unselectedWidgetColor:
+                                                                ColorsConfig
+                                                                    .colorBlue),
+                                                        child: Checkbox(
+                                                          focusColor:
+                                                              ColorsConfig
+                                                                  .colorBlue,
+                                                          activeColor:
+                                                              ColorsConfig
+                                                                  .colorBlue,
+                                                          value: selected,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            setState(() {
+                                                              selected = value!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                          'Yes, I understand and agree with the self declaration terms.',
+                                                          style: TextStyle(
+                                                            fontFamily: AppTextStyle
+                                                                .microsoftJhengHei,
+                                                            fontSize: 12.0,
+                                                            color: ColorsConfig
+                                                                .colorGreyy,
+                                                          )),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
                                             ),
                                       const SizedBox(
                                         height: 15,
@@ -662,12 +865,22 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 15,
                                       ),*/
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: loginButtonWidget(
-                                          'Next',
-                                        ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: loginButtonWidget(
+                                              'Save',
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Expanded(
+                                            child: loginButtonWidget(
+                                              'Next',
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -678,37 +891,128 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                               ),
                               Container(
                                 color: ColorsConfig.colorWhite,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    attachDocWidget('Aadhar Card'),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    attachDocWidget('Pan Card'),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    attachDocWidget(
-                                        'Driving/ Voter Id / Passport'),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: loginButtonWidget(
-                                        'Next',
+                                child: SingleChildScrollView(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 20,
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validatePassword,
+                                        TextInputType.text,
+                                        'Aadhar Number',
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Common.attachDocWidget('Aadhar Card'),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validatePassword,
+                                        TextInputType.text,
+                                        'Pan Card No.',
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Common.attachDocWidget('Pan Card'),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Radio(
+                                              value: 1,
+                                              groupValue: _radioSelected,
+                                              activeColor:
+                                                  ColorsConfig.colorBlue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _radioSelected = value as int;
+                                                  _radioVal = 'Driving Licence';
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          Text('Driving Licence'),
+                                          Expanded(
+                                            child: Radio(
+                                              value: 2,
+                                              groupValue: _radioSelected,
+                                              activeColor:
+                                                  ColorsConfig.colorBlue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _radioSelected = value as int;
+                                                  _radioVal = 'Voter ID card';
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          Text('Voter ID card'),
+                                          Expanded(
+                                            child: Radio(
+                                              value: 3,
+                                              groupValue: _radioSelected,
+                                              activeColor:
+                                                  ColorsConfig.colorBlue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _radioSelected = value as int;
+                                                  _radioVal = 'Passport';
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          Text('Passport'),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      profileTextFieldWidget(
+                                        passController,
+                                        Common.validatePassword,
+                                        TextInputType.text,
+                                        'Enter Document No.',
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Common.attachDocWidget(
+                                          'Driving/ Voter Id / Passport'),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: loginButtonWidget(
+                                              'Save',
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Expanded(
+                                            child: loginButtonWidget(
+                                              'Next',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Container(
@@ -764,9 +1068,94 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           fontFamily:
                                               AppTextStyle.microsoftJhengHei,
                                           fontSize: 14.0,
-                                          color: ColorsConfig.colorBlue,
+                                          color: ColorsConfig.colorGreyy,
                                         ),
                                       ),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Signature',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              AppTextStyle.microsoftJhengHei,
+                                          fontSize: 18.0,
+                                          color: ColorsConfig.colorGreyy,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            border: Border.all(
+                                                color: ColorsConfig.colorGreyy,
+                                                width: 1.0),
+                                            borderRadius: const BorderRadius
+                                                    .all(
+                                                Radius.circular(
+                                                    25.0)), // Set rounded corner radius
+                                          ),
+                                          padding: const EdgeInsets.all(10),
+                                          child: Row(
+                                            children: const [
+                                              Text(
+                                                'Upload Signature',
+                                                style: TextStyle(
+                                                    color:
+                                                        ColorsConfig.colorGreyy,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Icon(
+                                                Icons.attach_file,
+                                                color: ColorsConfig.colorGreyy,
+                                                size: 25,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            border: Border.all(
+                                                color: ColorsConfig.colorGreyy,
+                                                width: 1.0),
+                                            borderRadius: const BorderRadius
+                                                    .all(
+                                                Radius.circular(
+                                                    25.0)), // Set rounded corner radius
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 14),
+                                          child: Row(
+                                            children: const [
+                                              Text(
+                                                'Download Agreement',
+                                                style: TextStyle(
+                                                    color:
+                                                        ColorsConfig.colorGreyy,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(
                                       height: 20,
@@ -982,40 +1371,4 @@ class StepProgressView extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget attachDocWidget(String text) {
-  return Container(
-    height: 50,
-    width: Get.width,
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    decoration: BoxDecoration(
-      color: ColorsConfig.colorWhite,
-      shape: BoxShape.rectangle,
-      borderRadius: BorderRadius.circular(0),
-      border: Border.all(
-        color: ColorsConfig.colorBlue,
-        width: 1.5,
-      ),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          text,
-          style: TextStyle(
-            fontFamily: AppTextStyle.microsoftJhengHei,
-            fontSize: 16.0,
-            color: ColorsConfig.colorBlue,
-          ),
-        ),
-        const Spacer(),
-        const Icon(
-          Icons.attach_file,
-          size: 25,
-          color: ColorsConfig.colorBlue,
-        ),
-      ],
-    ),
-  );
 }

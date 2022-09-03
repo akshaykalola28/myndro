@@ -9,7 +9,7 @@ Widget loginButtonWidget(
   return GestureDetector(
     onTap: onClick,
     child: Container(
-      height: 45,
+      padding: EdgeInsets.symmetric(vertical: 11),
       width: Get.width,
       decoration: const BoxDecoration(
         color: ColorsConfig.colorBlue,

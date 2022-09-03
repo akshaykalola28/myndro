@@ -21,6 +21,8 @@ export 'expert_patient_info/expert_patient_detail.dart';
 export 'expert_patient_info/expert_patient_notes.dart';
 export 'expert_patient_info/expert_patient_reports.dart';
 export 'expert_patient_info/expert_report_tile_widget.dart';
+export 'expert_profile/expert_profile.dart';
+export 'expert_profile/expert_profile_non_mandatory.dart';
 export 'expert_registration/expert_registration_form.dart';
 export 'expert_reports/expert_reports.dart';
 export 'home/home_screen.dart';

@@ -27,7 +27,8 @@ class RegistrationController extends BaseController {
   List<CountryData> countryListData = <CountryData>[];
   CountryData? countryDropdown;
   String? genderDropdownValue;
-  var fromVerification;
+  dynamic fromVerification;
+
   @override
   void onInit() {
     fromVerification = Get.arguments;
