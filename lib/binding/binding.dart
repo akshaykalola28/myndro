@@ -15,6 +15,7 @@ export 'expert_reports_binding.dart';
 export 'forgot_password_binding.dart';
 export 'home_binding.dart';
 export 'login_binding.dart';
+export 'myndro_locker_binding.dart';
 export 'new_password_binding.dart';
 export 'offers_binding.dart';
 export 'onBoarding_Binding.dart';

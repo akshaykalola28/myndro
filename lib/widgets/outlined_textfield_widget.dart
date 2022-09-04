@@ -8,7 +8,8 @@ Widget outlinedTextField(
     FormFieldValidator<String> validator,
     TextInputType inputType,
     String hintTxt,
-    int maxLines) {
+    int maxLines,
+    {bool isPackageForm = false}) {
   return TextFormField(
     maxLines: maxLines,
     style: TextStyle(
@@ -25,6 +26,7 @@ Widget outlinedTextField(
       contentPadding:
           const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10),
       hintText: hintTxt,
+      labelText: isPackageForm ? hintTxt : null,
       hintStyle: TextStyle(
         fontFamily: AppTextStyle.microsoftJhengHei,
         fontSize: 18.0,

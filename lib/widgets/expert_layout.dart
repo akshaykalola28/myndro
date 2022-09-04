@@ -10,12 +10,15 @@ class ExpertLayout extends StatelessWidget {
       this.text,
       required this.body,
       this.onDrawerClick,
-      this.leadingIcon})
+      this.leadingIcon,
+      this.isPackageForm = false})
       : super(key: key);
   final Widget body;
   final String? text;
   final VoidCallback? onDrawerClick;
   final IconData? leadingIcon;
+  final bool isPackageForm;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -50,6 +53,7 @@ class ExpertLayout extends StatelessWidget {
             text: text!,
             onDrawerClick: onDrawerClick,
             leadingIcon: leadingIcon,
+            isPackageForm: isPackageForm,
           ),
           Expanded(
               child: GestureDetector(

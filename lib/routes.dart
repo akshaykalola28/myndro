@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:myndro/binding/myndro_locker_binding.dart';
-import 'package:myndro/screens/packages/packages.dart';
 
 import 'binding/binding.dart';
 import 'screens/screens.dart';
@@ -137,6 +135,10 @@ final List<GetPage> appPages = [
   GetPage(
       name: PackagesScreen.pageId,
       page: () => const PackagesScreen(),
+      binding: PackagesBinding()),
+  GetPage(
+      name: PackagesFormScreen.pageId,
+      page: () => const PackagesFormScreen(),
       binding: PackagesBinding()),
   GetPage(
       name: ExpertHome.pageId,

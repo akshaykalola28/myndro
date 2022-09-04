@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/screens/packages/packages.dart';
 
 import 'routes.dart';
 import 'screens/screens.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.pageId,
+      initialRoute: PackagesScreen.pageId,
       getPages: appPages,
     );
   }

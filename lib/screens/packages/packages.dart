@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../screens.dart';
 
 class PackagesScreen extends GetView<PackagesController> {
   static const pageId = "/PackagesScreen";
@@ -22,10 +22,16 @@ class PackagesScreen extends GetView<PackagesController> {
         body: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             itemBuilder: (context, index) {
-              return packagesContainer(
-                  'Hospital Happiness Program',
-                  'Frontline employees in hospitals have worked lengthy hours without rest during the COVID-19 outbreak. They continued to work despite.',
-                  ImagePath.hospital1);
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Get.toNamed(PackagesFormScreen.pageId);
+                },
+                child: packagesContainer(
+                    'Hospital Happiness Program',
+                    'Frontline employees in hospitals have worked lengthy hours without rest during the COVID-19 outbreak. They continued to work despite.',
+                    ImagePath.hospital1),
+              );
             },
             separatorBuilder: (context, index) {
               return const Padding(

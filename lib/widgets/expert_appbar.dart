@@ -5,12 +5,17 @@ import '../constant/constant.dart';
 
 class ExpertAppbar extends StatelessWidget {
   const ExpertAppbar(
-      {Key? key, this.text, this.onDrawerClick, this.leadingIcon})
+      {Key? key,
+      this.text,
+      this.onDrawerClick,
+      this.leadingIcon,
+      this.isPackageForm = false})
       : super(key: key);
 
   final String? text;
   final VoidCallback? onDrawerClick;
   final IconData? leadingIcon;
+  final bool isPackageForm;
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +43,20 @@ class ExpertAppbar extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-            child: ClipOval(
-              child: Material(
-                color: ColorsConfig.colorBlue,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: const SizedBox(
-                      height: 52,
-                      width: 35,
-                      child: Icon(
-                        Icons.notifications,
+          isPackageForm
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: ClipOval(
+                    child: Material(
+                      color: ColorsConfig.colorBlue,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: const SizedBox(
+                            height: 52,
+                            width: 35,
+                            child: Icon(
+                              Icons.notifications,
                         color: ColorsConfig.colorWhite,
                       )),
                 ),
