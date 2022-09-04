@@ -25,7 +25,7 @@ class RemoteServices {
     };
 
     http.Response response = await http
-        .get(Uri.parse(Apis.baseUrl + Apis.countryList), headers: header);
+        .get(Uri.parse(Apis.baseUrl1 + Apis.countryList), headers: header);
     printResponse(header, null, response);
     return response;
   }
@@ -43,7 +43,7 @@ class RemoteServices {
     });
 
     http.Response response = await http.post(
-      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.userOtp}'),
+      Uri.parse(Apis.baseUrl + Apis.userOtp),
       headers: header,
       body: postBody,
     );
@@ -65,7 +65,7 @@ class RemoteServices {
     });
 
     http.Response response = await http.post(
-      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.verifyOtp}'),
+      Uri.parse(Apis.baseUrl + Apis.verifyOtp),
       headers: header,
       body: postBody,
     );
@@ -89,7 +89,7 @@ class RemoteServices {
     });
 
     http.Response response = await http.post(
-      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.resendOtp}'),
+      Uri.parse(Apis.baseUrl + Apis.resendOtp),
       headers: header,
       body: postBody,
     );
@@ -100,19 +100,15 @@ class RemoteServices {
 
   //patient Login
   static Future<http.Response> patientLogin(
-      String email,
-      String password,
-
-      ) async {
+    String email,
+    String password,
+  ) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
 
-    String postBody = json.encode({
-      "email":email,
-      "password":password
-    });
+    String postBody = json.encode({"email": email, "password": password});
 
     http.Response response = await http.post(
-      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.patientLogin}'),
+      Uri.parse(Apis.baseUrl + Apis.patientLogin),
       headers: header,
       body: postBody,
     );
@@ -157,7 +153,7 @@ class RemoteServices {
     });
 
     http.Response response = await http.post(
-      Uri.parse('http://mynd.thepackaginghouse.in/api/${Apis.addPatient}'),
+      Uri.parse(Apis.baseUrl + Apis.addPatient),
       headers: header,
       body: postBody,
     );
@@ -166,11 +162,10 @@ class RemoteServices {
     return response;
   }
 
-
   //get state list
   static Future<http.Response> getStates(
-      int countryId,
-      ) async {
+    String countryId,
+  ) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
     http.Response response = await http.post(
       Uri.parse('${Apis.baseUrl}${Apis.stateList}?country_id=$countryId'),
@@ -184,8 +179,8 @@ class RemoteServices {
 
   //get city list
   static Future<http.Response> getCity(
-      int stateId,
-      ) async {
+    String stateId,
+  ) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
     http.Response response = await http.post(
       Uri.parse('${Apis.baseUrl}${Apis.cityList}?state_id=$stateId'),

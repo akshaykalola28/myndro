@@ -2,30 +2,28 @@ import 'package:flutter/material.dart';
 
 import '../constant/constant.dart';
 
-class DropDownWidget extends StatefulWidget {
-   DropDownWidget({Key? key, this.dropdownValue, this.hintText, this.isExpanded})
+class DropDownWidget<T> extends StatelessWidget {
+   DropDownWidget({Key? key,  this.hintText, this.isExpanded, required this.texts, required this.items, this.onChanged, this.validator})
       : super(key: key);
-  late final String? dropdownValue;
-  final String? hintText;
+   final List<String> texts;
+   final List<T> items;
+   final ValueChanged<T?>? onChanged;
+   final String? hintText;
+   final FormFieldValidator<T>? validator;
   final bool? isExpanded;
 
   @override
-  State<DropDownWidget> createState() => _DropDownWidgetState();
-}
-
-class _DropDownWidgetState extends State<DropDownWidget> {
-  @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
+    return DropdownButtonFormField<T>(
       iconDisabledColor: ColorsConfig.colorBlue,
       iconEnabledColor: ColorsConfig.colorBlue,
-      isExpanded:widget.isExpanded! ,
-      value: widget.dropdownValue,
+      isExpanded:isExpanded! ,
+      // value: widget.dropdownValue,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
-        hintText: widget.hintText!,
-        labelText: widget.hintText!,
+        hintText: hintText!,
+        labelText: hintText!,
         hintStyle: TextStyle(
           fontFamily: AppTextStyle.microsoftJhengHei,
           fontSize: 15.0,
@@ -53,12 +51,20 @@ class _DropDownWidgetState extends State<DropDownWidget> {
           ),
         ),
       ),
-      items: <String>[
-        'Lot 1',
-        'Lot 2',
-        'Lot 3',
-        'Lot 4',
-      ].map<DropdownMenuItem<String>>((String value) {
+      items:texts
+          .map((e) => DropdownMenuItem<T>(
+        value: items[texts.indexOf(e)],
+        child: Text(
+          e,
+          style: TextStyle(
+            fontFamily: AppTextStyle.microsoftJhengHei,
+            fontSize: 15.0,
+            color: ColorsConfig.colorBlue,
+          ),
+        ),
+      ))
+          .toList(),
+     /* texts.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value,style:  TextStyle(
@@ -67,12 +73,8 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             color: ColorsConfig.colorBlue,
           ),),
         );
-      }).toList(),
-      onChanged: (String? newValue) {
-        setState(() {
-          widget.dropdownValue = newValue;
-        });
-      },
+      }).toList(),*/
+      onChanged: onChanged,
     );
   }
 }

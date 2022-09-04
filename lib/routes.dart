@@ -10,7 +10,7 @@ final List<GetPage> appPages = [
       binding: SplashScreenBinding()),
   GetPage(
       name: UserRegistration.pageId,
-      page: () => const UserRegistration(),
+      page: () =>  UserRegistration(),
       binding: RegistrationBinding()),
   GetPage(
       name: LoginScreen.pageId,

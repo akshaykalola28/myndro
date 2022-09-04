@@ -5,6 +5,6 @@ import '../controller/controller.dart';
 class RegistrationBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<RegistrationController>(RegistrationController(), permanent: false);
+    Get.lazyPut(()=>RegistrationController());
   }
 }
