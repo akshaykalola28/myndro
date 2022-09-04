@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/getes.dart';
+import 'package:get/get.dart';
 
 import 'routes.dart';
 import 'screens/screens.dart';
