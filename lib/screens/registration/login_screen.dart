@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/controller/controller.dart';
 import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
@@ -19,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   bool selected = false;
-
+final LoginController loginController = LoginController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -349,6 +350,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         loginButtonWidget(
                           'SIGN IN',
+                          () {
+                            loginController.login(emailController.text.trim(), passController.text.trim());
+                          },
                         ),
                         const SizedBox(
                           height: 15,
