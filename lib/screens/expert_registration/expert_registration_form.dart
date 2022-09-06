@@ -253,11 +253,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Gender',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
@@ -289,35 +289,35 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                    /*  DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Country',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'state',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                     /* DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'City',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                     /* DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Zipcode',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -343,11 +343,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                    /*  DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Medical Master',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 15,
                                       ),
@@ -360,29 +360,24 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 15,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Degree Year',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 15,
                                       ),
                                       Common.attachDocWidget(
                                           'Degree Certificate'),
-                                      // DropDownWidget(
-                                      //   dropdownValue: dropdownValue,
-                                      //   hintText: 'Degree Certificate',
-                                      //   isExpanded: true,
-                                      // ),
                                       const SizedBox(
                                         height: 15,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Practice Certificate No',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 15,
                                       ),
@@ -426,11 +421,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Bank Name',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
@@ -452,11 +447,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Account Type',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
@@ -497,35 +492,35 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Country',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'state',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                      /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'City',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      DropDownWidget(
+                                     /* DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Zipcode',
                                         isExpanded: true,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 12,
                                       ),

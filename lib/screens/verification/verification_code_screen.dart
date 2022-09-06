@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../widgets/widgets.dart';
 
 // import 'package:otp_text_field/otp_text_field.dart';
 // import 'package:otp_text_field/style.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../widgets/widgets.dart';
 
 class VerificationCodeScreen extends GetView<RegistrationController> {
   static const pageId = "/verification_code";
@@ -21,7 +21,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConfig.colorWhite,
-      appBar: controller.fromVerification[1]
+      appBar: controller.fromOtpScreen[1]
           ? PreferredSize(
               preferredSize: const Size.fromHeight(-40.0), child: Container())
           : AppBar(
@@ -36,7 +36,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 },
               ),
             ),
-      body: controller.fromVerification[1]
+      body: controller.fromOtpScreen[1]
           ? LayoutWidget(
               body: Column(
                 children: [
@@ -120,7 +120,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
         children: [
           if (MediaQuery.of(context).viewInsets.bottom == 0)
             Text(
-              'The Verification code was sent to the phone\nnumber ${controller.fromVerification[0]['patient_phone_no']} . please enter the code.',
+              'The Verification code was sent to the phone\nnumber ${controller.fromOtpScreen[0]['patient_phone_no']} . please enter the code.',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
@@ -169,9 +169,9 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
             onTap: () {
               controller.otpController.clear();
               controller.resendOtp(
-                  controller.fromVerification[2],
-                  controller.fromVerification[3],
-                  controller.fromVerification[0]['patient_id']);
+                  controller.fromOtpScreen[2],
+                  controller.fromOtpScreen[3],
+                  controller.fromOtpScreen[0]['patient_id']);
             },
             child: Text(
               'Resend Verification Code',
@@ -188,7 +188,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
               if (controller.otpController != null &&
                   controller.otpController != '') {
                 controller.verifyOtp(
-                    controller.fromVerification[0]['patient_id'],
+                    controller.fromOtpScreen[0]['patient_id'],
                     controller.otpController.text);
               } else {
                 Fluttertoast.showToast(msg: 'please enter valid OTP');

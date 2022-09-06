@@ -14,7 +14,7 @@ class TwoStepVerification extends GetView<SettingController> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   bool selected = false;
-  bool isFromVerification = true;
+  bool isFrom2StepVerification = true;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,7 @@ class TwoStepVerification extends GetView<SettingController> {
                   loginButtonWidget(
                     'SIGN IN',
                     () => Get.toNamed(VerificationCodeScreen.pageId,
-                        arguments: isFromVerification),
+                        arguments: isFrom2StepVerification),
                   ),
                 ],
               ),

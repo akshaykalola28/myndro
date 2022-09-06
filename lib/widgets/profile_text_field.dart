@@ -4,7 +4,7 @@ import '../constant/constant.dart';
 
 Widget profileTextFieldWidget(
     TextEditingController controller,
-    FormFieldValidator<String> validator,
+    FormFieldValidator<String>? validator,
     TextInputType inputType,
     String hintTxt,
     [VoidCallback? onSufficIcon,

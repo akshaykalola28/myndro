@@ -25,7 +25,7 @@ class RemoteServices {
     };
 
     http.Response response = await http
-        .get(Uri.parse(Apis.baseUrl1 + Apis.countryList), headers: header);
+        .get(Uri.parse(Apis.baseUrl + Apis.countryList), headers: header);
     printResponse(header, null, response);
     return response;
   }
@@ -127,7 +127,7 @@ class RemoteServices {
       String addLine1,
       String addLine2,
       String addLine3,
-      int countryCode,
+      String countryCode,
       int stateId,
       int cityId,
       String zipCode,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
@@ -8,21 +7,11 @@ import '../../model/model.dart';
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
 
-class UserRegistration extends StatefulWidget {
+/*class UserRegistration extends GetView<RegistrationController> {
   static const pageId = "/UserRegistration";
 
-  const UserRegistration({Key? key}) : super(key: key);
-
-  @override
-  State<UserRegistration> createState() => _UserRegistrationState();
-}
-
-class _UserRegistrationState extends State<UserRegistration> {
+   UserRegistration({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
-  final RegistrationController controller = RegistrationController();
-  String? dropdownValue;
-  bool addVisibility = false;
-  final String _password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,9 +190,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                                   );
                                 }).toList(),
                                 onChanged: (String? newValue) {
-                                  setState(() {
-                                    controller.genderDropdownValue = newValue;
-                                  });
+                                  controller.genderDropdownValue = newValue;
                                 },
                               ),
                               const SizedBox(
@@ -214,12 +201,11 @@ class _UserRegistrationState extends State<UserRegistration> {
                                   Common.validateAddress,
                                   TextInputType.multiline,
                                   'Address', () {
-                                setState(() {
-                                  addVisibility = !addVisibility;
-                                });
+                                controller.addVisibility =
+                                    !controller.addVisibility;
                               }, Icons.add),
                               Visibility(
-                                visible: addVisibility,
+                                visible: controller.addVisibility,
                                 child: Column(
                                   children: [
                                     const SizedBox(
@@ -243,72 +229,58 @@ class _UserRegistrationState extends State<UserRegistration> {
                                   ],
                                 ),
                               ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              DropdownButtonFormField<CountryData>(
-                                iconDisabledColor: ColorsConfig.colorBlue,
-                                iconEnabledColor: ColorsConfig.colorBlue,
-                                isExpanded: true,
-                                value: controller.countryDropdown,
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 12.0, horizontal: 10),
-                                  hintText: 'Country',
-                                  // labelText: 'Country',
-                                  hintStyle: TextStyle(
-                                    fontFamily: AppTextStyle.microsoftJhengHei,
-                                    fontSize: 15.0,
-                                    color: ColorsConfig.colorBlue,
-                                  ),
-                                  labelStyle: TextStyle(
-                                    fontFamily: AppTextStyle.microsoftJhengHei,
-                                    fontSize: 15.0,
-                                    color: ColorsConfig.colorBlue,
-                                  ),
-                                  filled: true,
-                                  fillColor: ColorsConfig.colorWhite,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(0),
-                                    borderSide: const BorderSide(
-                                      color: ColorsConfig.colorBlue,
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(0),
-                                    borderSide: const BorderSide(
-                                      color: ColorsConfig.colorBlue,
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                ),
-                                items: controller.countryListData.map((value) {
-                                  return DropdownMenuItem(
-                                    value: value,
-                                    child: Text(
-                                      value.countryCode!,
-                                      style: TextStyle(
-                                        fontFamily:
-                                            AppTextStyle.microsoftJhengHei,
-                                        fontSize: 13.0,
-                                        color: ColorsConfig.colorBlue,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    controller.countryDropdown = newValue;
-                                  });
-                                },
-                              ),
+                              //TODO uncomment this
+                              // const SizedBox(
+                              //   height: 12,
+                              // ),
+                              // DropDownWidget<CountryData>(
+                              //     isExpanded: true,
+                              //     items: controller.countryListData,
+                              //     texts: controller.countryListData
+                              //         .map((e) => '${e.countryCode}  ${e.countryName}')
+                              //         .toList(),
+                              //     onChanged: (newValue) {
+                              //       controller.countryDropdown = newValue;
+                              //       controller.getStateList(newValue?.countryId ?? '');
+                              //     },
+                              //     hintText: 'Country',
+                              //   ),
+                              //
+                              // const SizedBox(
+                              //   height: 12,
+                              // ),
+                              // DropDownWidget<StateData>(
+                              //   isExpanded: true,
+                              //   items: controller.stateListData,
+                              //   texts: controller.stateListData
+                              //       .map((e) => '${e.stateId} ')
+                              //       .toList(),
+                              //   onChanged: (newValue) {
+                              //     controller.stateDropdown = newValue;
+                              //     controller.getCityList(newValue?.stateId ?? '');
+                              //   },
+                              //   hintText: 'State',
+                              // ),
+                              // const SizedBox(
+                              //   height: 12,
+                              // ),
+                              // DropDownWidget<CityData>(
+                              //   isExpanded: true,
+                              //   items: controller.cityListData,
+                              //   texts: controller.cityListData
+                              //       .map((e) => '${e.cityName} ')
+                              //       .toList(),
+                              //   onChanged: (newValue) {
+                              //     controller.cityDropdown = newValue;
+                              //   },
+                              //   hintText: 'City',
+                              // ),
                               // DropDownWidget(
                               //   dropdownValue: dropdownValue,
                               //   hintText: 'Country',
                               //   isExpanded: true,
                               // ),
-                              /*   const SizedBox(
+                              */ /*   const SizedBox(
                               height: 12,
                             ),
                             DropDownWidget(
@@ -326,8 +298,8 @@ class _UserRegistrationState extends State<UserRegistration> {
                             ),
 
 
-                             */
-                              const SizedBox(
+                             */ /*
+                              */ /* const SizedBox(
                                 height: 12,
                               ),
                               DropDownWidget(
@@ -343,7 +315,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                                 hintText: 'City',
                                 isExpanded: true,
                               ),
-
+*/ /*
                               const SizedBox(
                                 height: 12,
                               ),
@@ -398,7 +370,8 @@ class _UserRegistrationState extends State<UserRegistration> {
                                 child: loginButtonWidget('Submit', () {
                                   print('object');
 
-                                  if (formKey.currentState!.validate()) {
+                                  if (formKey.currentState!
+                                      .validate()) {
                                     controller.addPatient(
                                         context,
                                         controller.firstNameController.text,
@@ -416,7 +389,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                                         controller.genderDropdownValue!);
                                   }
 
-                                  /*   showDialog(
+                                  */ /*   showDialog(
                                     barrierDismissible: false,
                                     context: context,
                                     builder: (_) {
@@ -430,7 +403,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                                         },
                                       );
                                       // Timer(const Duration(seconds: 3), goToDashboard);
-                                    }); */
+                                    }); */ /*
                                 }),
                               ),
                               const SizedBox(
@@ -449,5 +422,303 @@ class _UserRegistrationState extends State<UserRegistration> {
 
   void goToDashboard() async {
     return Get.toNamed(DashboardScreen.pageId);
+  }
+}*/
+
+class UserRegistration extends GetView<RegistrationController> {
+  static const pageId = "/UserRegistration";
+
+  const UserRegistration({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        Get.focusScope!.unfocus();
+      },
+      child: Scaffold(
+          backgroundColor: ColorsConfig.colorWhite,
+          // appBar: AppBar(
+          //   elevation: 0,
+          //   backgroundColor: ColorsConfig.colorBlue,
+          //   leading: IconButton(
+          //       icon: const Icon(Icons.arrow_back),
+          //       onPressed: () {
+          //         Get.back();
+          //       }),
+          // ),
+          body: Column(
+            children: [
+              ClipPath(
+                clipper: CurvedBottomClipper(),
+                child: Container(
+                  color: ColorsConfig.colorBlue,
+                  height: Get.height * 0.25,
+                  width: Get.width,
+                  child: SafeArea(
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                            height: Get.height * 0.4,
+                            width: Get.width * 0.4,
+                            child: Image.asset(
+                              ImagePath.myndroWhite,
+                              fit: BoxFit.contain,
+                            ))),
+                  ),
+                ),
+              ),
+              Expanded(child: Obx(() {
+                return SingleChildScrollView(
+                  padding: EdgeInsets.fromLTRB(12, 20, 12, 0),
+                  child: Form(
+                    key: controller.formKey,
+                    child: Column(
+                      children: [
+                        profileTextFieldWidget(
+                          controller.firstNameController,
+                          Common.validateName,
+                          TextInputType.text,
+                          'First Name',
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        profileTextFieldWidget(
+                          controller.lastNameController,
+                          Common.validateName,
+                          TextInputType.text,
+                          'Last Name',
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        profileTextFieldWidget(
+                          controller.emailController,
+                          Common.validateEmail,
+                          TextInputType.text,
+                          'Email',
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        GestureDetector(
+                          onTap: () => controller.selectDob(context),
+                          child: Container(
+                            // width: Get.width,
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(0),
+                              border: Border.all(
+                                  color: ColorsConfig.colorBlue, width: 1.5),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  controller.formattedDob.value,
+                                  style: TextStyle(
+                                    fontFamily: AppTextStyle.microsoftJhengHei,
+                                    fontSize: 15.0,
+                                    color: ColorsConfig.colorBlue,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.calendar_month,
+                                  color: ColorsConfig.colorBlue,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        DropDownWidget<String>(
+                          hintText: 'Gender',
+                          isExpanded: true,
+                          items: controller.genderList,
+                          texts: controller.genderList.map((e) => e).toList(),
+                          onChanged: (newValue) {
+                            controller.genderDropdownValue = newValue;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        profileTextFieldWidget(
+                            controller.addLine1Controller,
+                            Common.validateAddress,
+                            TextInputType.multiline,
+                            'Address', () {
+                          controller.addVisibility.value =
+                              !controller.addVisibility.value;
+                        }, Icons.add),
+                        Visibility(
+                          visible: controller.addVisibility.value,
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              profileTextFieldWidget(
+                                controller.addLine2Controller,
+                                null,
+                                TextInputType.multiline,
+                                'Address Line 1',
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              profileTextFieldWidget(
+                                controller.addLine3Controller,
+                                null,
+                                TextInputType.multiline,
+                                'Address Line 2',
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        DropDownWidget<CountryData>(
+                          isExpanded: true,
+                          items: controller.countryListData,
+                          texts: controller.countryListData
+                              .map((e) => '${e.countryCode}  ${e.countryName}')
+                              .toList(),
+                          onChanged: (newValue) {
+                            controller.countryDropdown = newValue;
+                            controller.getStateList(newValue?.countryId ?? '');
+                          },
+                          hintText: 'Country',
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        DropDownWidget<StateData>(
+                          isExpanded: true,
+                          items: controller.stateListData,
+                          texts: controller.stateListData
+                              .map((e) => '${e.stateId} ')
+                              .toList(),
+                          onChanged: (newValue) {
+                            controller.stateDropdown = newValue;
+                            controller.getCityList(newValue?.stateId ?? '');
+                          },
+                          hintText: 'State',
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        DropDownWidget<CityData>(
+                          isExpanded: true,
+                          items: controller.cityListData,
+                          texts: controller.cityListData
+                              .map((e) => '${e.cityName} ')
+                              .toList(),
+                          onChanged: (newValue) {
+                            controller.countryId = newValue!.countryId ?? '';
+                            controller.cityDropdown = newValue;
+                          },
+                          hintText: 'City',
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        profileTextFieldWidget(
+                          controller.zipCodeController,
+                          Common.validateZipcode,
+                          TextInputType.number,
+                          'Zipcode',
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        profileTextFieldWidget(
+                          controller.passController,
+                          Common.validatePassword,
+                          TextInputType.visiblePassword,
+                          'Password',
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        profileTextFieldWidget(
+                          controller.confirmPassController,
+                          (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter valid Password!!!';
+                            } else if (value.length < 6) {
+                              return 'Password must be a 6 character';
+                            } else if (value != controller.passController.text) {
+                              return "Password must be same as above";
+                            }
+                            return null;
+                          },
+                          TextInputType.visiblePassword,
+                          'Confirm Password',
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        // FlutterPasswordStrength(
+                        //     password: _password,
+                        //     strengthCallback: (strength) {
+                        //       debugPrint(strength.toString());
+                        //     }),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: loginButtonWidget('Submit', () {
+                              print('object');
+
+                              if (controller.formKey.currentState!.validate()) {
+                                controller.addPatient(
+                                    context,
+                                    controller.firstNameController.text.trim(),
+                                    controller.lastNameController.text.trim(),
+                                    controller.emailController.text.trim(),
+                                    controller.formattedDob.value,
+                                    controller.addLine1Controller.text.trim(),
+                                    controller.addLine2Controller.text.trim(),
+                                    controller.addLine3Controller.text.trim(),
+                                    '103',
+                                    12,
+                                    13,
+                                    controller.zipCodeController.text.trim(),
+                                    controller.confirmPassController.text.trim(),
+                                    controller.genderDropdownValue!);
+
+                                /*   showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (_) {
+                                        return AnimatedDialog(
+                                          outputText: 'Congratulations',
+                                          subText:
+                                              'Your Account has Created Successfully.',
+                                          titleSubtext: '  ',
+                                          onClose: () {
+                                            Get.offAllNamed(DashboardScreen.pageId);
+                                          },
+                                        );
+                                        // Timer(const Duration(seconds: 3), goToDashboard);
+                                      }); */
+
+                              }
+                            })),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }))
+            ],
+          )),
+    );
   }
 }
