@@ -184,12 +184,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<StateData>(
-                          validator: (value) {
-                            if (value == null) {
-                              return 'Please Select State';
-                            }
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (value == null) {
+                          //     return 'Please Select State';
+                          //   }
+                          //   return null;
+                          // },
                           isExpanded: true,
                           items: controller.stateListData,
                           texts: controller.stateListData
@@ -205,12 +205,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<CityData>(
-                          validator: (value) {
-                            if (value == null) {
-                              return 'Please Select City';
-                            }
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (value == null) {
+                          //     return 'Please Select City';
+                          //   }
+                          //   return null;
+                          // },
                           isExpanded: true,
                           items: controller.cityListData,
                           texts: controller.cityListData

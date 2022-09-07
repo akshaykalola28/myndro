@@ -23,8 +23,8 @@ class LoginController extends BaseController{
 
         if (jsonData["type"] == 'success') {
           print('00 login ');
-          // Common.storeBoolPrefData(Common.strIsLogin, true);
-          // Common.storePrefData(Common.strLoginRes, json.encode(jsonData));
+          Common.storeBoolPrefData(Common.strIsLogin, true);
+          Common.storePrefData(Common.strLoginRes, json.encode(jsonData));
           Get.offAllNamed(DashboardScreen.pageId);
         } else {
           Fluttertoast.showToast(msg: jsonData["msg"] as String);

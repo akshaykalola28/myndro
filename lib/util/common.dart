@@ -4,10 +4,40 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/constant.dart';
 
 class Common {
+  static const String strIsLogin = 'is_login';
+  static const String strLoginRes = 'login_response';
+
+  // store boolean preference data
+  static void storeBoolPrefData(String key, bool res) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(key, res);
+  }
+
+  // retrieve boolean preference data
+  static Future<bool> retrieveBoolPrefData(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool b = prefs.getBool(key) ?? false;
+    return b;
+  }
+
+  // store string preference data
+  static void storePrefData(String key, String res) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(key, res);
+  }
+
+  // retrieve string preference data
+  static Future<String> retrievePrefData(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String str = prefs.getString(key) ?? '';
+    return str;
+  }
+
   static String? validateName(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Name';
@@ -108,14 +138,14 @@ class Common {
             ),
             isPriceVisible
                 ? Text(
-                    subText!,
-                    style: TextStyle(
-                      fontFamily: AppTextStyle.microsoftJhengHei,
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w500,
-                      color: ColorsConfig.colorBlack,
-                    ),
-                  )
+              subText!,
+              style: TextStyle(
+                fontFamily: AppTextStyle.microsoftJhengHei,
+                fontSize: 12.0,
+                fontWeight: FontWeight.w500,
+                color: ColorsConfig.colorBlack,
+              ),
+            )
                 : Container(),
           ],
         )
