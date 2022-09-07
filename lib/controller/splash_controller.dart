@@ -20,7 +20,7 @@ class SplashController extends BaseController {
     if (isLogin) {
       return Get.offAllNamed(DashboardScreen.pageId);
     } else {
-      return Get.toNamed(OnBoardingScreen.pageId);
+      return Get.offAllNamed(OnBoardingScreen.pageId);
     }
   }
 }

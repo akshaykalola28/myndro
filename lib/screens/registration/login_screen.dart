@@ -19,8 +19,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
-  bool selected = false;
-final LoginController loginController = LoginController();
+
+  final LoginController loginController = LoginController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,10 +116,14 @@ final LoginController loginController = LoginController();
                                       child: Checkbox(
                                         focusColor: ColorsConfig.colorBlue,
                                         activeColor: ColorsConfig.colorBlue,
-                                        value: selected,
-                                        onChanged: (bool? value) {
+                                        value: loginController
+                                            .rememberPassSelected,
+                                        onChanged: (_) {
                                           setState(() {
-                                            selected = value!;
+                                            loginController
+                                                    .rememberPassSelected =
+                                                !loginController
+                                                    .rememberPassSelected;
                                           });
                                         },
                                       ),
