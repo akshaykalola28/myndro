@@ -1,6 +1,6 @@
 class OnBoardingModel {
-  final imageAsset;
-  final name;
+  final String imageAsset;
+  final String name;
 
-  OnBoardingModel({this.imageAsset, this.name});
+  OnBoardingModel({required this.imageAsset, required this.name});
 }

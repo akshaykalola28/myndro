@@ -23,6 +23,15 @@ class Common {
       return null;
     }
   }
+
+  static String? validatePhoneNo(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Phone Number';
+    } else {
+      return null;
+    }
+  }
+
   static String? validateZipcode(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Zipcode';
@@ -30,7 +39,6 @@ class Common {
       return null;
     }
   }
-
 
   static String? validateEmail(String? value) {
     String pattern =

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -140,13 +139,14 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 shape: PinCodeFieldShape.underline,
                 activeFillColor: Colors.transparent,
               ),
-              // validator: (v) {
-              //   if (v!.length <6) {
-              //     return "Please enter all digits";
-              //   } else {
-              //     return null;
-              //   }
-              // },
+              validator: (v) {
+                if (v!.length < 6) {
+                  return "Please enter all digits";
+                } else {
+                  return null;
+                }
+              },
+              errorAnimationDuration: 2,
               animationDuration: const Duration(milliseconds: 300),
               enableActiveFill: false,
               keyboardType: TextInputType.number,
@@ -190,8 +190,6 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 controller.verifyOtp(
                     controller.fromOtpScreen[0]['patient_id'],
                     controller.otpController.text);
-              } else {
-                Fluttertoast.showToast(msg: 'please enter valid OTP');
               }
             }),
           )

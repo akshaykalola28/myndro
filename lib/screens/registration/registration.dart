@@ -9,7 +9,8 @@ import '../../widgets/widgets.dart';
 class UserRegistration extends GetView<RegistrationController> {
   static const pageId = "/UserRegistration";
 
-  const UserRegistration({Key? key}) : super(key: key);
+  UserRegistration({Key? key}) : super(key: key);
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +44,9 @@ class UserRegistration extends GetView<RegistrationController> {
               ),
               Expanded(child: Obx(() {
                 return SingleChildScrollView(
-                  padding: EdgeInsets.fromLTRB(12, 20, 12, 0),
+                  padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
                   child: Form(
-                    key: controller.formKey,
+                    key: formKey,
                     child: Column(
                       children: [
                         profileTextFieldWidget(
@@ -108,6 +109,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<String>(
+                          validator: (value) {
+                            if (value?.isEmpty == true) {
+                              return 'Please Select Gender';
+                            }
+                            return null;
+                          },
                           hintText: 'Gender',
                           isExpanded: true,
                           items: controller.genderList,
@@ -156,6 +163,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<CountryData>(
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please Select Country';
+                            }
+                            return null;
+                          },
                           isExpanded: true,
                           items: controller.countryListData,
                           texts: controller.countryListData
@@ -171,6 +184,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<StateData>(
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please Select State';
+                            }
+                            return null;
+                          },
                           isExpanded: true,
                           items: controller.stateListData,
                           texts: controller.stateListData
@@ -186,6 +205,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<CityData>(
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please Select City';
+                            }
+                            return null;
+                          },
                           isExpanded: true,
                           items: controller.cityListData,
                           texts: controller.cityListData
@@ -210,11 +235,17 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         profileTextFieldWidget(
-                          controller.passController,
-                          Common.validatePassword,
-                          TextInputType.visiblePassword,
-                          'Password',
-                        ),
+                            controller.passController,
+                            Common.validatePassword,
+                            TextInputType.visiblePassword,
+                            'Password', () {
+                          controller.passwordVisible.value =
+                              !controller.passwordVisible.value;
+                        },
+                            controller.passwordVisible.value
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            controller.passwordVisible.value),
                         const SizedBox(
                           height: 12,
                         ),
@@ -222,17 +253,25 @@ class UserRegistration extends GetView<RegistrationController> {
                           controller.confirmPassController,
                           (value) {
                             if (value!.isEmpty) {
-                              return 'Enter valid Password!!!';
-                            } else if (value.length < 6) {
-                              return 'Password must be a 6 character';
-                            } else if (value != controller.passController.text) {
-                              return "Password must be same as above";
-                            }
-                            return null;
-                          },
-                          TextInputType.visiblePassword,
-                          'Confirm Password',
-                        ),
+                                return 'Enter valid Password!!!';
+                              } else if (value.length < 6) {
+                                return 'Password must be a 6 character';
+                              } else if (value !=
+                                  controller.passController.text) {
+                                return "Password must be same as above";
+                              }
+                              return null;
+                            },
+                            TextInputType.visiblePassword,
+                            'Confirm Password',
+                            () {
+                              controller.confirmPasswordVisible.value =
+                                  !controller.confirmPasswordVisible.value;
+                            },
+                            controller.confirmPasswordVisible.value
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            controller.confirmPasswordVisible.value),
                         const SizedBox(
                           height: 20,
                         ),
@@ -245,8 +284,7 @@ class UserRegistration extends GetView<RegistrationController> {
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: loginButtonWidget('Submit', () {
                               print('object');
-
-                              if (controller.formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 controller.addPatient(
                                     context,
                                     controller.firstNameController.text.trim(),

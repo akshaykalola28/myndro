@@ -53,4 +53,12 @@ mixin ImagePath {
   static String reportImg = 'assets/images/report_img.png';
   static String pdfIconImg = 'assets/images/pdf_icon_img.png';
   static String docIcon = 'assets/images/doc_icon.png';
+  static String pack1 = 'assets/images/pack_1.png';
+  static String pack2 = 'assets/images/pack_2.png';
+  static String pack3 = 'assets/images/pack_3.png';
+  static String pack4 = 'assets/images/pack_4.png';
+  static String pack5 = 'assets/images/pack_5.png';
+  static String pack6 = 'assets/images/pack_6.png';
+  static String hhp1 = 'assets/images/hhp1.png';
+  static String hhp2 = 'assets/images/hhp2.png';
 }

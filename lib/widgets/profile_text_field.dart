@@ -3,22 +3,21 @@ import 'package:flutter/material.dart';
 import '../constant/constant.dart';
 
 Widget profileTextFieldWidget(
-    TextEditingController controller,
+    TextEditingController? controller,
     FormFieldValidator<String>? validator,
     TextInputType inputType,
     String hintTxt,
-    [VoidCallback? onSufficIcon,
+    [VoidCallback? onSuffixIcon,
     IconData? suffixIcon,
-    ]) {
+    bool obscureText = false]) {
   return TextFormField(
-    // autovalidateMode: AutovalidateMode.always,
     style: TextStyle(
       fontFamily: AppTextStyle.microsoftJhengHei,
       fontSize: 13.0,
       fontWeight: FontWeight.w400,
       color: ColorsConfig.colorBlue,
     ),
-    // onChanged: (value) => onChanged!(value),
+    obscureText: obscureText,
     controller: controller,
     validator: validator,
     keyboardType: inputType,
@@ -34,7 +33,7 @@ Widget profileTextFieldWidget(
       ),
       suffixIcon: IconButton(
         color: ColorsConfig.colorBlue,
-        onPressed: onSufficIcon,
+        onPressed: onSuffixIcon,
         icon: Icon(suffixIcon, size: 24),
       ),
       labelStyle: TextStyle(

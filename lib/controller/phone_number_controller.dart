@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../model/model.dart';
@@ -11,6 +12,7 @@ import 'base_controller.dart';
 
 class PhoneNumberController extends BaseController {
   final TextEditingController phoneController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void errorHandler(e) {}
@@ -57,8 +59,8 @@ class PhoneNumberController extends BaseController {
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.sendOtp(phoneNo, countryCode);
+      var jsonData = json.decode(response.body);
       if (response.statusCode == 200) {
-        var jsonData = json.decode(response.body);
         var data = jsonData["data"];
         // print(data);
         print('responsesss ${data['patient_phone_no']}');
@@ -70,7 +72,7 @@ class PhoneNumberController extends BaseController {
         ]);
         phoneController.clear();
       } else {
-        Common.displayErrorMessage(response.body);
+        Fluttertoast.showToast(msg: jsonData["messages"] as String);
       }
       print('otp send');
     }

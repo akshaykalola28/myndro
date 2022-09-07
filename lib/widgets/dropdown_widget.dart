@@ -17,7 +17,8 @@ class DropDownWidget<T> extends StatelessWidget {
     return DropdownButtonFormField<T>(
       iconDisabledColor: ColorsConfig.colorBlue,
       iconEnabledColor: ColorsConfig.colorBlue,
-      isExpanded:isExpanded! ,
+      isExpanded: isExpanded!,
+      validator: validator,
       // value: widget.dropdownValue,
       decoration: InputDecoration(
         contentPadding:
@@ -37,6 +38,13 @@ class DropDownWidget<T> extends StatelessWidget {
         filled: true,
         fillColor: ColorsConfig.colorWhite,
         focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(0),
+          borderSide: const BorderSide(
+            color: ColorsConfig.colorBlue,
+            width: 1.5,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(0),
           borderSide: const BorderSide(
             color: ColorsConfig.colorBlue,

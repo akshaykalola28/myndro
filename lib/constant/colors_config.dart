@@ -12,6 +12,7 @@ class ColorsConfig {
   static const Color colorLightGrey = Color(0xFFEFEEEE);
   static const Color colorPurple = Color(0xFF9D21CA);
   static const Color colorSkyBlue = Color(0xFFA0D6FF);
-// A0D6FF
+  static const Color colorDarkBlue = Color(0xFF003784);
+// 003784
 
 }

@@ -26,14 +26,14 @@ class PackagesFormScreen extends GetView<PackagesController> {
           isPackageForm: true,
           text: 'CHP-Corporate Happiness Program',
           body: SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(12, 20, 12, 0),
+            padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'Name', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(
@@ -44,19 +44,19 @@ class PackagesFormScreen extends GetView<PackagesController> {
                     'Name Of Company',
                     1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'Email ID', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'Mobile NO:', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Text(
@@ -69,7 +69,7 @@ class PackagesFormScreen extends GetView<PackagesController> {
                 ),
                 Row(
                   children: [
-                    Text('0-100'),
+                    const Text('0-100'),
                     Expanded(
                       child: Radio(
                         value: 1,
@@ -81,7 +81,7 @@ class PackagesFormScreen extends GetView<PackagesController> {
                         },
                       ),
                     ),
-                    Text('100-200'),
+                    const Text('100-200'),
                     Expanded(
                       child: Radio(
                         value: 2,
@@ -93,7 +93,7 @@ class PackagesFormScreen extends GetView<PackagesController> {
                         },
                       ),
                     ),
-                    Text('200-500'),
+                    const Text('200-500'),
                     Expanded(
                       child: Radio(
                         value: 3,
@@ -105,7 +105,7 @@ class PackagesFormScreen extends GetView<PackagesController> {
                         },
                       ),
                     ),
-                    Text('500+'),
+                    const Text('500+'),
                     Expanded(
                       child: Radio(
                         value: 4,
@@ -119,13 +119,13 @@ class PackagesFormScreen extends GetView<PackagesController> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'Website', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(
@@ -136,43 +136,43 @@ class PackagesFormScreen extends GetView<PackagesController> {
                     'Comapny Landline No',
                     1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'Your Role', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'Address', 3,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'City', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'Pincode', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'State', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(controller.titleController, false,
                     Common.validateName, TextInputType.text, 'Country', 1,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 outlinedTextField(
@@ -183,7 +183,7 @@ class PackagesFormScreen extends GetView<PackagesController> {
                     'Other Info/Message',
                     4,
                     isPackageForm: true),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 loginButtonWidget(

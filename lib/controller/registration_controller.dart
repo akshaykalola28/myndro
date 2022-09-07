@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -37,10 +38,12 @@ class RegistrationController extends BaseController {
   CityData? cityDropdown;
   String? genderDropdownValue;
   var fromOtpScreen;
+  RxBool passwordVisible = false.obs;
+  RxBool confirmPasswordVisible = false.obs;
   Rx<DateTime> dob = DateTime.now().obs;
   RxString formattedDob = 'DOB'.obs;
-  String countryId =' -1';
-  final formKey = GlobalKey<FormState>();
+  String countryId = ' -1';
+
   @override
   void onInit() {
     fromOtpScreen = Get.arguments;
@@ -58,12 +61,15 @@ class RegistrationController extends BaseController {
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.verifyOtp(patientId, otp);
-      if (response.statusCode == 200 && response.body[1] != 'error') {
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200 && jsonData['type'] != 'error') {
         print('object otp  verified');
-        Get.offAllNamed(UserRegistration.pageId,);
+        Get.offAllNamed(
+          UserRegistration.pageId,
+        );
         otpController.clear();
       } else {
-        Common.displayErrorMessage(response.body);
+        Fluttertoast.showToast(msg: jsonData["msg"] as String);
       }
       print('otp send');
     }
@@ -75,12 +81,13 @@ class RegistrationController extends BaseController {
     if (status) {
       var response =
           await RemoteServices.resendOtp(phoneNo, countryCode, patientId);
-      if (response.statusCode == 200 && response.body[1] != 'error') {
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200 && jsonData['type'] != 'error') {
         print('object resend  verified');
         // Get.toNamed(UserRegistration.pageId);
         // otpController.clear();
       } else {
-        Common.displayErrorMessage(response.body);
+        Fluttertoast.showToast(msg: jsonData["msg"] as String);
       }
       print('otp send');
     }
@@ -92,8 +99,8 @@ class RegistrationController extends BaseController {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: dob.value,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+        firstDate: DateTime(1901, 1),
+        lastDate: DateTime.now());
     if (picked != null && picked != dob.value) {
       dob.value = picked;
       formattedDob.value = DateFormat('dd-MM-yyyy').format(dob.value);
@@ -133,6 +140,7 @@ class RegistrationController extends BaseController {
           zipCode,
           password,
           gender);
+      var jsonData = json.decode(response.body);
       if (response.statusCode == 200 && response.body[1] != 'error') {
         showDialog(
             barrierDismissible: false,
@@ -149,7 +157,7 @@ class RegistrationController extends BaseController {
               // Timer(const Duration(seconds: 3), goToDashboard);
             });
       } else {
-        Common.displayErrorMessage(response.body);
+        Fluttertoast.showToast(msg: jsonData["msg"] as String);
       }
 
     }

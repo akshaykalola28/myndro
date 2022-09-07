@@ -31,6 +31,7 @@ export 'myndro_locker/myndro_locker.dart';
 export 'offers/offers.dart';
 export 'onBoarding/onBoarding_screen.dart';
 export 'packages/packages.dart';
+export 'packages/packages_detail.dart';
 export 'packages/packages_form.dart';
 export 'registration/create_password.dart';
 export 'registration/forgot_password.dart';

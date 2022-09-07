@@ -25,7 +25,7 @@ class PackagesScreen extends GetView<PackagesController> {
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  Get.toNamed(PackagesFormScreen.pageId);
+                  Get.toNamed(PackagesDetailScreen.pageId);
                 },
                 child: packagesContainer(
                     'Hospital Happiness Program',

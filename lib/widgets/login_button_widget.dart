@@ -9,18 +9,10 @@ Widget loginButtonWidget(
   return GestureDetector(
     onTap: onClick,
     child: Container(
-      padding: EdgeInsets.symmetric(vertical: 11),
+      padding: const EdgeInsets.symmetric(vertical: 11),
       width: Get.width,
       decoration: const BoxDecoration(
         color: ColorsConfig.colorBlue,
-        // borderRadius: BorderRadius.all(
-        //   Radius.circular(8),
-        // ),
-        // boxShadow: [BoxShadow(
-        //   color:Color.fromRGBO(0, 0, 0, 0.15),
-        //   offset: Offset(4, 15),
-        //   blurRadius: 15,
-        // ),]
       ),
       child: Center(
         child: Text(
