@@ -17,7 +17,7 @@ class StateList {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = this.status;
     data['messages'] = this.messages;
     if (this.data != null) {

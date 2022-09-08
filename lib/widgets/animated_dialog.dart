@@ -82,7 +82,7 @@ class _AnimatedDialogState extends State<AnimatedDialog>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CheckAnimation(),
+                      const CheckAnimation(),
                       const SizedBox(
                         height: 15,
                       ),

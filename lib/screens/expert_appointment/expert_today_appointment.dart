@@ -213,7 +213,7 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                         );
                       },
                       itemBuilder: (BuildContext context, int index) {
-                        return ExpertNotesWidget(
+                        return const ExpertNotesWidget(
                           date: '10th june 2022',
                           title: 'hello',
                           subject:
@@ -402,7 +402,7 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                           color: ColorsConfig.colorGreyy,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -454,7 +454,7 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
               color: ColorsConfig.colorGreyy,
               fontWeight: FontWeight.w800),
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         Material(

@@ -57,6 +57,7 @@ dependencies:
   intl: any
   multiselect: ^0.0.7
   shared_preferences: any
+  is_first_run: ^1.0.0
 
 dev_dependencies:
   flutter_test:

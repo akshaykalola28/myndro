@@ -45,12 +45,12 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                             onPressed: () {},
                             elevation: 2.0,
                             fillColor: ColorsConfig.colorBlue,
-                            child: Icon(
+                            child: const Icon(
                               Icons.camera_alt_outlined,
                               color: ColorsConfig.colorWhite,
                             ),
-                            padding: EdgeInsets.all(10.0),
-                            shape: CircleBorder(),
+                            padding: const EdgeInsets.all(10.0),
+                            shape: const CircleBorder(),
                           )),
                     ],
                   ),
@@ -79,7 +79,7 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                 const SizedBox(
                   height: 5,
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                 ),
                 const SizedBox(
@@ -94,7 +94,7 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Expertise',
                   style: TextStyle(
                       color: ColorsConfig.colorBlack,
@@ -110,16 +110,16 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                   },
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   )),
-                  options: ['a', 'b', 'c', 'd'],
+                  options: const ['a', 'b', 'c', 'd'],
                   selectedValues: controller.selected.value,
                   whenEmpty: 'Category',
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
+                const Text(
                   'Specialization',
                   style: TextStyle(
                       color: ColorsConfig.colorBlack,
@@ -135,9 +135,9 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                   },
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   )),
-                  options: ['a', 'b', 'c', 'd'],
+                  options: const ['a', 'b', 'c', 'd'],
                   selectedValues: controller.selected.value,
                   whenEmpty: 'Category',
                 ),
@@ -148,7 +148,7 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Language',
                   style: TextStyle(
                       color: ColorsConfig.colorBlack,
@@ -164,16 +164,16 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                   },
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   )),
-                  options: ['a', 'b', 'c', 'd'],
+                  options: const ['a', 'b', 'c', 'd'],
                   selectedValues: controller.selected.value,
                   whenEmpty: 'Category',
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
+                const Text(
                   'Session Duration',
                   style: TextStyle(
                       color: ColorsConfig.colorBlack,
@@ -189,16 +189,16 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                   },
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   )),
-                  options: ['a', 'b', 'c', 'd'],
+                  options: const ['a', 'b', 'c', 'd'],
                   selectedValues: controller.selected.value,
                   whenEmpty: 'Category',
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
+                const Text(
                   'Session Price',
                   style: TextStyle(
                       color: ColorsConfig.colorBlack,
@@ -214,9 +214,9 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                   },
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   )),
-                  options: ['a', 'b', 'c', 'd'],
+                  options: const ['a', 'b', 'c', 'd'],
                   selectedValues: controller.selected.value,
                   whenEmpty: 'Category',
                 ),
@@ -233,7 +233,7 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                           Radius.circular(12.0)), // Set rounded corner radius
                     ),
                     padding: const EdgeInsets.all(10),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Save Changes',
                         style: TextStyle(
@@ -286,12 +286,12 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
       ),
       Row(
         children: [
-          Container(
+          SizedBox(
             width: Get.width * 0.3,
             child: outlinedTextField(controller.titleController, false,
                 Common.validateName, TextInputType.multiline, year, 1),
           ),
-          Spacer(),
+          const Spacer(),
           Container(
             decoration: BoxDecoration(
               color: Colors.transparent,
@@ -338,7 +338,7 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                 Radius.circular(12.0)), // Set rounded corner radius
           ),
           padding: const EdgeInsets.all(10),
-          child: Center(
+          child: const Center(
             child: Text(
               'Upload',
               style: TextStyle(

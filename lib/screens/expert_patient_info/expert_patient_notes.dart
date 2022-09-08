@@ -135,7 +135,7 @@ class ExpertPatientNotes extends GetView<ExpertPatientInfoController> {
                         );
                       },
                       itemBuilder: (BuildContext context, int index) {
-                        return ExpertNotesWidget(
+                        return const ExpertNotesWidget(
                           date: '10th june 2022',
                           title: 'hello',
                           subject:

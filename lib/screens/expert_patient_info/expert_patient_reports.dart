@@ -21,7 +21,7 @@ class ExpertPatientReports extends GetView<ExpertPatientInfoController> {
           text: 'Patient Documents',
           body: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+              padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
               color: Colors.white,
               child: ListView.separated(
                 primary: true,
@@ -29,10 +29,10 @@ class ExpertPatientReports extends GetView<ExpertPatientInfoController> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: ((context, index) {
-                  return ExpertReportTileWidget();
+                  return const ExpertReportTileWidget();
                 }),
                 separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(
+                  return const SizedBox(
                     height: 10,
                   );
                 },

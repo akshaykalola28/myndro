@@ -178,9 +178,7 @@ class RemoteServices {
   }
 
   //get city list
-  static Future<http.Response> getCity(
-    String stateId,
-  ) async {
+  static Future<http.Response> getCity(String stateId,) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
     http.Response response = await http.post(
       Uri.parse('${Apis.baseUrl}${Apis.cityList}?state_id=$stateId'),
@@ -188,6 +186,27 @@ class RemoteServices {
       // body: postBody,
     );
     printResponse(header, '', response);
+
+    return response;
+  }
+
+  //get assessment question
+  static Future<http.Response> getAssessmentQuestion(String token,
+      String assessmentCategory,) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      'jwt_token': token,
+      'assement_category': assessmentCategory,
+
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.assessmentQuestion),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
 
     return response;
   }

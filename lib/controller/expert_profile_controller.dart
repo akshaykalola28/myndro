@@ -36,13 +36,13 @@ class ExpertProfileController extends GetxController
       context: context,
       position: RelativeRect.fromLTRB(left, top, 0, 0),
       items: [
-        PopupMenuItem<String>(
+        const PopupMenuItem<String>(
           value: '1',
-          child: const Text('Mandatory'),
+          child: Text('Mandatory'),
         ),
-        PopupMenuItem<String>(
+        const PopupMenuItem<String>(
           value: '2',
-          child: Text('Non Mandatory'),
+          child: const Text('Non Mandatory'),
         ),
       ],
       elevation: 8.0,

@@ -9,7 +9,7 @@ import '../../widgets/widgets.dart';
 class ExpertHome extends StatefulWidget {
   static const pageId = "/ExpertHome";
 
-  ExpertHome({Key? key}) : super(key: key);
+  const ExpertHome({Key? key}) : super(key: key);
 
   @override
   State<ExpertHome> createState() => _ExpertHomeState();

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myndro/constant/constant.dart';
-import 'package:myndro/screens/packages/packages.dart';
-import '../screens.dart';
 
+import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../screens.dart';
 
 class DashboardScreen extends StatelessWidget {
   static const pageId = "/DashboardScreen";
@@ -115,7 +114,7 @@ class DashboardScreen extends StatelessWidget {
               ),
               ListTile(
                 leading: Image.asset(
-                  ImagePath.assessmentIcon,
+                  ImagePath.pack2,
                   color: ColorsConfig.colorWhite,
                   height: 30,
                 ),

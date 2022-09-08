@@ -48,13 +48,13 @@ class ExpertProfile extends GetView<ExpertProfileController> {
             controller: controller.tabController,
             children: [
               Column(
-                children: [
+                children: const [
                   Text('data'),
                 ],
               ),
-              Text('data'),
-              Text('data'),
-              Text('data'),
+              const Text('data'),
+              const Text('data'),
+              const Text('data'),
             ],
           ),
 

@@ -11,6 +11,7 @@ import '../constant/constant.dart';
 class Common {
   static const String strIsLogin = 'is_login';
   static const String strLoginRes = 'login_response';
+  static const String strFirstTime = 'if_first_time';
 
   // store boolean preference data
   static void storeBoolPrefData(String key, bool res) async {
@@ -102,7 +103,7 @@ class Common {
   // Display error message from response json
   static void displayErrorMessage(String response) {
     var data;
-    var error;
+    List error;
     data = json.decode(response);
     error = data['msg'] as List;
     Fluttertoast.showToast(msg: error[0]['message'] as String);

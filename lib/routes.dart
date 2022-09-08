@@ -146,7 +146,7 @@ final List<GetPage> appPages = [
       binding: PackagesBinding()),
   GetPage(
       name: ExpertHome.pageId,
-      page: () => ExpertHome(),
+      page: () => const ExpertHome(),
       binding: ExpertHomeBinding()),
   GetPage(
       name: ExpertAppointment.pageId,

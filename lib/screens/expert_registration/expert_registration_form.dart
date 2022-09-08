@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/controller/controller.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../constant/constant.dart';
+import '../../model/model.dart';
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
 import '../screens.dart';
@@ -39,6 +41,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
 
   int _curPage = 1;
   dynamic fromEdit;
+  final RegistrationController _registrationController =
+      RegistrationController();
 
   @override
   void initState() {
@@ -70,7 +74,6 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   final TextEditingController passController = TextEditingController();
   bool status = false;
   int _radioSelected = 1;
-  String? _radioVal;
 
   // final List<String> items = [
   //   'Item1',
@@ -244,20 +247,58 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      profileTextFieldWidget(
-                                        passController,
-                                        Common.validateEmail,
-                                        TextInputType.emailAddress,
-                                        'DOB',
+                                      GestureDetector(
+                                        onTap: () => _registrationController
+                                            .selectDob(context),
+                                        child: Container(
+                                          // width: Get.width,
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(0),
+                                            border: Border.all(
+                                                color: ColorsConfig.colorBlue,
+                                                width: 1.5),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                _registrationController
+                                                    .formattedDob.value,
+                                                style: TextStyle(
+                                                  fontFamily: AppTextStyle
+                                                      .microsoftJhengHei,
+                                                  fontSize: 15.0,
+                                                  color: ColorsConfig.colorBlue,
+                                                ),
+                                              ),
+                                              const Icon(
+                                                Icons.calendar_month,
+                                                color: ColorsConfig.colorBlue,
+                                              )
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
+                                      DropDownWidget<String>(
                                         hintText: 'Gender',
                                         isExpanded: true,
-                                      ),*/
+                                        items:
+                                            _registrationController.genderList,
+                                        texts: _registrationController
+                                            .genderList
+                                            .map((e) => e)
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .genderDropdownValue = newValue;
+                                        },
+                                      ),
                                       const SizedBox(
                                         height: 12,
                                       ),
@@ -289,35 +330,89 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                    /*  DropDownWidget(
-                                        dropdownValue: dropdownValue,
+                                      DropDownWidget<CountryData>(
+                                        // validator: (value) {
+                                        //   if (value == null) {
+                                        //     return 'Please Select Country';
+                                        //   }
+                                        //   return null;
+                                        // },
+                                        isExpanded: true,
+                                        items: _registrationController
+                                            .countryListData,
+                                        texts: _registrationController
+                                            .countryListData
+                                            .map((e) =>
+                                                '${e.countryCode}  ${e.countryName}')
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .countryDropdown = newValue;
+                                          _registrationController.getStateList(
+                                              newValue?.countryId ?? '');
+                                        },
                                         hintText: 'Country',
-                                        isExpanded: true,
-                                      ),*/
+                                      ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'state',
+                                      DropDownWidget<StateData>(
+                                        // validator: (value) {
+                                        //   if (value == null) {
+                                        //     return 'Please Select State';
+                                        //   }
+                                        //   return null;
+                                        // },
                                         isExpanded: true,
-                                      ),*/
+                                        items: _registrationController
+                                            .stateListData,
+                                        texts: _registrationController
+                                            .stateListData
+                                            .map((e) => '${e.stateId} ')
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .stateDropdown = newValue;
+                                          _registrationController.getCityList(
+                                              newValue?.stateId ?? '');
+                                        },
+                                        hintText: 'State',
+                                      ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                     /* DropDownWidget(
-                                        dropdownValue: dropdownValue,
+                                      DropDownWidget<CityData>(
+                                        // validator: (value) {
+                                        //   if (value == null) {
+                                        //     return 'Please Select City';
+                                        //   }
+                                        //   return null;
+                                        // },
+                                        isExpanded: true,
+                                        items: _registrationController
+                                            .cityListData,
+                                        texts: _registrationController
+                                            .cityListData
+                                            .map((e) => '${e.cityName} ')
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController.countryId =
+                                              newValue!.countryId ?? '';
+                                          _registrationController.cityDropdown =
+                                              newValue;
+                                        },
                                         hintText: 'City',
-                                        isExpanded: true,
-                                      ),*/
+                                      ),
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                     /* DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'Zipcode',
-                                        isExpanded: true,
-                                      ),*/
+                                      profileTextFieldWidget(
+                                        _registrationController
+                                            .zipCodeController,
+                                        Common.validateZipcode,
+                                        TextInputType.number,
+                                        'Zipcode',
+                                      ),
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -343,11 +438,24 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                    /*  DropDownWidget(
-                                        dropdownValue: dropdownValue,
+                                      DropDownWidget<String>(
+                                        // validator: (value) {
+                                        //   if (value?.isEmpty == true) {
+                                        //     return 'Please Select Gender';
+                                        //   }
+                                        //   return null;
+                                        // },
                                         hintText: 'Medical Master',
                                         isExpanded: true,
-                                      ),*/
+                                        items: const ['abc', 'xyz', 'mmm'],
+                                        texts: ['abc', 'xyz', 'mmm']
+                                            .map((e) => e)
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .dropdownValue = newValue;
+                                        },
+                                      ),
                                       const SizedBox(
                                         height: 15,
                                       ),
@@ -360,11 +468,24 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 15,
                                       ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
+                                      DropDownWidget<String>(
+                                        // validator: (value) {
+                                        //   if (value?.isEmpty == true) {
+                                        //     return 'Please Select Gender';
+                                        //   }
+                                        //   return null;
+                                        // },
                                         hintText: 'Degree Year',
                                         isExpanded: true,
-                                      ),*/
+                                        items: const ['abc', 'xyz', 'mmm'],
+                                        texts: ['abc', 'xyz', 'mmm']
+                                            .map((e) => e)
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .dropdownValue = newValue;
+                                        },
+                                      ),
                                       const SizedBox(
                                         height: 15,
                                       ),
@@ -372,6 +493,17 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           'Degree Certificate'),
                                       const SizedBox(
                                         height: 15,
+                                      ),
+                                      profileTextFieldWidget(
+                                        passController,
+                                        (value) {
+                                          if (value?.isEmpty == true) {
+                                            return '';
+                                          }
+                                          return null;
+                                        },
+                                        TextInputType.text,
+                                        'Practice Certificate No',
                                       ),
                                       /*DropDownWidget(
                                         dropdownValue: dropdownValue,
@@ -383,7 +515,6 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       ),
                                       Common.attachDocWidget(
                                           'Practice Certificate'),
-
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -394,7 +525,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               'Save',
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 8,
                                           ),
                                           Expanded(
@@ -421,6 +552,24 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
+                                      DropDownWidget<String>(
+                                        // validator: (value) {
+                                        //   if (value?.isEmpty == true) {
+                                        //     return 'Please Select Gender';
+                                        //   }
+                                        //   return null;
+                                        // },
+                                        hintText: 'Bank Name',
+                                        isExpanded: true,
+                                        items: const ['abc', 'xyz', 'mmm'],
+                                        texts: ['abc', 'xyz', 'mmm']
+                                            .map((e) => e)
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .dropdownValue = newValue;
+                                        },
+                                      ),
                                       /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Bank Name',
@@ -446,6 +595,24 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       ),
                                       const SizedBox(
                                         height: 12,
+                                      ),
+                                      DropDownWidget<String>(
+                                        // validator: (value) {
+                                        //   if (value?.isEmpty == true) {
+                                        //     return 'Please Select Gender';
+                                        //   }
+                                        //   return null;
+                                        // },
+                                        hintText: 'Account Type',
+                                        isExpanded: true,
+                                        items: const ['abc', 'xyz', 'mmm'],
+                                        texts: ['abc', 'xyz', 'mmm']
+                                            .map((e) => e)
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .dropdownValue = newValue;
+                                        },
                                       ),
                                       /*DropDownWidget(
                                         dropdownValue: dropdownValue,
@@ -492,6 +659,24 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
+                                      DropDownWidget<String>(
+                                        // validator: (value) {
+                                        //   if (value?.isEmpty == true) {
+                                        //     return 'Please Select Gender';
+                                        //   }
+                                        //   return null;
+                                        // },
+                                        hintText: 'Country',
+                                        isExpanded: true,
+                                        items: const ['abc', 'xyz', 'mmm'],
+                                        texts: ['abc', 'xyz', 'mmm']
+                                            .map((e) => e)
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .dropdownValue = newValue;
+                                        },
+                                      ),
                                       /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'Country',
@@ -499,6 +684,24 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       ),*/
                                       const SizedBox(
                                         height: 12,
+                                      ),
+                                      DropDownWidget<String>(
+                                        // validator: (value) {
+                                        //   if (value?.isEmpty == true) {
+                                        //     return 'Please Select Gender';
+                                        //   }
+                                        //   return null;
+                                        // },
+                                        hintText: 'State',
+                                        isExpanded: true,
+                                        items: const ['abc', 'xyz', 'mmm'],
+                                        texts: ['abc', 'xyz', 'mmm']
+                                            .map((e) => e)
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .dropdownValue = newValue;
+                                        },
                                       ),
                                       /*DropDownWidget(
                                         dropdownValue: dropdownValue,
@@ -508,6 +711,24 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
+                                      DropDownWidget<String>(
+                                        // validator: (value) {
+                                        //   if (value?.isEmpty == true) {
+                                        //     return 'Please Select Gender';
+                                        //   }
+                                        //   return null;
+                                        // },
+                                        hintText: 'City',
+                                        isExpanded: true,
+                                        items: const ['abc', 'xyz', 'mmm'],
+                                        texts: ['abc', 'xyz', 'mmm']
+                                            .map((e) => e)
+                                            .toList(),
+                                        onChanged: (newValue) {
+                                          _registrationController
+                                              .dropdownValue = newValue;
+                                        },
+                                      ),
                                       /*DropDownWidget(
                                         dropdownValue: dropdownValue,
                                         hintText: 'City',
@@ -516,11 +737,13 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                     /* DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'Zipcode',
-                                        isExpanded: true,
-                                      ),*/
+                                      profileTextFieldWidget(
+                                        _registrationController
+                                            .zipCodeController,
+                                        Common.validateZipcode,
+                                        TextInputType.number,
+                                        'Zipcode',
+                                      ),
                                       const SizedBox(
                                         height: 12,
                                       ),
@@ -536,7 +759,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               'Save',
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 8,
                                           ),
                                           Expanded(
@@ -632,7 +855,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                                   TextInputType.text,
                                                   'GST No',
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 10,
                                                 ),
                                                 Container(
@@ -677,7 +900,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                                     ],
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 12,
                                                 ),
                                                 Row(
@@ -765,7 +988,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                                     ],
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 15,
                                                 ),
                                                 Row(
@@ -867,7 +1090,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               'Save',
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 8,
                                           ),
                                           Expanded(
@@ -931,12 +1154,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               onChanged: (value) {
                                                 setState(() {
                                                   _radioSelected = value as int;
-                                                  _radioVal = 'Driving Licence';
                                                 });
                                               },
                                             ),
                                           ),
-                                          Text('Driving Licence'),
+                                          const Text('Driving Licence'),
                                           Expanded(
                                             child: Radio(
                                               value: 2,
@@ -946,12 +1168,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               onChanged: (value) {
                                                 setState(() {
                                                   _radioSelected = value as int;
-                                                  _radioVal = 'Voter ID card';
                                                 });
                                               },
                                             ),
                                           ),
-                                          Text('Voter ID card'),
+                                          const Text('Voter ID card'),
                                           Expanded(
                                             child: Radio(
                                               value: 3,
@@ -961,12 +1182,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               onChanged: (value) {
                                                 setState(() {
                                                   _radioSelected = value as int;
-                                                  _radioVal = 'Passport';
                                                 });
                                               },
                                             ),
                                           ),
-                                          Text('Passport'),
+                                          const Text('Passport'),
                                         ],
                                       ),
                                       const SizedBox(
@@ -993,7 +1213,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               'Save',
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 8,
                                           ),
                                           Expanded(

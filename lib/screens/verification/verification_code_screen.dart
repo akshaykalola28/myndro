@@ -185,10 +185,8 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
             child: loginButtonWidget('Submit', () {
               formKey.currentState?.validate();
-              if (controller.otpController != null &&
-                  controller.otpController != '') {
-                controller.verifyOtp(
-                    controller.fromOtpScreen[0]['patient_id'],
+              if (controller.otpController != '') {
+                controller.verifyOtp(controller.fromOtpScreen[0]['patient_id'],
                     controller.otpController.text);
               }
             }),

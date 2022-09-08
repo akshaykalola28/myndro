@@ -300,49 +300,49 @@ class PackagesDetailScreen extends GetView<PackagesController> {
                                   color: Colors.blueAccent,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               planList(
                                   controller.dataList[0].imageAsset,
                                   controller.dataList[0].name,
                                   Colors.blueAccent),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               planList(
                                   controller.dataList[1].imageAsset,
                                   controller.dataList[1].name,
                                   ColorsConfig.colorDarkBlue),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               planList(
                                   controller.dataList[2].imageAsset,
                                   controller.dataList[2].name,
                                   Colors.blueAccent),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               planList(
                                   controller.dataList[3].imageAsset,
                                   controller.dataList[3].name,
                                   Colors.blueAccent),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               planList(
                                   controller.dataList[4].imageAsset,
                                   controller.dataList[4].name,
                                   ColorsConfig.colorDarkBlue),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               planList(
                                   controller.dataList[5].imageAsset,
                                   controller.dataList[5].name,
                                   Colors.blueAccent),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                             ],

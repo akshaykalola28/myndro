@@ -28,7 +28,7 @@ class ExpertPatientDetail extends GetView<ExpertPatientInfoController> {
               children: [
                 patientDetailContainer(
                     '10', '2', 'data', 'female', 'march 10th 1992'),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TabBar(
@@ -51,7 +51,7 @@ class ExpertPatientDetail extends GetView<ExpertPatientInfoController> {
                     itemBuilder: ((context, index) {
                       return appointmentContainer('abc', '19 jan', 'M 001');
                     })),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -62,11 +62,11 @@ class ExpertPatientDetail extends GetView<ExpertPatientInfoController> {
                       color: ColorsConfig.colorGreyy,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   color: Colors.white,
                   child: ListView.separated(
                     primary: true,
@@ -79,16 +79,16 @@ class ExpertPatientDetail extends GetView<ExpertPatientInfoController> {
                           onTap: () {
                             Get.toNamed(ExpertPatientReports.pageId);
                           },
-                          child: ExpertReportTileWidget());
+                          child: const ExpertReportTileWidget());
                     }),
                     separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 10,
                       );
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 18,
                 ),
                 Row(
@@ -137,7 +137,7 @@ class ExpertPatientDetail extends GetView<ExpertPatientInfoController> {
                       );
                     },
                     itemBuilder: (BuildContext context, int index) {
-                      return ExpertNotesWidget(
+                      return const ExpertNotesWidget(
                         date: '10th june 2022',
                         title: 'hello',
                         subject:

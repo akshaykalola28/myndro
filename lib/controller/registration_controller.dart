@@ -37,6 +37,7 @@ class RegistrationController extends BaseController {
   StateData? stateDropdown;
   CityData? cityDropdown;
   String? genderDropdownValue;
+  String? dropdownValue;
   var fromOtpScreen;
   RxBool passwordVisible = false.obs;
   RxBool confirmPasswordVisible = false.obs;

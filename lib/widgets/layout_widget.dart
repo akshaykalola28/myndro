@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'widgets.dart';
 
 import '../constant/constant.dart';
+import 'widgets.dart';
 
 class LayoutWidget extends StatelessWidget {
   LayoutWidget({Key? key, required this.body, this.text, this.isAssessment})
@@ -39,7 +39,7 @@ class LayoutWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           UserAppbar(text: text!, isAssessment: isAssessment),

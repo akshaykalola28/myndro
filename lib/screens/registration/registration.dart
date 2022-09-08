@@ -97,7 +97,7 @@ class UserRegistration extends GetView<RegistrationController> {
                                     color: ColorsConfig.colorBlue,
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.calendar_month,
                                   color: ColorsConfig.colorBlue,
                                 )
@@ -163,12 +163,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<CountryData>(
-                          validator: (value) {
-                            if (value == null) {
-                              return 'Please Select Country';
-                            }
-                            return null;
-                          },
+                          // validator: (value) {
+                          //   if (value == null) {
+                          //     return 'Please Select Country';
+                          //   }
+                          //   return null;
+                          // },
                           isExpanded: true,
                           items: controller.countryListData,
                           texts: controller.countryListData

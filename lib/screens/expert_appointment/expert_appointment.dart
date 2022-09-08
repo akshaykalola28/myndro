@@ -227,7 +227,7 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
                             color: Colors.green,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Text(

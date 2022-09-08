@@ -25,7 +25,7 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
               Get.focusScope!.unfocus();
             },
             child: SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(12, 12, 12, 0),
+                padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                 child: Column(
                   children: [
                     Row(
@@ -113,7 +113,7 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
@@ -168,7 +168,7 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(23),
+                  padding: const EdgeInsets.all(23),
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.contain,

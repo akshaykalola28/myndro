@@ -42,7 +42,11 @@ class MyndroDocumentScreen extends GetView<MyndroLockerController> {
                       itemCount: 5,
                       padding: const EdgeInsets.only(bottom: 25),
                       itemBuilder: (context, index) {
-                        return docDesign('Report', '10/06/2022');
+                        return docDesign(
+                          'Report',
+                          '10/06/2022',
+                          context,
+                        );
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return const SizedBox(
@@ -57,63 +61,69 @@ class MyndroDocumentScreen extends GetView<MyndroLockerController> {
       ),
     );
   }
-}
 
-Widget docDesign(String text, String subText) {
-  return Material(
-    elevation: 8,
-    borderRadius: const BorderRadius.all(
-      Radius.circular(20),
-    ),
-    child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      decoration: BoxDecoration(
-        color: ColorsConfig.colorGreyy.withOpacity(0.4),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(20),
+  Widget docDesign(String text, String subText, BuildContext context) {
+    return Material(
+      elevation: 5,
+      borderRadius: const BorderRadius.all(
+        Radius.circular(20),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        decoration: BoxDecoration(
+          color: ColorsConfig.colorGreyy.withOpacity(0.2),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.file_copy,
+              size: 55,
+              color: ColorsConfig.colorGreyy,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: const TextStyle(
+                    color: ColorsConfig.colorGreyy,
+                    fontSize: 20,
+                  ),
+                ),
+                Text(
+                  subText,
+                  style: const TextStyle(
+                    color: ColorsConfig.colorGreyy,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTapDown: (TapDownDetails details) {
+                controller.showPopupMenu(context, details.globalPosition);
+              },
+              child: const DottedLine(
+                dashLength: 8,
+                dashGapLength: 6,
+                lineThickness: 6,
+                dashRadius: 50,
+                dashColor: ColorsConfig.colorGreyy,
+                // dashGapColor: Colors.red,
+                direction: Axis.vertical,
+                lineLength: 40,
+              ),
+            ),
+          ],
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Icon(
-            Icons.file_copy,
-            size: 55,
-            color: ColorsConfig.colorGreyy,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                text,
-                style: const TextStyle(
-                  color: ColorsConfig.colorGreyy,
-                  fontSize: 20,
-                ),
-              ),
-              Text(
-                subText,
-                style: const TextStyle(
-                  color: ColorsConfig.colorGreyy,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-          const DottedLine(
-            dashLength: 8,
-            dashGapLength: 6,
-            lineThickness: 6,
-            dashRadius: 50,
-            dashColor: ColorsConfig.colorGreyy,
-            // dashGapColor: Colors.red,
-            direction: Axis.vertical,
-            lineLength: 40,
-          ),
-        ],
-      ),
-    ),
-  );
+    );
+  }
 }
