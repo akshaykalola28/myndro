@@ -149,17 +149,17 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                             child: SafeArea(
                               child: Align(
                                   alignment: Alignment.center,
-                            child: SizedBox(
-                                height: Get.height * 0.4,
-                                width: Get.width * 0.4,
-                                child: Image.asset(
-                                  ImagePath.myndroWhite,
-                                  fit: BoxFit.contain,
-                                ))),
+                                  child: SizedBox(
+                                      height: Get.height * 0.4,
+                                      width: Get.width * 0.4,
+                                      child: Image.asset(
+                                        ImagePath.myndroWhite,
+                                        fit: BoxFit.contain,
+                                      ))),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
                 // Positioned(
                 //   top: 0,
                 //   child: ClipPath(
@@ -396,8 +396,6 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                             .map((e) => '${e.cityName} ')
                                             .toList(),
                                         onChanged: (newValue) {
-                                          _registrationController.countryId =
-                                              newValue!.countryId ?? '';
                                           _registrationController.cityDropdown =
                                               newValue;
                                         },

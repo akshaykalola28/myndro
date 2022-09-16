@@ -43,7 +43,6 @@ class RegistrationController extends BaseController {
   RxBool confirmPasswordVisible = false.obs;
   Rx<DateTime> dob = DateTime.now().obs;
   RxString formattedDob = 'DOB'.obs;
-  String countryId = ' -1';
 
   @override
   void onInit() {

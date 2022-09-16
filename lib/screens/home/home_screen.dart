@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,8 @@ import 'package:myndro/screens/screens.dart';
 import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
+import '../../controller/controller.dart';
+import '../../util/common.dart';
 
 final List<String> imgList = [
   ImagePath.doc1,
@@ -35,6 +39,25 @@ class _HomeScreenState extends State<HomeScreen> {
   List<User>? selectedUserList = [];
   int _current = 0;
   final CarouselController _controller = CarouselController();
+  final DashboardController dashboardController = DashboardController();
+
+  var _username = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getProfileDetails();
+  }
+
+  getProfileDetails() async {
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    setState(() {
+      _username =
+          res.isNotEmpty ? jsonDecode(res)['PatientData']['patient_name'] : '';
+    });
+    print(_username);
+  }
+
   late List<Widget> imageSliders = imgList
       .asMap()
       .entries
@@ -251,7 +274,7 @@ IconButton(onPressed: (){
                                       height: 3,
                                     ),
                                     Text(
-                                      'Hello, Josheff!',
+                                      'Hello, $_username',
                                       style: TextStyle(
                                         fontFamily:
                                             AppTextStyle.microsoftJhengHei,

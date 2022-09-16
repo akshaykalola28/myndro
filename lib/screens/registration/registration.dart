@@ -6,6 +6,7 @@ import '../../controller/controller.dart';
 import '../../model/model.dart';
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
+
 class UserRegistration extends GetView<RegistrationController> {
   static const pageId = "/UserRegistration";
 
@@ -163,12 +164,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<CountryData>(
-                          // validator: (value) {
-                          //   if (value == null) {
-                          //     return 'Please Select Country';
-                          //   }
-                          //   return null;
-                          // },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please Select Country';
+                            }
+                            return null;
+                          },
                           isExpanded: true,
                           items: controller.countryListData,
                           texts: controller.countryListData
@@ -217,7 +218,6 @@ class UserRegistration extends GetView<RegistrationController> {
                               .map((e) => '${e.cityName} ')
                               .toList(),
                           onChanged: (newValue) {
-                            controller.countryId = newValue!.countryId ?? '';
                             controller.cityDropdown = newValue;
                           },
                           hintText: 'City',
@@ -250,9 +250,9 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         profileTextFieldWidget(
-                          controller.confirmPassController,
-                          (value) {
-                            if (value!.isEmpty) {
+                            controller.confirmPassController,
+                            (value) {
+                              if (value!.isEmpty) {
                                 return 'Enter valid Password!!!';
                               } else if (value.length < 6) {
                                 return 'Password must be a 6 character';
@@ -286,21 +286,21 @@ class UserRegistration extends GetView<RegistrationController> {
                               print('object');
                               if (formKey.currentState!.validate()) {
                                 controller.addPatient(
-                                    context,
-                                    controller.firstNameController.text.trim(),
-                                    controller.lastNameController.text.trim(),
-                                    controller.emailController.text.trim(),
-                                    controller.formattedDob.value,
-                                    controller.addLine1Controller.text.trim(),
-                                    controller.addLine2Controller.text.trim(),
-                                    controller.addLine3Controller.text.trim(),
-                                    '103',
-                                    12,
-                                    13,
-                                    controller.zipCodeController.text.trim(),
-                                    controller.confirmPassController.text.trim(),
-                                    controller.genderDropdownValue!);
-
+                                  context,
+                                  controller.firstNameController.text.trim(),
+                                  controller.lastNameController.text.trim(),
+                                  controller.emailController.text.trim(),
+                                  controller.formattedDob.value,
+                                  controller.addLine1Controller.text.trim(),
+                                  controller.addLine2Controller.text.trim(),
+                                  controller.addLine3Controller.text.trim(),
+                                  controller.countryDropdown?.countryId ?? '',
+                                  12,
+                                  13,
+                                  controller.zipCodeController.text.trim(),
+                                  controller.confirmPassController.text.trim(),
+                                  controller.genderDropdownValue!,
+                                );
                                 /*   showDialog(
                                       barrierDismissible: false,
                                       context: context,
