@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../util/common.dart';
 import '../screens.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -241,7 +242,8 @@ class DashboardScreen extends StatelessWidget {
                       color: ColorsConfig.colorWhite),
                 ),
                 onTap: () {
-                  Get.back();
+                  Common.clearPrefData();
+                  Get.offAllNamed(LoginScreen.pageId);
                 },
               ),
             ],

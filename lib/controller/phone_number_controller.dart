@@ -43,14 +43,14 @@ class PhoneNumberController extends BaseController {
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.getCountryList();
+      var jsonData = json.decode(response.body);
+      var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
-        var jsonData = json.decode(response.body);
-        var data = jsonData["data"] as List;
         for (dynamic i in data) {
           countryListData.add(CountryData.fromJson(i));
         }
       } else {
-        Common.displayErrorMessage(response.body);
+        Fluttertoast.showToast(msg: jsonData["messages"] as String);
       }
     }
   }
@@ -64,12 +64,12 @@ class PhoneNumberController extends BaseController {
         var data = jsonData["data"];
         // print(data);
         print('responsesss ${data['patient_phone_no']}');
-        Get.toNamed(VerificationCodeScreen.pageId, arguments: [
-          data,
-          false,
-          phoneController.text,
-          dropdownValue!.countryCode!
-        ]);
+        Get.toNamed(VerificationCodeScreen.pageId, arguments: {
+          'data': data,
+          'isFrom2StepVerification': false,
+          'phone': phoneController.text,
+          'country': dropdownValue!.countryCode!
+        });
         phoneController.clear();
       } else {
         Fluttertoast.showToast(msg: jsonData["messages"] as String);

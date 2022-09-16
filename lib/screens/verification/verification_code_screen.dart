@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
-// import 'package:otp_text_field/otp_text_field.dart';
-// import 'package:otp_text_field/style.dart';
-
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
 import '../../widgets/widgets.dart';
@@ -20,9 +16,9 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConfig.colorWhite,
-      appBar: controller.fromOtpScreen[1]
+      appBar: controller.fromOtpScreen['isFrom2StepVerification']
           ? PreferredSize(
-              preferredSize: const Size.fromHeight(-40.0), child: Container())
+              preferredSize: const Size.fromHeight(0.0), child: Container())
           : AppBar(
               elevation: 0,
               backgroundColor: MediaQuery.of(context).viewInsets.bottom == 0
@@ -35,7 +31,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 },
               ),
             ),
-      body: controller.fromOtpScreen[1]
+      body: controller.fromOtpScreen['isFrom2StepVerification']
           ? LayoutWidget(
               body: Column(
                 children: [
@@ -53,7 +49,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                   const SizedBox(
                     height: 30,
                   ),
-                  bodyContent(context),
+                  // bodyContent(context),
                 ],
               ),
               text: 'Settings',
@@ -119,7 +115,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
         children: [
           if (MediaQuery.of(context).viewInsets.bottom == 0)
             Text(
-              'The Verification code was sent to the phone\nnumber ${controller.fromOtpScreen[0]['patient_phone_no']} . please enter the code.',
+              'The Verification code was sent to the phone\nnumber ${controller.fromOtpScreen['data']['patient_phone_no']} . please enter the code.',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
@@ -169,9 +165,9 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
             onTap: () {
               controller.otpController.clear();
               controller.resendOtp(
-                  controller.fromOtpScreen[2],
-                  controller.fromOtpScreen[3],
-                  controller.fromOtpScreen[0]['patient_id']);
+                  controller.fromOtpScreen['phone'],
+                  controller.fromOtpScreen['country'],
+                  controller.fromOtpScreen['data']['patient_id']);
             },
             child: Text(
               'Resend Verification Code',
@@ -186,7 +182,8 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
             child: loginButtonWidget('Submit', () {
               formKey.currentState?.validate();
               if (controller.otpController != '') {
-                controller.verifyOtp(controller.fromOtpScreen[0]['patient_id'],
+                controller.verifyOtp(
+                    controller.fromOtpScreen['data']['patient_id'],
                     controller.otpController.text);
               }
             }),

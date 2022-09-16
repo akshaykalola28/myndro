@@ -16,7 +16,7 @@ class RegistrationController extends BaseController {
   @override
   void errorHandler(e) {}
 
-  List<String> genderList = ['Male','Female'];
+  List<String> genderList = ['Male', 'Female'];
   RxBool addVisibility = false.obs;
   final String password = "";
   final TextEditingController otpController = TextEditingController();
@@ -38,7 +38,7 @@ class RegistrationController extends BaseController {
   CityData? cityDropdown;
   String? genderDropdownValue;
   String? dropdownValue;
-  var fromOtpScreen;
+  var fromOtpScreen = Get.arguments;
   RxBool passwordVisible = false.obs;
   RxBool confirmPasswordVisible = false.obs;
   Rx<DateTime> dob = DateTime.now().obs;
@@ -94,8 +94,6 @@ class RegistrationController extends BaseController {
     }
   }
 
-
-
   Future<void> selectDob(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -127,7 +125,7 @@ class RegistrationController extends BaseController {
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.addPatientData(
-          fromOtpScreen[0]['patient_id'],
+          fromOtpScreen['data']['patient_id'],
           firstName,
           lastName,
           email,
@@ -150,9 +148,9 @@ class RegistrationController extends BaseController {
               return AnimatedDialog(
                 outputText: 'Congratulations',
                 subText: 'Your Account has Created Successfully.',
-                titleSubtext: '  ',
+                titleSubtext: '',
                 onClose: () {
-                  Get.offAllNamed(DashboardScreen.pageId);
+                  Get.offAllNamed(LoginScreen.pageId);
                 },
               );
               // Timer(const Duration(seconds: 3), goToDashboard);
@@ -160,7 +158,6 @@ class RegistrationController extends BaseController {
       } else {
         Fluttertoast.showToast(msg: jsonData["msg"] as String);
       }
-
     }
   }
 
@@ -180,7 +177,6 @@ class RegistrationController extends BaseController {
     }
   }
 
-
   void getStateList(String countryId) async {
     bool status = await Common.checkInternetConnection();
     if (status) {
@@ -196,6 +192,7 @@ class RegistrationController extends BaseController {
       }
     }
   }
+
   //city list
   void getCityList(String stateId) async {
     bool status = await Common.checkInternetConnection();
