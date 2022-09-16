@@ -39,6 +39,13 @@ class Common {
     return str;
   }
 
+    // clear all preference data
+  static void clearPrefData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.clear();
+  }
+
+
   static String? validateName(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Name';

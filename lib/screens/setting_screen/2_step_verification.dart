@@ -97,8 +97,11 @@ class TwoStepVerification extends GetView<SettingController> {
                   ),
                   loginButtonWidget(
                     'SIGN IN',
-                    () => Get.toNamed(VerificationCodeScreen.pageId,
-                        arguments: isFrom2StepVerification),
+                    () {} /*  =>
+                        Get.toNamed(VerificationCodeScreen.pageId, arguments: {
+                      'isFrom2StepVerification': true,
+                    }) */
+                    ,
                   ),
                 ],
               ),
