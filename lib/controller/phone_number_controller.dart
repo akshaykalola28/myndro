@@ -50,7 +50,7 @@ class PhoneNumberController extends BaseController {
           countryListData.add(CountryData.fromJson(i));
         }
       } else {
-        Fluttertoast.showToast(msg: jsonData["messages"] as String);
+        Common.displayMessage(jsonData["messages"] as String);
       }
     }
   }
@@ -72,7 +72,7 @@ class PhoneNumberController extends BaseController {
         });
         phoneController.clear();
       } else {
-        Fluttertoast.showToast(msg: jsonData["messages"] as String);
+        Common.displayMessage(jsonData["messages"] as String);
       }
       print('otp send');
     }

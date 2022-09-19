@@ -39,12 +39,11 @@ class Common {
     return str;
   }
 
-    // clear all preference data
+  // clear all preference data
   static void clearPrefData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.clear();
   }
-
 
   static String? validateName(String? value) {
     if (value!.isEmpty) {
@@ -108,12 +107,8 @@ class Common {
   }
 
   // Display error message from response json
-  static void displayErrorMessage(String response) {
-    var data;
-    List error;
-    data = json.decode(response);
-    error = data['msg'] as List;
-    Fluttertoast.showToast(msg: error[0]['message'] as String);
+  static void displayMessage(String response) {
+    Fluttertoast.showToast(msg: response);
   }
 
   static Widget iconContainer(IconData icon, String text,
@@ -146,14 +141,14 @@ class Common {
             ),
             isPriceVisible
                 ? Text(
-              subText!,
-              style: TextStyle(
-                fontFamily: AppTextStyle.microsoftJhengHei,
-                fontSize: 12.0,
-                fontWeight: FontWeight.w500,
-                color: ColorsConfig.colorBlack,
-              ),
-            )
+                    subText!,
+                    style: TextStyle(
+                      fontFamily: AppTextStyle.microsoftJhengHei,
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w500,
+                      color: ColorsConfig.colorBlack,
+                    ),
+                  )
                 : Container(),
           ],
         )

@@ -25,7 +25,14 @@ class ExpertProfileController extends GetxController
   @override
   void onInit() {
     tabController = TabController(length: myTabs.length, vsync: this);
+    tabController!.addListener(handleTabSelection);
     super.onInit();
+  }
+
+  handleTabSelection() {
+    if (tabController!.indexIsChanging) {
+      update();
+    }
   }
 
   showPopupMenu(BuildContext context, Offset offset) {
@@ -42,7 +49,7 @@ class ExpertProfileController extends GetxController
         ),
         const PopupMenuItem<String>(
           value: '2',
-          child: const Text('Non Mandatory'),
+          child: Text('Non Mandatory'),
         ),
       ],
       elevation: 8.0,

@@ -61,4 +61,5 @@ mixin ImagePath {
   static String pack6 = 'assets/images/pack_6.png';
   static String hhp1 = 'assets/images/hhp1.png';
   static String hhp2 = 'assets/images/hhp2.png';
+  static String docspace = 'assets/images/docspace.png';
 }

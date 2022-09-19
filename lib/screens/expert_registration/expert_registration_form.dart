@@ -50,6 +50,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
     fromEdit = Get.arguments;
   }
 
+  var pageController = PageController();
   StepProgressView _getStepProgress() {
     return StepProgressView(
       _stepsText,
@@ -88,6 +89,12 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   String? dropdownValue;
   int? showIndex = 1;
   bool selected = false;
+  forward() {
+    pageController.nextPage(duration: 300.milliseconds, curve: Curves.easeIn);
+    setState(() {
+      _curPage = _curPage + 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,11 +202,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                         SizedBox(height: 80.0, child: _getStepProgress()),
                         Expanded(
                           child: PageView(
-                            onPageChanged: (i) {
-                              setState(() {
-                                _curPage = i + 1;
-                              });
-                            },
+                            controller: pageController,
+                            physics: NeverScrollableScrollPhysics(),
                             children: <Widget>[
                               Container(
                                 color: ColorsConfig.colorWhite,
@@ -414,10 +418,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: loginButtonWidget('Next'),
+                                      loginButtonWidget(
+                                        'Next',
+                                        () {
+                                          forward();
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -516,22 +521,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: loginButtonWidget(
-                                              'Save',
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: loginButtonWidget(
-                                              'Next',
-                                            ),
-                                          ),
-                                        ],
+                                      loginButtonWidget(
+                                        'Next',
+                                        () {
+                                          forward();
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -750,22 +744,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: loginButtonWidget(
-                                              'Save',
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: loginButtonWidget(
-                                              'Next',
-                                            ),
-                                          ),
-                                        ],
+                                      loginButtonWidget(
+                                        'Next',
+                                        () {
+                                          forward();
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -1081,22 +1064,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 15,
                                       ),*/
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: loginButtonWidget(
-                                              'Save',
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: loginButtonWidget(
-                                              'Next',
-                                            ),
-                                          ),
-                                        ],
+                                      loginButtonWidget(
+                                        'Next',
+                                        () {
+                                          forward();
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 20,
@@ -1204,22 +1176,11 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: loginButtonWidget(
-                                              'Save',
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: loginButtonWidget(
-                                              'Next',
-                                            ),
-                                          ),
-                                        ],
+                                      loginButtonWidget(
+                                        'Next',
+                                        () {
+                                          forward();
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 20,

@@ -8,7 +8,7 @@ import '../services/services.dart';
 import '../util/common.dart';
 import 'base_controller.dart';
 
-class LoginController extends BaseController{
+class LoginController extends BaseController {
   @override
   void errorHandler(e) {}
   bool rememberPassSelected = false;
@@ -34,7 +34,7 @@ class LoginController extends BaseController{
           Common.storePrefData(Common.strLoginRes, json.encode(jsonData));
           Get.offAllNamed(DashboardScreen.pageId);
         } else {
-          Fluttertoast.showToast(msg: jsonData["msg"] as String);
+          Common.displayMessage(jsonData["msg"] as String);
         }
       }
     }

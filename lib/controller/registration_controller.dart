@@ -69,7 +69,7 @@ class RegistrationController extends BaseController {
         );
         otpController.clear();
       } else {
-        Fluttertoast.showToast(msg: jsonData["msg"] as String);
+        Common.displayMessage(jsonData["msg"] as String);
       }
       print('otp send');
     }
@@ -87,7 +87,7 @@ class RegistrationController extends BaseController {
         // Get.toNamed(UserRegistration.pageId);
         // otpController.clear();
       } else {
-        Fluttertoast.showToast(msg: jsonData["msg"] as String);
+        Common.displayMessage(jsonData["msg"] as String);
       }
       print('otp send');
     }
@@ -155,7 +155,7 @@ class RegistrationController extends BaseController {
               // Timer(const Duration(seconds: 3), goToDashboard);
             });
       } else {
-        Fluttertoast.showToast(msg: jsonData["msg"] as String);
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }
@@ -164,14 +164,14 @@ class RegistrationController extends BaseController {
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.getCountryList();
+      var jsonData = json.decode(response.body);
+      var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
-        var jsonData = json.decode(response.body);
-        var data = jsonData["data"] as List;
         for (dynamic i in data) {
           countryListData.add(CountryData.fromJson(i));
         }
       } else {
-        Common.displayErrorMessage(response.body);
+        Common.displayMessage(jsonData["messages"] as String);
       }
     }
   }
@@ -180,14 +180,14 @@ class RegistrationController extends BaseController {
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.getStates(countryId);
+      var jsonData = json.decode(response.body);
+      var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
-        var jsonData = json.decode(response.body);
-        var data = jsonData["data"] as List;
         for (dynamic i in data) {
           stateListData.add(StateData.fromJson(i));
         }
       } else {
-        Common.displayErrorMessage(response.body);
+        Common.displayMessage(jsonData["messages"] as String);
       }
     }
   }
@@ -197,14 +197,14 @@ class RegistrationController extends BaseController {
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.getCity(stateId);
+      var jsonData = json.decode(response.body);
+      var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
-        var jsonData = json.decode(response.body);
-        var data = jsonData["data"] as List;
         for (dynamic i in data) {
           cityListData.add(CityData.fromJson(i));
         }
       } else {
-        Common.displayErrorMessage(response.body);
+        Common.displayMessage(jsonData["messages"] as String);
       }
     }
   }

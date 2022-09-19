@@ -345,54 +345,60 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
         elevation: 5,
         child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Row(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.contain,
-                          image: AssetImage(ImagePath.iconHuman)),
-                      color: ColorsConfig.colorBlue,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(50))),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          name,
-                          style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontSize: 20.0,
-                              color: ColorsConfig.colorGreyy,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          date,
-                          style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontSize: 15.0,
-                              color: ColorsConfig.colorBlue,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: const BoxDecoration(
-                              color: ColorsConfig.colorBlue,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8))),
-                          child: const Icon(Icons.videocam,
-                              color: ColorsConfig.colorWhite, size: 25),
-                        ),
-                      ],
+                    Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: AssetImage(ImagePath.iconHuman)),
+                          color: ColorsConfig.colorBlue,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50))),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 20.0,
+                            color: ColorsConfig.colorGreyy,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        date,
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 15.0,
+                            color: ColorsConfig.colorBlue,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                          color: ColorsConfig.colorBlue,
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: const Icon(Icons.videocam,
+                          color: ColorsConfig.colorWhite, size: 25),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                      width: 45,
                     ),
                     Text(
                       'Case No.: $caseNo',
@@ -402,39 +408,40 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                           color: ColorsConfig.colorGreyy,
                           fontWeight: FontWeight.bold),
                     ),
+                  ],
+                ),
+                Row(
+                  children: [
                     const SizedBox(
-                      height: 10,
+                      height: 40,
+                      width: 45,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'Individual',
-                          style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontSize: 15.0,
-                              color: ColorsConfig.colorBlue,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.green,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: Text(
-                            'Confirmed',
-                            style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 15.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        // Spacer(),
-                      ],
-                    )
+                    Expanded(
+                      child: Text(
+                        'Individual',
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 15.0,
+                            color: ColorsConfig.colorBlue,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: Text(
+                        'Confirmed',
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 15.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ],
                 )
               ],
