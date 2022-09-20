@@ -10,7 +10,7 @@ final List<GetPage> appPages = [
       binding: SplashScreenBinding()),
   GetPage(
       name: UserRegistration.pageId,
-      page: () =>  UserRegistration(),
+      page: () => UserRegistration(),
       binding: RegistrationBinding()),
   GetPage(
       name: LoginScreen.pageId,
@@ -200,4 +200,8 @@ final List<GetPage> appPages = [
       name: ExpertProfileNonMandatory.pageId,
       page: () => ExpertProfileNonMandatory(),
       binding: ExpertProfileBinding()),
+  GetPage(
+      name: EmployeeDocs.pageId,
+      page: () => EmployeeDocs(),
+      binding: EmployeeDocsBinding()),
 ];

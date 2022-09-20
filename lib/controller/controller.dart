@@ -26,3 +26,4 @@ export 'setting_controller.dart';
 export 'splash_controller.dart';
 export 'wallet_controller.dart';
 export 'your_category_controller.dart';
+export 'employee_docs_controller.dart';

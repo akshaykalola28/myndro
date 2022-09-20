@@ -26,3 +26,4 @@ export 'setting_binding.dart';
 export 'splash_screen_binding.dart';
 export 'wallet_binding.dart';
 export 'your_category_binding.dart';
+export 'employee_docs_binding.dart';

@@ -48,3 +48,5 @@ export 'wallet_screen/wallet_screen.dart';
 export 'your_category/psychologist_dropdown.dart';
 export 'your_category/select_expertise.dart';
 export 'your_category/your_category.dart';
+export 'employee_docs/employee_docs.dart';
+export 'employee_docs/employee_doc_container.dart';
