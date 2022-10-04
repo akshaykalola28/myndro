@@ -55,7 +55,7 @@ class SelectExpertise extends GetView<YourCategoryController> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: Get.height * 0.25,
+                    height: Get.height * 0.3,
                   ),
                   Text('Please Select Your Category',
                       style: TextStyle(
@@ -73,10 +73,9 @@ class SelectExpertise extends GetView<YourCategoryController> {
                       width: Get.width,
                       height: 52.0,
                       decoration: BoxDecoration(
-                        color: ColorsConfig.colorWhite,
+                          color: ColorsConfig.colorWhite,
                           // borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(color: ColorsConfig.colorBlue)
-                      ),
+                          border: Border.all(color: ColorsConfig.colorBlue)),
                       child: Center(
                         child: Text("Psychologist",
                             style: TextStyle(
@@ -97,10 +96,9 @@ class SelectExpertise extends GetView<YourCategoryController> {
                       width: Get.width,
                       height: 52.0,
                       decoration: BoxDecoration(
-                        color: ColorsConfig.colorWhite,
+                          color: ColorsConfig.colorWhite,
                           // borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(color: ColorsConfig.colorBlue)
-                      ),
+                          border: Border.all(color: ColorsConfig.colorBlue)),
                       child: Center(
                         child: Text("Psychiatrist",
                             style: TextStyle(
@@ -121,10 +119,9 @@ class SelectExpertise extends GetView<YourCategoryController> {
                       width: Get.width,
                       height: 52.0,
                       decoration: BoxDecoration(
-                        color: ColorsConfig.colorWhite,
+                          color: ColorsConfig.colorWhite,
                           // borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(color: ColorsConfig.colorBlue)
-                      ),
+                          border: Border.all(color: ColorsConfig.colorBlue)),
                       child: Center(
                         child: Text("Real Life Coach",
                             style: TextStyle(

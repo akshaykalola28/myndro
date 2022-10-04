@@ -178,7 +178,9 @@ class RemoteServices {
   }
 
   //get city list
-  static Future<http.Response> getCity(String stateId,) async {
+  static Future<http.Response> getCity(
+    String stateId,
+  ) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
     http.Response response = await http.post(
       Uri.parse('${Apis.baseUrl}${Apis.cityList}?state_id=$stateId'),
@@ -191,18 +193,59 @@ class RemoteServices {
   }
 
   //get assessment question
-  static Future<http.Response> getAssessmentQuestion(String token,
-      String assessmentCategory,) async {
+  static Future<http.Response> getAssessmentQuestion(
+    String token,
+    String assessmentCategory,
+  ) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
 
     String postBody = json.encode({
       'jwt_token': token,
       'assement_category': assessmentCategory,
-
     });
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.assessmentQuestion),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //create locker data
+  static Future<http.Response> createPatientLocker(
+      int patientId, String docTitle, String caseNo, String doc) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "document_title": docTitle,
+      "case_no": caseNo,
+      "document": doc
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.postMndroLocker),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get locker data list
+  static Future<http.Response> getLockerDataList(int patientId) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      "patient_id": patientId,
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.listPatientDocuments),
       headers: header,
       body: postBody,
     );

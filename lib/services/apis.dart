@@ -12,4 +12,6 @@ mixin Apis {
   static const String cityList = 'city_list';
   static const String patientLogin = 'patient_login';
   static const String assessmentQuestion = 'assement_question';
+  static const String postMndroLocker = 'create_patient_locker';
+  static const String listPatientDocuments = 'list_patient_documents';
 }

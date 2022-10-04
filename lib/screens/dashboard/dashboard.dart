@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,13 +8,35 @@ import '../../controller/controller.dart';
 import '../../util/common.dart';
 import '../screens.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   static const pageId = "/DashboardScreen";
 
-  DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // final controller = Get.put(dashboardController());
+  var _username = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getProfileDetails();
+  }
+
+  getProfileDetails() async {
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    setState(() {
+      _username =
+          res.isNotEmpty ? jsonDecode(res)['PatientData']['patient_name'] : '';
+    });
+    print(_username);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(builder: (controller) {
@@ -43,7 +67,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          'Ms. Mansi Mehta',
+                          _username,
                           maxLines: 2,
                           style: TextStyle(
                               fontFamily: AppTextStyle.microsoftJhengHei,
@@ -51,7 +75,7 @@ class DashboardScreen extends StatelessWidget {
                               // fontWeight: FontWeight.w600,
                               color: ColorsConfig.colorWhite),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),

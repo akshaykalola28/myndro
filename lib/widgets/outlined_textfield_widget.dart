@@ -34,6 +34,10 @@ Widget outlinedTextField(
       ),
       filled: true,
       fillColor: ColorsConfig.colorWhite,
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: ColorsConfig.colorGreyy),
+      ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(color: ColorsConfig.colorGreyy),

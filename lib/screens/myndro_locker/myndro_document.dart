@@ -39,12 +39,12 @@ class MyndroDocumentScreen extends GetView<MyndroLockerController> {
                   ),
                   Expanded(
                     child: ListView.separated(
-                      itemCount: 5,
+                      itemCount: controller.lockerList.value.length,
                       padding: const EdgeInsets.only(bottom: 25),
                       itemBuilder: (context, index) {
                         return docDesign(
-                          'Report',
-                          '10/06/2022',
+                          controller.lockerList[index].documentTitle ?? '',
+                          controller.lockerList[index].dateCreated ?? '',
                           context,
                         );
                       },

@@ -10,7 +10,7 @@ import '../../util/common.dart';
 class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
   static const pageId = "/ExpertProfileNonMandatory";
 
-  ExpertProfileNonMandatory({Key? key}) : super(key: key);
+  const ExpertProfileNonMandatory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../screens/screens.dart';
@@ -12,11 +11,12 @@ class LoginController extends BaseController {
   @override
   void errorHandler(e) {}
   bool rememberPassSelected = false;
-
+  bool isLoading = false;
   void login(
     String email,
     String pass,
   ) async {
+    isLoading = true;
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.patientLogin(email, pass);
@@ -37,6 +37,7 @@ class LoginController extends BaseController {
           Common.displayMessage(jsonData["msg"] as String);
         }
       }
+      isLoading = false;
     }
   }
 }

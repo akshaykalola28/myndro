@@ -53,6 +53,22 @@ class Common {
     }
   }
 
+  static String? validateCaseNo(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Case No';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateDocTitle(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Document Title';
+    } else {
+      return null;
+    }
+  }
+
   static String? validateAddress(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Address';

@@ -31,7 +31,7 @@ class EmployeeDocs extends GetView<EmployeeDocsController> {
             );
           },
           separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(
+            return const SizedBox(
               height: 10,
             );
           },
