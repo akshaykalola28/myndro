@@ -17,7 +17,6 @@ class EnterPhoneNumber extends GetView<PhoneNumberController> {
     return Obx(
       () {
         return Scaffold(
-            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               backgroundColor: ColorsConfig.colorBlue,
               elevation: 0,

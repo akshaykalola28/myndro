@@ -3,13 +3,20 @@ import 'package:flutter/material.dart';
 import '../constant/constant.dart';
 
 class DropDownWidget<T> extends StatelessWidget {
-   DropDownWidget({Key? key,  this.hintText, this.isExpanded, required this.texts, required this.items, this.onChanged, this.validator})
+  DropDownWidget(
+      {Key? key,
+      this.hintText,
+      this.isExpanded,
+      required this.texts,
+      required this.items,
+      this.onChanged,
+      this.validator})
       : super(key: key);
-   final List<String> texts;
-   final List<T> items;
-   final ValueChanged<T?>? onChanged;
-   final String? hintText;
-   final FormFieldValidator<T>? validator;
+  final List<String> texts;
+  final List<T> items;
+  final ValueChanged<T?>? onChanged;
+  final String? hintText;
+  final FormFieldValidator<T>? validator;
   final bool? isExpanded;
 
   @override
@@ -37,6 +44,13 @@ class DropDownWidget<T> extends StatelessWidget {
         ),
         filled: true,
         fillColor: ColorsConfig.colorWhite,
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(0),
+          borderSide: const BorderSide(
+            color: ColorsConfig.colorBlue,
+            width: 1.5,
+          ),
+        ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(0),
           borderSide: const BorderSide(
@@ -59,20 +73,20 @@ class DropDownWidget<T> extends StatelessWidget {
           ),
         ),
       ),
-      items:texts
+      items: texts
           .map((e) => DropdownMenuItem<T>(
-        value: items[texts.indexOf(e)],
-        child: Text(
-          e,
-          style: TextStyle(
-            fontFamily: AppTextStyle.microsoftJhengHei,
-            fontSize: 15.0,
-            color: ColorsConfig.colorBlue,
-          ),
-        ),
-      ))
+                value: items[texts.indexOf(e)],
+                child: Text(
+                  e,
+                  style: TextStyle(
+                    fontFamily: AppTextStyle.microsoftJhengHei,
+                    fontSize: 15.0,
+                    color: ColorsConfig.colorBlue,
+                  ),
+                ),
+              ))
           .toList(),
-     /* texts.map<DropdownMenuItem<String>>((String value) {
+      /* texts.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value,style:  TextStyle(

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -41,7 +40,7 @@ class RegistrationController extends BaseController {
   var fromOtpScreen = Get.arguments;
   RxBool passwordVisible = false.obs;
   RxBool confirmPasswordVisible = false.obs;
-  Rx<DateTime> dob = DateTime.now().obs;
+  Rx<DateTime> dob = DateTime.now().subtract(const Duration(days: 1)).obs;
   RxString formattedDob = 'DOB'.obs;
 
   @override
@@ -98,7 +97,7 @@ class RegistrationController extends BaseController {
         context: context,
         initialDate: dob.value,
         firstDate: DateTime(1901, 1),
-        lastDate: DateTime.now());
+        lastDate: DateTime.now().subtract(const Duration(days: 1)));
     if (picked != null && picked != dob.value) {
       dob.value = picked;
       formattedDob.value = DateFormat('dd-MM-yyyy').format(dob.value);
@@ -122,9 +121,10 @@ class RegistrationController extends BaseController {
       String password,
       String gender) async {
     bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strOtpRes);
     if (status) {
       var response = await RemoteServices.addPatientData(
-          fromOtpScreen['data']['patient_id'],
+          res.isNotEmpty ? jsonDecode(res)['data']['patient_id'] : '',
           firstName,
           lastName,
           email,

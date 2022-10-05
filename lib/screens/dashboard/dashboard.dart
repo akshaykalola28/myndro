@@ -52,15 +52,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: Column(
                     children: [
                       Container(
-                        height: 90,
-                        width: 90,
+                        // height: 90,
+                        // width: 90,
+                        padding: EdgeInsets.all(30),
+                        child: Text(
+                          _username.substring(0, 1).toUpperCase(),
+                          style: TextStyle(
+                              fontFamily: AppTextStyle.microsoftJhengHei,
+                              fontSize: 28.0,
+                              fontWeight: FontWeight.w900,
+                              color: ColorsConfig.colorBlack),
+                        ),
                         decoration: BoxDecoration(
-                            image: DecorationImage(
+                          /*   image: DecorationImage(
                                 fit: BoxFit.contain,
-                                image: AssetImage(ImagePath.iconHuman)),
-                            color: ColorsConfig.colorGreen,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(50))),
+                                image: AssetImage(ImagePath.iconHuman)), */
+                          color: ColorsConfig.colorGreen,
+                          shape: BoxShape.circle,
+                          /*  borderRadius:
+                                const BorderRadius.all(Radius.circular(50)) */
+                        ),
                       ),
                       const SizedBox(
                         height: 10,

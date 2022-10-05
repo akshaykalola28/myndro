@@ -18,8 +18,8 @@ class StateList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = this.status;
-    data['messages'] = this.messages;
+    data['status'] = status;
+    data['messages'] = messages;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -29,19 +29,41 @@ class StateList {
 
 class StateData {
   String? stateId;
+  String? stateName;
+  String? countryId;
+  String? note;
+  String? dateCreated;
+  String? dateModified;
+  String? ipAddress;
 
-  StateData({
-    this.stateId,
-  });
+  StateData(
+      {this.stateId,
+      this.stateName,
+      this.countryId,
+      this.note,
+      this.dateCreated,
+      this.dateModified,
+      this.ipAddress});
 
   StateData.fromJson(Map<String, dynamic> json) {
     stateId = json['state_id'];
+    stateName = json['state_name'];
+    countryId = json['country_id'];
+    note = json['note'];
+    dateCreated = json['date_created'];
+    dateModified = json['date_modified'];
+    ipAddress = json['ip_address'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['state_id'] = stateId;
-
+    data['state_name'] = stateName;
+    data['country_id'] = countryId;
+    data['note'] = note;
+    data['date_created'] = dateCreated;
+    data['date_modified'] = dateModified;
+    data['ip_address'] = ipAddress;
     return data;
   }
 }

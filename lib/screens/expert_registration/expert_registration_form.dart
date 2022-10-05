@@ -361,12 +361,12 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       DropDownWidget<StateData>(
-                                        // validator: (value) {
-                                        //   if (value == null) {
-                                        //     return 'Please Select State';
-                                        //   }
-                                        //   return null;
-                                        // },
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return 'Please Select State';
+                                          }
+                                          return null;
+                                        },
                                         isExpanded: true,
                                         items: _registrationController
                                             .stateListData,
@@ -386,12 +386,12 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       DropDownWidget<CityData>(
-                                        // validator: (value) {
-                                        //   if (value == null) {
-                                        //     return 'Please Select City';
-                                        //   }
-                                        //   return null;
-                                        // },
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return 'Please Select City';
+                                          }
+                                          return null;
+                                        },
                                         isExpanded: true,
                                         items: _registrationController
                                             .cityListData,

@@ -38,6 +38,10 @@ Widget outlinedTextField(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(color: ColorsConfig.colorGreyy),
       ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: ColorsConfig.colorGreyy),
+      ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(color: ColorsConfig.colorGreyy),

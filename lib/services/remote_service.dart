@@ -167,10 +167,13 @@ class RemoteServices {
     String countryId,
   ) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
+    String postBody = json.encode({
+      "country_id": countryId,
+    });
     http.Response response = await http.post(
-      Uri.parse('${Apis.baseUrl}${Apis.stateList}?country_id=$countryId'),
+      Uri.parse(Apis.baseUrl + Apis.stateList),
       headers: header,
-      // body: postBody,
+      body: postBody,
     );
     printResponse(header, '', response);
 
@@ -246,6 +249,32 @@ class RemoteServices {
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.listPatientDocuments),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //create appointment
+  static Future<http.Response> createAppointment(
+      int patientId, String email, String audioVideo, String doc) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "patient_email": "amit@gmail.com",
+      "audio_video": "Audio",
+      "doctor_category_id": "2",
+      "doctor_subcategory_id": "3",
+      "doctor_id": "18",
+      "date": "25-09-2022",
+      "appt_time": "10:00 PM"
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.postMndroLocker),
       headers: header,
       body: postBody,
     );

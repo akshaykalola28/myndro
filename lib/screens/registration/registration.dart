@@ -173,7 +173,7 @@ class UserRegistration extends GetView<RegistrationController> {
                           isExpanded: true,
                           items: controller.countryListData,
                           texts: controller.countryListData
-                              .map((e) => '${e.countryCode}  ${e.countryName}')
+                              .map((e) => '${e.countryName}')
                               .toList(),
                           onChanged: (newValue) {
                             controller.countryDropdown = newValue;
@@ -185,16 +185,16 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<StateData>(
-                          // validator: (value) {
-                          //   if (value == null) {
-                          //     return 'Please Select State';
-                          //   }
-                          //   return null;
-                          // },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please Select State';
+                            }
+                            return null;
+                          },
                           isExpanded: true,
                           items: controller.stateListData,
                           texts: controller.stateListData
-                              .map((e) => '${e.stateId} ')
+                              .map((e) => '${e.stateName} ')
                               .toList(),
                           onChanged: (newValue) {
                             controller.stateDropdown = newValue;
@@ -206,12 +206,12 @@ class UserRegistration extends GetView<RegistrationController> {
                           height: 12,
                         ),
                         DropDownWidget<CityData>(
-                          // validator: (value) {
-                          //   if (value == null) {
-                          //     return 'Please Select City';
-                          //   }
-                          //   return null;
-                          // },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please Select City';
+                            }
+                            return null;
+                          },
                           isExpanded: true,
                           items: controller.cityListData,
                           texts: controller.cityListData
@@ -295,8 +295,10 @@ class UserRegistration extends GetView<RegistrationController> {
                                   controller.addLine2Controller.text.trim(),
                                   controller.addLine3Controller.text.trim(),
                                   controller.countryDropdown?.countryId ?? '',
-                                  12,
-                                  13,
+                                  int.parse(
+                                      controller.stateDropdown?.stateId ?? ''),
+                                  int.parse(
+                                      controller.cityDropdown?.cityId ?? ''),
                                   controller.zipCodeController.text.trim(),
                                   controller.confirmPassController.text.trim(),
                                   controller.genderDropdownValue!,

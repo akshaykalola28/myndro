@@ -63,6 +63,7 @@ class PhoneNumberController extends BaseController {
       if (response.statusCode == 200) {
         var data = jsonData["data"];
         // print(data);
+        Common.storePrefData(Common.strOtpRes, json.encode(jsonData));
         print('responsesss ${data['patient_phone_no']}');
         Get.toNamed(VerificationCodeScreen.pageId, arguments: {
           'data': data,
@@ -70,6 +71,7 @@ class PhoneNumberController extends BaseController {
           'phone': phoneController.text,
           'country': dropdownValue!.countryCode!
         });
+
         phoneController.clear();
       } else {
         Common.displayMessage(jsonData["messages"] as String);
