@@ -55,7 +55,7 @@ class EmployeeDocContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 14,
                 ),
                 Expanded(
@@ -87,7 +87,7 @@ class EmployeeDocContainer extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(50))),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Expanded(
@@ -141,7 +141,7 @@ class EmployeeDocContainer extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
@@ -174,7 +174,7 @@ class EmployeeDocContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 32,
                 ),
                 Expanded(
@@ -205,7 +205,7 @@ class EmployeeDocContainer extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
               ],

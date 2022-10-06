@@ -3,24 +3,27 @@ import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
+import '../../controller/controller.dart';
 import '../../widgets/widgets.dart';
 
-class PsycologistDropdown extends StatefulWidget {
+class PsycologistDropdown extends GetView<PsycologistDropdownController> {
   static const pageId = "/PsycologistDropdown";
 
   const PsycologistDropdown({Key? key}) : super(key: key);
 
   @override
-  State<PsycologistDropdown> createState() => _PsycologistDropdownState();
-}
-
-class _PsycologistDropdownState extends State<PsycologistDropdown> {
-  String? dropdownValue;
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConfig.colorWhite,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: ColorsConfig.colorBlue,
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Get.back();
+            }),
+      ),
       body: Stack(
         children: [
           Positioned(
@@ -29,7 +32,7 @@ class _PsycologistDropdownState extends State<PsycologistDropdown> {
               clipper: CurvedBottomClipper(),
               child: Container(
                 color: ColorsConfig.colorBlue,
-                height: Get.height * 0.26,
+                height: Get.height * 0.18,
                 width: Get.width,
                 child: SafeArea(
                   child: Align(
@@ -62,7 +65,7 @@ class _PsycologistDropdownState extends State<PsycologistDropdown> {
                       iconDisabledColor: ColorsConfig.colorBlue,
                       iconEnabledColor: ColorsConfig.colorBlue,
                       isExpanded: true,
-                      value: dropdownValue,
+                      value: controller.dropdownValue,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 12.0, horizontal: 10),
@@ -111,9 +114,7 @@ class _PsycologistDropdownState extends State<PsycologistDropdown> {
                         );
                       }).toList(),
                       onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue;
-                        });
+                        controller.dropdownValue = newValue;
                       },
                     ),
                   ),

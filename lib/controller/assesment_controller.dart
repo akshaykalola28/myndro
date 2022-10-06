@@ -37,7 +37,6 @@ class AssessmentController extends BaseController {
           await RemoteServices.getAssessmentQuestion(accessToken, 'ST');
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
-        print("loginData $jsonData");
       }
     }
   }
@@ -54,15 +53,15 @@ class AssessmentController extends BaseController {
     OnBoardingModel(
         imageAsset: ImagePath.onBoard1,
         name:
-        "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
+            "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
     OnBoardingModel(
         imageAsset: ImagePath.onBoard1,
         name:
-        "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
+            "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
     OnBoardingModel(
         imageAsset: ImagePath.onBoard1,
         name:
-        "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
+            "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
   ];
 
   void goToEnd() async {

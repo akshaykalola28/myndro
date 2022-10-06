@@ -167,32 +167,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                           ),
                         ),
                       ),
-                // Positioned(
-                //   top: 0,
-                //   child: ClipPath(
-                //     clipper: CurvedBottomClipper(),
-                //     child: Container(
-                //       // padding: const EdgeInsets.symmetric(horizontal: 15),
-                //       color: ColorsConfig.colorBlue,
-                //       height: Get.height * 0.20,
-                //       width: Get.width,
-                //       child: Padding(
-                //         padding: const EdgeInsets.only(left: 50),
-                //         child: Align(
-                //           alignment: Alignment.centerRight,
-                //           child: Text(
-                //               "Registration Form For Counsellors , Therapist & Psychologist ",
-                //               style: TextStyle(
-                //                 fontFamily: AppTextStyle.microsoftJhengHei,
-                //                 fontSize: 25.0,
-                //                 fontWeight: FontWeight.w500,
-                //                 color: ColorsConfig.colorWhite,
-                //               )),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+
                 Positioned.fill(
                   top: fromEdit ? 215 : 200,
                   child: SizedBox(

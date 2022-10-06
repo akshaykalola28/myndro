@@ -31,7 +31,7 @@ final List<GetPage> appPages = [
   GetPage(
       name: PsycologistDropdown.pageId,
       page: () => const PsycologistDropdown(),
-      binding: YourCategoryBinding()),
+      binding: PsycologistDropdownBinding()),
   GetPage(
       name: SelectExpertise.pageId,
       page: () => const SelectExpertise(),
@@ -58,7 +58,7 @@ final List<GetPage> appPages = [
       binding: RegistrationBinding()),
   GetPage(
       name: DashboardScreen.pageId,
-      page: () => DashboardScreen(),
+      page: () => const DashboardScreen(),
       binding: DashboardBinding()),
   GetPage(
       name: HomeScreen.pageId,
@@ -198,10 +198,10 @@ final List<GetPage> appPages = [
       binding: ExpertProfileBinding()),
   GetPage(
       name: ExpertProfileNonMandatory.pageId,
-      page: () => ExpertProfileNonMandatory(),
+      page: () => const ExpertProfileNonMandatory(),
       binding: ExpertProfileBinding()),
   GetPage(
       name: EmployeeDocs.pageId,
-      page: () => EmployeeDocs(),
+      page: () => const EmployeeDocs(),
       binding: EmployeeDocsBinding()),
 ];

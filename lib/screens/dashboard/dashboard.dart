@@ -54,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Container(
                         // height: 90,
                         // width: 90,
-                        padding: EdgeInsets.all(30),
+                        padding: const EdgeInsets.all(30),
                         child: Text(
                           _username.substring(0, 1).toUpperCase(),
                           style: TextStyle(
@@ -63,7 +63,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               fontWeight: FontWeight.w900,
                               color: ColorsConfig.colorBlack),
                         ),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           /*   image: DecorationImage(
                                 fit: BoxFit.contain,
                                 image: AssetImage(ImagePath.iconHuman)), */

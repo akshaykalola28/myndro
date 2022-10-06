@@ -177,7 +177,11 @@ class UserRegistration extends GetView<RegistrationController> {
                               .toList(),
                           onChanged: (newValue) {
                             controller.countryDropdown = newValue;
+
                             controller.getStateList(newValue?.countryId ?? '');
+
+                            controller.stateDropdown = null;
+                            controller.update();
                           },
                           hintText: 'Country',
                         ),
@@ -198,7 +202,10 @@ class UserRegistration extends GetView<RegistrationController> {
                               .toList(),
                           onChanged: (newValue) {
                             controller.stateDropdown = newValue;
+
                             controller.getCityList(newValue?.stateId ?? '');
+                            controller.cityDropdown = null;
+                            controller.update();
                           },
                           hintText: 'State',
                         ),

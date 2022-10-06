@@ -94,8 +94,8 @@ class AssessmentScreen extends GetView<AssessmentController> {
                                   controller.forward();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    primary: ColorsConfig.colorWhite,
-                                    onPrimary: ColorsConfig.colorBlack,
+                                    foregroundColor: ColorsConfig.colorBlack,
+                                    backgroundColor: ColorsConfig.colorWhite,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 30, vertical: 3),
                                     textStyle: TextStyle(
@@ -115,8 +115,8 @@ class AssessmentScreen extends GetView<AssessmentController> {
                                   controller.forward();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    primary: ColorsConfig.colorWhite,
-                                    onPrimary: ColorsConfig.colorBlack,
+                                    foregroundColor: ColorsConfig.colorBlack,
+                                    backgroundColor: ColorsConfig.colorWhite,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 30, vertical: 3),
                                     textStyle: TextStyle(

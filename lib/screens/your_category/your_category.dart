@@ -48,21 +48,7 @@ class YourCategory extends GetView<YourCategoryController> {
               ),
             ),
           ),
-          /*Positioned(
-            top: 0,
-            child: RotatedBox(
-              quarterTurns: 10,
-              child: Transform.scale(
-                scaleX: -1,
-                child: Image.asset(
-                  ImagePath.semiBlueGreen,
-                  fit: BoxFit.fill,
-                  height: 165,
-                  width: Get.width,
-                ),
-              ),
-            ),
-          ),*/
+
           SafeArea(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),

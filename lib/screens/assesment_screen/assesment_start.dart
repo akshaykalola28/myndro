@@ -64,9 +64,9 @@ class AssessmentStartScreen extends GetView<AssessmentController> {
                   Get.toNamed(AssessmentScreen.pageId);
                 },
                 style: ElevatedButton.styleFrom(
+                    foregroundColor: ColorsConfig.colorWhite,
                     elevation: 0,
-                    primary: ColorsConfig.colorBlue,
-                    onPrimary: ColorsConfig.colorWhite,
+                    backgroundColor: ColorsConfig.colorBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12), // <-- Radius
                     ),

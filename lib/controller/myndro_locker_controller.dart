@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import '../model/model.dart';
 import '../screens/screens.dart';
 import '../services/services.dart';
@@ -18,11 +16,6 @@ class MyndroLockerController extends BaseController {
   final TextEditingController docTitleController = TextEditingController();
   var lockerList = <PatientDocs>[].obs;
   var attachedDocName = 'Attach Document'.obs;
-  @override
-  void onInit() {
-    // getLockerDataList();
-    super.onInit();
-  }
 
   showPopupMenu(BuildContext context, Offset offset) {
     double left = offset.dx;

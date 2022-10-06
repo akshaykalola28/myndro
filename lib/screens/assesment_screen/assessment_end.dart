@@ -119,9 +119,9 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                             child: const Text('Similar Experts'),
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
+                                foregroundColor: ColorsConfig.colorWhite,
                                 elevation: 0,
-                                primary: ColorsConfig.colorBlue,
-                                onPrimary: ColorsConfig.colorWhite,
+                                backgroundColor: ColorsConfig.colorBlue,
                                 shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.circular(12), // <-- Radius
@@ -197,9 +197,9 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                           Timer(const Duration(seconds: 5), controller.goToEnd);
                         },
                         style: ElevatedButton.styleFrom(
+                            foregroundColor: ColorsConfig.colorWhite,
                             elevation: 0,
-                            primary: ColorsConfig.colorBlue,
-                            onPrimary: ColorsConfig.colorWhite,
+                            backgroundColor: ColorsConfig.colorBlue,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.circular(12), // <-- Radius
