@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -29,6 +31,22 @@ class RegistrationController extends BaseController {
   final TextEditingController addLine2Controller = TextEditingController();
   final TextEditingController addLine3Controller = TextEditingController();
   final TextEditingController zipCodeController = TextEditingController();
+  final TextEditingController contactController = TextEditingController();
+  final TextEditingController degreeNameController = TextEditingController();
+  final TextEditingController degreeYearController = TextEditingController();
+  final TextEditingController practiceCertiNoController =
+      TextEditingController();
+  final TextEditingController holderNameController = TextEditingController();
+  final TextEditingController accNumberController = TextEditingController();
+  final TextEditingController ifscCodeController = TextEditingController();
+  final TextEditingController branchAddController = TextEditingController();
+  final TextEditingController branchAdd1Controller = TextEditingController();
+  final TextEditingController branchZipController = TextEditingController();
+  final TextEditingController gstNoController = TextEditingController();
+
+  final TextEditingController aadharNoController = TextEditingController();
+  final TextEditingController panNoController = TextEditingController();
+  final TextEditingController docNoController = TextEditingController();
   var countryListData = <CountryData>[].obs;
   var stateListData = <StateData>[].obs;
   var cityListData = <CityData>[].obs;
@@ -38,11 +56,22 @@ class RegistrationController extends BaseController {
   String? genderDropdownValue;
   String? dropdownValue;
   var fromOtpScreen = Get.arguments;
-  RxBool passwordVisible = false.obs;
-  RxBool confirmPasswordVisible = false.obs;
+  RxBool passwordVisible = true.obs;
+  RxBool confirmPasswordVisible = true.obs;
   Rx<DateTime> dob = DateTime.now().subtract(const Duration(days: 1)).obs;
   RxString formattedDob = 'DOB'.obs;
-
+  FilePickerResult? pickeddegree;
+  var degreeCerti = 'Degree Certificate'.obs;
+  FilePickerResult? pickedPracticeCerti;
+  var practiceCerti = 'Practice Certificate'.obs;
+  FilePickerResult? pickedCheque;
+  var cancelCheque = 'Attach Your Cancel Cheque'.obs;
+  FilePickerResult? pickedAadharCard;
+  var aadharCard = 'Aadhar Card'.obs;
+  FilePickerResult? pickedPanCard;
+  var panCard = 'Pan Card'.obs;
+  FilePickerResult? pickedOptionalCard;
+  var optionalCard = 'Driving/ Voter Id / Passport'.obs;
   @override
   void onInit() {
     fromOtpScreen = Get.arguments;
@@ -63,7 +92,7 @@ class RegistrationController extends BaseController {
       var jsonData = json.decode(response.body);
       if (response.statusCode == 200 && jsonData['type'] != 'error') {
         print('object otp  verified');
-        Get.offAllNamed(
+        Get.toNamed(
           UserRegistration.pageId,
         );
         otpController.clear();
@@ -183,6 +212,8 @@ class RegistrationController extends BaseController {
       var jsonData = json.decode(response.body);
       var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
+        stateListData.clear();
+        cityListData.clear();
         for (dynamic i in data) {
           stateListData.add(StateData.fromJson(i));
         }
@@ -200,11 +231,39 @@ class RegistrationController extends BaseController {
       var jsonData = json.decode(response.body);
       var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
+        cityListData.clear();
         for (dynamic i in data) {
           cityListData.add(CityData.fromJson(i));
         }
       } else {
         Common.displayMessage(jsonData["messages"] as String);
+      }
+    }
+  }
+
+  //add patient details
+  void addExpertProfile() async {
+    bool status = await Common.checkInternetConnection();
+    if (status) {
+      var response = await RemoteServices.addExpertProfileData(
+          firstNameController.text.trim(),
+          lastNameController.text.trim(),
+          emailController.text.trim(),
+          formattedDob.value,
+          '  ${addLine1Controller.text.trim()} + ${addLine1Controller.text.trim()}',
+          countryDropdown?.countryId ?? '',
+          contactController.text.trim(),
+          int.parse(stateDropdown?.stateId ?? ''),
+          int.parse(cityDropdown?.cityId ?? ''),
+          25,
+          25,
+          zipCodeController.text.trim(),
+          genderDropdownValue ?? '');
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200 && response.body[1] != 'error') {
+        print('profile data addded');
+      } else {
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }

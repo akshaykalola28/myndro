@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 import '../constant/constant.dart';
 
 class DropDownWidget<T> extends StatelessWidget {
-  DropDownWidget(
-      {Key? key,
-      this.hintText,
-      this.isExpanded,
-      required this.texts,
-      required this.items,
-      this.onChanged,
-      this.validator})
-      : super(key: key);
+  DropDownWidget({
+    Key? key,
+    this.hintText,
+    this.isExpanded,
+    required this.texts,
+    required this.items,
+    this.onChanged,
+    this.validator,
+    this.value,
+  }) : super(key: key);
   final List<String> texts;
   final List<T> items;
+  final T? value;
   final ValueChanged<T?>? onChanged;
   final String? hintText;
   final FormFieldValidator<T>? validator;
@@ -26,7 +28,7 @@ class DropDownWidget<T> extends StatelessWidget {
       iconEnabledColor: ColorsConfig.colorBlue,
       isExpanded: isExpanded!,
       validator: validator,
-      // value: widget.dropdownValue,
+      value: value,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),

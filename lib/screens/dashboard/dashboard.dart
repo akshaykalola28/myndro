@@ -55,18 +55,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         // height: 90,
                         // width: 90,
                         padding: const EdgeInsets.all(30),
-                        child: Text(
-                          _username.substring(0, 1).toUpperCase(),
-                          style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.w900,
-                              color: ColorsConfig.colorBlack),
-                        ),
-                        decoration: const BoxDecoration(
-                          /*   image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: AssetImage(ImagePath.iconHuman)), */
+                        // child: Text(
+                        //   _username.substring(0, 1).toUpperCase(),
+                        //   style: TextStyle(
+                        //       fontFamily: AppTextStyle.microsoftJhengHei,
+                        //       fontSize: 28.0,
+                        //       fontWeight: FontWeight.w900,
+                        //       color: ColorsConfig.colorBlack),
+                        // ),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: AssetImage(ImagePath.iconHuman)),
                           color: ColorsConfig.colorGreen,
                           shape: BoxShape.circle,
                           /*  borderRadius:

@@ -1,5 +1,6 @@
 mixin Apis {
-  static String baseUrl = 'https://vvexim.com/api/';
+  // static String baseUrl = 'https://vvexim.com/api/';
+  static String baseUrl = 'myndro.com/api/';
   // static String baseUrl = 'http://mynd.thepackaginghouse.in/api/';
   static String baseUrl1 = 'https://scrapbazar.in/mynd.manzanotech.com/api/';
 
@@ -14,4 +15,7 @@ mixin Apis {
   static const String assessmentQuestion = 'assement_question';
   static const String postMndroLocker = 'create_patient_locker';
   static const String listPatientDocuments = 'list_patient_documents';
+  static const String expertSignupCategory = 'expert_signup_category1';
+  static const String expertSigninCode = 'expert_signin_code';
+  static const String expertSignupFinalCode = 'signup_expert_final_code';
 }

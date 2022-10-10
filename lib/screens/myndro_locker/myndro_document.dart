@@ -21,41 +21,43 @@ class MyndroDocumentScreen extends GetView<MyndroLockerController> {
         body: LayoutWidget(
             isAssessment: false,
             text: 'Myndro Locker',
-            body: Container(
-              margin: const EdgeInsets.fromLTRB(12, 15, 12, 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Documents',
-                    style: TextStyle(
-                        color: ColorsConfig.colorGreyy,
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: controller.lockerList.value.length,
-                      padding: const EdgeInsets.only(bottom: 25),
-                      itemBuilder: (context, index) {
-                        return docDesign(
-                          controller.lockerList[index].documentTitle ?? '',
-                          controller.lockerList[index].dateCreated ?? '',
-                          context,
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 15,
-                        );
-                      },
+            body: Obx(
+              () => Container(
+                margin: const EdgeInsets.fromLTRB(12, 15, 12, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Documents',
+                      style: TextStyle(
+                          color: ColorsConfig.colorGreyy,
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Expanded(
+                      child: ListView.separated(
+                        itemCount: controller.lockerList.length,
+                        padding: const EdgeInsets.only(bottom: 25),
+                        itemBuilder: (context, index) {
+                          return docDesign(
+                            controller.lockerList[index].documentTitle ?? '',
+                            controller.lockerList[index].dateCreated ?? '',
+                            context,
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 15,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )),
       ),

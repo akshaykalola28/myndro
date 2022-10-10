@@ -117,6 +117,25 @@ class RemoteServices {
     return response;
   }
 
+//expert login
+  static Future<http.Response> expertLogin(
+    String email,
+    String password,
+  ) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({"email": email, "password": password});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.expertSigninCode),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
   //add patient data
   static Future<http.Response> addPatientData(
       int patientId,
@@ -168,7 +187,7 @@ class RemoteServices {
   ) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
     String postBody = json.encode({
-      "country_id": countryId,
+      "countryid": countryId,
     });
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.stateList),
@@ -275,6 +294,67 @@ class RemoteServices {
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.postMndroLocker),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get expert category list
+  static Future<http.Response> getExpertCategoryList() async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.expertSignupCategory),
+      headers: header,
+    );
+    printResponse(header, '', response);
+
+    return response;
+  }
+
+  //add expert profile data
+  static Future<http.Response> addExpertProfileData(
+      String firstName,
+      String lastName,
+      String expertEmail,
+      String dob,
+      String addLine1,
+      String countryCode,
+      String expertContact,
+      int stateId,
+      int cityId,
+      int drCategoryId,
+      int drSubCategoryId,
+      String zipCode,
+      String gender) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    String postBody = json.encode({
+      "user_id": 18,
+      "doctor_category_id": drCategoryId,
+      "expert_first_name": firstName,
+      "expert_last_name": lastName,
+      "profession": 25,
+      "expert_email": expertEmail,
+      "doctor_contact_no": expertContact,
+      "expert_gender": gender,
+      "expert_date": dob,
+      "expert_address_line_1": addLine1,
+      "expert_zip_code": zipCode,
+      "expert_country_id": countryCode,
+      "expert_state_id": stateId,
+      "expert_city_id": cityId,
+      "aadhar_card": 25,
+      "pan_card": 25,
+      "id_card": 25,
+      "doctor_subcategory_id": drSubCategoryId
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.expertSignupFinalCode),
       headers: header,
       body: postBody,
     );

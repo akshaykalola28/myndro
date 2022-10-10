@@ -14,21 +14,19 @@ class SelectExpertise extends GetView<YourCategoryController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsConfig.colorWhite,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: ColorsConfig.colorBlue,
-        leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Get.back();
-            }),
-      ),
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            child: ClipPath(
+        backgroundColor: ColorsConfig.colorWhite,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: ColorsConfig.colorBlue,
+          leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Get.back();
+              }),
+        ),
+        body: Column(
+          children: [
+            ClipPath(
               clipper: CurvedBottomClipper(),
               child: Container(
                 color: ColorsConfig.colorBlue,
@@ -47,127 +45,56 @@ class SelectExpertise extends GetView<YourCategoryController> {
                 ),
               ),
             ),
-          ),
-          // Positioned(
-          //   top: 0,
-          //   right: 0,
-          //   child: Image.asset(
-          //     ImagePath.catTop,
-          //     fit: BoxFit.fill,
-          //     height: Get.height*0.25,
-          //     width: Get.width*0.7,
-          //   ),
-          // ),
-          SafeArea(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: Get.height * 0.3,
-                  ),
-                  Text('Please Select Your Category',
-                      style: TextStyle(
-                        fontFamily: AppTextStyle.microsoftJhengHei,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 22.0,
-                        color: ColorsConfig.colorBlue,
-                      )),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(PsycologistDropdown.pageId),
-                    child: Container(
-                      width: Get.width,
-                      height: 52.0,
-                      decoration: BoxDecoration(
-                          color: ColorsConfig.colorWhite,
-                          // borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(color: ColorsConfig.colorBlue)),
-                      child: Center(
-                        child: Text("Psychologist",
-                            style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontWeight: FontWeight.w100,
-                              fontSize: 20.0,
-                              color: ColorsConfig.colorBlue,
-                            )),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(PsycologistDropdown.pageId),
-                    child: Container(
-                      width: Get.width,
-                      height: 52.0,
-                      decoration: BoxDecoration(
-                          color: ColorsConfig.colorWhite,
-                          // borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(color: ColorsConfig.colorBlue)),
-                      child: Center(
-                        child: Text("Psychiatrist",
-                            style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontWeight: FontWeight.w100,
-                              fontSize: 20.0,
-                              color: ColorsConfig.colorBlue,
-                            )),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(PsycologistDropdown.pageId),
-                    child: Container(
-                      width: Get.width,
-                      height: 52.0,
-                      decoration: BoxDecoration(
-                          color: ColorsConfig.colorWhite,
-                          // borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(color: ColorsConfig.colorBlue)),
-                      child: Center(
-                        child: Text("Real Life Coach",
-                            style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontWeight: FontWeight.w100,
-                              fontSize: 20.0,
-                              color: ColorsConfig.colorBlue,
-                            )),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          /*   Positioned(
-            bottom: 80,
-            left: 25,
-            child: Image.asset(
-              ImagePath.cartoon,
-              fit: BoxFit.fill,
-              height: Get.height*0.23,
-              width: Get.width*0.3,
+            Text('Please Select Your Category',
+                style: TextStyle(
+                  fontFamily: AppTextStyle.microsoftJhengHei,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 22.0,
+                  color: ColorsConfig.colorBlue,
+                )),
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Image.asset(
-              ImagePath.catBottom,
-              fit: BoxFit.fill,
-              height: Get.height*0.25,
-              width: Get.width*0.7,
-            ),
-          )*/
-        ],
-      ),
-    );
+            Expanded(
+                child: ListView.separated(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => Get.toNamed(PsycologistDropdown.pageId),
+                        child: Container(
+                          width: Get.width,
+                          height: 52.0,
+                          decoration: BoxDecoration(
+                              color: ColorsConfig.colorWhite,
+                              // borderRadius: BorderRadius.circular(10.0),
+                              border:
+                                  Border.all(color: ColorsConfig.colorBlue)),
+                          child: Center(
+                            child: Text(
+                                'Physcologist'
+                                /* controller.doctorcategoryList[index]
+                                          .doctorCategoryName ??
+                                      '' */
+                                ,
+                                style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontWeight: FontWeight.w100,
+                                  fontSize: 20.0,
+                                  color: ColorsConfig.colorBlue,
+                                )),
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                          height: 25,
+                        ),
+                    itemCount: 15)),
+          ],
+        ));
   }
 }

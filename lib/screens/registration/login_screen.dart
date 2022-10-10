@@ -27,10 +27,309 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: ColorsConfig.colorBlue,
         resizeToAvoidBottomInset: false,
         body: GestureDetector(
-          onTap: () {
-            Get.focusScope!.unfocus();
-          },
-          child: Stack(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              Get.focusScope!.unfocus();
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ClipPath(
+                    clipper: CurvedBottomClipper(),
+                    child: Container(
+                      color: ColorsConfig.colorWhite,
+                      height: Get.height * 0.25,
+                      width: Get.width,
+                      child: SafeArea(
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                                height: Get.height * 0.4,
+                                width: Get.width * 0.4,
+                                child: Image.asset(
+                                  ImagePath.myndroBlue,
+                                  fit: BoxFit.contain,
+                                ))),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: Get.width * 0.04,
+                        vertical: Get.width * 0.04),
+                    padding: EdgeInsets.fromLTRB(Get.width * 0.06,
+                        Get.width * 0.06, Get.width * 0.06, 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Get.height * 0.045),
+                      color: ColorsConfig.colorWhite,
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Login',
+                              style: TextStyle(
+                                fontFamily: AppTextStyle.microsoftJhengHei,
+                                fontSize: 25.0,
+                                color: ColorsConfig.colorBlue,
+                              )),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          loginTextFieldWidget(
+                            emailController,
+                            false,
+                            Common.validateEmail,
+                            TextInputType.emailAddress,
+                            'Email',
+                            Icons.person,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          loginTextFieldWidget(
+                            passController,
+                            true,
+                            Common.validatePassword,
+                            TextInputType.text,
+                            'Password',
+                            Icons.lock,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              const Text("I'm a User"),
+                              Radio(
+                                value: 1,
+                                groupValue: loginController.radioSelected,
+                                activeColor: ColorsConfig.colorBlue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    loginController.radioSelected =
+                                        value as int;
+                                  });
+                                },
+                              ),
+                              const Spacer(),
+                              const Text("I'm an Expert"),
+                              Radio(
+                                value: 2,
+                                groupValue: loginController.radioSelected,
+                                activeColor: ColorsConfig.colorBlue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    loginController.radioSelected =
+                                        value as int;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 12,
+                                      width: 12,
+                                      child: Theme(
+                                        data: ThemeData(
+                                            unselectedWidgetColor:
+                                                ColorsConfig.colorBlue),
+                                        child: Checkbox(
+                                          focusColor: ColorsConfig.colorBlue,
+                                          activeColor: ColorsConfig.colorBlue,
+                                          value: loginController
+                                              .rememberPassSelected,
+                                          onChanged: (_) {
+                                            setState(() {
+                                              loginController
+                                                      .rememberPassSelected =
+                                                  !loginController
+                                                      .rememberPassSelected;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text('Remember Password',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              AppTextStyle.microsoftJhengHei,
+                                          fontSize: 14.0,
+                                          color: ColorsConfig.colorBlue,
+                                        )),
+                                  ],
+                                ),
+                              )),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          loginButtonWidget(
+                            loginController.isLoading ? 'Loading' : 'SIGN IN',
+                            () {
+                              loginController.login(emailController.text.trim(),
+                                  passController.text.trim());
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Align(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () =>
+                                    Get.toNamed(ForgotPasswordScreen.pageId),
+                                child: Text('Forgot Password?',
+                                    style: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 13.0,
+                                      color: ColorsConfig.colorBlue,
+                                    )),
+                              )),
+                          const SizedBox(
+                            height: 17,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: Get.width * 0.32,
+                                height: 1,
+                                color: ColorsConfig.colorBlue,
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                'Or',
+                                style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorsConfig.colorBlue,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Container(
+                                width: Get.width * 0.32,
+                                height: 1,
+                                color: ColorsConfig.colorBlue,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                ImagePath.googleLogo,
+                                height: 25,
+                                width: 25,
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Text(
+                                'Log in with Google',
+                                style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorsConfig.colorBlue,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Image.asset(
+                                ImagePath.facebookLogo,
+                                height: 25,
+                                width: 25,
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Text(
+                                'Log in with Facebook',
+                                style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorsConfig.colorBlue,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Don't have an account? ",
+                                  style: TextStyle(
+                                    fontFamily: AppTextStyle.microsoftJhengHei,
+                                    fontSize: 15.0,
+                                    color: ColorsConfig.colorGreyy,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () => Get.toNamed(YourCategory.pageId),
+                                  child: Text(
+                                    "SIGN UP",
+                                    style: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorsConfig.colorBlue,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]),
+                  ),
+                ],
+              ),
+            )
+
+            /*  Stack(
             children: [
               Positioned(
                 top: 0,
@@ -66,228 +365,236 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(Get.height * 0.045),
                     color: ColorsConfig.colorWhite,
                   ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Login',
-                            style: TextStyle(
-                              fontFamily: AppTextStyle.microsoftJhengHei,
-                              fontSize: 25.0,
-                              color: ColorsConfig.colorBlue,
-                            )),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        loginTextFieldWidget(
-                          emailController,
-                          false,
-                          Common.validateEmail,
-                          TextInputType.emailAddress,
-                          'Email',
-                          Icons.person,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        loginTextFieldWidget(
-                          passController,
-                          true,
-                          Common.validatePassword,
-                          TextInputType.text,
-                          'Password',
-                          Icons.lock,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    height: 12,
-                                    width: 12,
-                                    child: Theme(
-                                      data: ThemeData(
-                                          unselectedWidgetColor:
-                                              ColorsConfig.colorBlue),
-                                      child: Checkbox(
-                                        focusColor: ColorsConfig.colorBlue,
-                                        activeColor: ColorsConfig.colorBlue,
-                                        value: loginController
-                                            .rememberPassSelected,
-                                        onChanged: (_) {
-                                          setState(() {
-                                            loginController
-                                                    .rememberPassSelected =
-                                                !loginController
-                                                    .rememberPassSelected;
-                                          });
-                                        },
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      Get.focusScope!.unfocus();
+                    },
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Login',
+                              style: TextStyle(
+                                fontFamily: AppTextStyle.microsoftJhengHei,
+                                fontSize: 25.0,
+                                color: ColorsConfig.colorBlue,
+                              )),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          loginTextFieldWidget(
+                            emailController,
+                            false,
+                            Common.validateEmail,
+                            TextInputType.emailAddress,
+                            'Email',
+                            Icons.person,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          loginTextFieldWidget(
+                            passController,
+                            true,
+                            Common.validatePassword,
+                            TextInputType.text,
+                            'Password',
+                            Icons.lock,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 12,
+                                      width: 12,
+                                      child: Theme(
+                                        data: ThemeData(
+                                            unselectedWidgetColor:
+                                                ColorsConfig.colorBlue),
+                                        child: Checkbox(
+                                          focusColor: ColorsConfig.colorBlue,
+                                          activeColor: ColorsConfig.colorBlue,
+                                          value: loginController
+                                              .rememberPassSelected,
+                                          onChanged: (_) {
+                                            setState(() {
+                                              loginController
+                                                      .rememberPassSelected =
+                                                  !loginController
+                                                      .rememberPassSelected;
+                                            });
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text('Remember Password',
-                                      style: TextStyle(
-                                        fontFamily:
-                                            AppTextStyle.microsoftJhengHei,
-                                        fontSize: 14.0,
-                                        color: ColorsConfig.colorBlue,
-                                      )),
-                                ],
-                              ),
-                            )),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        loginButtonWidget(
-                          loginController.isLoading ? 'Loading' : 'SIGN IN',
-                          () {
-                            loginController.login(emailController.text.trim(),
-                                passController.text.trim());
-                          },
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Align(
-                            alignment: Alignment.topRight,
-                            child: GestureDetector(
-                              onTap: () =>
-                                  Get.toNamed(ForgotPasswordScreen.pageId),
-                              child: Text('Forgot Password?',
-                                  style: TextStyle(
-                                    fontFamily: AppTextStyle.microsoftJhengHei,
-                                    fontWeight: FontWeight.w100,
-                                    fontSize: 13.0,
-                                    color: ColorsConfig.colorBlue,
-                                  )),
-                            )),
-                        const SizedBox(
-                          height: 17,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: Get.width * 0.32,
-                              height: 1,
-                              color: ColorsConfig.colorBlue,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              'Or',
-                              style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorsConfig.colorBlue,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Container(
-                              width: Get.width * 0.32,
-                              height: 1,
-                              color: ColorsConfig.colorBlue,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              ImagePath.googleLogo,
-                              height: 25,
-                              width: 25,
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            Text(
-                              'Log in with Google',
-                              style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorsConfig.colorBlue,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Image.asset(
-                              ImagePath.facebookLogo,
-                              height: 25,
-                              width: 25,
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            Text(
-                              'Log in with Facebook',
-                              style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w400,
-                                color: ColorsConfig.colorBlue,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Align(
-                          alignment: FractionalOffset.bottomCenter,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text('Remember Password',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              AppTextStyle.microsoftJhengHei,
+                                          fontSize: 14.0,
+                                          color: ColorsConfig.colorBlue,
+                                        )),
+                                  ],
+                                ),
+                              )),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          loginButtonWidget(
+                            loginController.isLoading ? 'Loading' : 'SIGN IN',
+                            () {
+                              loginController.login(emailController.text.trim(),
+                                  passController.text.trim());
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Align(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () =>
+                                    Get.toNamed(ForgotPasswordScreen.pageId),
+                                child: Text('Forgot Password?',
+                                    style: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 13.0,
+                                      color: ColorsConfig.colorBlue,
+                                    )),
+                              )),
+                          const SizedBox(
+                            height: 17,
+                          ),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              Container(
+                                width: Get.width * 0.32,
+                                height: 1,
+                                color: ColorsConfig.colorBlue,
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
                               Text(
-                                "Don't have an account? ",
+                                'Or',
                                 style: TextStyle(
                                   fontFamily: AppTextStyle.microsoftJhengHei,
-                                  fontSize: 15.0,
-                                  color: ColorsConfig.colorGreyy,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorsConfig.colorBlue,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () => Get.toNamed(YourCategory.pageId),
-                                child: Text(
-                                  "SIGN UP",
-                                  style: TextStyle(
-                                    fontFamily: AppTextStyle.microsoftJhengHei,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorsConfig.colorBlue,
-                                  ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Container(
+                                width: Get.width * 0.32,
+                                height: 1,
+                                color: ColorsConfig.colorBlue,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                ImagePath.googleLogo,
+                                height: 25,
+                                width: 25,
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Text(
+                                'Log in with Google',
+                                style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorsConfig.colorBlue,
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ]),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Image.asset(
+                                ImagePath.facebookLogo,
+                                height: 25,
+                                width: 25,
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Text(
+                                'Log in with Facebook',
+                                style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorsConfig.colorBlue,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Align(
+                            alignment: FractionalOffset.bottomCenter,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Don't have an account? ",
+                                  style: TextStyle(
+                                    fontFamily: AppTextStyle.microsoftJhengHei,
+                                    fontSize: 15.0,
+                                    color: ColorsConfig.colorGreyy,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () => Get.toNamed(YourCategory.pageId),
+                                  child: Text(
+                                    "SIGN UP",
+                                    style: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorsConfig.colorBlue,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]),
+                  ),
                 ),
               ),
               // Positioned(
@@ -295,7 +602,7 @@ class _LoginScreenState extends State<LoginScreen> {
               //     right: 0,
               //     child: Container(child: Image.asset(ImagePath.cornerGreenBlue,width: Get.width*0.9,height: 300,fit: BoxFit.fill,))),
             ],
-          ),
-        ));
+          ), */
+            ));
   }
 }

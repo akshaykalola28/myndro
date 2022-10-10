@@ -173,38 +173,42 @@ class Common {
     );
   }
 
-  static Widget attachDocWidget(String text) {
-    return Container(
-      height: 50,
-      width: Get.width,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: ColorsConfig.colorWhite,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(0),
-        border: Border.all(
-          color: ColorsConfig.colorBlue,
-          width: 1.5,
+  static Widget attachDocWidget(String text, VoidCallback onClick) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onClick,
+      child: Container(
+        height: 50,
+        width: Get.width,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: ColorsConfig.colorWhite,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(0),
+          border: Border.all(
+            color: ColorsConfig.colorBlue,
+            width: 1.5,
+          ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-              fontFamily: AppTextStyle.microsoftJhengHei,
-              fontSize: 16.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                fontFamily: AppTextStyle.microsoftJhengHei,
+                fontSize: 16.0,
+                color: ColorsConfig.colorBlue,
+              ),
+            ),
+            const Spacer(),
+            const Icon(
+              Icons.attach_file,
+              size: 25,
               color: ColorsConfig.colorBlue,
             ),
-          ),
-          const Spacer(),
-          const Icon(
-            Icons.attach_file,
-            size: 25,
-            color: ColorsConfig.colorBlue,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

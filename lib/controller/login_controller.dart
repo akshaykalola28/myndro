@@ -12,6 +12,7 @@ class LoginController extends BaseController {
   void errorHandler(e) {}
   bool rememberPassSelected = false;
   bool isLoading = false;
+  int radioSelected = 1;
   void login(
     String email,
     String pass,
@@ -19,7 +20,10 @@ class LoginController extends BaseController {
     isLoading = true;
     bool status = await Common.checkInternetConnection();
     if (status) {
-      var response = await RemoteServices.patientLogin(email, pass);
+      var response = radioSelected == 1
+          ? await RemoteServices.patientLogin(email, pass)
+          : await RemoteServices.expertLogin(email, pass);
+
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
         print("loginData $jsonData");
@@ -32,7 +36,9 @@ class LoginController extends BaseController {
             Common.storeBoolPrefData(Common.strIsLogin, false);
           }
           Common.storePrefData(Common.strLoginRes, json.encode(jsonData));
-          Get.offAllNamed(DashboardScreen.pageId);
+          radioSelected == 1
+              ? Get.offAllNamed(DashboardScreen.pageId)
+              : Get.offAllNamed(ExpertHome.pageId);
         } else {
           Common.displayMessage(jsonData["msg"] as String);
         }

@@ -181,6 +181,7 @@ class UserRegistration extends GetView<RegistrationController> {
                             controller.getStateList(newValue?.countryId ?? '');
 
                             controller.stateDropdown = null;
+                            controller.cityDropdown = null;
                             controller.update();
                           },
                           hintText: 'Country',
@@ -202,12 +203,12 @@ class UserRegistration extends GetView<RegistrationController> {
                               .toList(),
                           onChanged: (newValue) {
                             controller.stateDropdown = newValue;
-
-                            controller.getCityList(newValue?.stateId ?? '');
                             controller.cityDropdown = null;
+                            controller.getCityList(newValue?.stateId ?? '');
                             controller.update();
                           },
                           hintText: 'State',
+                          value: controller.stateDropdown,
                         ),
                         const SizedBox(
                           height: 12,
@@ -228,6 +229,7 @@ class UserRegistration extends GetView<RegistrationController> {
                             controller.cityDropdown = newValue;
                           },
                           hintText: 'City',
+                          value: controller.cityDropdown,
                         ),
                         const SizedBox(
                           height: 12,
@@ -308,7 +310,7 @@ class UserRegistration extends GetView<RegistrationController> {
                                       controller.cityDropdown?.cityId ?? ''),
                                   controller.zipCodeController.text.trim(),
                                   controller.confirmPassController.text.trim(),
-                                  controller.genderDropdownValue!,
+                                  controller.genderDropdownValue ?? '',
                                 );
                                 /*   showDialog(
                                       barrierDismissible: false,

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/controller/controller.dart';
@@ -75,17 +78,6 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   final TextEditingController passController = TextEditingController();
   bool status = false;
   int _radioSelected = 1;
-
-  // final List<String> items = [
-  //   'Item1',
-  //   'Item2',
-  //   'Item3',
-  //   'Item4',
-  //   'Item5',
-  //   'Item6',
-  //   'Item7',
-  //   'Item8',
-  // ];
   String? dropdownValue;
   int? showIndex = 1;
   bool selected = false;
@@ -106,6 +98,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
         body: SafeArea(
           bottom: false,
           child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () {
               Get.focusScope!.unfocus();
             },
@@ -191,26 +184,29 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
-                                        Common.validatePassword,
-                                        TextInputType.text,
+                                        _registrationController
+                                            .firstNameController,
+                                        Common.validateName,
+                                        TextInputType.name,
                                         'First Name',
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
-                                        Common.validatePassword,
-                                        TextInputType.text,
+                                        _registrationController
+                                            .lastNameController,
+                                        Common.validateName,
+                                        TextInputType.name,
                                         'Last Name',
                                       ),
                                       const SizedBox(
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
-                                        Common.validatePassword,
+                                        _registrationController
+                                            .contactController,
+                                        Common.validatePhoneNo,
                                         TextInputType.phone,
                                         'Contact',
                                       ),
@@ -218,9 +214,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController.emailController,
                                         Common.validateEmail,
-                                        TextInputType.text,
+                                        TextInputType.emailAddress,
                                         'Email',
                                       ),
                                       const SizedBox(
@@ -230,7 +226,6 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         onTap: () => _registrationController
                                             .selectDob(context),
                                         child: Container(
-                                          // width: Get.width,
                                           padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
                                             borderRadius:
@@ -282,8 +277,9 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                          passController,
-                                          Common.validatePassword,
+                                          _registrationController
+                                              .addLine1Controller,
+                                          Common.validateAddress,
                                           TextInputType.multiline,
                                           'Address', () {
                                         setState(() {
@@ -298,10 +294,21 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               height: 12,
                                             ),
                                             profileTextFieldWidget(
-                                              passController,
-                                              Common.validatePassword,
+                                              _registrationController
+                                                  .addLine2Controller,
+                                              null,
                                               TextInputType.multiline,
                                               'Address Line 1',
+                                            ),
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            profileTextFieldWidget(
+                                              _registrationController
+                                                  .addLine3Controller,
+                                              null,
+                                              TextInputType.multiline,
+                                              'Address Line 2',
                                             ),
                                           ],
                                         ),
@@ -391,6 +398,64 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         'Zipcode',
                                       ),
                                       const SizedBox(
+                                        height: 12,
+                                      ),
+                                      profileTextFieldWidget(
+                                          _registrationController
+                                              .passController,
+                                          Common.validatePassword,
+                                          TextInputType.text,
+                                          'Password', () {
+                                        setState(() {
+                                          _registrationController
+                                                  .passwordVisible.value =
+                                              !_registrationController
+                                                  .passwordVisible.value;
+                                        });
+                                      },
+                                          _registrationController
+                                                  .passwordVisible.value
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          _registrationController
+                                              .passwordVisible.value),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      profileTextFieldWidget(
+                                          _registrationController
+                                              .confirmPassController,
+                                          (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Enter valid Password!!!';
+                                            } else if (value.length < 6) {
+                                              return 'Password must be a 6 character';
+                                            } else if (value !=
+                                                _registrationController
+                                                    .passController.text) {
+                                              return "Password must be same as above";
+                                            }
+                                            return null;
+                                          },
+                                          TextInputType.text,
+                                          'Confirm Password',
+                                          () {
+                                            setState(() {
+                                              _registrationController
+                                                      .confirmPasswordVisible
+                                                      .value =
+                                                  !_registrationController
+                                                      .confirmPasswordVisible
+                                                      .value;
+                                            });
+                                          },
+                                          _registrationController
+                                                  .confirmPasswordVisible.value
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          _registrationController
+                                              .confirmPasswordVisible.value),
+                                      const SizedBox(
                                         height: 20,
                                       ),
                                       loginButtonWidget(
@@ -438,7 +503,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 15,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController
+                                            .degreeNameController,
                                         Common.validatePassword,
                                         TextInputType.text,
                                         'Degree Name',
@@ -446,7 +512,19 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 15,
                                       ),
-                                      DropDownWidget<String>(
+                                      profileTextFieldWidget(
+                                        _registrationController
+                                            .degreeYearController,
+                                        (value) {
+                                          if (value?.isEmpty == true) {
+                                            return '';
+                                          }
+                                          return null;
+                                        },
+                                        TextInputType.number,
+                                        'Degree Year',
+                                      ),
+                                      /* DropDownWidget<String>(
                                         // validator: (value) {
                                         //   if (value?.isEmpty == true) {
                                         //     return 'Please Select Gender';
@@ -463,17 +541,48 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           _registrationController
                                               .dropdownValue = newValue;
                                         },
-                                      ),
+                                      ), */
                                       const SizedBox(
                                         height: 15,
                                       ),
                                       Common.attachDocWidget(
-                                          'Degree Certificate'),
+                                          _registrationController
+                                              .degreeCerti.value, () async {
+                                        _registrationController.pickeddegree =
+                                            await FilePicker.platform.pickFiles(
+                                          type: FileType.custom,
+                                          allowedExtensions: [
+                                            'jpg',
+                                            'pdf',
+                                            'png',
+                                            'jpeg'
+                                          ],
+                                        );
+                                        if (_registrationController
+                                                .pickeddegree !=
+                                            null) {
+                                          File file = File(
+                                              _registrationController
+                                                      .pickeddegree
+                                                      ?.files
+                                                      .single
+                                                      .path ??
+                                                  '');
+                                          setState(() {
+                                            _registrationController
+                                                    .degreeCerti.value =
+                                                file.path.split('/').last;
+                                          });
+                                        } else {
+                                          // User canceled the picker
+                                        }
+                                      }),
                                       const SizedBox(
                                         height: 15,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController
+                                            .practiceCertiNoController,
                                         (value) {
                                           if (value?.isEmpty == true) {
                                             return '';
@@ -492,7 +601,38 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 15,
                                       ),
                                       Common.attachDocWidget(
-                                          'Practice Certificate'),
+                                          _registrationController
+                                              .practiceCerti.value, () async {
+                                        _registrationController
+                                                .pickedPracticeCerti =
+                                            await FilePicker.platform.pickFiles(
+                                          type: FileType.custom,
+                                          allowedExtensions: [
+                                            'jpg',
+                                            'pdf',
+                                            'png',
+                                            'jpeg'
+                                          ],
+                                        );
+                                        if (_registrationController
+                                                .pickedPracticeCerti !=
+                                            null) {
+                                          File file = File(
+                                              _registrationController
+                                                      .pickedPracticeCerti
+                                                      ?.files
+                                                      .single
+                                                      .path ??
+                                                  '');
+                                          setState(() {
+                                            _registrationController
+                                                    .practiceCerti.value =
+                                                file.path.split('/').last;
+                                          });
+                                        } else {
+                                          // User canceled the picker
+                                        }
+                                      }),
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -546,7 +686,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController
+                                            .holderNameController,
                                         Common.validatePassword,
                                         TextInputType.text,
                                         'Account Holder Name',
@@ -555,9 +696,10 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController
+                                            .accNumberController,
                                         Common.validatePassword,
-                                        TextInputType.text,
+                                        TextInputType.number,
                                         'Account Number',
                                       ),
                                       const SizedBox(
@@ -590,7 +732,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController
+                                            .ifscCodeController,
                                         Common.validatePassword,
                                         TextInputType.text,
                                         'IFSC Code',
@@ -599,7 +742,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                          passController,
+                                          _registrationController
+                                              .branchAddController,
                                           Common.validatePassword,
                                           TextInputType.multiline,
                                           'Branch Address', () {
@@ -615,7 +759,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                               height: 12,
                                             ),
                                             profileTextFieldWidget(
-                                              passController,
+                                              _registrationController
+                                                  .branchAdd1Controller,
                                               Common.validatePassword,
                                               TextInputType.multiline,
                                               'Address Line 1',
@@ -706,7 +851,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       ),
                                       profileTextFieldWidget(
                                         _registrationController
-                                            .zipCodeController,
+                                            .branchZipController,
                                         Common.validateZipcode,
                                         TextInputType.number,
                                         'Zipcode',
@@ -715,7 +860,37 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       Common.attachDocWidget(
-                                          'Attach Your Cancel Cheque'),
+                                          _registrationController
+                                              .cancelCheque.value, () async {
+                                        _registrationController.pickedCheque =
+                                            await FilePicker.platform.pickFiles(
+                                          type: FileType.custom,
+                                          allowedExtensions: [
+                                            'jpg',
+                                            'pdf',
+                                            'png',
+                                            'jpeg'
+                                          ],
+                                        );
+                                        if (_registrationController
+                                                .pickedCheque !=
+                                            null) {
+                                          File file = File(
+                                              _registrationController
+                                                      .pickedCheque
+                                                      ?.files
+                                                      .single
+                                                      .path ??
+                                                  '');
+                                          setState(() {
+                                            _registrationController
+                                                    .cancelCheque.value =
+                                                file.path.split('/').last;
+                                          });
+                                        } else {
+                                          // User canceled the picker
+                                        }
+                                      }),
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -793,209 +968,199 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         onToggle: (index) {
                                           print('switched to: $index');
 
-                                          showIndex = index;
-
                                           print('showIndex to: $showIndex');
-                                          setState(() {});
+                                          setState(() {
+                                            showIndex = index;
+                                          });
                                         },
                                       ),
                                       const SizedBox(
                                         height: 15,
                                       ),
-                                      showIndex == 1
-                                          ? Column(
-                                              children: [
-                                                profileTextFieldWidget(
-                                                  passController,
-                                                  Common.validatePassword,
-                                                  TextInputType.text,
-                                                  'GST No',
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Container(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
+                                      if (showIndex == 1)
+                                        Column(
+                                          children: [
+                                            profileTextFieldWidget(
+                                              _registrationController
+                                                  .gstNoController,
+                                              Common.validatePassword,
+                                              TextInputType.text,
+                                              'GST No',
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
                                                       horizontal: 12,
                                                       vertical: 10),
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        ColorsConfig.colorWhite,
-                                                    shape: BoxShape.rectangle,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            0),
-                                                    border: Border.all(
-                                                      color: ColorsConfig
-                                                          .colorBlue,
-                                                      width: 1.0,
-                                                    ),
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          'upload Your copy of GST Registration Certificate ',
-                                                          maxLines: 2,
-                                                          style: TextStyle(
-                                                            fontFamily: AppTextStyle
-                                                                .microsoftJhengHei,
-                                                            fontSize: 17.0,
-                                                            color: ColorsConfig
-                                                                .colorBlue,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const Icon(
-                                                        Icons.attach_file,
-                                                        size: 35,
+                                              decoration: BoxDecoration(
+                                                color: ColorsConfig.colorWhite,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                    BorderRadius.circular(0),
+                                                border: Border.all(
+                                                  color: ColorsConfig.colorBlue,
+                                                  width: 1.0,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      'upload Your copy of GST Registration Certificate ',
+                                                      maxLines: 2,
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 17.0,
                                                         color: ColorsConfig
                                                             .colorBlue,
                                                       ),
-                                                    ],
+                                                    ),
+                                                  ),
+                                                  const Icon(
+                                                    Icons.attach_file,
+                                                    size: 35,
+                                                    color:
+                                                        ColorsConfig.colorBlue,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 12,
+                                                  width: 12,
+                                                  child: Theme(
+                                                    data: ThemeData(
+                                                        unselectedWidgetColor:
+                                                            ColorsConfig
+                                                                .colorBlue),
+                                                    child: Checkbox(
+                                                      focusColor: ColorsConfig
+                                                          .colorBlue,
+                                                      activeColor: ColorsConfig
+                                                          .colorBlue,
+                                                      value: selected,
+                                                      onChanged: (bool? value) {
+                                                        setState(() {
+                                                          selected = value!;
+                                                        });
+                                                      },
+                                                    ),
                                                   ),
                                                 ),
                                                 const SizedBox(
-                                                  height: 12,
+                                                  width: 10,
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 12,
-                                                      width: 12,
-                                                      child: Theme(
-                                                        data: ThemeData(
-                                                            unselectedWidgetColor:
-                                                                ColorsConfig
-                                                                    .colorBlue),
-                                                        child: Checkbox(
-                                                          focusColor:
-                                                              ColorsConfig
-                                                                  .colorBlue,
-                                                          activeColor:
-                                                              ColorsConfig
-                                                                  .colorBlue,
-                                                          value: selected,
-                                                          onChanged:
-                                                              (bool? value) {
-                                                            setState(() {
-                                                              selected = value!;
-                                                            });
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Expanded(
-                                                      child: Text(
-                                                          'I hereby solemnly affirm and declare that the information given herein above is true and correct to the best of my knowledge and belief, and nothing has been concealed therefrom. ',
-                                                          style: TextStyle(
-                                                            fontFamily: AppTextStyle
-                                                                .microsoftJhengHei,
-                                                            fontSize: 12.0,
-                                                            color: ColorsConfig
-                                                                .colorGreyy,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                )
+                                                Expanded(
+                                                  child: Text(
+                                                      'I hereby solemnly affirm and declare that the information given herein above is true and correct to the best of my knowledge and belief, and nothing has been concealed therefrom. ',
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 12.0,
+                                                        color: ColorsConfig
+                                                            .colorGreyy,
+                                                      )),
+                                                ),
                                               ],
                                             )
-                                          : Column(
-                                              children: [
-                                                Container(
-                                                  width: Get.width,
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        ColorsConfig.colorWhite,
-                                                    shape: BoxShape.rectangle,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            0),
-                                                    border: Border.all(
+                                          ],
+                                        )
+                                      else
+                                        Column(
+                                          children: [
+                                            Container(
+                                              width: Get.width,
+                                              decoration: BoxDecoration(
+                                                color: ColorsConfig.colorWhite,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                    BorderRadius.circular(0),
+                                                border: Border.all(
+                                                  color: ColorsConfig.colorBlue,
+                                                  width: 1.0,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Text(
+                                                    'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
+                                                    style: TextStyle(
+                                                      fontFamily: AppTextStyle
+                                                          .microsoftJhengHei,
+                                                      fontSize: 15.0,
                                                       color: ColorsConfig
-                                                          .colorBlue,
-                                                      width: 1.0,
+                                                          .colorGreyy,
                                                     ),
+                                                    maxLines: 3,
                                                   ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      Text(
-                                                        'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
-                                                        style: TextStyle(
-                                                          fontFamily: AppTextStyle
-                                                              .microsoftJhengHei,
-                                                          fontSize: 15.0,
-                                                          color: ColorsConfig
-                                                              .colorGreyy,
-                                                        ),
-                                                        maxLines: 3,
-                                                      ),
-                                                    ],
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 12,
+                                                  width: 12,
+                                                  child: Theme(
+                                                    data: ThemeData(
+                                                        unselectedWidgetColor:
+                                                            ColorsConfig
+                                                                .colorBlue),
+                                                    child: Checkbox(
+                                                      focusColor: ColorsConfig
+                                                          .colorBlue,
+                                                      activeColor: ColorsConfig
+                                                          .colorBlue,
+                                                      value: selected,
+                                                      onChanged: (bool? value) {
+                                                        setState(() {
+                                                          selected = value!;
+                                                        });
+                                                      },
+                                                    ),
                                                   ),
                                                 ),
                                                 const SizedBox(
-                                                  height: 15,
+                                                  width: 10,
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 12,
-                                                      width: 12,
-                                                      child: Theme(
-                                                        data: ThemeData(
-                                                            unselectedWidgetColor:
-                                                                ColorsConfig
-                                                                    .colorBlue),
-                                                        child: Checkbox(
-                                                          focusColor:
-                                                              ColorsConfig
-                                                                  .colorBlue,
-                                                          activeColor:
-                                                              ColorsConfig
-                                                                  .colorBlue,
-                                                          value: selected,
-                                                          onChanged:
-                                                              (bool? value) {
-                                                            setState(() {
-                                                              selected = value!;
-                                                            });
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Expanded(
-                                                      child: Text(
-                                                          'Yes, I understand and agree with the self declaration terms.',
-                                                          style: TextStyle(
-                                                            fontFamily: AppTextStyle
-                                                                .microsoftJhengHei,
-                                                            fontSize: 12.0,
-                                                            color: ColorsConfig
-                                                                .colorGreyy,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                )
+                                                Expanded(
+                                                  child: Text(
+                                                      'Yes, I understand and agree with the self declaration terms.',
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 12.0,
+                                                        color: ColorsConfig
+                                                            .colorGreyy,
+                                                      )),
+                                                ),
                                               ],
-                                            ),
+                                            )
+                                          ],
+                                        ),
                                       const SizedBox(
                                         height: 15,
                                       ),
@@ -1063,7 +1228,8 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 20,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController
+                                            .aadharNoController,
                                         Common.validatePassword,
                                         TextInputType.text,
                                         'Aadhar Number',
@@ -1071,12 +1237,44 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Common.attachDocWidget('Aadhar Card'),
+                                      Common.attachDocWidget(
+                                          _registrationController
+                                              .aadharCard.value, () async {
+                                        _registrationController
+                                                .pickedAadharCard =
+                                            await FilePicker.platform.pickFiles(
+                                          type: FileType.custom,
+                                          allowedExtensions: [
+                                            'jpg',
+                                            'pdf',
+                                            'png',
+                                            'jpeg'
+                                          ],
+                                        );
+                                        if (_registrationController
+                                                .pickedAadharCard !=
+                                            null) {
+                                          File file = File(
+                                              _registrationController
+                                                      .pickedAadharCard
+                                                      ?.files
+                                                      .single
+                                                      .path ??
+                                                  '');
+                                          setState(() {
+                                            _registrationController
+                                                    .aadharCard.value =
+                                                file.path.split('/').last;
+                                          });
+                                        } else {
+                                          // User canceled the picker
+                                        }
+                                      }),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController.panNoController,
                                         Common.validatePassword,
                                         TextInputType.text,
                                         'Pan Card No.',
@@ -1084,7 +1282,38 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Common.attachDocWidget('Pan Card'),
+                                      Common.attachDocWidget(
+                                          _registrationController.panCard.value,
+                                          () async {
+                                        _registrationController.pickedPanCard =
+                                            await FilePicker.platform.pickFiles(
+                                          type: FileType.custom,
+                                          allowedExtensions: [
+                                            'jpg',
+                                            'pdf',
+                                            'png',
+                                            'jpeg'
+                                          ],
+                                        );
+                                        if (_registrationController
+                                                .pickedPanCard !=
+                                            null) {
+                                          File file = File(
+                                              _registrationController
+                                                      .pickedPanCard
+                                                      ?.files
+                                                      .single
+                                                      .path ??
+                                                  '');
+                                          setState(() {
+                                            _registrationController
+                                                    .panCard.value =
+                                                file.path.split('/').last;
+                                          });
+                                        } else {
+                                          // User canceled the picker
+                                        }
+                                      }),
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -1138,7 +1367,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       profileTextFieldWidget(
-                                        passController,
+                                        _registrationController.docNoController,
                                         Common.validatePassword,
                                         TextInputType.text,
                                         'Enter Document No.',
@@ -1147,7 +1376,38 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         height: 12,
                                       ),
                                       Common.attachDocWidget(
-                                          'Driving/ Voter Id / Passport'),
+                                          _registrationController
+                                              .optionalCard.value, () async {
+                                        _registrationController
+                                                .pickedOptionalCard =
+                                            await FilePicker.platform.pickFiles(
+                                          type: FileType.custom,
+                                          allowedExtensions: [
+                                            'jpg',
+                                            'pdf',
+                                            'png',
+                                            'jpeg'
+                                          ],
+                                        );
+                                        if (_registrationController
+                                                .pickedOptionalCard !=
+                                            null) {
+                                          File file = File(
+                                              _registrationController
+                                                      .pickedOptionalCard
+                                                      ?.files
+                                                      .single
+                                                      .path ??
+                                                  '');
+                                          setState(() {
+                                            _registrationController
+                                                    .optionalCard.value =
+                                                file.path.split('/').last;
+                                          });
+                                        } else {
+                                          // User canceled the picker
+                                        }
+                                      }),
                                       const SizedBox(
                                         height: 20,
                                       ),
