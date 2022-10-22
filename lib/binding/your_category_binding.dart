@@ -5,6 +5,6 @@ import '../controller/controller.dart';
 class YourCategoryBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<YourCategoryController>(YourCategoryController(), permanent: false);
+    Get.put<YourCategoryController>(YourCategoryController(), permanent: true);
   }
 }

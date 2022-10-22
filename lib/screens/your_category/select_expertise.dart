@@ -58,13 +58,19 @@ class SelectExpertise extends GetView<YourCategoryController> {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
+            Obx(() => Expanded(
                 child: ListView.separated(
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () => Get.toNamed(PsycologistDropdown.pageId),
+                        onTap: () => Get.toNamed(PsycologistDropdown.pageId,
+                            arguments: {
+                              'category_id': controller
+                                      .doctorcategoryList[index]
+                                      .doctorCategoryId ??
+                                  ''
+                            }),
                         child: Container(
                           width: Get.width,
                           height: 52.0,
@@ -75,11 +81,9 @@ class SelectExpertise extends GetView<YourCategoryController> {
                                   Border.all(color: ColorsConfig.colorBlue)),
                           child: Center(
                             child: Text(
-                                'Physcologist'
-                                /* controller.doctorcategoryList[index]
-                                          .doctorCategoryName ??
-                                      '' */
-                                ,
+                                controller.doctorcategoryList[index]
+                                        .doctorCategoryName ??
+                                    '',
                                 style: TextStyle(
                                   fontFamily: AppTextStyle.microsoftJhengHei,
                                   fontWeight: FontWeight.w100,
@@ -93,7 +97,7 @@ class SelectExpertise extends GetView<YourCategoryController> {
                     separatorBuilder: (context, index) => const SizedBox(
                           height: 25,
                         ),
-                    itemCount: 15)),
+                    itemCount: controller.doctorcategoryList.length))),
           ],
         ));
   }

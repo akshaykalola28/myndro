@@ -57,7 +57,9 @@ class ExpertProfileController extends GetxController
       if (itemSelected == null) return;
 
       if (itemSelected == "1") {
-        Get.toNamed(ExpertRegistrationForm.pageId, arguments: isFromEdit);
+        Get.toNamed(ExpertRegistrationForm.pageId, arguments: {
+          'is_edit': isFromEdit,
+        });
       } else if (itemSelected == "2") {
         Get.toNamed(ExpertProfileNonMandatory.pageId);
       } else {

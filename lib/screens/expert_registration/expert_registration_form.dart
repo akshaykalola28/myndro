@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:myndro/controller/controller.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-
 import '../../constant/constant.dart';
 import '../../model/model.dart';
 import '../../util/common.dart';
@@ -43,14 +42,15 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   Size? _safeAreaSize;
 
   int _curPage = 1;
-  dynamic fromEdit;
+
   final RegistrationController _registrationController =
       RegistrationController();
 
   @override
   void initState() {
     super.initState();
-    fromEdit = Get.arguments;
+    _registrationController.fromEdit = Get.arguments;
+    _registrationController.getCountryList();
   }
 
   var pageController = PageController();
@@ -76,11 +76,12 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
   }
 
   final TextEditingController passController = TextEditingController();
-  bool status = false;
+
   int _radioSelected = 1;
   String? dropdownValue;
-  int? showIndex = 1;
+  bool showGst = true;
   bool selected = false;
+
   forward() {
     pageController.nextPage(duration: 300.milliseconds, curve: Curves.easeIn);
     setState(() {
@@ -104,7 +105,7 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
             },
             child: Stack(
               children: [
-                fromEdit
+                _registrationController.fromEdit['is_edit']
                     ? Column(
                         children: [
                           ClipPath(
@@ -160,769 +161,1442 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                           ),
                         ),
                       ),
-
-                Positioned.fill(
-                  top: fromEdit ? 215 : 200,
-                  child: SizedBox(
-                    height: Get.height,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 80.0, child: _getStepProgress()),
-                        Expanded(
-                          child: PageView(
-                            controller: pageController,
-                            physics: NeverScrollableScrollPhysics(),
-                            children: <Widget>[
-                              Container(
-                                color: ColorsConfig.colorWhite,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .firstNameController,
-                                        Common.validateName,
-                                        TextInputType.name,
-                                        'First Name',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .lastNameController,
-                                        Common.validateName,
-                                        TextInputType.name,
-                                        'Last Name',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .contactController,
-                                        Common.validatePhoneNo,
-                                        TextInputType.phone,
-                                        'Contact',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController.emailController,
-                                        Common.validateEmail,
-                                        TextInputType.emailAddress,
-                                        'Email',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () => _registrationController
-                                            .selectDob(context),
-                                        child: Container(
-                                          padding: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                            border: Border.all(
-                                                color: ColorsConfig.colorBlue,
-                                                width: 1.5),
+                Obx(
+                  () => Positioned.fill(
+                    top:
+                        _registrationController.fromEdit['is_edit'] ? 215 : 200,
+                    child: SizedBox(
+                      height: Get.height,
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 80.0, child: _getStepProgress()),
+                          Expanded(
+                            child: PageView(
+                              controller: pageController,
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: <Widget>[
+                                Container(
+                                  color: ColorsConfig.colorWhite,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: SingleChildScrollView(
+                                    child: Form(
+                                      key: _registrationController.formKey,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 12,
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                _registrationController
-                                                    .formattedDob.value,
-                                                style: TextStyle(
-                                                  fontFamily: AppTextStyle
-                                                      .microsoftJhengHei,
-                                                  fontSize: 15.0,
-                                                  color: ColorsConfig.colorBlue,
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .firstNameController,
+                                            Common.validateName,
+                                            TextInputType.name,
+                                            'First Name',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .lastNameController,
+                                            Common.validateName,
+                                            TextInputType.name,
+                                            'Last Name',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .contactController,
+                                            Common.validatePhoneNo,
+                                            TextInputType.phone,
+                                            'Phone Number',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .emailController,
+                                            Common.validateEmail,
+                                            TextInputType.emailAddress,
+                                            'Email',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          // FileFormfieldWidget(
+                                          //   hintTxt: _registrationController
+                                          //       .formattedDob.value,
+                                          //   validator: (value) {
+                                          //     if (value == null) {
+                                          //       return 'Please Select Date of Birth';
+                                          //     }
+                                          //     return null;
+                                          //   },
+                                          //   onTap: () => _registrationController
+                                          //       .selectDob(context),
+                                          //   // controller: ,
+                                          //   suffixIcon: Icons.calendar_month,
+                                          // ),
+                                          GestureDetector(
+                                            onTap: () => _registrationController
+                                                .selectDob(context),
+                                            child: Container(
+                                              padding: const EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(0),
+                                                border: Border.all(
+                                                    color:
+                                                        ColorsConfig.colorBlue,
+                                                    width: 1.5),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    _registrationController
+                                                        .formattedDob.value,
+                                                    style: TextStyle(
+                                                      fontFamily: AppTextStyle
+                                                          .microsoftJhengHei,
+                                                      fontSize: 15.0,
+                                                      color: ColorsConfig
+                                                          .colorBlue,
+                                                    ),
+                                                  ),
+                                                  const Icon(
+                                                    Icons.calendar_month,
+                                                    color:
+                                                        ColorsConfig.colorBlue,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          /* FileFormfieldWidget(
+                                            widgetBody: GestureDetector(
+                                              onTap: () =>
+                                                  _registrationController
+                                                      .selectDob(context),
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
+                                                  border: Border.all(
+                                                      color: ColorsConfig
+                                                          .colorBlue,
+                                                      width: 1.5),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      _registrationController
+                                                          .formattedDob.value,
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 15.0,
+                                                        color: ColorsConfig
+                                                            .colorBlue,
+                                                      ),
+                                                    ),
+                                                    const Icon(
+                                                      Icons.calendar_month,
+                                                      color: ColorsConfig
+                                                          .colorBlue,
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                              const Icon(
-                                                Icons.calendar_month,
-                                                color: ColorsConfig.colorBlue,
-                                              )
-                                            ],
+                                            ),
+                                            validator: (value) {
+                                              if (value == null) {
+                                                return 'Please Select Date of Birth';
+                                              }
+                                              return null;
+                                            },
+                                          ), */
+                                          const SizedBox(
+                                            height: 12,
                                           ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<String>(
-                                        hintText: 'Gender',
-                                        isExpanded: true,
-                                        items:
-                                            _registrationController.genderList,
-                                        texts: _registrationController
-                                            .genderList
-                                            .map((e) => e)
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .genderDropdownValue = newValue;
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                          _registrationController
-                                              .addLine1Controller,
-                                          Common.validateAddress,
-                                          TextInputType.multiline,
-                                          'Address', () {
-                                        setState(() {
-                                          addVisibility = !addVisibility;
-                                        });
-                                      }, Icons.add),
-                                      Visibility(
-                                        visible: addVisibility,
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 12,
-                                            ),
-                                            profileTextFieldWidget(
+                                          DropDownWidget<String>(
+                                            hintText: 'Gender',
+                                            isExpanded: true,
+                                            validator: (value) {
+                                              if (value == null) {
+                                                return 'Please Select Gender';
+                                              }
+                                              return null;
+                                            },
+                                            items: _registrationController
+                                                .genderList,
+                                            texts: _registrationController
+                                                .genderList
+                                                .map((e) => e)
+                                                .toList(),
+                                            onChanged: (newValue) {
                                               _registrationController
-                                                  .addLine2Controller,
-                                              null,
-                                              TextInputType.multiline,
-                                              'Address Line 1',
-                                            ),
-                                            const SizedBox(
-                                              height: 12,
-                                            ),
-                                            profileTextFieldWidget(
+                                                      .genderDropdownValue =
+                                                  newValue;
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
                                               _registrationController
-                                                  .addLine3Controller,
-                                              null,
+                                                  .addLine1Controller,
+                                              Common.validateAddress,
                                               TextInputType.multiline,
-                                              'Address Line 2',
+                                              'Address', () {
+                                            setState(() {
+                                              addVisibility = !addVisibility;
+                                            });
+                                          }, Icons.add),
+                                          Visibility(
+                                            visible: addVisibility,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 12,
+                                                ),
+                                                profileTextFieldWidget(
+                                                  _registrationController
+                                                      .addLine2Controller,
+                                                  null,
+                                                  TextInputType.multiline,
+                                                  'Address Line 1',
+                                                ),
+                                                const SizedBox(
+                                                  height: 12,
+                                                ),
+                                                profileTextFieldWidget(
+                                                  _registrationController
+                                                      .addLine3Controller,
+                                                  null,
+                                                  TextInputType.multiline,
+                                                  'Address Line 2',
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<CountryData>(
-                                        // validator: (value) {
-                                        //   if (value == null) {
-                                        //     return 'Please Select Country';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        isExpanded: true,
-                                        items: _registrationController
-                                            .countryListData,
-                                        texts: _registrationController
-                                            .countryListData
-                                            .map((e) =>
-                                                '${e.countryCode}  ${e.countryName}')
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .countryDropdown = newValue;
-                                          _registrationController.getStateList(
-                                              newValue?.countryId ?? '');
-                                        },
-                                        hintText: 'Country',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<StateData>(
-                                        validator: (value) {
-                                          if (value == null) {
-                                            return 'Please Select State';
-                                          }
-                                          return null;
-                                        },
-                                        isExpanded: true,
-                                        items: _registrationController
-                                            .stateListData,
-                                        texts: _registrationController
-                                            .stateListData
-                                            .map((e) => '${e.stateId} ')
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .stateDropdown = newValue;
-                                          _registrationController.getCityList(
-                                              newValue?.stateId ?? '');
-                                        },
-                                        hintText: 'State',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<CityData>(
-                                        validator: (value) {
-                                          if (value == null) {
-                                            return 'Please Select City';
-                                          }
-                                          return null;
-                                        },
-                                        isExpanded: true,
-                                        items: _registrationController
-                                            .cityListData,
-                                        texts: _registrationController
-                                            .cityListData
-                                            .map((e) => '${e.cityName} ')
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController.cityDropdown =
-                                              newValue;
-                                        },
-                                        hintText: 'City',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .zipCodeController,
-                                        Common.validateZipcode,
-                                        TextInputType.number,
-                                        'Zipcode',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                          _registrationController
-                                              .passController,
-                                          Common.validatePassword,
-                                          TextInputType.text,
-                                          'Password', () {
-                                        setState(() {
-                                          _registrationController
-                                                  .passwordVisible.value =
-                                              !_registrationController
-                                                  .passwordVisible.value;
-                                        });
-                                      },
-                                          _registrationController
-                                                  .passwordVisible.value
-                                              ? Icons.visibility
-                                              : Icons.visibility_off,
-                                          _registrationController
-                                              .passwordVisible.value),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                          _registrationController
-                                              .confirmPassController,
-                                          (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Enter valid Password!!!';
-                                            } else if (value.length < 6) {
-                                              return 'Password must be a 6 character';
-                                            } else if (value !=
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          DropDownWidget<CountryData>(
+                                            validator: (value) {
+                                              if (value == null) {
+                                                return 'Please Select Country';
+                                              }
+                                              return null;
+                                            },
+                                            isExpanded: true,
+                                            items: _registrationController
+                                                .countryListData,
+                                            texts: _registrationController
+                                                .countryListData
+                                                .map((e) => '${e.countryName}')
+                                                .toList(),
+                                            onChanged: (newValue) {
+                                              _registrationController
+                                                  .countryDropdown = newValue;
+
+                                              _registrationController
+                                                  .getStateList(
+                                                      newValue?.countryId ??
+                                                          '');
+
+                                              _registrationController
+                                                  .stateDropdown = null;
+                                              _registrationController
+                                                  .cityDropdown = null;
+                                              setState(() {});
+                                            },
+                                            hintText: 'Country',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          DropDownWidget<StateData>(
+                                            validator: (value) {
+                                              if (value == null) {
+                                                return 'Please Select State';
+                                              }
+                                              return null;
+                                            },
+                                            isExpanded: true,
+                                            items: _registrationController
+                                                .stateListData,
+                                            texts: _registrationController
+                                                .stateListData
+                                                .map((e) => '${e.stateName} ')
+                                                .toList(),
+                                            onChanged: (newValue) {
+                                              _registrationController
+                                                  .stateDropdown = newValue;
+                                              _registrationController
+                                                  .cityDropdown = null;
+                                              _registrationController
+                                                  .getCityList(
+                                                      newValue?.stateId ?? '');
+                                              _registrationController.update();
+                                            },
+                                            hintText: 'State',
+                                            value: _registrationController
+                                                .stateDropdown,
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          DropDownWidget<CityData>(
+                                            validator: (value) {
+                                              if (value == null) {
+                                                return 'Please Select City';
+                                              }
+                                              return null;
+                                            },
+                                            isExpanded: true,
+                                            items: _registrationController
+                                                .cityListData,
+                                            texts: _registrationController
+                                                .cityListData
+                                                .map((e) => '${e.cityName} ')
+                                                .toList(),
+                                            onChanged: (newValue) {
+                                              _registrationController
+                                                  .cityDropdown = newValue;
+                                            },
+                                            hintText: 'City',
+                                            value: _registrationController
+                                                .cityDropdown,
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .zipCodeController,
+                                            Common.validateZipcode,
+                                            TextInputType.number,
+                                            'Zipcode',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                              _registrationController
+                                                  .passController,
+                                              Common.validatePassword,
+                                              TextInputType.text,
+                                              'Password', () {
+                                            setState(() {
+                                              _registrationController
+                                                      .passwordVisible.value =
+                                                  !_registrationController
+                                                      .passwordVisible.value;
+                                            });
+                                          },
+                                              _registrationController
+                                                      .passwordVisible.value
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              _registrationController
+                                                  .passwordVisible.value),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                              _registrationController
+                                                  .confirmPassController,
+                                              (value) {
+                                                if (value!.isEmpty) {
+                                                  return 'Enter valid Password!!!';
+                                                } else if (value.length < 6) {
+                                                  return 'Password must be a 6 character';
+                                                } else if (value !=
+                                                    _registrationController
+                                                        .passController.text) {
+                                                  return "Password must be same as above";
+                                                }
+                                                return null;
+                                              },
+                                              TextInputType.text,
+                                              'Confirm Password',
+                                              () {
+                                                setState(() {
+                                                  _registrationController
+                                                          .confirmPasswordVisible
+                                                          .value =
+                                                      !_registrationController
+                                                          .confirmPasswordVisible
+                                                          .value;
+                                                });
+                                              },
+                                              _registrationController
+                                                      .confirmPasswordVisible
+                                                      .value
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              _registrationController
+                                                  .confirmPasswordVisible
+                                                  .value),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          loginButtonWidget(
+                                            'Next',
+                                            () {
+                                              if (_registrationController
+                                                  .formKey.currentState!
+                                                  .validate()) {
                                                 _registrationController
-                                                    .passController.text) {
-                                              return "Password must be same as above";
+                                                    .addExpertProfile();
+                                                forward();
+                                              }
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  color: ColorsConfig.colorWhite,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: SingleChildScrollView(
+                                    child: Form(
+                                      key: _registrationController.degreeKey,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          /*  DropDownWidget<String>(
+                                          // validator: (value) {
+                                          //   if (value?.isEmpty == true) {
+                                          //     return 'Please Select Gender';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                          hintText: 'Medical Master',
+                                          isExpanded: true,
+                                          items: const ['abc', 'xyz', 'mmm'],
+                                          texts: ['abc', 'xyz', 'mmm']
+                                              .map((e) => e)
+                                              .toList(),
+                                          onChanged: (newValue) {
+                                            _registrationController
+                                                .dropdownValue = newValue;
+                                          },
+                                        ), */
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .professionController,
+                                            Common.validateProfession,
+                                            TextInputType.text,
+                                            'Profession',
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .degreeNameController,
+                                            Common.validateDegreeName,
+                                            TextInputType.text,
+                                            'Degree Name',
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .degreeYearController,
+                                            Common.validateDegreeYear,
+                                            TextInputType.number,
+                                            'Degree Year',
+                                          ),
+                                          /* DropDownWidget<String>(
+                                          // validator: (value) {
+                                          //   if (value?.isEmpty == true) {
+                                          //     return 'Please Select Gender';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                          hintText: 'Degree Year',
+                                          isExpanded: true,
+                                          items: const ['abc', 'xyz', 'mmm'],
+                                          texts: ['abc', 'xyz', 'mmm']
+                                              .map((e) => e)
+                                              .toList(),
+                                          onChanged: (newValue) {
+                                            _registrationController
+                                                .dropdownValue = newValue;
+                                          },
+                                        ), */
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Common.attachDocWidget(
+                                              _registrationController
+                                                  .degreeCerti.value, () async {
+                                            _registrationController
+                                                    .pickeddegree =
+                                                await FilePicker.platform
+                                                    .pickFiles(
+                                              type: FileType.custom,
+                                              allowedExtensions: [
+                                                'jpg',
+                                                'pdf',
+                                                'png',
+                                                'jpeg'
+                                              ],
+                                            );
+                                            if (_registrationController
+                                                    .pickeddegree !=
+                                                null) {
+                                              File file = File(
+                                                  _registrationController
+                                                          .pickeddegree
+                                                          ?.files
+                                                          .single
+                                                          .path ??
+                                                      '');
+                                              setState(() {
+                                                _registrationController
+                                                        .degreeCerti.value =
+                                                    file.path.split('/').last;
+                                              });
+                                            } else {
+                                              // User canceled the picker
+                                            }
+                                          }),
+                                          // const SizedBox(
+                                          //   height: 15,
+                                          // ),
+                                          /*   profileTextFieldWidget(
+                                          _registrationController
+                                              .practiceCertiNoController,
+                                          (value) {
+                                            if (value?.isEmpty == true) {
+                                              return '';
                                             }
                                             return null;
                                           },
                                           TextInputType.text,
-                                          'Confirm Password',
-                                          () {
-                                            setState(() {
+                                          'Practice Certificate No',
+                                        ), */
+                                          /*DropDownWidget(
+                                          dropdownValue: dropdownValue,
+                                          hintText: 'Practice Certificate No',
+                                          isExpanded: true,
+                                        ),*/
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Common.attachDocWidget(
                                               _registrationController
-                                                      .confirmPasswordVisible
-                                                      .value =
-                                                  !_registrationController
-                                                      .confirmPasswordVisible
-                                                      .value;
-                                            });
-                                          },
-                                          _registrationController
-                                                  .confirmPasswordVisible.value
-                                              ? Icons.visibility
-                                              : Icons.visibility_off,
-                                          _registrationController
-                                              .confirmPasswordVisible.value),
-                                      const SizedBox(
-                                        height: 20,
+                                                  .practiceCerti
+                                                  .value, () async {
+                                            _registrationController
+                                                    .pickedPracticeCerti =
+                                                await FilePicker.platform
+                                                    .pickFiles(
+                                              type: FileType.custom,
+                                              allowedExtensions: [
+                                                'jpg',
+                                                'pdf',
+                                                'png',
+                                                'jpeg'
+                                              ],
+                                            );
+                                            if (_registrationController
+                                                    .pickedPracticeCerti !=
+                                                null) {
+                                              File file = File(
+                                                  _registrationController
+                                                          .pickedPracticeCerti
+                                                          ?.files
+                                                          .single
+                                                          .path ??
+                                                      '');
+                                              setState(() {
+                                                _registrationController
+                                                        .practiceCerti.value =
+                                                    file.path.split('/').last;
+                                              });
+                                            } else {
+                                              // User canceled the picker
+                                            }
+                                          }),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          loginButtonWidget(
+                                            'Next',
+                                            () {
+                                              if (_registrationController
+                                                  .degreeKey.currentState!
+                                                  .validate()) {
+                                                forward();
+                                              }
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
                                       ),
-                                      loginButtonWidget(
-                                        'Next',
-                                        () {
-                                          forward();
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                color: ColorsConfig.colorWhite,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<String>(
-                                        // validator: (value) {
-                                        //   if (value?.isEmpty == true) {
-                                        //     return 'Please Select Gender';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        hintText: 'Medical Master',
-                                        isExpanded: true,
-                                        items: const ['abc', 'xyz', 'mmm'],
-                                        texts: ['abc', 'xyz', 'mmm']
-                                            .map((e) => e)
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .dropdownValue = newValue;
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .degreeNameController,
-                                        Common.validatePassword,
-                                        TextInputType.text,
-                                        'Degree Name',
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .degreeYearController,
-                                        (value) {
-                                          if (value?.isEmpty == true) {
-                                            return '';
-                                          }
-                                          return null;
-                                        },
-                                        TextInputType.number,
-                                        'Degree Year',
-                                      ),
-                                      /* DropDownWidget<String>(
-                                        // validator: (value) {
-                                        //   if (value?.isEmpty == true) {
-                                        //     return 'Please Select Gender';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        hintText: 'Degree Year',
-                                        isExpanded: true,
-                                        items: const ['abc', 'xyz', 'mmm'],
-                                        texts: ['abc', 'xyz', 'mmm']
-                                            .map((e) => e)
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .dropdownValue = newValue;
-                                        },
-                                      ), */
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      Common.attachDocWidget(
-                                          _registrationController
-                                              .degreeCerti.value, () async {
-                                        _registrationController.pickeddegree =
-                                            await FilePicker.platform.pickFiles(
-                                          type: FileType.custom,
-                                          allowedExtensions: [
-                                            'jpg',
-                                            'pdf',
-                                            'png',
-                                            'jpeg'
-                                          ],
-                                        );
-                                        if (_registrationController
-                                                .pickeddegree !=
-                                            null) {
-                                          File file = File(
-                                              _registrationController
-                                                      .pickeddegree
-                                                      ?.files
-                                                      .single
-                                                      .path ??
-                                                  '');
-                                          setState(() {
+                                Container(
+                                  color: ColorsConfig.colorWhite,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: SingleChildScrollView(
+                                    child: Form(
+                                      key: _registrationController.bankKey,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
                                             _registrationController
-                                                    .degreeCerti.value =
-                                                file.path.split('/').last;
-                                          });
-                                        } else {
-                                          // User canceled the picker
-                                        }
-                                      }),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .practiceCertiNoController,
-                                        (value) {
-                                          if (value?.isEmpty == true) {
-                                            return '';
-                                          }
-                                          return null;
-                                        },
-                                        TextInputType.text,
-                                        'Practice Certificate No',
-                                      ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'Practice Certificate No',
-                                        isExpanded: true,
-                                      ),*/
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      Common.attachDocWidget(
-                                          _registrationController
-                                              .practiceCerti.value, () async {
-                                        _registrationController
-                                                .pickedPracticeCerti =
-                                            await FilePicker.platform.pickFiles(
-                                          type: FileType.custom,
-                                          allowedExtensions: [
-                                            'jpg',
-                                            'pdf',
-                                            'png',
-                                            'jpeg'
-                                          ],
-                                        );
-                                        if (_registrationController
-                                                .pickedPracticeCerti !=
-                                            null) {
-                                          File file = File(
-                                              _registrationController
-                                                      .pickedPracticeCerti
-                                                      ?.files
-                                                      .single
-                                                      .path ??
-                                                  '');
-                                          setState(() {
+                                                .bankNameController,
+                                            Common.validateBankName,
+                                            TextInputType.text,
+                                            'Bank Name',
+                                          ),
+                                          /*DropDownWidget(
+                                          dropdownValue: dropdownValue,
+                                          hintText: 'Bank Name',
+                                          isExpanded: true,
+                                        ),*/
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
                                             _registrationController
-                                                    .practiceCerti.value =
-                                                file.path.split('/').last;
-                                          });
-                                        } else {
-                                          // User canceled the picker
-                                        }
-                                      }),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      loginButtonWidget(
-                                        'Next',
-                                        () {
-                                          forward();
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                color: ColorsConfig.colorWhite,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<String>(
-                                        // validator: (value) {
-                                        //   if (value?.isEmpty == true) {
-                                        //     return 'Please Select Gender';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        hintText: 'Bank Name',
-                                        isExpanded: true,
-                                        items: const ['abc', 'xyz', 'mmm'],
-                                        texts: ['abc', 'xyz', 'mmm']
-                                            .map((e) => e)
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .dropdownValue = newValue;
-                                        },
-                                      ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'Bank Name',
-                                        isExpanded: true,
-                                      ),*/
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .holderNameController,
-                                        Common.validatePassword,
-                                        TextInputType.text,
-                                        'Account Holder Name',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .accNumberController,
-                                        Common.validatePassword,
-                                        TextInputType.number,
-                                        'Account Number',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<String>(
-                                        // validator: (value) {
-                                        //   if (value?.isEmpty == true) {
-                                        //     return 'Please Select Gender';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        hintText: 'Account Type',
-                                        isExpanded: true,
-                                        items: const ['abc', 'xyz', 'mmm'],
-                                        texts: ['abc', 'xyz', 'mmm']
-                                            .map((e) => e)
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .dropdownValue = newValue;
-                                        },
-                                      ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'Account Type',
-                                        isExpanded: true,
-                                      ),*/
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .ifscCodeController,
-                                        Common.validatePassword,
-                                        TextInputType.text,
-                                        'IFSC Code',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                          _registrationController
-                                              .branchAddController,
-                                          Common.validatePassword,
-                                          TextInputType.multiline,
-                                          'Branch Address', () {
-                                        setState(() {
-                                          addVisibility = !addVisibility;
-                                        });
-                                      }, Icons.add),
-                                      Visibility(
-                                        visible: addVisibility,
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 12,
-                                            ),
-                                            profileTextFieldWidget(
+                                                .holderNameController,
+                                            Common.validateAccHolderName,
+                                            TextInputType.text,
+                                            'Account Holder Name',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .accNumberController,
+                                            Common.validatePassword,
+                                            TextInputType.number,
+                                            'Account Number',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          DropDownWidget<String>(
+                                            validator: (value) {
+                                              if (value?.isEmpty == true) {
+                                                return 'Please Select Account Type';
+                                              }
+                                              return null;
+                                            },
+                                            hintText: 'Account Type',
+                                            isExpanded: true,
+                                            items: const ['Savings', 'Current'],
+                                            texts: ['Savings', 'Current']
+                                                .map((e) => e)
+                                                .toList(),
+                                            onChanged: (newValue) {
                                               _registrationController
-                                                  .branchAdd1Controller,
-                                              Common.validatePassword,
+                                                  .accTypeDropdowwn = newValue;
+                                            },
+                                          ),
+                                          /*DropDownWidget(
+                                          dropdownValue: dropdownValue,
+                                          hintText: 'Account Type',
+                                          isExpanded: true,
+                                        ),*/
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                            _registrationController
+                                                .ifscCodeController,
+                                            Common.validateIfsc,
+                                            TextInputType.text,
+                                            'IFSC Code',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          profileTextFieldWidget(
+                                              _registrationController
+                                                  .branchAddController,
+                                              Common.validateAddress,
                                               TextInputType.multiline,
-                                              'Address Line 1',
+                                              'Branch Address', () {
+                                            setState(() {
+                                              addVisibility = !addVisibility;
+                                            });
+                                          }, Icons.add),
+                                          Visibility(
+                                            visible: addVisibility,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 12,
+                                                ),
+                                                profileTextFieldWidget(
+                                                  _registrationController
+                                                      .branchAdd1Controller,
+                                                  Common.validatePassword,
+                                                  TextInputType.multiline,
+                                                  'Address Line 1',
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<String>(
-                                        // validator: (value) {
-                                        //   if (value?.isEmpty == true) {
-                                        //     return 'Please Select Gender';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        hintText: 'Country',
-                                        isExpanded: true,
-                                        items: const ['abc', 'xyz', 'mmm'],
-                                        texts: ['abc', 'xyz', 'mmm']
-                                            .map((e) => e)
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .dropdownValue = newValue;
-                                        },
-                                      ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'Country',
-                                        isExpanded: true,
-                                      ),*/
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<String>(
-                                        // validator: (value) {
-                                        //   if (value?.isEmpty == true) {
-                                        //     return 'Please Select Gender';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        hintText: 'State',
-                                        isExpanded: true,
-                                        items: const ['abc', 'xyz', 'mmm'],
-                                        texts: ['abc', 'xyz', 'mmm']
-                                            .map((e) => e)
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .dropdownValue = newValue;
-                                        },
-                                      ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'state',
-                                        isExpanded: true,
-                                      ),*/
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      DropDownWidget<String>(
-                                        // validator: (value) {
-                                        //   if (value?.isEmpty == true) {
-                                        //     return 'Please Select Gender';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        hintText: 'City',
-                                        isExpanded: true,
-                                        items: const ['abc', 'xyz', 'mmm'],
-                                        texts: ['abc', 'xyz', 'mmm']
-                                            .map((e) => e)
-                                            .toList(),
-                                        onChanged: (newValue) {
-                                          _registrationController
-                                              .dropdownValue = newValue;
-                                        },
-                                      ),
-                                      /*DropDownWidget(
-                                        dropdownValue: dropdownValue,
-                                        hintText: 'City',
-                                        isExpanded: true,
-                                      ),*/
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .branchZipController,
-                                        Common.validateZipcode,
-                                        TextInputType.number,
-                                        'Zipcode',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      Common.attachDocWidget(
-                                          _registrationController
-                                              .cancelCheque.value, () async {
-                                        _registrationController.pickedCheque =
-                                            await FilePicker.platform.pickFiles(
-                                          type: FileType.custom,
-                                          allowedExtensions: [
-                                            'jpg',
-                                            'pdf',
-                                            'png',
-                                            'jpeg'
-                                          ],
-                                        );
-                                        if (_registrationController
-                                                .pickedCheque !=
-                                            null) {
-                                          File file = File(
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          /*   DropDownWidget<CountryData>(
+                                            validator: (value) {
+                                              if (value == null) {
+                                                return 'Please Select Country';
+                                              }
+                                              return null;
+                                            },
+                                            isExpanded: true,
+                                            items: _registrationController
+                                                .bankCountryList,
+                                            texts: _registrationController
+                                                .bankCountryList
+                                                .map((e) => '${e.countryName}')
+                                                .toList(),
+                                            onChanged: (newValue) {
                                               _registrationController
-                                                      .pickedCheque
-                                                      ?.files
-                                                      .single
-                                                      .path ??
-                                                  '');
-                                          setState(() {
+                                                  .bankCountry = newValue;
+
+                                              _registrationController
+                                                  .getStateList(
+                                                      newValue?.countryId ??
+                                                          '');
+
+                                              _registrationController
+                                                  .bankState = null;
+                                              _registrationController.bankCity =
+                                                  null;
+                                              setState(() {});
+                                            },
+                                            hintText: 'Country',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          DropDownWidget<StateData>(
+                                            validator: (value) {
+                                              if (value == null) {
+                                                return 'Please Select State';
+                                              }
+                                              return null;
+                                            },
+                                            isExpanded: true,
+                                            items: _registrationController
+                                                .bankStateList,
+                                            texts: _registrationController
+                                                .bankStateList
+                                                .map((e) => '${e.stateName} ')
+                                                .toList(),
+                                            onChanged: (newValue) {
+                                              _registrationController
+                                                  .bankState = newValue;
+                                              _registrationController.bankCity =
+                                                  null;
+                                              _registrationController
+                                                  .getCityList(
+                                                      newValue?.stateId ?? '');
+                                              setState(() {});
+                                            },
+                                            hintText: 'State',
+                                            value: _registrationController
+                                                .stateDropdown,
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          DropDownWidget<CityData>(
+                                            validator: (value) {
+                                              if (value == null) {
+                                                return 'Please Select City';
+                                              }
+                                              return null;
+                                            },
+                                            isExpanded: true,
+                                            items: _registrationController
+                                                .bankCityList,
+                                            texts: _registrationController
+                                                .bankCityList
+                                                .map((e) => '${e.cityName} ')
+                                                .toList(),
+                                            onChanged: (newValue) {
+                                              _registrationController.bankCity =
+                                                  newValue;
+                                            },
+                                            hintText: 'City',
+                                            value: _registrationController
+                                                .cityDropdown,
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ), */
+                                          profileTextFieldWidget(
                                             _registrationController
-                                                    .cancelCheque.value =
-                                                file.path.split('/').last;
-                                          });
-                                        } else {
-                                          // User canceled the picker
-                                        }
-                                      }),
-                                      const SizedBox(
-                                        height: 20,
+                                                .branchZipController,
+                                            Common.validateZipcode,
+                                            TextInputType.number,
+                                            'Zipcode',
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          Common.attachDocWidget(
+                                              _registrationController
+                                                  .cancelCheque
+                                                  .value, () async {
+                                            _registrationController
+                                                    .pickedCheque =
+                                                await FilePicker.platform
+                                                    .pickFiles(
+                                              type: FileType.custom,
+                                              allowedExtensions: [
+                                                'jpg',
+                                                'pdf',
+                                                'png',
+                                                'jpeg'
+                                              ],
+                                            );
+                                            if (_registrationController
+                                                    .pickedCheque !=
+                                                null) {
+                                              File file = File(
+                                                  _registrationController
+                                                          .pickedCheque
+                                                          ?.files
+                                                          .single
+                                                          .path ??
+                                                      '');
+                                              setState(() {
+                                                _registrationController
+                                                        .cancelCheque.value =
+                                                    file.path.split('/').last;
+                                              });
+                                            } else {
+                                              // User canceled the picker
+                                            }
+                                          }),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          loginButtonWidget(
+                                            'Next',
+                                            () {
+                                              if (_registrationController
+                                                  .bankKey.currentState!
+                                                  .validate()) {
+                                                forward();
+                                              }
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
                                       ),
-                                      loginButtonWidget(
-                                        'Next',
-                                        () {
-                                          forward();
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                color: ColorsConfig.colorWhite,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: SingleChildScrollView(
+                                Container(
+                                  color: ColorsConfig.colorWhite,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: SingleChildScrollView(
+                                    child: Form(
+                                      key: _registrationController.gstKey,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            height: 50,
+                                            width: Get.width,
+                                            decoration: BoxDecoration(
+                                              color: ColorsConfig.colorBlue,
+                                              shape: BoxShape.rectangle,
+                                              borderRadius:
+                                                  BorderRadius.circular(0),
+                                              border: Border.all(
+                                                color: ColorsConfig.colorBlue,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Are you register under GST?',
+                                                style: TextStyle(
+                                                  fontFamily: AppTextStyle
+                                                      .microsoftJhengHei,
+                                                  fontSize: 16.0,
+                                                  color:
+                                                      ColorsConfig.colorWhite,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          FlutterSwitch(
+                                            width: 110.0,
+                                            height: 40.0,
+                                            valueFontSize: 25.0,
+                                            toggleSize: 30.0,
+                                            value: showGst,
+                                            borderRadius: 30.0,
+                                            padding: 5.0,
+                                            showOnOff: true,
+                                            activeText: 'Yes',
+                                            inactiveText: 'No',
+                                            onToggle: (val) {
+                                              setState(() {
+                                                showGst = val;
+                                              });
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          if (showGst == true)
+                                            Column(
+                                              children: [
+                                                // profileTextFieldWidget(
+                                                //   _registrationController
+                                                //       .gstNoController,
+                                                //   Common.validatePassword,
+                                                //   TextInputType.text,
+                                                //   'GST No',
+                                                // ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                GestureDetector(
+                                                  behavior:
+                                                      HitTestBehavior.opaque,
+                                                  onTap: () async {
+                                                    _registrationController
+                                                            .pickedgst =
+                                                        await FilePicker
+                                                            .platform
+                                                            .pickFiles(
+                                                      type: FileType.custom,
+                                                      allowedExtensions: [
+                                                        'jpg',
+                                                        'pdf',
+                                                        'png',
+                                                        'jpeg'
+                                                      ],
+                                                    );
+                                                    if (_registrationController
+                                                            .pickedgst !=
+                                                        null) {
+                                                      File file = File(
+                                                          _registrationController
+                                                                  .pickedgst
+                                                                  ?.files
+                                                                  .single
+                                                                  .path ??
+                                                              '');
+                                                      setState(() {
+                                                        _registrationController
+                                                                .gstCerti
+                                                                .value =
+                                                            file.path
+                                                                .split('/')
+                                                                .last;
+                                                      });
+                                                    } else {
+                                                      // User canceled the picker
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 12,
+                                                        vertical: 10),
+                                                    decoration: BoxDecoration(
+                                                      color: ColorsConfig
+                                                          .colorWhite,
+                                                      shape: BoxShape.rectangle,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                      border: Border.all(
+                                                        color: ColorsConfig
+                                                            .colorBlue,
+                                                        width: 1.0,
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            _registrationController
+                                                                .gstCerti.value,
+                                                            maxLines: 2,
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  AppTextStyle
+                                                                      .microsoftJhengHei,
+                                                              fontSize: 17.0,
+                                                              color: ColorsConfig
+                                                                  .colorBlue,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const Icon(
+                                                          Icons.attach_file,
+                                                          size: 35,
+                                                          color: ColorsConfig
+                                                              .colorBlue,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 12,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 12,
+                                                      width: 12,
+                                                      child: Theme(
+                                                        data: ThemeData(
+                                                            unselectedWidgetColor:
+                                                                ColorsConfig
+                                                                    .colorBlue),
+                                                        child: Checkbox(
+                                                          focusColor:
+                                                              ColorsConfig
+                                                                  .colorBlue,
+                                                          activeColor:
+                                                              ColorsConfig
+                                                                  .colorBlue,
+                                                          value: selected,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            setState(() {
+                                                              selected = value!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                          'I hereby solemnly affirm and declare that the information given herein above is true and correct to the best of my knowledge and belief, and nothing has been concealed therefrom. ',
+                                                          style: TextStyle(
+                                                            fontFamily: AppTextStyle
+                                                                .microsoftJhengHei,
+                                                            fontSize: 12.0,
+                                                            color: ColorsConfig
+                                                                .colorGreyy,
+                                                          )),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          else
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  width: Get.width,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        ColorsConfig.colorWhite,
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0),
+                                                    border: Border.all(
+                                                      color: ColorsConfig
+                                                          .colorBlue,
+                                                      width: 1.0,
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Text(
+                                                        'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
+                                                        style: TextStyle(
+                                                          fontFamily: AppTextStyle
+                                                              .microsoftJhengHei,
+                                                          fontSize: 15.0,
+                                                          color: ColorsConfig
+                                                              .colorGreyy,
+                                                        ),
+                                                        maxLines: 3,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 15,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 12,
+                                                      width: 12,
+                                                      child: Theme(
+                                                        data: ThemeData(
+                                                            unselectedWidgetColor:
+                                                                ColorsConfig
+                                                                    .colorBlue),
+                                                        child: Checkbox(
+                                                          focusColor:
+                                                              ColorsConfig
+                                                                  .colorBlue,
+                                                          activeColor:
+                                                              ColorsConfig
+                                                                  .colorBlue,
+                                                          value: selected,
+                                                          onChanged:
+                                                              (bool? value) {
+                                                            setState(() {
+                                                              selected = value!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                          'Yes, I understand and agree with the self declaration terms.',
+                                                          style: TextStyle(
+                                                            fontFamily: AppTextStyle
+                                                                .microsoftJhengHei,
+                                                            fontSize: 12.0,
+                                                            color: ColorsConfig
+                                                                .colorGreyy,
+                                                          )),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          loginButtonWidget(
+                                            'Next',
+                                            () {
+                                              if (_registrationController
+                                                  .gstKey.currentState!
+                                                  .validate()) {
+                                                forward();
+                                              }
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  color: ColorsConfig.colorWhite,
+                                  child: SingleChildScrollView(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    child: Form(
+                                      key: _registrationController.kycKey,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          // profileTextFieldWidget(
+                                          //   _registrationController
+                                          //       .aadharNoController,
+                                          //   Common.validateAadhar,
+                                          //   TextInputType.text,
+                                          //   'Aadhar Number',
+                                          // ),
+                                          //     const SizedBox(
+                                          //   height: 12,
+                                          // ),
+                                          Common.attachDocWidget(
+                                              _registrationController
+                                                  .aadharCard.value, () async {
+                                            _registrationController
+                                                    .pickedAadharCard =
+                                                await FilePicker.platform
+                                                    .pickFiles(
+                                              type: FileType.custom,
+                                              allowedExtensions: [
+                                                'jpg',
+                                                'pdf',
+                                                'png',
+                                                'jpeg'
+                                              ],
+                                            );
+                                            if (_registrationController
+                                                    .pickedAadharCard !=
+                                                null) {
+                                              File file = File(
+                                                  _registrationController
+                                                          .pickedAadharCard
+                                                          ?.files
+                                                          .single
+                                                          .path ??
+                                                      '');
+                                              setState(() {
+                                                _registrationController
+                                                        .aadharCard.value =
+                                                    file.path.split('/').last;
+                                              });
+                                            } else {
+                                              // User canceled the picker
+                                            }
+                                          }),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          /*  profileTextFieldWidget(
+                                            _registrationController
+                                                .panNoController,
+                                            Common.validatePan,
+                                            TextInputType.text,
+                                            'Pan Card No.',
+                                          ),
+                                            const SizedBox(
+                                          height: 12,
+                                        ), */
+                                          Common.attachDocWidget(
+                                              _registrationController
+                                                  .panCard.value, () async {
+                                            _registrationController
+                                                    .pickedPanCard =
+                                                await FilePicker.platform
+                                                    .pickFiles(
+                                              type: FileType.custom,
+                                              allowedExtensions: [
+                                                'jpg',
+                                                'pdf',
+                                                'png',
+                                                'jpeg'
+                                              ],
+                                            );
+                                            if (_registrationController
+                                                    .pickedPanCard !=
+                                                null) {
+                                              File file = File(
+                                                  _registrationController
+                                                          .pickedPanCard
+                                                          ?.files
+                                                          .single
+                                                          .path ??
+                                                      '');
+                                              setState(() {
+                                                _registrationController
+                                                        .panCard.value =
+                                                    file.path.split('/').last;
+                                              });
+                                            } else {
+                                              // User canceled the picker
+                                            }
+                                          }),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Radio(
+                                                  value: 1,
+                                                  groupValue: _radioSelected,
+                                                  activeColor:
+                                                      ColorsConfig.colorBlue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _radioSelected =
+                                                          value as int;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              const Text('Driving Licence'),
+                                              Expanded(
+                                                child: Radio(
+                                                  value: 2,
+                                                  groupValue: _radioSelected,
+                                                  activeColor:
+                                                      ColorsConfig.colorBlue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _radioSelected =
+                                                          value as int;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              const Text('Voter ID card'),
+                                              Expanded(
+                                                child: Radio(
+                                                  value: 3,
+                                                  groupValue: _radioSelected,
+                                                  activeColor:
+                                                      ColorsConfig.colorBlue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _radioSelected =
+                                                          value as int;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              const Text('Passport'),
+                                            ],
+                                          ),
+                                          // const SizedBox(
+                                          //   height: 12,
+                                          // ),
+                                          // profileTextFieldWidget(
+                                          //   _registrationController
+                                          //       .docNoController,
+                                          //   Common.validateDocNo,
+                                          //   TextInputType.text,
+                                          //   'Enter Document No.',
+                                          // ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          Common.attachDocWidget(
+                                              _registrationController
+                                                  .optionalCard
+                                                  .value, () async {
+                                            _registrationController
+                                                    .pickedOptionalCard =
+                                                await FilePicker.platform
+                                                    .pickFiles(
+                                              type: FileType.custom,
+                                              allowedExtensions: [
+                                                'jpg',
+                                                'pdf',
+                                                'png',
+                                                'jpeg'
+                                              ],
+                                            );
+                                            if (_registrationController
+                                                    .pickedOptionalCard !=
+                                                null) {
+                                              File file = File(
+                                                  _registrationController
+                                                          .pickedOptionalCard
+                                                          ?.files
+                                                          .single
+                                                          .path ??
+                                                      '');
+                                              setState(() {
+                                                _registrationController
+                                                        .optionalCard.value =
+                                                    file.path.split('/').last;
+                                              });
+                                            } else {
+                                              // User canceled the picker
+                                            }
+                                          }),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          loginButtonWidget(
+                                            'Next',
+                                            () {
+                                              if (_registrationController
+                                                  .kycKey.currentState!
+                                                  .validate()) {
+                                                _registrationController
+                                                    .addExpertKycDetails();
+                                                forward();
+                                              }
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: Get.height,
+                                  color: ColorsConfig.colorWhite,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
                                     children: [
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       Container(
-                                        height: 50,
-                                        width: Get.width,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 25, vertical: 10),
                                         decoration: BoxDecoration(
                                           color: ColorsConfig.colorBlue,
                                           shape: BoxShape.rectangle,
@@ -933,689 +1607,177 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                             width: 1.0,
                                           ),
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            'Are you register under GST?',
-                                            style: TextStyle(
-                                              fontFamily: AppTextStyle
-                                                  .microsoftJhengHei,
-                                              fontSize: 16.0,
-                                              color: ColorsConfig.colorWhite,
-                                            ),
+                                        child: Text(
+                                          'Vendor Agreement',
+                                          style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 22.0,
+                                            color: ColorsConfig.colorWhite,
                                           ),
                                         ),
                                       ),
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      ToggleSwitch(
-                                        fontSize: 20,
-                                        minWidth: 60.0,
-                                        minHeight: 38,
-                                        cornerRadius: 25.0,
-                                        activeBgColors: const [
-                                          [ColorsConfig.colorBlue],
-                                          [ColorsConfig.colorBlue]
-                                        ],
-                                        activeFgColor: Colors.white,
-                                        inactiveBgColor:
-                                            ColorsConfig.colorLightBlue,
-                                        inactiveFgColor: Colors.black,
-                                        initialLabelIndex: 1,
-                                        totalSwitches: 2,
-                                        labels: const ['No', 'yes'],
-                                        radiusStyle: true,
-                                        onToggle: (index) {
-                                          print('switched to: $index');
-
-                                          print('showIndex to: $showIndex');
-                                          setState(() {
-                                            showIndex = index;
-                                          });
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      if (showIndex == 1)
-                                        Column(
-                                          children: [
-                                            profileTextFieldWidget(
-                                              _registrationController
-                                                  .gstNoController,
-                                              Common.validatePassword,
-                                              TextInputType.text,
-                                              'GST No',
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 12,
-                                                      vertical: 10),
-                                              decoration: BoxDecoration(
-                                                color: ColorsConfig.colorWhite,
-                                                shape: BoxShape.rectangle,
-                                                borderRadius:
-                                                    BorderRadius.circular(0),
-                                                border: Border.all(
-                                                  color: ColorsConfig.colorBlue,
-                                                  width: 1.0,
-                                                ),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      'upload Your copy of GST Registration Certificate ',
-                                                      maxLines: 2,
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 17.0,
-                                                        color: ColorsConfig
-                                                            .colorBlue,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const Icon(
-                                                    Icons.attach_file,
-                                                    size: 35,
-                                                    color:
-                                                        ColorsConfig.colorBlue,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 12,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  height: 12,
-                                                  width: 12,
-                                                  child: Theme(
-                                                    data: ThemeData(
-                                                        unselectedWidgetColor:
-                                                            ColorsConfig
-                                                                .colorBlue),
-                                                    child: Checkbox(
-                                                      focusColor: ColorsConfig
-                                                          .colorBlue,
-                                                      activeColor: ColorsConfig
-                                                          .colorBlue,
-                                                      value: selected,
-                                                      onChanged: (bool? value) {
-                                                        setState(() {
-                                                          selected = value!;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                      'I hereby solemnly affirm and declare that the information given herein above is true and correct to the best of my knowledge and belief, and nothing has been concealed therefrom. ',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 12.0,
-                                                        color: ColorsConfig
-                                                            .colorGreyy,
-                                                      )),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                      else
-                                        Column(
-                                          children: [
-                                            Container(
-                                              width: Get.width,
-                                              decoration: BoxDecoration(
-                                                color: ColorsConfig.colorWhite,
-                                                shape: BoxShape.rectangle,
-                                                borderRadius:
-                                                    BorderRadius.circular(0),
-                                                border: Border.all(
-                                                  color: ColorsConfig.colorBlue,
-                                                  width: 1.0,
-                                                ),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Text(
-                                                    'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
-                                                    style: TextStyle(
-                                                      fontFamily: AppTextStyle
-                                                          .microsoftJhengHei,
-                                                      fontSize: 15.0,
-                                                      color: ColorsConfig
-                                                          .colorGreyy,
-                                                    ),
-                                                    maxLines: 3,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 15,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  height: 12,
-                                                  width: 12,
-                                                  child: Theme(
-                                                    data: ThemeData(
-                                                        unselectedWidgetColor:
-                                                            ColorsConfig
-                                                                .colorBlue),
-                                                    child: Checkbox(
-                                                      focusColor: ColorsConfig
-                                                          .colorBlue,
-                                                      activeColor: ColorsConfig
-                                                          .colorBlue,
-                                                      value: selected,
-                                                      onChanged: (bool? value) {
-                                                        setState(() {
-                                                          selected = value!;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                      'Yes, I understand and agree with the self declaration terms.',
-                                                      style: TextStyle(
-                                                        fontFamily: AppTextStyle
-                                                            .microsoftJhengHei,
-                                                        fontSize: 12.0,
-                                                        color: ColorsConfig
-                                                            .colorGreyy,
-                                                      )),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      /* showIndex == 0 ?
                                       Container(
-                                        height: 75,
-                                        width: Get.width,
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
+                                            horizontal: 25, vertical: 15),
                                         decoration: BoxDecoration(
-                                          color: ColorsConfig.colorBlue,
+                                          color: ColorsConfig.colorWhite,
                                           shape: BoxShape.rectangle,
-                                          borderRadius: BorderRadius.circular(12),
+                                          borderRadius:
+                                              BorderRadius.circular(0),
                                           border: Border.all(
                                             color: ColorsConfig.colorBlue,
                                             width: 1.0,
                                           ),
                                         ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              'Fill the necessary details and attach\n your digital signature in below\n attached self-declaration. ',
-                                              style: TextStyle(
-                                                fontFamily: AppTextStyle
-                                                    .microsoftJhengHei,
-                                                fontSize: 16.0,
-                                                color: ColorsConfig.colorWhite,
-                                              ),
-                                              maxLines: 3,
-                                            ),
-                                            const Icon(
-                                              Icons.attach_file,
-                                              size: 35,
-                                              color: ColorsConfig.colorWhite,
-                                            ),
-                                          ],
+                                        child: Text(
+                                          'Complete your registration with Myndro by signingthis vendor agreement.(Please read the agreement carefully, provinecessary details and attach your digital signature.)',
+                                          style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 14.0,
+                                            color: ColorsConfig.colorGreyy,
+                                          ),
                                         ),
-                                      ) : Container(),
+                                      ),
                                       const SizedBox(
                                         height: 15,
-                                      ),*/
-                                      loginButtonWidget(
-                                        'Next',
-                                        () {
-                                          forward();
-                                        },
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Signature',
+                                          style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 18.0,
+                                            color: ColorsConfig.colorGreyy,
+                                          ),
+                                        ),
                                       ),
                                       const SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                color: ColorsConfig.colorWhite,
-                                child: SingleChildScrollView(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController
-                                            .aadharNoController,
-                                        Common.validatePassword,
-                                        TextInputType.text,
-                                        'Aadhar Number',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      Common.attachDocWidget(
-                                          _registrationController
-                                              .aadharCard.value, () async {
-                                        _registrationController
-                                                .pickedAadharCard =
-                                            await FilePicker.platform.pickFiles(
-                                          type: FileType.custom,
-                                          allowedExtensions: [
-                                            'jpg',
-                                            'pdf',
-                                            'png',
-                                            'jpeg'
-                                          ],
-                                        );
-                                        if (_registrationController
-                                                .pickedAadharCard !=
-                                            null) {
-                                          File file = File(
-                                              _registrationController
-                                                      .pickedAadharCard
-                                                      ?.files
-                                                      .single
-                                                      .path ??
-                                                  '');
-                                          setState(() {
-                                            _registrationController
-                                                    .aadharCard.value =
-                                                file.path.split('/').last;
-                                          });
-                                        } else {
-                                          // User canceled the picker
-                                        }
-                                      }),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController.panNoController,
-                                        Common.validatePassword,
-                                        TextInputType.text,
-                                        'Pan Card No.',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      Common.attachDocWidget(
-                                          _registrationController.panCard.value,
-                                          () async {
-                                        _registrationController.pickedPanCard =
-                                            await FilePicker.platform.pickFiles(
-                                          type: FileType.custom,
-                                          allowedExtensions: [
-                                            'jpg',
-                                            'pdf',
-                                            'png',
-                                            'jpeg'
-                                          ],
-                                        );
-                                        if (_registrationController
-                                                .pickedPanCard !=
-                                            null) {
-                                          File file = File(
-                                              _registrationController
-                                                      .pickedPanCard
-                                                      ?.files
-                                                      .single
-                                                      .path ??
-                                                  '');
-                                          setState(() {
-                                            _registrationController
-                                                    .panCard.value =
-                                                file.path.split('/').last;
-                                          });
-                                        } else {
-                                          // User canceled the picker
-                                        }
-                                      }),
-                                      const SizedBox(
-                                        height: 20,
+                                        height: 5,
                                       ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Expanded(
-                                            child: Radio(
-                                              value: 1,
-                                              groupValue: _radioSelected,
-                                              activeColor:
-                                                  ColorsConfig.colorBlue,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _radioSelected = value as int;
-                                                });
-                                              },
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                              border: Border.all(
+                                                  color:
+                                                      ColorsConfig.colorGreyy,
+                                                  width: 1.0),
+                                              borderRadius: const BorderRadius
+                                                      .all(
+                                                  Radius.circular(
+                                                      25.0)), // Set rounded corner radius
+                                            ),
+                                            padding: const EdgeInsets.all(10),
+                                            child: Row(
+                                              children: const [
+                                                Text(
+                                                  'Upload Signature',
+                                                  style: TextStyle(
+                                                      color: ColorsConfig
+                                                          .colorGreyy,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Icon(
+                                                  Icons.attach_file,
+                                                  color:
+                                                      ColorsConfig.colorGreyy,
+                                                  size: 25,
+                                                )
+                                              ],
                                             ),
                                           ),
-                                          const Text('Driving Licence'),
-                                          Expanded(
-                                            child: Radio(
-                                              value: 2,
-                                              groupValue: _radioSelected,
-                                              activeColor:
-                                                  ColorsConfig.colorBlue,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _radioSelected = value as int;
-                                                });
-                                              },
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                              border: Border.all(
+                                                  color:
+                                                      ColorsConfig.colorGreyy,
+                                                  width: 1.0),
+                                              borderRadius: const BorderRadius
+                                                      .all(
+                                                  Radius.circular(
+                                                      25.0)), // Set rounded corner radius
+                                            ),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 14),
+                                            child: Row(
+                                              children: const [
+                                                Text(
+                                                  'Download Agreement',
+                                                  style: TextStyle(
+                                                      color: ColorsConfig
+                                                          .colorGreyy,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          const Text('Voter ID card'),
-                                          Expanded(
-                                            child: Radio(
-                                              value: 3,
-                                              groupValue: _radioSelected,
-                                              activeColor:
-                                                  ColorsConfig.colorBlue,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _radioSelected = value as int;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          const Text('Passport'),
                                         ],
                                       ),
                                       const SizedBox(
-                                        height: 12,
-                                      ),
-                                      profileTextFieldWidget(
-                                        _registrationController.docNoController,
-                                        Common.validatePassword,
-                                        TextInputType.text,
-                                        'Enter Document No.',
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      Common.attachDocWidget(
-                                          _registrationController
-                                              .optionalCard.value, () async {
-                                        _registrationController
-                                                .pickedOptionalCard =
-                                            await FilePicker.platform.pickFiles(
-                                          type: FileType.custom,
-                                          allowedExtensions: [
-                                            'jpg',
-                                            'pdf',
-                                            'png',
-                                            'jpeg'
-                                          ],
-                                        );
-                                        if (_registrationController
-                                                .pickedOptionalCard !=
-                                            null) {
-                                          File file = File(
-                                              _registrationController
-                                                      .pickedOptionalCard
-                                                      ?.files
-                                                      .single
-                                                      .path ??
-                                                  '');
-                                          setState(() {
-                                            _registrationController
-                                                    .optionalCard.value =
-                                                file.path.split('/').last;
-                                          });
-                                        } else {
-                                          // User canceled the picker
-                                        }
-                                      }),
-                                      const SizedBox(
                                         height: 20,
                                       ),
-                                      loginButtonWidget(
-                                        'Next',
-                                        () {
-                                          forward();
-                                        },
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 25),
+                                        child: loginButtonWidget(
+                                          'Submit',
+                                          () {
+                                            _registrationController
+                                                .addExpertdegreeDetails();
+                                            _registrationController
+                                                .addExpertGstDetails();
+                                            _registrationController
+                                                .addExpertbankDetails();
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (_) => AnimatedDialog(
+                                                outputText: 'Congratulations',
+                                                subText:
+                                                    'Your Profile is Successfully Completed.',
+                                                titleSubtext:
+                                                    'Please Wait For Admin Approval.',
+                                                onClose: () {
+                                                  Get.offAllNamed(
+                                                      LoginScreen.pageId);
+                                                },
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                     ],
                                   ),
-                                ),
-                              ),
-                              Container(
-                                height: Get.height,
-                                color: ColorsConfig.colorWhite,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 25, vertical: 10),
-                                      decoration: BoxDecoration(
-                                        color: ColorsConfig.colorBlue,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(0),
-                                        border: Border.all(
-                                          color: ColorsConfig.colorBlue,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Vendor Agreement',
-                                        style: TextStyle(
-                                          fontFamily:
-                                              AppTextStyle.microsoftJhengHei,
-                                          fontSize: 22.0,
-                                          color: ColorsConfig.colorWhite,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 25, vertical: 15),
-                                      decoration: BoxDecoration(
-                                        color: ColorsConfig.colorWhite,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(0),
-                                        border: Border.all(
-                                          color: ColorsConfig.colorBlue,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Complete your registration with Myndro by signingthis vendor agreement.(Please read the agreement carefully, provinecessary details and attach your digital signature.)',
-                                        style: TextStyle(
-                                          fontFamily:
-                                              AppTextStyle.microsoftJhengHei,
-                                          fontSize: 14.0,
-                                          color: ColorsConfig.colorGreyy,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        'Signature',
-                                        style: TextStyle(
-                                          fontFamily:
-                                              AppTextStyle.microsoftJhengHei,
-                                          fontSize: 18.0,
-                                          color: ColorsConfig.colorGreyy,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            border: Border.all(
-                                                color: ColorsConfig.colorGreyy,
-                                                width: 1.0),
-                                            borderRadius: const BorderRadius
-                                                    .all(
-                                                Radius.circular(
-                                                    25.0)), // Set rounded corner radius
-                                          ),
-                                          padding: const EdgeInsets.all(10),
-                                          child: Row(
-                                            children: const [
-                                              Text(
-                                                'Upload Signature',
-                                                style: TextStyle(
-                                                    color:
-                                                        ColorsConfig.colorGreyy,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Icon(
-                                                Icons.attach_file,
-                                                color: ColorsConfig.colorGreyy,
-                                                size: 25,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            border: Border.all(
-                                                color: ColorsConfig.colorGreyy,
-                                                width: 1.0),
-                                            borderRadius: const BorderRadius
-                                                    .all(
-                                                Radius.circular(
-                                                    25.0)), // Set rounded corner radius
-                                          ),
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 14),
-                                          child: Row(
-                                            children: const [
-                                              Text(
-                                                'Download Agreement',
-                                                style: TextStyle(
-                                                    color:
-                                                        ColorsConfig.colorGreyy,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 25),
-                                      child: InkWell(
-                                        onTap: () {
-                                          // Get.toNamed(CongAdminApproval.pageId);
-                                          showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (_) => AnimatedDialog(
-                                              outputText: 'Congratulations',
-                                              subText:
-                                                  'Your Profile is Successfully Completed.',
-                                              titleSubtext:
-                                                  'Please Wait For Admin Approval.',
-                                              onClose: () {
-                                                Get.toNamed(ExpertHome.pageId);
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        child: loginButtonWidget(
-                                          'Submit',
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                // Positioned(
-                //     bottom: 0,
-                //     child: Image.asset(
-                //       ImagePath.designBottom1,
-                //       width: Get.width * 0.95,
-                //       height: Get.height * 0.18,
-                //       fit: BoxFit.fill,
-                //     ))
+                )
               ],
             ),
           ),

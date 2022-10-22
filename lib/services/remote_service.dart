@@ -17,6 +17,16 @@ class RemoteServices {
     debugPrint('Response body: ${response.body}');
   }
 
+  // print response of api result
+  static void printMultipartResponse(Map<String, String> header, dynamic body,
+      http.StreamedResponse response) {
+    debugPrint('Header: $header');
+    debugPrint('Body : $body');
+    debugPrint('URL: ${response.stream}');
+    debugPrint('Response status: ${response.statusCode}');
+    debugPrint('Response body: ${response.stream.bytesToString()}');
+  }
+
   //get country list
   static Future<http.Response> getCountryList() async {
     Map<String, String> header = {
@@ -315,48 +325,17 @@ class RemoteServices {
     return response;
   }
 
-  //add expert profile data
-  static Future<http.Response> addExpertProfileData(
-      String firstName,
-      String lastName,
-      String expertEmail,
-      String dob,
-      String addLine1,
-      String countryCode,
-      String expertContact,
-      int stateId,
-      int cityId,
-      int drCategoryId,
-      int drSubCategoryId,
-      String zipCode,
-      String gender) async {
+  //get expert Sub category list
+  static Future<http.Response> getExpertSubCategoryList(
+      String categoryId) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
-
     String postBody = json.encode({
-      "user_id": 18,
-      "doctor_category_id": drCategoryId,
-      "expert_first_name": firstName,
-      "expert_last_name": lastName,
-      "profession": 25,
-      "expert_email": expertEmail,
-      "doctor_contact_no": expertContact,
-      "expert_gender": gender,
-      "expert_date": dob,
-      "expert_address_line_1": addLine1,
-      "expert_zip_code": zipCode,
-      "expert_country_id": countryCode,
-      "expert_state_id": stateId,
-      "expert_city_id": cityId,
-      "aadhar_card": 25,
-      "pan_card": 25,
-      "id_card": 25,
-      "doctor_subcategory_id": drSubCategoryId
+      "category_id": categoryId,
     });
 
     http.Response response = await http.post(
-      Uri.parse(Apis.baseUrl + Apis.expertSignupFinalCode),
+      Uri.parse(Apis.baseUrl + Apis.expertSignupSubCategory),
       headers: header,
-      body: postBody,
     );
     printResponse(header, postBody, response);
 

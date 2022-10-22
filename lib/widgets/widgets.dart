@@ -13,6 +13,7 @@ export 'expert_detail_container.dart';
 export 'expert_layout.dart';
 export 'expert_notes_widget.dart';
 export 'expert_profile_card.dart';
+export 'file_formfield_widget.dart';
 export 'layout_widget.dart';
 export 'login_button_widget.dart';
 export 'login_text_field_widget.dart';

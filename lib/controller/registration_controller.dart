@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 import '../model/model.dart';
@@ -16,7 +16,12 @@ import 'base_controller.dart';
 class RegistrationController extends BaseController {
   @override
   void errorHandler(e) {}
-
+  dynamic fromEdit;
+  final formKey = GlobalKey<FormState>();
+  final degreeKey = GlobalKey<FormState>();
+  final bankKey = GlobalKey<FormState>();
+  final gstKey = GlobalKey<FormState>();
+  final kycKey = GlobalKey<FormState>();
   List<String> genderList = ['Male', 'Female'];
   RxBool addVisibility = false.obs;
   final String password = "";
@@ -34,9 +39,11 @@ class RegistrationController extends BaseController {
   final TextEditingController contactController = TextEditingController();
   final TextEditingController degreeNameController = TextEditingController();
   final TextEditingController degreeYearController = TextEditingController();
+  final TextEditingController professionController = TextEditingController();
   final TextEditingController practiceCertiNoController =
       TextEditingController();
   final TextEditingController holderNameController = TextEditingController();
+  final TextEditingController bankNameController = TextEditingController();
   final TextEditingController accNumberController = TextEditingController();
   final TextEditingController ifscCodeController = TextEditingController();
   final TextEditingController branchAddController = TextEditingController();
@@ -47,13 +54,21 @@ class RegistrationController extends BaseController {
   final TextEditingController aadharNoController = TextEditingController();
   final TextEditingController panNoController = TextEditingController();
   final TextEditingController docNoController = TextEditingController();
+
   var countryListData = <CountryData>[].obs;
   var stateListData = <StateData>[].obs;
   var cityListData = <CityData>[].obs;
+  var bankCountryList = <CountryData>[].obs;
+  var bankStateList = <StateData>[].obs;
+  var bankCityList = <CityData>[].obs;
   CountryData? countryDropdown;
+  CountryData? bankCountry;
   StateData? stateDropdown;
+  StateData? bankState;
   CityData? cityDropdown;
+  CityData? bankCity;
   String? genderDropdownValue;
+  String? accTypeDropdowwn;
   String? dropdownValue;
   var fromOtpScreen = Get.arguments;
   RxBool passwordVisible = true.obs;
@@ -72,6 +87,9 @@ class RegistrationController extends BaseController {
   var panCard = 'Pan Card'.obs;
   FilePickerResult? pickedOptionalCard;
   var optionalCard = 'Driving/ Voter Id / Passport'.obs;
+  FilePickerResult? pickedgst;
+  var gstCerti = 'upload Your copy of GST Registration Certificate '.obs;
+
   @override
   void onInit() {
     fromOtpScreen = Get.arguments;
@@ -198,6 +216,7 @@ class RegistrationController extends BaseController {
       if (response.statusCode == 200) {
         for (dynamic i in data) {
           countryListData.add(CountryData.fromJson(i));
+          bankCountryList.add(CountryData.fromJson(i));
         }
       } else {
         Common.displayMessage(jsonData["messages"] as String);
@@ -213,9 +232,12 @@ class RegistrationController extends BaseController {
       var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
         stateListData.clear();
+        bankStateList.clear();
         cityListData.clear();
+        bankCityList.clear();
         for (dynamic i in data) {
           stateListData.add(StateData.fromJson(i));
+          bankStateList.add(StateData.fromJson(i));
         }
       } else {
         Common.displayMessage(jsonData["messages"] as String);
@@ -232,8 +254,10 @@ class RegistrationController extends BaseController {
       var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
         cityListData.clear();
+        bankCityList.clear();
         for (dynamic i in data) {
           cityListData.add(CityData.fromJson(i));
+          bankCityList.add(CityData.fromJson(i));
         }
       } else {
         Common.displayMessage(jsonData["messages"] as String);
@@ -241,28 +265,165 @@ class RegistrationController extends BaseController {
     }
   }
 
-  //add patient details
+  //add expert details
   void addExpertProfile() async {
     bool status = await Common.checkInternetConnection();
     if (status) {
-      var response = await RemoteServices.addExpertProfileData(
-          firstNameController.text.trim(),
-          lastNameController.text.trim(),
-          emailController.text.trim(),
-          formattedDob.value,
-          '  ${addLine1Controller.text.trim()} + ${addLine1Controller.text.trim()}',
-          countryDropdown?.countryId ?? '',
-          contactController.text.trim(),
-          int.parse(stateDropdown?.stateId ?? ''),
-          int.parse(cityDropdown?.cityId ?? ''),
-          25,
-          25,
-          zipCodeController.text.trim(),
-          genderDropdownValue ?? '');
-      var jsonData = json.decode(response.body);
-      if (response.statusCode == 200 && response.body[1] != 'error') {
-        print('profile data addded');
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.expertSignupProfile));
+      request.fields.addAll({
+        'expert_password': passController.text.trim(),
+        'conf_password': confirmPassController.text.trim(),
+        'doctor_category_id': fromEdit['category_id'],
+        'expert_first_name': firstNameController.text.trim(),
+        'expert_last_name': lastNameController.text.trim(),
+        'expert_email': emailController.text.trim(),
+        'phone_no': contactController.text.trim(),
+        'expert_gender': genderDropdownValue ?? '',
+        'expert_date': formattedDob.value,
+        'expert_address':
+            '  ${addLine1Controller.text.trim()} + ${addLine2Controller.text.trim()} + ${addLine3Controller.text.trim()}',
+        'expert_zip_code': zipCodeController.text.trim(),
+        'expert_country_id': countryDropdown?.countryId.toString() ?? '',
+        'expert_state_id': stateDropdown?.stateId ?? '',
+        'expert_city_id': cityDropdown?.cityId ?? '',
+        'doctor_subcategory_id': '3'
+      });
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var profileDataResponse = jsonDecode(respStr);
+      Common.storePrefData(
+          Common.strExpertProfileData, json.encode(profileDataResponse));
+      if (response.statusCode == 200) {
+        print('jsonData $profileDataResponse');
       } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(profileDataResponse["msg"] as String);
+      }
+    }
+  }
+
+  //add expert degree details
+  void addExpertdegreeDetails() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strExpertProfileData);
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.expertSignupDegreeCode));
+      request.fields.addAll({
+        'user_id':
+            (res.isNotEmpty ? jsonDecode(res)['User_id'] : '').toString(),
+        'profession': professionController.text.trim(),
+        'degree_name': degreeNameController.text.trim(),
+        'degree_year': degreeYearController.text.trim()
+      });
+      request.files.add(await http.MultipartFile.fromPath(
+          'degree-certificate', pickeddegree?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'practice-certificate',
+          pickedPracticeCerti?.files.single.path ?? ''));
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200) {
+        print('degree details added');
+        print('jsonData $jsonData');
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+  //add expert bank details
+  void addExpertbankDetails() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strExpertProfileData);
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.expertSignupBankCode));
+      request.fields.addAll({
+        'user_id':
+            (res.isNotEmpty ? jsonDecode(res)['User_id'] : '').toString(),
+        'bank_name': bankNameController.text.trim(),
+        'account_type': accTypeDropdowwn ?? '',
+        'account_holder_name': holderNameController.text.trim(),
+        'account_number': accNumberController.text.trim(),
+        'ifsc_code': ifscCodeController.text.trim(),
+        'country': countryDropdown?.countryId.toString() ?? '',
+        'state_id': stateDropdown?.stateId ?? '',
+        'city_id': cityDropdown?.cityId ?? '',
+        'zip_code': branchZipController.text.trim()
+      });
+      request.files.add(await http.MultipartFile.fromPath(
+          'cancel_cheque', pickedCheque?.files.single.path ?? ''));
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200) {
+        print('bank details added');
+        print('jsonData $jsonData');
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+  //add expert GST details
+  void addExpertGstDetails() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strExpertProfileData);
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.expertSignupGstCode));
+      request.fields.addAll({
+        'user_id': (res.isNotEmpty ? jsonDecode(res)['User_id'] : '').toString()
+      });
+      request.files.add(await http.MultipartFile.fromPath(
+          'gst_registration', pickedgst?.files.single.path ?? ''));
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200) {
+        print('gst details added');
+        print('jsonData $jsonData');
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+  //add expert KYC details
+  void addExpertKycDetails() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strExpertProfileData);
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.expertSignupKyc));
+      request.fields.addAll({
+        'user_id':
+            (res.isNotEmpty ? jsonDecode(res)['User_id'] : '').toString(),
+      });
+      request.files.add(await http.MultipartFile.fromPath(
+          'aadhar_card', pickedAadharCard?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'pan_card', pickedPanCard?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'id_card', pickedOptionalCard?.files.single.path ?? ''));
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200) {
+        print('kyc details added');
+        print('jsonData $jsonData');
+      } else {
+        print(response.reasonPhrase);
         Common.displayMessage(jsonData["msg"] as String);
       }
     }

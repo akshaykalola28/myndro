@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +10,7 @@ class Common {
   static const String strIsLogin = 'is_login';
   static const String strLoginRes = 'login_response';
   static const String strOtpRes = 'otp_response';
+  static const String strExpertProfileData = 'expert_profile_data';
   static const String strFirstTime = 'if_first_time';
 
   // store boolean preference data
@@ -89,6 +88,86 @@ class Common {
   static String? validateZipcode(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Zipcode';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateDegreeName(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Degree Name';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateProfession(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Profession';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateDegreeYear(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Degree Year';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateBankName(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Bank Name';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateAccHolderName(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Account Holder Name';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateAccNumberName(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Account Number';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateIfsc(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter IFSC Code';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateAadhar(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Aadhar Number';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validatePan(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Pan Card No.';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateDocNo(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Document No.';
     } else {
       return null;
     }
