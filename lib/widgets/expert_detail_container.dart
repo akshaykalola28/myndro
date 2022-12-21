@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 
 import '../constant/constant.dart';
 import '../util/common.dart';
 
 class ExpertDetailContainer extends StatelessWidget {
-  const ExpertDetailContainer({Key? key}) : super(key: key);
+  const ExpertDetailContainer(
+      {Key? key, this.doctorName, this.doctorProfession})
+      : super(key: key);
+  final String? doctorName;
+  final String? doctorProfession;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,7 @@ class ExpertDetailContainer extends StatelessWidget {
                         height: 5,
                       ),
                       Text(
-                        'nnnnnnn',
+                        doctorName ?? '',
                         style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
                           fontSize: 18.0,
@@ -59,7 +62,7 @@ class ExpertDetailContainer extends StatelessWidget {
                         height: 5,
                       ),
                       Text(
-                        'dcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskfdcdcdcdcdsfrrmdkfjdkfndksfndsknfkdsnfksdnfkdsnfksnfksnfskfnskf',
+                        doctorProfession ?? '',
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -92,13 +95,13 @@ class ExpertDetailContainer extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           color: ColorsConfig.colorGreyy,
                         ),
-                        maxLines: 2,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      Row(
+                      /*  Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           LikeButton(
@@ -141,7 +144,7 @@ class ExpertDetailContainer extends StatelessWidget {
                             },
                           ),
                         ],
-                      ),
+                      ), */
                       const SizedBox(
                         height: 10,
                       ),
@@ -150,10 +153,10 @@ class ExpertDetailContainer extends StatelessWidget {
                 )
               ],
             ),
-            const SizedBox(
+            /*   const SizedBox(
               height: 10,
-            ),
-            Padding(
+            ), */
+            /*   Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 children: [
@@ -165,7 +168,7 @@ class ExpertDetailContainer extends StatelessWidget {
                           Icons.phone_in_talk_rounded, 'Audio call'))
                 ],
               ),
-            ),
+            ), */
           ],
         ),
       ),

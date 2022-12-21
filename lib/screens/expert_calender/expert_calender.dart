@@ -151,23 +151,27 @@ class ExpertCalender extends GetView<ExpertCalenderController> {
                   height: 18,
                 ),
                 Center(
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
-                    decoration: BoxDecoration(
-                        color: ColorsConfig.colorBlue,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => controller.createDrSlots(),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 22, vertical: 8),
+                      decoration: BoxDecoration(
                           color: ColorsConfig.colorBlue,
-                        )),
-                    child: Text(
-                      'Allot',
-                      style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 20.0,
-                          color: ColorsConfig.colorWhite,
-                          fontWeight: FontWeight.bold),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          border: Border.all(
+                            color: ColorsConfig.colorBlue,
+                          )),
+                      child: Text(
+                        'Allot',
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 20.0,
+                            color: ColorsConfig.colorWhite,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),

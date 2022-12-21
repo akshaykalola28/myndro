@@ -23,3 +23,4 @@ export 'profile_text_field.dart';
 export 'social_button_widget.dart';
 export 'text_input_widget.dart';
 export 'user_appbar.dart';
+export 'myndro_loader.dart';

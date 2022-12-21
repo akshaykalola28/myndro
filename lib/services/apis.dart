@@ -1,6 +1,6 @@
 mixin Apis {
-  // static String baseUrl = 'https://vvexim.com/api/';
-  static String baseUrl = 'https://myndro.com/api/';
+  static String baseUrl = 'https://vvexim.com/api/';
+  // static String baseUrl = 'https://myndro.com/api/';
 
   // static String baseUrl = 'http://mynd.thepackaginghouse.in/api/';
   static String baseUrl1 = 'https://scrapbazar.in/mynd.manzanotech.com/api/';
@@ -25,6 +25,15 @@ mixin Apis {
   static const String expertSignupDegreeCode = 'signup_expert_degree_code';
   static const String expertSignupBankCode = 'signup_expert_bank_code';
   static const String expertSignupGstCode = 'signup_expert_gst_code';
-
   static const String expertSignupKyc = 'signup_expert_kyc_code';
+
+  static const String addMoneyInWallet = 'addMoneyInWallet';
+  static const String allDrList = 'all_doctors_list';
+  static const String searchKeyword = 'search_keywords_list';
+  static const String walletTransactions = 'walletTransationListAndAmount';
+  static const String drSlotsList = 'doctor_slot_list';
+  static const String saveDrSlots = 'save_doctor_slots_data';
+  static const String createAppointment = 'create_appointment';
+
+  static const String expertAppointmentList = 'expert_appointment_list';
 }

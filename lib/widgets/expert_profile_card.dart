@@ -4,11 +4,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constant/constant.dart';
 
 class ExpertProfileCard extends StatelessWidget {
-  const ExpertProfileCard({Key? key, this.text, this.subText, this.exp})
+  const ExpertProfileCard(
+      {Key? key, this.text, this.subText, this.exp, this.onAppointment})
       : super(key: key);
   final String? text;
   final String? subText;
   final int? exp;
+  final VoidCallback? onAppointment;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class ExpertProfileCard extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(50))),
                   ),
-                  const SizedBox(
+                  /*  const SizedBox(
                     height: 5,
                   ),
                   RatingBar.builder(
@@ -63,7 +65,7 @@ class ExpertProfileCard extends StatelessWidget {
                     onRatingUpdate: (rating) {
                       print(rating);
                     },
-                  )
+                  ) */
                 ],
               ),
               const SizedBox(
@@ -87,6 +89,8 @@ class ExpertProfileCard extends StatelessWidget {
                     ),
                     Text(
                       subText!,
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontFamily: AppTextStyle.microsoftJhengHei,
                         fontSize: 15.0,
@@ -97,7 +101,7 @@ class ExpertProfileCard extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text(
+                    /*   Text(
                       subText!,
                       style: TextStyle(
                         fontFamily: AppTextStyle.microsoftJhengHei,
@@ -108,7 +112,7 @@ class ExpertProfileCard extends StatelessWidget {
                     ),
                     const SizedBox(
                       width: 10,
-                    ),
+                    ), */
                     Text(
                       'Exp: $exp',
                       style: TextStyle(
@@ -128,11 +132,15 @@ class ExpertProfileCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Expanded(child: textContainer('Appointment')),
+              Expanded(child: textContainer('Appointment', onAppointment!)),
               const SizedBox(
                 width: 15,
               ),
-              Expanded(child: textContainer('Instant Connect')),
+              Expanded(
+                  child: textContainer(
+                'Instant Connect',
+                () {},
+              )),
             ],
           )
         ],
@@ -141,29 +149,33 @@ class ExpertProfileCard extends StatelessWidget {
   }
 }
 
-Widget textContainer(String text) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-    decoration: BoxDecoration(
-      color: Colors.transparent,
-      borderRadius: const BorderRadius.all(
-        Radius.circular(30.0),
+Widget textContainer(String text, VoidCallback onTap) {
+  return GestureDetector(
+    behavior: HitTestBehavior.opaque,
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(30.0),
+        ),
+        border: Border.all(
+          color: ColorsConfig.colorBlue,
+          style: BorderStyle.solid,
+          width: 1.0,
+        ),
       ),
-      border: Border.all(
-        color: ColorsConfig.colorBlue,
-        style: BorderStyle.solid,
-        width: 1.0,
-      ),
+      child: Center(
+          child: Text(
+        text,
+        style: TextStyle(
+          fontFamily: AppTextStyle.microsoftJhengHei,
+          fontSize: 15.0,
+          fontWeight: FontWeight.w500,
+          color: ColorsConfig.colorBlue,
+        ),
+      )),
     ),
-    child: Center(
-        child: Text(
-      text,
-      style: TextStyle(
-        fontFamily: AppTextStyle.microsoftJhengHei,
-        fontSize: 15.0,
-        fontWeight: FontWeight.w500,
-        color: ColorsConfig.colorBlue,
-      ),
-    )),
   );
 }

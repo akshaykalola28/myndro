@@ -126,7 +126,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 onTap: () {
                   Get.back();
-                  Get.toNamed(ExpertDetailScreen.pageId);
+                  Get.toNamed(UpcomingAppointments.pageId);
                 },
               ),
               ListTile(
@@ -279,6 +279,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 onTap: () {
                   Common.clearPrefData();
                   Get.offAllNamed(LoginScreen.pageId);
+                  // controller.dispose();
                 },
               ),
             ],
@@ -315,7 +316,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             HomeScreen(onDrawerClick: () {
               _scaffoldKey.currentState!.openDrawer();
             }),
-            const ExpertDetailScreen(),
+            // const ExpertDetailScreen(),
+            SearchScreen(
+              allTextList: controller.allDoctors,
+              selectedUserList: controller.selectedUserList,
+            ),
             OffersScreen(),
           ],
         ),

@@ -288,22 +288,29 @@ class RemoteServices {
 
   //create appointment
   static Future<http.Response> createAppointment(
-      int patientId, String email, String audioVideo, String doc) async {
-    Map<String, String> header = {'Content-Type': 'text/plain'};
+      int patientId,
+      String email,
+      String audioVideo,
+      String appoDate,
+      String appoTime,
+      String docCat,
+      String docSubCat,
+      String doctorId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
 
     String postBody = json.encode({
       "patient_id": patientId,
-      "patient_email": "amit@gmail.com",
-      "audio_video": "Audio",
-      "doctor_category_id": "2",
-      "doctor_subcategory_id": "3",
-      "doctor_id": "18",
-      "date": "25-09-2022",
-      "appt_time": "10:00 PM"
+      "patient_email": email,
+      "audio_video": audioVideo,
+      "doctor_category_id": docCat,
+      "doctor_subcategory_id": docSubCat,
+      "doctor_id": doctorId,
+      "date": appoDate,
+      "appt_time": appoTime
     });
 
     http.Response response = await http.post(
-      Uri.parse(Apis.baseUrl + Apis.postMndroLocker),
+      Uri.parse(Apis.baseUrl + Apis.createAppointment),
       headers: header,
       body: postBody,
     );
@@ -336,6 +343,122 @@ class RemoteServices {
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.expertSignupSubCategory),
       headers: header,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get search keywords list
+  static Future<http.Response> getSearchKeywordsList() async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.searchKeyword),
+      headers: header,
+    );
+    printResponse(header, '', response);
+
+    return response;
+  }
+
+  //get all Doctors list
+  static Future<http.Response> getAllDrList() async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.allDrList),
+      headers: header,
+    );
+    printResponse(header, '', response);
+
+    return response;
+  }
+
+  //get wallet data
+  static Future<http.Response> getWalletData(String patientId) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.walletTransactions),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get wallet data
+  static Future<http.Response> addMoneyToWallet(String patientId, String amount,
+      String paymentId, String paymentJson) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "amount": amount,
+      "paymentID": paymentId,
+      "PaymentJson": paymentJson
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.addMoneyInWallet),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get dr slot list
+  static Future<http.Response> getDrSlots(int doctorId) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+    String postBody = json.encode({"doctor_id": doctorId, "fromDate": null});
+
+    http.Response response = await http.post(
+        Uri.parse(Apis.baseUrl + Apis.drSlotsList),
+        headers: header,
+        body: postBody);
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //create doctor slots
+  static Future<http.Response> saveDrSlots(int doctorId, String fromDate,
+      String toDate, String fromTime, String toTime) async {
+    Map<String, String> header = {'Content-Type': 'text/plain'};
+    String postBody = json.encode({
+      "doctor_id": doctorId,
+      "fromDate": fromDate,
+      "toDate": toDate,
+      "FromTime": fromTime,
+      "toTime": toTime
+    });
+
+    http.Response response = await http.post(
+        Uri.parse(Apis.baseUrl + Apis.saveDrSlots),
+        headers: header,
+        body: postBody);
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get expert appointment list
+  static Future<http.Response> getExpertAppointmentList(String doctorId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "doctor_id": doctorId,
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.expertAppointmentList),
+      headers: header,
+      body: postBody,
     );
     printResponse(header, postBody, response);
 

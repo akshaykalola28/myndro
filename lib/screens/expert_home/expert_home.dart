@@ -4,6 +4,7 @@ import 'package:myndro/screens/screens.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../util/common.dart';
 import '../../widgets/widgets.dart';
 
 class ExpertHome extends StatefulWidget {
@@ -236,7 +237,8 @@ class _ExpertHomeState extends State<ExpertHome>
                     color: ColorsConfig.colorWhite),
               ),
               onTap: () {
-                Get.back();
+                Common.clearPrefData();
+                Get.offAllNamed(LoginScreen.pageId);
               },
             ),
           ],

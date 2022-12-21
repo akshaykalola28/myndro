@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/constant.dart';
@@ -191,6 +192,10 @@ class Common {
       return 'Password must be a 6 character';
     }
     return null;
+  }
+
+  static formatWalletDate(String? date) {
+    return DateFormat('dd MMM yyyy HH:mm').format(DateTime.parse(date ?? ''));
   }
 
   static Future<bool> checkInternetConnection() async {

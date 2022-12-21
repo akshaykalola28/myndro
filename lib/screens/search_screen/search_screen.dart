@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constant/constant.dart';
+import '../../controller/controller.dart';
+import '../../model/model.dart';
 import '../../widgets/widgets.dart';
 import '../screens.dart';
 
@@ -11,8 +13,8 @@ class SearchScreen extends StatefulWidget {
 
   SearchScreen({Key? key, this.allTextList, this.selectedUserList})
       : super(key: key);
-  final List<User>? allTextList;
-  List<User>? selectedUserList;
+  final List<DoctorcategoryList>? allTextList;
+  List<DoctorcategoryList>? selectedUserList;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -32,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
               children: [
                 SizedBox(
                   height: Get.height * 0.5,
-                  child: FilterListWidget<User>(
+                  child: FilterListWidget<DoctorcategoryList>(
                     themeData: FilterListThemeData(context),
                     choiceChipBuilder: (context, item, isSelected) {
                       return Container(
@@ -47,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               : ColorsConfig.colorGreyy,
                         ),
                         child: Text(
-                          item.name,
+                          item.doctorName,
                           style: TextStyle(
                             color: isSelected
                                 ? ColorsConfig.colorWhite
@@ -60,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       );
                     },
                     hideSelectedTextCount: true,
-                    listData: userList,
+                    listData: widget.allTextList?.take(10).toList(),
                     selectedListData: widget.selectedUserList,
                     onApplyButtonClick: (list) {
                       // Navigator.pop(context, list);
@@ -69,13 +71,13 @@ class _SearchScreenState extends State<SearchScreen> {
                       });
                     },
                     choiceChipLabel: (item) {
-                      return item!.name;
+                      return item!.doctorName;
                     },
                     validateSelectedItem: (list, val) {
                       return list!.contains(val);
                     },
                     onItemSearch: (user, query) {
-                      return user.name!
+                      return user.doctorName!
                           .toLowerCase()
                           .contains(query.toLowerCase());
                     },
@@ -87,6 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Text('No data found'),
                   )
                 else
+                  //TODO check this...
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 25),
                     child: ListView.builder(
@@ -94,8 +97,30 @@ class _SearchScreenState extends State<SearchScreen> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return ExpertProfileCard(
-                          text: widget.selectedUserList![index].name!,
-                          subText: 'pyshcologist',
+                          onAppointment:
+                              () => /* Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ExpertDetailScreen(
+                                doctorDetail:
+                                    widget.selectedUserList!.isNotEmpty
+                                        ? widget.selectedUserList![index]
+                                        : null,
+                              ),
+                            ),
+                          ), */
+                                  Get.toNamed(ExpertDetailScreen.pageId,
+                                      arguments: {
+                                'doctorDetail':
+                                    widget.selectedUserList!.isNotEmpty
+                                        ? widget.selectedUserList![index]
+                                        : null,
+                              }),
+                          text:
+                              widget.selectedUserList![index].doctorName ?? '',
+                          subText: widget
+                                  .selectedUserList![index].doctorProfession ??
+                              '',
                           exp: 10,
                         );
                       },
