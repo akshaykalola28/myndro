@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/screens.dart';
@@ -28,6 +30,8 @@ class _ExpertHomeState extends State<ExpertHome>
   ];
   TabController? tabController;
 
+  var _username = '';
+
   @override
   void dispose() {
     tabController!.dispose();
@@ -36,6 +40,7 @@ class _ExpertHomeState extends State<ExpertHome>
 
   @override
   void initState() {
+    getLoginData();
     tabController = TabController(length: myTabs.length, vsync: this);
     tabController!.addListener(handleTabSelection);
     super.initState();
@@ -45,6 +50,15 @@ class _ExpertHomeState extends State<ExpertHome>
     if (tabController!.indexIsChanging) {
       setState(() {});
     }
+  }
+
+  getLoginData() async {
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    setState(() {
+      _username =
+          res.isNotEmpty ? jsonDecode(res)['data']['doctor_name'] ?? '' : '';
+    });
+    print(_username);
   }
 
   @override
@@ -76,7 +90,7 @@ class _ExpertHomeState extends State<ExpertHome>
                     ),
                     Expanded(
                       child: Text(
-                        'Ms. Anil Patel',
+                        _username,
                         maxLines: 2,
                         style: TextStyle(
                             fontFamily: AppTextStyle.microsoftJhengHei,
@@ -200,7 +214,7 @@ class _ExpertHomeState extends State<ExpertHome>
               ),
               onTap: () {
                 Get.back();
-                Get.toNamed(ExpertMessages.pageId);
+                Get.toNamed(ExpertAppointmentList.pageId);
               },
             ),
             ListTile(

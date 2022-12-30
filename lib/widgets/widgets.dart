@@ -24,3 +24,4 @@ export 'social_button_widget.dart';
 export 'text_input_widget.dart';
 export 'user_appbar.dart';
 export 'myndro_loader.dart';
+export 'appointment_list_widget.dart';

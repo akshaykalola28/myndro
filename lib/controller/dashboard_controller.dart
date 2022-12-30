@@ -87,6 +87,7 @@ class DashboardController extends BaseController {
       var jsonData = json.decode(response.body);
       var data = jsonData["Slots"]['wallet'];
       if (response.statusCode == 200) {
+        transactionList.clear();
         for (dynamic i in data) {
           transactionList.add(Wallet.fromJson(i));
         }

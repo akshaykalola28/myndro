@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 
+import '../model/model.dart';
 import 'widgets.dart';
 
 class ChatListWidget extends StatelessWidget {
-  final ScrollController listScrollController = ScrollController();
+  const ChatListWidget({
+    Key? key,
+    required this.messages,
+    required this.loadingValue,
+    required this.scrollControl,
+  }) : super(key: key);
 
-  ChatListWidget({Key? key}) : super(key: key);
+  final List<GetExpertMsg> messages;
+  final bool loadingValue;
+  final ScrollController scrollControl;
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-        child: ListView.builder(
-      padding: const EdgeInsets.all(10.0),
-      itemBuilder: (context, index) => ChatItemWidget(index),
-      itemCount: 20,
-      reverse: true,
-      controller: listScrollController,
-    ));
+    return Expanded(
+        child: loadingValue
+            ? const MyndroLoader()
+            : ListView.builder(
+                padding: const EdgeInsets.all(10.0),
+                itemBuilder: (context, index) {
+                  return ChatItemWidget(
+                    msg: messages[index].chatMessagesText ?? '',
+                    textAlign: messages[index].messageDirection ?? '',
+                  );
+                },
+                itemCount: messages.length,
+                controller: scrollControl,
+              ));
   }
 }

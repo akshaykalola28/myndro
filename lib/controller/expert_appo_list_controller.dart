@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/model.dart';
@@ -8,27 +7,18 @@ import '../services/services.dart';
 import '../util/common.dart';
 import 'controller.dart';
 
-class ExpertAppointmentController extends BaseController {
+class ExpertAppoController extends BaseController {
   @override
   void errorHandler(e) {}
-  String? dropValue;
-  List<Appointment> appoList = <Appointment>[].obs;
-  RxBool isLoading = false.obs;
-  void setSelected(String value) {
-    dropValue = value;
-    update();
-  }
-
-  TextEditingController searchController = TextEditingController();
   @override
   void onInit() async {
     super.onInit();
-    getAppointmentList();
+    getPatientsList();
   }
 
-  List sortType = ['Individual', 'Package', 'Audio Call', 'Video Call'];
-
-  void getAppointmentList() async {
+  List<Appointment> patientsList = <Appointment>[].obs;
+  RxBool isLoading = false.obs;
+  void getPatientsList() async {
     bool status = await Common.checkInternetConnection();
     var res = await Common.retrievePrefData(Common.strLoginRes);
     isLoading.value = true;
@@ -38,10 +28,10 @@ class ExpertAppointmentController extends BaseController {
       var jsonData = json.decode(response.body);
       var data = jsonData["data"]['appointment'] as List;
       if (response.statusCode == 200) {
-        appoList.clear();
+        patientsList.clear();
         isLoading.value = false;
         for (dynamic i in data) {
-          appoList.add(Appointment.fromJson(i));
+          patientsList.add(Appointment.fromJson(i));
         }
       } else {
         Common.displayMessage(jsonData["messages"] as String);

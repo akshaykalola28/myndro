@@ -29,3 +29,5 @@ export 'your_category_binding.dart';
 export 'employee_docs_binding.dart';
 export 'psycologist_dropdown_binding.dart';
 export 'myndro_docs_binding.dart';
+export 'patient_appo_list_binding.dart';
+export 'expert_appo_list_binding.dart';

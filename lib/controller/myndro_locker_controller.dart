@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 import '../model/model.dart';
 import '../screens/screens.dart';
 import '../services/services.dart';
@@ -15,6 +16,7 @@ class MyndroLockerController extends BaseController {
   final TextEditingController docTitleController = TextEditingController();
   var lockerList = <PatientDocs>[].obs;
   var attachedDocName = 'Attach Document'.obs;
+  RxBool isLoading = false.obs;
 
   showPopupMenu(BuildContext context, Offset offset) {
     double left = offset.dx;
@@ -36,6 +38,7 @@ class MyndroLockerController extends BaseController {
   void getLockerDataList() async {
     bool status = await Common.checkInternetConnection();
     var res = await Common.retrievePrefData(Common.strLoginRes);
+    isLoading.value = true;
     if (status) {
       var response = await RemoteServices.getLockerDataList(
         int.parse(jsonDecode(res)['PatientData']['patient_id']),
@@ -43,6 +46,8 @@ class MyndroLockerController extends BaseController {
       var jsonData = json.decode(response.body);
       var data = jsonData["patient_docs"] as List;
       if (response.statusCode == 200) {
+        lockerList.clear();
+        isLoading.value = false;
         for (dynamic i in data) {
           lockerList.add(PatientDocs.fromJson(i));
         }

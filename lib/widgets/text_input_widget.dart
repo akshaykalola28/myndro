@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../constant/constant.dart';
 
 class InputWidget extends StatelessWidget {
-  final TextEditingController textEditingController = TextEditingController();
-
-  InputWidget({Key? key}) : super(key: key);
-
+  const InputWidget({Key? key, this.onSend, required this.msgController})
+      : super(key: key);
+  final VoidCallback? onSend;
+  final TextEditingController msgController;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,12 +14,15 @@ class InputWidget extends StatelessWidget {
         children: <Widget>[
           Row(
             children: [
-              IconButton(
+              SizedBox(
+                width: 10,
+              ),
+              /*   IconButton(
                 padding: EdgeInsets.zero,
                 icon: const Icon(Icons.camera_alt_rounded),
                 color: ColorsConfig.colorBlue,
                 onPressed: () {},
-              ),
+              ), */
             ],
           ),
 
@@ -31,7 +34,7 @@ class InputWidget extends StatelessWidget {
                 fontSize: 16,
                 fontFamily: AppTextStyle.microsoftJhengHei,
               ),
-              controller: textEditingController,
+              controller: msgController,
               decoration: InputDecoration.collapsed(
                 hintText: 'Type a message',
                 hintStyle: TextStyle(
@@ -49,7 +52,7 @@ class InputWidget extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 8.0),
               child: IconButton(
                 icon: const Icon(Icons.send),
-                onPressed: () => {},
+                onPressed: onSend,
                 color: ColorsConfig.colorBlue,
               ),
             ),

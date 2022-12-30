@@ -153,7 +153,55 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                             ),
                             Row(
                               children: [
-                                Expanded(
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  child: const Icon(Icons.videocam,
+                                      size: 25, color: ColorsConfig.colorWhite),
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorsConfig.colorBlue),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GroupButton(
+                                  options: GroupButtonOptions(
+                                    selectedShadow: const [],
+                                    unselectedShadow: const [],
+                                    unselectedColor: Colors.transparent,
+                                    selectedColor: ColorsConfig.colorBlue,
+                                    unselectedTextStyle: const TextStyle(
+                                      color: ColorsConfig.colorBlack,
+                                    ),
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                  isRadio: true,
+                                  onSelected: (val, i, selected) {
+                                    if (i == 0) {
+                                      expertDetailController
+                                          .audioVideoString.value = 'video';
+                                    } else {
+                                      expertDetailController
+                                          .audioVideoString.value = 'audio';
+                                    }
+                                  },
+                                  buttons: [
+                                    'Video call \n \u{20B9}${getExpertData['doctorDetail']?.doctorVideoCharge}',
+                                    'Audio call \n \u{20B9}${getExpertData['doctorDetail']?.doctorAudioCharge}',
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  child: const Icon(Icons.phone_in_talk_rounded,
+                                      size: 25, color: ColorsConfig.colorWhite),
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorsConfig.colorBlue),
+                                ),
+                                /*   Expanded(
                                   child: Column(
                                     children: [
                                       Common.iconContainer(
@@ -190,7 +238,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                     //   child: dropDown(),
                                     // )
                                   ],
-                                ))
+                                )) */
                               ],
                             ),
                           ],
@@ -223,6 +271,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                             const SizedBox(
                               height: 5,
                             ),
+
                             expertDetailController.allDrSlots
                                     .map((e) => e.slots)
                                     .isNotEmpty
@@ -351,28 +400,23 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                                 .dashboardController
                                                 .walletAmount
                                                 .value !=
-                                            '0' /* &&
-                                        (int.parse(expertDetailController.dashboardController.walletAmount.value) >= int.parse(getExpertData['doctorDetail']?.doctorVideoCharge ?? '') &&
-                                            int.parse(expertDetailController.dashboardController.walletAmount.value) >=
-                                                int.parse(getExpertData['doctorDetail']
-                                                        ?.doctorAudioCharge ??
-                                                    '') */
+                                            '0' &&
+                                        double.parse(expertDetailController.dashboardController.walletAmount.value) >=
+                                            double.parse(getExpertData['doctorDetail']?.doctorAudioCharge ??
+                                                '0') &&
+                                        double.parse(expertDetailController.dashboardController.walletAmount.value) >=
+                                            double.parse(getExpertData['doctorDetail']
+                                                    ?.doctorVideoCharge ??
+                                                '0')
                                     ? //create
                                     expertDetailController.createAppoitment(
-                                        DateFormat('dd-MM-yyyy')
-                                            .format(DateTime.now()),
+                                        expertDetailController.audioVideoString.value,
+                                        DateFormat('dd-MM-yyyy').format(DateTime.now()),
                                         '${expertDetailController.expertSlot.value},${expertDetailController.expertSlotId.value}',
-                                        getExpertData['doctorDetail']
-                                                ?.doctorCategoryId ??
-                                            '',
-                                        getExpertData['doctorDetail']
-                                                ?.doctorSubcategoryIds ??
-                                            '',
-                                        getExpertData['doctorDetail']
-                                                ?.doctorId ??
-                                            '')
-                                    : expertDetailController.dashboardController
-                                        .displayDialog(context);
+                                        getExpertData['doctorDetail']?.doctorCategoryId ?? '',
+                                        getExpertData['doctorDetail']?.doctorSubcategoryIds ?? '',
+                                        getExpertData['doctorDetail']?.doctorId ?? '')
+                                    : expertDetailController.dashboardController.displayDialog(context);
                               }),
                               child: Container(
                                 // height: 45,

@@ -1,6 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/util/common.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
@@ -39,22 +40,27 @@ class MyndroDocumentScreen extends GetView<MyndroLockerController> {
                       height: 5,
                     ),
                     Expanded(
-                      child: ListView.separated(
-                        itemCount: controller.lockerList.length,
-                        padding: const EdgeInsets.only(bottom: 25),
-                        itemBuilder: (context, index) {
-                          return docDesign(
-                            controller.lockerList[index].documentTitle ?? '',
-                            controller.lockerList[index].dateCreated ?? '',
-                            context,
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 15,
-                          );
-                        },
-                      ),
+                      child: controller.isLoading.value
+                          ? const MyndroLoader()
+                          : ListView.separated(
+                              itemCount: controller.lockerList.length,
+                              padding: const EdgeInsets.only(bottom: 25),
+                              itemBuilder: (context, index) {
+                                return docDesign(
+                                  controller.lockerList[index].documentTitle ??
+                                      '',
+                                  controller.lockerList[index].dateCreated ??
+                                      '',
+                                  context,
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return const SizedBox(
+                                  height: 15,
+                                );
+                              },
+                            ),
                     ),
                   ],
                 ),
@@ -64,7 +70,7 @@ class MyndroDocumentScreen extends GetView<MyndroLockerController> {
     );
   }
 
-  Widget docDesign(String text, String subText, BuildContext context) {
+  Widget docDesign(String text, String createdDate, BuildContext context) {
     return Material(
       elevation: 5,
       borderRadius: const BorderRadius.all(
@@ -99,7 +105,7 @@ class MyndroDocumentScreen extends GetView<MyndroLockerController> {
                   ),
                 ),
                 Text(
-                  subText,
+                  Common.formatLockerDate(createdDate),
                   style: const TextStyle(
                     color: ColorsConfig.colorGreyy,
                     fontSize: 16,

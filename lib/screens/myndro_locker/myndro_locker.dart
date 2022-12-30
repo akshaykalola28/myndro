@@ -121,7 +121,9 @@ class MyndroLockerScreen extends GetView<MyndroLockerController> {
                       GestureDetector(
                         onTap: (() {
                           if (_formKey.currentState!.validate()) {
-                            controller.createLockerData();
+                            // controller.createLockerData();
+                            controller.getLockerDataList();
+                            Get.toNamed(MyndroDocumentScreen.pageId);
                           }
                         }),
                         child: Container(

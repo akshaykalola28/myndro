@@ -64,7 +64,7 @@ class Common {
 
   static String? validateDocTitle(String? value) {
     if (value!.isEmpty) {
-      return 'Please Enter Document Title';
+      return 'Please Enter Title';
     } else {
       return null;
     }
@@ -166,6 +166,38 @@ class Common {
     }
   }
 
+  static String? validateDetails(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Details';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateNoOfSession(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter No. of Session';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateSessionDuration(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Session Duration';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateSessionPrice(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Session Price';
+    } else {
+      return null;
+    }
+  }
+
   static String? validateDocNo(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Document No.';
@@ -196,6 +228,10 @@ class Common {
 
   static formatWalletDate(String? date) {
     return DateFormat('dd MMM yyyy HH:mm').format(DateTime.parse(date ?? ''));
+  }
+
+  static formatLockerDate(String? date) {
+    return DateFormat('dd MMM yyyy').format(DateTime.parse(date ?? ''));
   }
 
   static Future<bool> checkInternetConnection() async {

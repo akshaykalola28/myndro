@@ -19,6 +19,7 @@ class ExpertDetailController extends BaseController {
   List<DrSlots> allDrSlots = <DrSlots>[].obs;
   RxString expertSlot = ''.obs;
   RxString expertSlotId = ''.obs;
+  RxString audioVideoString = ''.obs;
   void setSelected(String value) {
     dropdownValue = value;
     update();
@@ -40,15 +41,15 @@ class ExpertDetailController extends BaseController {
     }
   }
 
-  void createAppoitment(String appoDate, String appoTime, String docCat,
-      String docSubCat, String doctorId) async {
+  void createAppoitment(String audioVideo, String appoDate, String appoTime,
+      String docCat, String docSubCat, String doctorId) async {
     bool status = await Common.checkInternetConnection();
     var res = await Common.retrievePrefData(Common.strLoginRes);
     if (status) {
       var response = await RemoteServices.createAppointment(
           int.parse(jsonDecode(res)['PatientData']['patient_id']),
           jsonDecode(res)['PatientData']['patient_email'],
-          'audio',
+          audioVideo,
           appoDate,
           appoTime,
           docCat,

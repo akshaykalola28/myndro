@@ -1,12 +1,12 @@
-class expertAppoList {
+class ExpertAppoList {
   String? code;
   String? msg;
   String? type;
   ExpertAppoData? data;
 
-  expertAppoList({this.code, this.msg, this.type, this.data});
+  ExpertAppoList({this.code, this.msg, this.type, this.data});
 
-  expertAppoList.fromJson(Map<String, dynamic> json) {
+  ExpertAppoList.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     msg = json['msg'];
     type = json['type'];

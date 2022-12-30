@@ -26,7 +26,7 @@ class _WalletScreenState extends State<WalletScreen>
     const Tab(text: 'Today'),
   ];
   TabController? tabController;
-  dynamic loginRes;
+  var _username = '';
   final DashboardController dashboardController = Get.find();
   final WalletController walletController = Get.find();
   @override
@@ -36,11 +36,20 @@ class _WalletScreenState extends State<WalletScreen>
   }
 
   @override
-  void initState() async {
+  void initState() {
     tabController = TabController(length: 3, vsync: this, initialIndex: 2);
     tabController!.addListener(handleTabSelection);
-    loginRes = await Common.retrievePrefData(Common.strLoginRes);
+    getPatientName();
     super.initState();
+  }
+
+  getPatientName() async {
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    setState(() {
+      _username =
+          res.isNotEmpty ? jsonDecode(res)['PatientData']['patient_name'] : '';
+    });
+    print(_username);
   }
 
   handleTabSelection() {
@@ -274,10 +283,7 @@ class _WalletScreenState extends State<WalletScreen>
                                           color: Colors.red,
                                         ),
                                   title: Text(
-                                    loginRes.isNotEmpty
-                                        ? jsonDecode(loginRes)['PatientData']
-                                            ['patient_id']
-                                        : '',
+                                    _username,
                                   ),
                                   trailing: Wrap(
                                     spacing: 12, // space between two icons

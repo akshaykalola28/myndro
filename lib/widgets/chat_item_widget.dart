@@ -7,14 +7,14 @@ import 'package:get/get.dart';
 import 'package:myndro/constant/colors_config.dart';
 
 class ChatItemWidget extends StatelessWidget {
-  var index;
+  const ChatItemWidget({Key? key, this.msg, this.textAlign}) : super(key: key);
 
-  ChatItemWidget(this.index, {Key? key}) : super(key: key);
+  final String? msg;
+  final String? textAlign;
 
   @override
   Widget build(BuildContext context) {
-    if (index % 2 == 0) {
-      //This is the sent message. We'll later use data from firebase instead of index to determine the message is sent or received.
+    if (textAlign == 'right') {
       return ChatBubble(
         clipper: ChatBubbleClipper9(type: BubbleType.sendBubble),
         alignment: Alignment.topRight,
@@ -24,9 +24,10 @@ class ChatItemWidget extends StatelessWidget {
           constraints: BoxConstraints(
             maxWidth: Get.width * 0.7,
           ),
-          child: const Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            style: TextStyle(color: Colors.white),
+          child: Text(
+            msg ?? '',
+            softWrap: true,
+            style: const TextStyle(color: Colors.white),
           ),
         ),
       );
@@ -40,37 +41,13 @@ class ChatItemWidget extends StatelessWidget {
           constraints: BoxConstraints(
             maxWidth: Get.width * 0.7,
           ),
-          child: const Text(
-            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-            style: TextStyle(color: Colors.black),
+          child: Text(
+            msg ?? '',
+            softWrap: true,
+            style: const TextStyle(color: Colors.black),
           ),
         ),
       );
-
-      /* Container(
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  child: const Text(
-                    'This is a received message',
-                    style: TextStyle(color: Colors.orange),
-                  ),
-                  padding: const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                  width: 200.0,
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(8.0)),
-                  margin: const EdgeInsets.only(left: 10.0),
-                )
-              ],
-            ),
-          ],
-          crossAxisAlignment: CrossAxisAlignment.start,
-        ),
-        margin: const EdgeInsets.only(bottom: 10.0),
-      ); */
     }
   }
 }

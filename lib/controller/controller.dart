@@ -29,3 +29,5 @@ export 'your_category_controller.dart';
 export 'employee_docs_controller.dart';
 export 'psycologist_dropdown_controller.dart';
 export 'myndro_docs_controller.dart';
+export 'expert_appo_list_controller.dart';
+export 'patient_appo_controller.dart';

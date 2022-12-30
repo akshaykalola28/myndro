@@ -202,7 +202,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 onTap: () {
                   Get.back();
-                  Get.toNamed(AskUSScreen.pageId);
+                  Get.toNamed(PatientAppoList.pageId);
                 },
               ),
               ListTile(

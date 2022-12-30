@@ -204,4 +204,12 @@ final List<GetPage> appPages = [
       name: EmployeeDocs.pageId,
       page: () => const EmployeeDocs(),
       binding: EmployeeDocsBinding()),
+  GetPage(
+      name: PatientAppoList.pageId,
+      page: () => const PatientAppoList(),
+      binding: PatientAppoListBinding()),
+  GetPage(
+      name: ExpertAppointmentList.pageId,
+      page: () => const ExpertAppointmentList(),
+      binding: ExpertAppoListBinding()),
 ];

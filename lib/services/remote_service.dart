@@ -464,4 +464,150 @@ class RemoteServices {
 
     return response;
   }
+
+  //get patient appointment list
+  static Future<http.Response> getPatientAppointmentList(
+      String patientId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.patientAppointmentList),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+//get expert package list
+  static Future<http.Response> getExperPackageList(String doctorId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"doctor_id": doctorId, "status": ""});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.expertPackageList),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+//TODO remove params txtCaseNo,txtPatientName
+  //expert create package
+  static Future<http.Response> expertCreatePackage(
+      String doctorId,
+      String packTitle,
+      String packDetails,
+      String sessionNo,
+      String sessionDur,
+      String packPrice) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "txtCaseNo": "582",
+      "doctor_id": doctorId,
+      "txtPatientName": "api test",
+      "txtpackageTitle": packTitle,
+      "txtPackageDetails": packDetails,
+      "txtnoOfSession": sessionNo,
+      "txtSessionDuration": sessionDur,
+      "txtPackagePrice": packPrice
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.expertCreatePackage),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get expert messages
+  static Future<http.Response> getExpertMsg(
+      String expertId, String patientId, String appointmentId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "expert_id": expertId,
+      "appointment_id": appointmentId
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.fetchExpertMsg),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get patient messages
+  static Future<http.Response> getPatientMsg(
+      String expertId, String patientId, String appointmentId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "expert_id": expertId,
+      "appointment_id": appointmentId
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.fetchPatientMsg),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //Send Expert messages
+  static Future<http.Response> sendExpertMsg(String expertId, String patientId,
+      String appointmentId, String chatMsg) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "expert_id": expertId,
+      "appointment_id": appointmentId,
+      "chat_message": chatMsg
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.sendChatFromExpert),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //Send Patient messages
+  static Future<http.Response> sendPatientMsg(String expertId, String patientId,
+      String appointmentId, String chatMsg) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "expert_id": expertId,
+      "appointment_id": appointmentId,
+      "chat_message": chatMsg
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.sendChatFromPatient),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
 }
