@@ -1,7 +1,7 @@
 mixin Apis {
   // static String baseUrl = 'https://vvexim.com/api/';
   // static String baseUrl = 'https://myndro.com/api/';
-  static String baseUrl = 'http://myndro.com/api/';
+  static String baseUrl = 'https://myndro.com/api/';
 
   // static String baseUrl = 'http://mynd.thepackaginghouse.in/api/';
   static String baseUrl1 = 'https://scrapbazar.in/mynd.manzanotech.com/api/';
@@ -40,6 +40,9 @@ mixin Apis {
   static const String patientAppointmentList = 'patient_appointment_list';
   static const String expertCreatePackage = 'create_package';
   static const String expertPackageList = 'packages_list';
+  static const String createDrNotes = 'create_doctor_notes';
+  static const String notesByAppoId =
+      'doctor_notes_list_for_patient_appointmentID';
 
   static const String sendChatFromExpert = 'send_chatFromExpert';
   static const String sendChatFromPatient = 'send_chatFromPatient';

@@ -57,7 +57,7 @@ class ExpertPackages extends GetView<ExpertPackagesController> {
                                 controller.sessionNoController,
                                 false,
                                 Common.validateNoOfSession,
-                                TextInputType.text,
+                                TextInputType.number,
                                 'Total No. of Session',
                                 1),
                             const SizedBox(
@@ -67,7 +67,7 @@ class ExpertPackages extends GetView<ExpertPackagesController> {
                                 controller.sessionDurController,
                                 false,
                                 Common.validateSessionDuration,
-                                TextInputType.text,
+                                TextInputType.number,
                                 'Session Duration',
                                 1),
                             const SizedBox(
@@ -77,7 +77,7 @@ class ExpertPackages extends GetView<ExpertPackagesController> {
                                 controller.packPriceController,
                                 false,
                                 Common.validateSessionPrice,
-                                TextInputType.text,
+                                TextInputType.number,
                                 'Package Price',
                                 1),
                             const SizedBox(

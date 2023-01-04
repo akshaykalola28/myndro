@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -21,9 +20,8 @@ class AskUsController extends BaseController {
   void onInit() async {
     super.onInit();
     getData = Get.arguments;
-    getPatientMsgList('54', '135');
 
-    // getPatientMsgList(getData['doctorId'], getData['appointmentId']);
+    getPatientMsgList(getData['doctorId'], getData['appointmentId']);
   }
 
   void getPatientMsgList(String doctorId, String appointmentId) async {
@@ -31,10 +29,8 @@ class AskUsController extends BaseController {
     var res = await Common.retrievePrefData(Common.strLoginRes);
     isLoading.value = true;
     if (status) {
-      var response = await RemoteServices.getPatientMsg(
-          doctorId /*   jsonDecode(res)['PatientData']['patient_id'] */,
-          '90',
-          appointmentId);
+      var response = await RemoteServices.getPatientMsg(doctorId,
+          jsonDecode(res)['PatientData']['patient_id'], appointmentId);
       var jsonData = json.decode(response.body);
       var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
@@ -49,16 +45,18 @@ class AskUsController extends BaseController {
     }
   }
 
-  ///TODO
   void sendPatientMsg() async {
     bool status = await Common.checkInternetConnection();
     var res = await Common.retrievePrefData(Common.strLoginRes);
     if (status) {
       var response = await RemoteServices.sendPatientMsg(
-          '54', '90', '135', sendMsgController.text);
+          getData['doctorId'],
+          jsonDecode(res)['PatientData']['patient_id'],
+          getData['appointmentId'],
+          sendMsgController.text);
       var jsonData = json.decode(response.body);
       if (response.statusCode == 200) {
-        getPatientMsgList('54', '135');
+        getPatientMsgList(getData['doctorId'], getData['appointmentId']);
         sendMsgController.clear();
         Get.focusScope!.unfocus();
       } else {

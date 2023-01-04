@@ -36,7 +36,7 @@ class ExpertPackagesList extends GetView<ExpertPackagesController> {
                         Common.formatLockerDate(
                           controller.packList[index].createdDate ?? '',
                         ),
-                        'approved',
+                        controller.packList[index].packageStatus ?? '',
                         () => controller.viewPackageDetails(
                               context,
                               controller.packList[index].packageTitle ?? '',
@@ -59,7 +59,11 @@ class ExpertPackagesList extends GetView<ExpertPackagesController> {
   }
 
   Widget dataContainer(
-      String caseNo, String date, String packageInfo, VoidCallback onView) {
+    String caseNo,
+    String date,
+    String packStatus,
+    VoidCallback onView,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,24 +104,62 @@ class ExpertPackagesList extends GetView<ExpertPackagesController> {
             color: ColorsConfig.colorGreyy,
           ),
         ),
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: const BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          child: Text(
-            packageInfo,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: AppTextStyle.microsoftJhengHei,
-                fontSize: 10.0,
-                color: ColorsConfig.colorWhite,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
+        packStatus == '0'
+            ? Container(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  'Under Review',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: AppTextStyle.microsoftJhengHei,
+                      fontSize: 10.0,
+                      color: ColorsConfig.colorWhite,
+                      fontWeight: FontWeight.bold),
+                ),
+              )
+            : packStatus == '1'
+                ? Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      'Approved',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 10.0,
+                          color: ColorsConfig.colorWhite,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                : Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      'Rejected',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 10.0,
+                          color: ColorsConfig.colorWhite,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
         GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: onView,

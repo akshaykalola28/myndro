@@ -295,7 +295,8 @@ class RemoteServices {
       String appoTime,
       String docCat,
       String docSubCat,
-      String doctorId) async {
+      String doctorId,
+      String promoCode) async {
     Map<String, String> header = {'Content-Type': 'application/json'};
 
     String postBody = json.encode({
@@ -306,7 +307,8 @@ class RemoteServices {
       "doctor_subcategory_id": docSubCat,
       "doctor_id": doctorId,
       "date": appoDate,
-      "appt_time": appoTime
+      "appt_time": appoTime,
+      "PromoCode": promoCode
     });
 
     http.Response response = await http.post(
@@ -414,9 +416,10 @@ class RemoteServices {
   }
 
   //get dr slot list
-  static Future<http.Response> getDrSlots(int doctorId) async {
+  static Future<http.Response> getDrSlots(int doctorId, String fromDate) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
-    String postBody = json.encode({"doctor_id": doctorId, "fromDate": null});
+    String postBody =
+        json.encode({"doctor_id": doctorId, "fromDate": fromDate});
 
     http.Response response = await http.post(
         Uri.parse(Apis.baseUrl + Apis.drSlotsList),
@@ -529,6 +532,29 @@ class RemoteServices {
     return response;
   }
 
+  //expert create Note
+  static Future<http.Response> expertCreateNote(
+    String doctorId,
+    String patientId,
+    String docNotes,
+  ) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "doctoerNotes": docNotes,
+      "doctor_id": doctorId
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.createDrNotes),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
   //get expert messages
   static Future<http.Response> getExpertMsg(
       String expertId, String patientId, String appointmentId) async {
@@ -603,6 +629,21 @@ class RemoteServices {
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.sendChatFromPatient),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get Notes List for expertside
+  static Future<http.Response> getNotesForExpertSide(int appoId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"appointment_id": appoId});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.notesByAppoId),
       headers: header,
       body: postBody,
     );

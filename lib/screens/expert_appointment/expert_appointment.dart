@@ -4,6 +4,7 @@ import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../screens.dart';
 
 class ExpertAppointment extends GetView<ExpertAppointmentController> {
   static const pageId = "/ExpertAppointment";
@@ -157,6 +158,17 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
                               controller.appoList[index].caseNo ?? '',
                               controller.appoList[index].audioVideo ?? '',
                               controller.appoList[index].type ?? '',
+                              () => Get.toNamed(ExpertTodayAppointment.pageId,
+                                  arguments: {
+                                    'appoDetail': controller.appoList.isNotEmpty
+                                        ? controller.appoList[index]
+                                        : null,
+                                  }),
+                              () => Get.toNamed(CallScreen.pageId, arguments: {
+                                'meetDetail': controller.appoList.isNotEmpty
+                                    ? controller.appoList[index]
+                                    : null,
+                              }),
                             );
                           }))
                 ],
@@ -167,8 +179,14 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
     );
   }
 
-  Widget appointmentContainer(String name, String date, String caseNo,
-      String callType, String appoType) {
+  Widget appointmentContainer(
+      String name,
+      String date,
+      String caseNo,
+      String callType,
+      String appoType,
+      VoidCallback onViewClick,
+      VoidCallback onClickCall) {
     return Card(
         elevation: 5,
         child: Padding(
@@ -260,35 +278,42 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
               ),
               Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                        color: ColorsConfig.colorBlue,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Icon(
-                        callType == 'audio' ? Icons.phone : Icons.videocam,
-                        color: ColorsConfig.colorWhite,
-                        size: 32),
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: onClickCall,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                          color: ColorsConfig.colorBlue,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Icon(
+                          callType == 'audio' ? Icons.phone : Icons.videocam,
+                          color: ColorsConfig.colorWhite,
+                          size: 32),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        border: Border.all(
-                          color: ColorsConfig.colorGreyy,
-                        )),
-                    child: Text(
-                      'view',
-                      style: TextStyle(
-                          fontFamily: AppTextStyle.microsoftJhengHei,
-                          fontSize: 15.0,
-                          color: ColorsConfig.colorGreyy,
-                          fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: onViewClick,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 5),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                          border: Border.all(
+                            color: ColorsConfig.colorGreyy,
+                          )),
+                      child: Text(
+                        'view',
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 15.0,
+                            color: ColorsConfig.colorGreyy,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ],

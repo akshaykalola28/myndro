@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 import 'package:myndro/widgets/profile_text_field.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -125,8 +125,9 @@ class DashboardController extends BaseController {
       builder: (context) {
         return AlertDialog(
           title: const Text('Add Money to Wallet'),
-          content: profileTextFieldWidget(
-              walletAmt, (_) {}, TextInputType.number, 'Enter Amount'),
+          content: profileTextFieldWidget(walletAmt, (_) {
+            return null;
+          }, TextInputType.number, 'Enter Amount'),
           actions: <Widget>[
             TextButton(
               child: Text(

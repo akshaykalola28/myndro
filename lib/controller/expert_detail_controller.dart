@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:group_button/group_button.dart';
 import 'package:myndro/screens/dashboard/dashboard.dart';
-import 'package:myndro/screens/home/home_screen.dart';
 
 import '../model/model.dart';
 import '../services/services.dart';
@@ -25,13 +23,14 @@ class ExpertDetailController extends BaseController {
     update();
   }
 
-  void getDrSlotList(int doctorId) async {
+  void getDrSlotList(int doctorId, String fromDate) async {
     bool status = await Common.checkInternetConnection();
     if (status) {
-      var response = await RemoteServices.getDrSlots(doctorId);
+      var response = await RemoteServices.getDrSlots(doctorId, fromDate);
       var jsonData = json.decode(response.body);
       var data = jsonData["Slots"] as List;
       if (response.statusCode == 200) {
+        allDrSlots.clear();
         for (dynamic i in data) {
           allDrSlots.add(DrSlots.fromJson(i));
         }
@@ -41,6 +40,7 @@ class ExpertDetailController extends BaseController {
     }
   }
 
+////TODO application of promo is remaininig
   void createAppoitment(String audioVideo, String appoDate, String appoTime,
       String docCat, String docSubCat, String doctorId) async {
     bool status = await Common.checkInternetConnection();
@@ -54,7 +54,8 @@ class ExpertDetailController extends BaseController {
           appoTime,
           docCat,
           docSubCat,
-          doctorId);
+          doctorId,
+          'WINTER20');
       var jsonData = json.decode(response.body);
       if (response.statusCode == 200 && jsonData['type'] != 'error') {
         Common.displayMessage(jsonData["msg"] as String);

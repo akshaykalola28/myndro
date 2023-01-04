@@ -9,26 +9,32 @@ class ChatListWidget extends StatelessWidget {
     required this.messages,
     required this.loadingValue,
     required this.scrollControl,
+    required this.listNotFound,
   }) : super(key: key);
 
   final List<GetExpertMsg> messages;
   final bool loadingValue;
+  final List listNotFound;
   final ScrollController scrollControl;
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: loadingValue
             ? const MyndroLoader()
-            : ListView.builder(
-                padding: const EdgeInsets.all(10.0),
-                itemBuilder: (context, index) {
-                  return ChatItemWidget(
-                    msg: messages[index].chatMessagesText ?? '',
-                    textAlign: messages[index].messageDirection ?? '',
-                  );
-                },
-                itemCount: messages.length,
-                controller: scrollControl,
-              ));
+            : listNotFound.isEmpty
+                ? const Center(
+                    child: Text('Start Chatting'),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(10.0),
+                    itemBuilder: (context, index) {
+                      return ChatItemWidget(
+                        msg: messages[index].chatMessagesText ?? '',
+                        textAlign: messages[index].messageDirection ?? '',
+                      );
+                    },
+                    itemCount: messages.length,
+                    controller: scrollControl,
+                  ));
   }
 }

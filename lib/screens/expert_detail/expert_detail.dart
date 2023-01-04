@@ -41,8 +41,10 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
   void initState() {
     super.initState();
     getExpertData = Get.arguments;
+    //////TODO dynamic date
     expertDetailController.getDrSlotList(
-        int.parse(getExpertData['doctorDetail']?.doctorId ?? ''));
+        int.parse(getExpertData['doctorDetail']?.doctorId ?? ''),
+        '2022-12-22' /*   DateFormat('yyyy-MM-dd').format(day ?? DateTime.now()) */);
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
@@ -54,7 +56,6 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
   }
 
   List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
     return kEvents[day] ?? [];
   }
 
@@ -72,7 +73,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
-        _rangeStart = null; // Important to clean those
+        _rangeStart = null;
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
@@ -108,13 +109,13 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
         onTap: () {
           Get.focusScope!.unfocus();
         },
-        child: LayoutWidget(
-          text: 'Appointment',
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Obx(
-                () => Column(
+        child: Obx(
+          () => LayoutWidget(
+            text: 'Appointment',
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
@@ -165,6 +166,9 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                   width: 10,
                                 ),
                                 GroupButton(
+                                  controller: GroupButtonController(
+                                    selectedIndex: 0,
+                                  ),
                                   options: GroupButtonOptions(
                                     selectedShadow: const [],
                                     unselectedShadow: const [],
@@ -271,7 +275,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                             const SizedBox(
                               height: 5,
                             ),
-
+////////TODO with date
                             expertDetailController.allDrSlots
                                     .map((e) => e.slots)
                                     .isNotEmpty
@@ -303,7 +307,8 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                 : const MyndroLoader(),
 
                             //TODO calender is comment use it
-                            /* TableCalendar<Event>(
+                            /*   TableCalendar<Event>(
+                            
                             firstDay: kFirstDay,
                             lastDay: kLastDay,
                             focusedDay: _focusedDay,

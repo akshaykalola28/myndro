@@ -11,3 +11,4 @@ export 'doctor_slot_list.dart';
 export 'expert_appo_list.dart';
 export 'expert_packages.dart';
 export 'expert_msg.dart';
+export 'expert_notes_for_expert.dart';

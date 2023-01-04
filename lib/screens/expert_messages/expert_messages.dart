@@ -25,6 +25,7 @@ class ExpertMessages extends GetView<ExpertMessagesController> {
                     messages: controller.expertMsgs,
                     loadingValue: controller.isLoading.value,
                     scrollControl: controller.listScrollController,
+                    listNotFound: controller.expertMsgs,
                   ), //Chat list
                   InputWidget(
                     msgController: controller.sendMsgController,

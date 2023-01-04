@@ -190,6 +190,14 @@ class Common {
     }
   }
 
+  static String? validateNotes(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter  a Note';
+    } else {
+      return null;
+    }
+  }
+
   static String? validateSessionPrice(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Session Price';

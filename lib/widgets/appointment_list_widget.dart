@@ -44,7 +44,7 @@ class AppointmentListWidget extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        'Appointment Date ',
+        'Appointment Date : ${subTitle ?? ''}',
         softWrap: true,
         style: TextStyle(
           fontFamily: AppTextStyle.microsoftJhengHei,

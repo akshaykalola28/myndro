@@ -21,6 +21,7 @@ class AskUSScreen extends GetView<AskUsController> {
                 messages: controller.patientMsgs,
                 loadingValue: controller.isLoading.value,
                 scrollControl: controller.listScrollController,
+                listNotFound: controller.patientMsgs,
               ), //Chat list
               InputWidget(
                 msgController: controller.sendMsgController,

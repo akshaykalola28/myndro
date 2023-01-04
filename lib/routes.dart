@@ -155,7 +155,7 @@ final List<GetPage> appPages = [
   GetPage(
       name: ExpertTodayAppointment.pageId,
       page: () => const ExpertTodayAppointment(),
-      binding: ExpertHomeBinding()),
+      binding: ExpertTodayAppoBinidng()),
   GetPage(
       name: ExpertMessages.pageId,
       page: () => const ExpertMessages(),
@@ -212,4 +212,8 @@ final List<GetPage> appPages = [
       name: ExpertAppointmentList.pageId,
       page: () => const ExpertAppointmentList(),
       binding: ExpertAppoListBinding()),
+  GetPage(
+      name: CallScreen.pageId,
+      page: () => CallScreen(),
+      binding: CallScreenBinding()),
 ];

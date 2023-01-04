@@ -25,7 +25,7 @@ class PatientAppoList extends GetView<PatientAppoController> {
                   itemBuilder: (context, index) => AppointmentListWidget(
                     userName: controller.expertsList[index].doctorName,
                     title: controller.expertsList[index].doctorName,
-                    subTitle: 'controller.expertsList[index].appointmentDate',
+                    subTitle: controller.expertsList[index].appointmentDate,
                     time: controller.expertsList[index].appointmentTime,
                     caseNo: controller.expertsList[index].caseNo,
                     onClick: () => Get.toNamed(AskUSScreen.pageId, arguments: {
