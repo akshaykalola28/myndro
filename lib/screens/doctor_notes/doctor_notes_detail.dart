@@ -38,10 +38,11 @@ class DoctorNotesDetail extends GetView<DoctorNotesController> {
                           fontWeight: FontWeight.w900),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Expanded(
                       child: ListView.separated(
+                        padding: EdgeInsets.zero,
                         itemCount: 5,
                         itemBuilder: ((context, index) {
                           return dataContainer(

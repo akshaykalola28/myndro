@@ -146,6 +146,7 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
                   controller.isLoading.value
                       ? const MyndroLoader()
                       : ListView.builder(
+                          padding: EdgeInsets.zero,
                           primary: false,
                           itemCount: controller.appoList.length,
                           shrinkWrap: true,

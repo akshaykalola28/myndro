@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../controller/controller.dart';
 import '../../widgets/widgets.dart';
@@ -24,6 +23,7 @@ class ExpertAppointmentList extends GetView<ExpertAppoController> {
               () => controller.isLoading.value
                   ? const MyndroLoader()
                   : ListView.separated(
+                      padding: EdgeInsets.zero,
                       separatorBuilder: (context, index) => const SizedBox(
                         height: 5,
                       ),

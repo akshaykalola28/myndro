@@ -134,7 +134,11 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
                         ),
                       ],
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     ListView.builder(
+                        padding: EdgeInsets.zero,
                         primary: false,
                         itemCount: 5,
                         shrinkWrap: true,

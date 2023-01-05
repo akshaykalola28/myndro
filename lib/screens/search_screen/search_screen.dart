@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constant/constant.dart';
-import '../../controller/controller.dart';
 import '../../model/model.dart';
 import '../../widgets/widgets.dart';
 import '../screens.dart';
@@ -91,8 +90,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 else
                   //TODO check this...
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 25),
+                    margin: const EdgeInsets.fromLTRB(25, 10, 25, 0),
                     child: ListView.builder(
+                      padding: EdgeInsets.zero,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {

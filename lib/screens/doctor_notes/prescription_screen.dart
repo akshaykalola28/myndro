@@ -181,10 +181,8 @@ class PrescriptionScreen extends GetView<DoctorNotesController> {
                             Align(
                               alignment: Alignment.centerRight,
                               child: Container(
-                                width: 130,
                                 decoration: BoxDecoration(
                                   color: Colors.transparent,
-
                                   border:
                                       Border.all(color: Colors.red, width: 1.0),
                                   borderRadius: const BorderRadius.all(
@@ -194,6 +192,7 @@ class PrescriptionScreen extends GetView<DoctorNotesController> {
                                 ),
                                 padding: const EdgeInsets.all(6),
                                 child: Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Text(
                                       'Attachment',
@@ -264,7 +263,6 @@ class PrescriptionScreen extends GetView<DoctorNotesController> {
                             Align(
                               alignment: Alignment.centerRight,
                               child: Container(
-                                width: 130,
                                 decoration: BoxDecoration(
                                   color: Colors.transparent,
 
@@ -277,6 +275,7 @@ class PrescriptionScreen extends GetView<DoctorNotesController> {
                                 ),
                                 padding: const EdgeInsets.all(6),
                                 child: Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: const [
                                     Text(
                                       'Attachment',
@@ -290,7 +289,7 @@ class PrescriptionScreen extends GetView<DoctorNotesController> {
                                     ),
                                     Icon(
                                       Icons.attach_file,
-                                      color: ColorsConfig.colorBlack,
+                                      color: Colors.red,
                                       size: 25,
                                     )
                                   ],

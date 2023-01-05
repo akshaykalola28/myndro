@@ -12,27 +12,30 @@ class ExpertMessages extends GetView<ExpertMessagesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ExpertLayout(
-            leadingIcon: Icons.arrow_back,
-            onDrawerClick: () {
-              Get.back();
-            },
-            text: 'Messages',
-            body: Obx(
-              () => Column(
-                children: [
-                  ChatListWidget(
-                    messages: controller.expertMsgs,
-                    loadingValue: controller.isLoading.value,
-                    scrollControl: controller.listScrollController,
-                    listNotFound: controller.expertMsgs,
-                  ), //Chat list
-                  InputWidget(
-                    msgController: controller.sendMsgController,
-                    onSend: () => controller.sendExpertMsg(),
-                  )
-                ],
-              ),
-            )));
+        body: SafeArea(
+      top: false,
+      child: ExpertLayout(
+          leadingIcon: Icons.arrow_back,
+          onDrawerClick: () {
+            Get.back();
+          },
+          text: 'Messages',
+          body: Obx(
+            () => Column(
+              children: [
+                ChatListWidget(
+                  messages: controller.expertMsgs,
+                  loadingValue: controller.isLoading.value,
+                  scrollControl: controller.listScrollController,
+                  listNotFound: controller.expertMsgs,
+                ), //Chat list
+                InputWidget(
+                  msgController: controller.sendMsgController,
+                  onSend: () => controller.sendExpertMsg(),
+                )
+              ],
+            ),
+          )),
+    ));
   }
 }

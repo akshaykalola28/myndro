@@ -18,6 +18,7 @@ class PatientAppoList extends GetView<PatientAppoController> {
           () => controller.isLoading.value
               ? const MyndroLoader()
               : ListView.separated(
+                  padding: EdgeInsets.zero,
                   separatorBuilder: (context, index) => const SizedBox(
                     height: 5,
                   ),

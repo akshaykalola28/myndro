@@ -21,6 +21,7 @@ class OffersScreen extends GetView<OffersController> {
         body: Padding(
             padding: const EdgeInsets.all(14),
             child: ListView.separated(
+                padding: EdgeInsets.zero,
                 itemCount: 5,
                 separatorBuilder: (context, index) {
                   return const SizedBox(

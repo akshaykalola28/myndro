@@ -374,7 +374,6 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
             Align(
               alignment: Alignment.centerRight,
               child: Container(
-                width: 130,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
 
@@ -385,6 +384,7 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                 ),
                 padding: const EdgeInsets.all(6),
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: const [
                     Text(
                       'Attachment',
