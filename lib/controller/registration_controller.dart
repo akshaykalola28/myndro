@@ -85,6 +85,9 @@ class RegistrationController extends BaseController {
   var aadharCard = 'Aadhar Card'.obs;
   FilePickerResult? pickedPanCard;
   var panCard = 'Pan Card'.obs;
+  FilePickerResult? pickedSignature;
+
+  var signature = 'Upload Signature'.obs;
   FilePickerResult? pickedOptionalCard;
   var optionalCard = 'Driving/ Voter Id / Passport'.obs;
   FilePickerResult? pickedgst;
@@ -425,6 +428,72 @@ class RegistrationController extends BaseController {
       } else {
         print(response.reasonPhrase);
         Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+  //Edit Mandatory details
+  void editMandatoryExpertProfile() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.updateMandata));
+      request.fields.addAll({
+        'doctor_id': jsonDecode(res)['data']['doctor_id'],
+        'ExpName': firstNameController.text.trim(),
+        'ExpEmail': emailController.text.trim(),
+        'ExpPhone': contactController.text.trim(),
+        'ExpDob': formattedDob.value,
+        'ExpGender': genderDropdownValue ?? '',
+        'ExpAddress':
+            '  ${addLine1Controller.text.trim()}, ${addLine2Controller.text.trim()} + ${addLine3Controller.text.trim()}',
+        'country': countryDropdown?.countryId.toString() ?? '',
+        'state_id': stateDropdown?.stateId ?? '',
+        'city_id': cityDropdown?.cityId ?? '',
+        'Exppincode': zipCodeController.text.trim(),
+        'ExpProfessional': professionController.text.trim(),
+        'ExpDegreeName': degreeNameController.text.trim(),
+        'ExpDegreeYear': degreeYearController.text.trim(),
+        'ExpBankName': bankNameController.text.trim(),
+        'ExpAccountHolderName': holderNameController.text.trim(),
+        'ExpAccountNo': accNumberController.text.trim(),
+        'ExpAccountType': accTypeDropdowwn ?? '',
+        'ExpIfscCode': ifscCodeController.text.trim(),
+        'ExpBankAddress':
+            '${branchAddController.text.trim()} , ${branchAdd1Controller.text.trim()}',
+        'country_EXpBank': countryDropdown?.countryId.toString() ?? '',
+        'state_id_ExpBank': stateDropdown?.stateId ?? '',
+        'city_id_ExpBank': cityDropdown?.cityId ?? '',
+        'ExpBankPinCode': branchZipController.text.trim()
+      });
+      request.files.add(await http.MultipartFile.fromPath(
+          'ExpDegreeCertificateFile', pickeddegree?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'ExpPracticeFile', pickedPracticeCerti?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'ExpCancleCheck', pickedCheque?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'ExpGSTCertificate', pickedgst?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'AddharFrontFace', pickedAadharCard?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'PanFrontFace', pickedPanCard?.files.single.path ?? ''));
+      request.files.add(await http.MultipartFile.fromPath(
+          'ExpertSignature', pickedSignature?.files.single.path ?? ''));
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var profileDataResponse = jsonDecode(respStr);
+      Common.storePrefData(
+          Common.strExpertProfileData, json.encode(profileDataResponse));
+      if (response.statusCode == 200) {
+        print('jsonData $profileDataResponse');
+        Common.displayMessage(profileDataResponse["msg"] as String);
+        Get.back();
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(profileDataResponse["msg"] as String);
       }
     }
   }

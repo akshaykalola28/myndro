@@ -494,63 +494,76 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                           const SizedBox(
                                             height: 12,
                                           ),
-                                          profileTextFieldWidget(
-                                              _registrationController
-                                                  .passController,
-                                              Common.validatePassword,
-                                              TextInputType.text,
-                                              'Password', () {
-                                            setState(() {
-                                              _registrationController
-                                                      .passwordVisible.value =
-                                                  !_registrationController
-                                                      .passwordVisible.value;
-                                            });
-                                          },
-                                              _registrationController
-                                                      .passwordVisible.value
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off,
-                                              _registrationController
-                                                  .passwordVisible.value),
-                                          const SizedBox(
-                                            height: 12,
-                                          ),
-                                          profileTextFieldWidget(
-                                              _registrationController
-                                                  .confirmPassController,
-                                              (value) {
-                                                if (value!.isEmpty) {
-                                                  return 'Enter valid Password!!!';
-                                                } else if (value.length < 6) {
-                                                  return 'Password must be a 6 character';
-                                                } else if (value !=
+                                          _registrationController
+                                                  .fromEdit['is_edit']
+                                              ? Container()
+                                              : profileTextFieldWidget(
+                                                  _registrationController
+                                                      .passController,
+                                                  Common.validatePassword,
+                                                  TextInputType.text,
+                                                  'Password', () {
+                                                  setState(() {
                                                     _registrationController
-                                                        .passController.text) {
-                                                  return "Password must be same as above";
-                                                }
-                                                return null;
-                                              },
-                                              TextInputType.text,
-                                              'Confirm Password',
-                                              () {
-                                                setState(() {
+                                                            .passwordVisible
+                                                            .value =
+                                                        !_registrationController
+                                                            .passwordVisible
+                                                            .value;
+                                                  });
+                                                },
+                                                  _registrationController
+                                                          .passwordVisible.value
+                                                      ? Icons.visibility
+                                                      : Icons.visibility_off,
+                                                  _registrationController
+                                                      .passwordVisible.value),
+                                          _registrationController
+                                                  .fromEdit['is_edit']
+                                              ? Container()
+                                              : const SizedBox(
+                                                  height: 12,
+                                                ),
+                                          _registrationController
+                                                  .fromEdit['is_edit']
+                                              ? Container()
+                                              : profileTextFieldWidget(
+                                                  _registrationController
+                                                      .confirmPassController,
+                                                  (value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Enter valid Password!!!';
+                                                    } else if (value.length <
+                                                        6) {
+                                                      return 'Password must be a 6 character';
+                                                    } else if (value !=
+                                                        _registrationController
+                                                            .passController
+                                                            .text) {
+                                                      return "Password must be same as above";
+                                                    }
+                                                    return null;
+                                                  },
+                                                  TextInputType.text,
+                                                  'Confirm Password',
+                                                  () {
+                                                    setState(() {
+                                                      _registrationController
+                                                              .confirmPasswordVisible
+                                                              .value =
+                                                          !_registrationController
+                                                              .confirmPasswordVisible
+                                                              .value;
+                                                    });
+                                                  },
                                                   _registrationController
                                                           .confirmPasswordVisible
-                                                          .value =
-                                                      !_registrationController
-                                                          .confirmPasswordVisible
-                                                          .value;
-                                                });
-                                              },
-                                              _registrationController
+                                                          .value
+                                                      ? Icons.visibility
+                                                      : Icons.visibility_off,
+                                                  _registrationController
                                                       .confirmPasswordVisible
-                                                      .value
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off,
-                                              _registrationController
-                                                  .confirmPasswordVisible
-                                                  .value),
+                                                      .value),
                                           const SizedBox(
                                             height: 20,
                                           ),
@@ -558,11 +571,20 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                             'Next',
                                             () {
                                               if (_registrationController
-                                                  .formKey.currentState!
-                                                  .validate()) {
-                                                _registrationController
-                                                    .addExpertProfile();
-                                                forward();
+                                                  .fromEdit['is_edit']) {
+                                                if (_registrationController
+                                                    .formKey.currentState!
+                                                    .validate()) {
+                                                  forward();
+                                                }
+                                              } else {
+                                                if (_registrationController
+                                                    .formKey.currentState!
+                                                    .validate()) {
+                                                  _registrationController
+                                                      .addExpertProfile();
+                                                  forward();
+                                                }
                                               }
                                             },
                                           ),
@@ -1568,11 +1590,16 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                             'Next',
                                             () {
                                               if (_registrationController
-                                                  .kycKey.currentState!
-                                                  .validate()) {
-                                                _registrationController
-                                                    .addExpertKycDetails();
+                                                  .fromEdit['is_edit']) {
                                                 forward();
+                                              } else {
+                                                if (_registrationController
+                                                    .kycKey.currentState!
+                                                    .validate()) {
+                                                  _registrationController
+                                                      .addExpertKycDetails();
+                                                  forward();
+                                                }
                                               }
                                             },
                                           ),
@@ -1661,47 +1688,92 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                       const SizedBox(
                                         height: 5,
                                       ),
-                                      Row(
+                                      Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.transparent,
-                                              border: Border.all(
-                                                  color:
-                                                      ColorsConfig.colorGreyy,
-                                                  width: 1.0),
-                                              borderRadius: const BorderRadius
-                                                      .all(
-                                                  Radius.circular(
-                                                      25.0)), // Set rounded corner radius
-                                            ),
-                                            padding: const EdgeInsets.all(10),
-                                            child: Row(
-                                              children: const [
-                                                Text(
-                                                  'Upload Signature',
-                                                  style: TextStyle(
-                                                      color: ColorsConfig
-                                                          .colorGreyy,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Icon(
-                                                  Icons.attach_file,
-                                                  color:
-                                                      ColorsConfig.colorGreyy,
-                                                  size: 25,
-                                                )
-                                              ],
+                                          GestureDetector(
+                                            behavior: HitTestBehavior.opaque,
+                                            onTap: () async {
+                                              _registrationController
+                                                      .pickedSignature =
+                                                  await FilePicker.platform
+                                                      .pickFiles(
+                                                type: FileType.custom,
+                                                allowedExtensions: [
+                                                  'jpg',
+                                                  'pdf',
+                                                  'png',
+                                                  'jpeg'
+                                                ],
+                                              );
+                                              if (_registrationController
+                                                      .pickedSignature !=
+                                                  null) {
+                                                File file = File(
+                                                    _registrationController
+                                                            .pickedSignature
+                                                            ?.files
+                                                            .single
+                                                            .path ??
+                                                        '');
+                                                setState(() {
+                                                  _registrationController
+                                                          .signature.value =
+                                                      file.path.split('/').last;
+                                                });
+                                              } else {
+                                                // User canceled the picker
+                                              }
+                                            },
+                                            child: Container(
+                                              width: Get.width * 0.7,
+                                              decoration: BoxDecoration(
+                                                color: Colors.transparent,
+                                                border: Border.all(
+                                                    color:
+                                                        ColorsConfig.colorGreyy,
+                                                    width: 1.0),
+                                                borderRadius: const BorderRadius
+                                                        .all(
+                                                    Radius.circular(
+                                                        25.0)), // Set rounded corner radius
+                                              ),
+                                              padding: const EdgeInsets.all(10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    _registrationController
+                                                        .signature.value,
+                                                    style: const TextStyle(
+                                                        color: ColorsConfig
+                                                            .colorGreyy,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.attach_file,
+                                                    color:
+                                                        ColorsConfig.colorGreyy,
+                                                    size: 25,
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
                                           Container(
+                                            width: Get.width * 0.5,
                                             decoration: BoxDecoration(
                                               color: Colors.transparent,
                                               border: Border.all(
@@ -1716,6 +1788,10 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 14),
                                             child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: const [
                                                 Text(
                                                   'Download Agreement',
@@ -1740,27 +1816,33 @@ class _ExpertRegistrationFormState extends State<ExpertRegistrationForm> {
                                         child: loginButtonWidget(
                                           'Submit',
                                           () {
-                                            _registrationController
-                                                .addExpertdegreeDetails();
-                                            _registrationController
-                                                .addExpertGstDetails();
-                                            _registrationController
-                                                .addExpertbankDetails();
-                                            showDialog(
-                                              barrierDismissible: false,
-                                              context: context,
-                                              builder: (_) => AnimatedDialog(
-                                                outputText: 'Congratulations',
-                                                subText:
-                                                    'Your Profile is Successfully Completed.',
-                                                titleSubtext:
-                                                    'Please Wait For Admin Approval.',
-                                                onClose: () {
-                                                  Get.offAllNamed(
-                                                      LoginScreen.pageId);
-                                                },
-                                              ),
-                                            );
+                                            if (_registrationController
+                                                .fromEdit['is_edit']) {
+                                              _registrationController
+                                                  .editMandatoryExpertProfile();
+                                            } else {
+                                              _registrationController
+                                                  .addExpertdegreeDetails();
+                                              _registrationController
+                                                  .addExpertGstDetails();
+                                              _registrationController
+                                                  .addExpertbankDetails();
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (_) => AnimatedDialog(
+                                                  outputText: 'Congratulations',
+                                                  subText:
+                                                      'Your Profile is Successfully Completed.',
+                                                  titleSubtext:
+                                                      'Please Wait For Admin Approval.',
+                                                  onClose: () {
+                                                    Get.offAllNamed(
+                                                        LoginScreen.pageId);
+                                                  },
+                                                ),
+                                              );
+                                            }
                                           },
                                         ),
                                       ),

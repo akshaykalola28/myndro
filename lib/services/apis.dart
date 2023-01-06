@@ -48,4 +48,7 @@ mixin Apis {
   static const String sendChatFromPatient = 'send_chatFromPatient';
   static const String fetchExpertMsg = 'FetchMessagesByAppointmentFromExpert';
   static const String fetchPatientMsg = 'FetchMessagesByAppointmentFromPatient';
+
+  static const String updateMandata = 'update_expert_mandatory_data';
+  static const String updateNonMandata = 'update_profile_non_mandatory';
 }
