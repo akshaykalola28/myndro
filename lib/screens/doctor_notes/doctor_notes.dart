@@ -34,7 +34,7 @@ class DoctorNotesScreen extends GetView<DoctorNotesController> {
                   height: 15,
                 ),
                 iconConatiner(ImagePath.iconPrescription,
-                    () => Get.toNamed(PrescriptionScreen.pageId)),
+                    () => Get.toNamed(PrescriptionListScreen.pageId)),
                 const SizedBox(
                   height: 40,
                 ),

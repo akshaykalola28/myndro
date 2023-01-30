@@ -198,6 +198,22 @@ class Common {
     }
   }
 
+  static String? validateMedName(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter  a Medicine Name';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateInstruction(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter  Instruction';
+    } else {
+      return null;
+    }
+  }
+
   static String? validateSessionPrice(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Session Price';

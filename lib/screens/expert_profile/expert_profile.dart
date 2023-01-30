@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +27,9 @@ class ExpertProfile extends GetView<ExpertProfileController> {
           padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
           child: Column(
             children: [
-              profileDataContainer(context),
+              GetBuilder<ExpertProfileController>(
+                  builder: (controller) => profileDataContainer(context,
+                      () => controller.pickImage(), controller.profileImage)),
               const SizedBox(
                 height: 5,
               ),
@@ -409,7 +413,8 @@ class ExpertProfile extends GetView<ExpertProfileController> {
     );
   }
 
-  Widget profileDataContainer(BuildContext context) {
+  Widget profileDataContainer(
+      BuildContext context, VoidCallback onClick, dynamic imageFile) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),
       decoration: BoxDecoration(
@@ -421,21 +426,30 @@ class ExpertProfile extends GetView<ExpertProfileController> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: ColorsConfig.colorBlack,
-                      style: BorderStyle.solid,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    ImagePath.girl,
-                    fit: BoxFit.cover,
-                    // height: 80,
-                    width: Get.width * 0.3,
+              GestureDetector(
+                onTap: onClick,
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: ColorsConfig.colorBlack,
+                        style: BorderStyle.solid,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: imageFile != null
+                        ? Image.file(
+                            imageFile,
+                            fit: BoxFit.cover,
+                            width: Get.width * 0.3,
+                          )
+                        : Image.asset(
+                            ImagePath.girl,
+                            fit: BoxFit.cover,
+                            // height: 80,
+                            width: Get.width * 0.3,
+                          ),
                   ),
                 ),
               ),

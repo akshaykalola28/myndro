@@ -53,3 +53,5 @@ export 'employee_docs/employee_doc_container.dart';
 export 'ask_us/patient_appointment_list.dart';
 export 'expert_messages/expert_appointment_list.dart';
 export 'call_screen/call_screen.dart';
+export 'web_view_screen/web_view_screen.dart';
+export 'doctor_notes/prescription_list_screen.dart';

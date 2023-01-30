@@ -33,3 +33,4 @@ export 'patient_appo_list_binding.dart';
 export 'expert_appo_list_binding.dart';
 export 'expert_today_appo_binding.dart';
 export 'call_screen_binding.dart';
+export 'web_view_screen_binding.dart';

@@ -22,7 +22,7 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
     const Tab(text: 'Notes'),
   ];
   TabController? tabController;
-  dynamic getExpertData;
+  // dynamic getExpertData;
   // final ExpertTodayAppoController controller = Get.find();
   final ExpertTodayAppoController controller = ExpertTodayAppoController();
   @override
@@ -35,9 +35,11 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
   void initState() {
     tabController = TabController(length: myTabs.length, vsync: this);
     tabController!.addListener(handleTabSelection);
-    getExpertData = Get.arguments;
+    controller.getExpertData = Get.arguments;
     controller.getnotesByAppoId(
-        int.parse(getExpertData['appoDetail'].appointmentId ?? 0));
+        int.parse(controller.getExpertData['appoDetail'].appointmentId ?? 0));
+    controller.getPrescriByAppoId(
+        int.parse(controller.getExpertData['appoDetail'].appointmentId ?? 0));
     super.initState();
   }
 
@@ -135,7 +137,7 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                           ),
                         ),
                         child: Text(
-                          'Case No: ${getExpertData['appoDetail']?.caseNo ?? ''}',
+                          'Case No: ${controller.getExpertData['appoDetail']?.caseNo ?? ''}',
                           style: TextStyle(
                               fontFamily: AppTextStyle.microsoftJhengHei,
                               fontSize: 14.0,
@@ -150,31 +152,44 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: ColorsConfig.colorBlue,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30.0)),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 14, vertical: 11),
-                          child: Text(
-                            "Add Prescription",
-                            style: TextStyle(
-                                fontFamily: AppTextStyle.microsoftJhengHei,
-                                fontSize: 15.0,
-                                color: ColorsConfig.colorWhite,
-                                fontWeight: FontWeight.bold),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => controller.displayPrescriptionDialog(
+                              context,
+                              int.parse(controller.getExpertData['appoDetail']
+                                      ?.appointmentId ??
+                                  ''),
+                              controller
+                                      .getExpertData['appoDetail']?.patientId ??
+                                  ''),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: ColorsConfig.colorBlue,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30.0)),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 14, vertical: 11),
+                            child: Text(
+                              "Add Prescription",
+                              style: TextStyle(
+                                  fontFamily: AppTextStyle.microsoftJhengHei,
+                                  fontSize: 15.0,
+                                  color: ColorsConfig.colorWhite,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                         GestureDetector(
                           behavior: HitTestBehavior.opaque,
                           onTap: () => controller.displayDialog(
                               context,
-                              int.parse(
-                                  getExpertData['appoDetail']?.appointmentId ??
-                                      ''),
-                              getExpertData['appoDetail']?.patientId ?? ''),
+                              int.parse(controller.getExpertData['appoDetail']
+                                      ?.appointmentId ??
+                                  ''),
+                              controller
+                                      .getExpertData['appoDetail']?.patientId ??
+                                  ''),
                           child: Container(
                             decoration: const BoxDecoration(
                               color: ColorsConfig.colorBlue,
@@ -221,13 +236,21 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: ((context, index) {
                           return appointmentContainer(
-                              getExpertData['appoDetail'].patientName ?? '',
-                              getExpertData['appoDetail'].appointmentDate ?? '',
-                              getExpertData['appoDetail'].caseNo ?? '',
-                              getExpertData['appoDetail'].audioVideo ?? '',
-                              getExpertData['appoDetail'].type ?? '',
+                              controller.getExpertData['appoDetail']
+                                      .patientName ??
+                                  '',
+                              controller.getExpertData['appoDetail']
+                                      .appointmentDate ??
+                                  '',
+                              controller.getExpertData['appoDetail'].caseNo ??
+                                  '',
+                              controller
+                                      .getExpertData['appoDetail'].audioVideo ??
+                                  '',
+                              controller.getExpertData['appoDetail'].type ?? '',
                               () => Get.toNamed(CallScreen.pageId, arguments: {
-                                    'meetDetail': getExpertData['appoDetail'],
+                                    'meetDetail':
+                                        controller.getExpertData['appoDetail'],
                                   }));
                         })),
                     const SizedBox(
@@ -252,22 +275,40 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                     ),
                     Center(
                         child: [
-                      ListView.separated(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 5,
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const SizedBox(
-                              height: 25,
-                            );
-                          },
-                          itemBuilder: (BuildContext context, int index) {
-                            return prescriptionContainer();
-                          }),
+                      controller.isPrescLoading.value
+                          ? const MyndroLoader()
+                          : ListView.separated(
+                              reverse: true,
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller.prescByAppoId.length,
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return const SizedBox(
+                                  height: 25,
+                                );
+                              },
+                              itemBuilder: (BuildContext context, int index) {
+                                return prescriptionContainer(
+                                  controller.prescByAppoId[index].medicineName,
+                                  controller.prescByAppoId[index].frequency,
+                                  () {
+                                    Get.toNamed(WebViewScreen.pageId,
+                                        arguments: {
+                                          'meetDetail': controller
+                                                  .prescByAppoId.isNotEmpty
+                                              ? controller.prescByAppoId[index]
+                                                  .attachment
+                                              : null,
+                                        });
+                                  },
+                                );
+                              }),
                       controller.isLoading.value
                           ? const MyndroLoader()
                           : ListView.separated(
+                              reverse: true,
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
@@ -283,9 +324,9 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                                   date: Common.formatLockerDate(controller
                                           .notesByAppoId[index].createdDate ??
                                       ''),
-                                  title:
-                                      getExpertData['appoDetail'].doctorName ??
-                                          '',
+                                  title: controller.getExpertData['appoDetail']
+                                          .doctorName ??
+                                      '',
                                   subject: controller
                                           .notesByAppoId[index].notesDesc ??
                                       '',
@@ -300,7 +341,8 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
     );
   }
 
-  Widget prescriptionContainer() {
+  Widget prescriptionContainer(
+      String medName, String medFreq, VoidCallback onAttachment) {
     return Card(
       elevation: 5,
       child: Padding(
@@ -327,7 +369,7 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                   ),
                 ),
                 Text(
-                  'DATA',
+                  medName,
                   style: TextStyle(
                       fontFamily: AppTextStyle.microsoftJhengHei,
                       fontSize: 18.0,
@@ -342,30 +384,36 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Morning',
-                  style: TextStyle(
-                      fontFamily: AppTextStyle.microsoftJhengHei,
-                      fontSize: 18.0,
-                      color: ColorsConfig.colorGreyy,
-                      fontWeight: FontWeight.w800),
-                ),
-                Text(
-                  'Afternoon',
-                  style: TextStyle(
-                      fontFamily: AppTextStyle.microsoftJhengHei,
-                      fontSize: 18.0,
-                      color: ColorsConfig.colorGreyy,
-                      fontWeight: FontWeight.w800),
-                ),
-                Text(
-                  'Night',
-                  style: TextStyle(
-                      fontFamily: AppTextStyle.microsoftJhengHei,
-                      fontSize: 18.0,
-                      color: ColorsConfig.colorGreyy,
-                      fontWeight: FontWeight.w800),
-                ),
+                medFreq.toLowerCase().contains('morning')
+                    ? Text(
+                        'Morning',
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 18.0,
+                            color: ColorsConfig.colorGreyy,
+                            fontWeight: FontWeight.w800),
+                      )
+                    : Container(),
+                medFreq.toLowerCase().contains('afternoon')
+                    ? Text(
+                        'Afternoon',
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 18.0,
+                            color: ColorsConfig.colorGreyy,
+                            fontWeight: FontWeight.w800),
+                      )
+                    : Container(),
+                medFreq.toLowerCase().contains('evening')
+                    ? Text(
+                        'Evening',
+                        style: TextStyle(
+                            fontFamily: AppTextStyle.microsoftJhengHei,
+                            fontSize: 18.0,
+                            color: ColorsConfig.colorGreyy,
+                            fontWeight: FontWeight.w800),
+                      )
+                    : Container(),
               ],
             ),
             const SizedBox(
@@ -373,35 +421,40 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: onAttachment,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
 
-                  border: Border.all(color: ColorsConfig.colorBlue, width: 1.0),
-                  borderRadius: const BorderRadius.all(
-                      Radius.circular(25.0)), // Set rounded corner radius
-                  // Make rounded corner of border
-                ),
-                padding: const EdgeInsets.all(6),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Text(
-                      'Attachment',
-                      style: TextStyle(
-                          color: ColorsConfig.colorBlue,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.attach_file,
-                      color: ColorsConfig.colorBlue,
-                      size: 25,
-                    )
-                  ],
+                    border:
+                        Border.all(color: ColorsConfig.colorBlue, width: 1.0),
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(25.0)), // Set rounded corner radius
+                    // Make rounded corner of border
+                  ),
+                  padding: const EdgeInsets.all(6),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        'Attachment',
+                        style: TextStyle(
+                            color: ColorsConfig.colorBlue,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.attach_file,
+                        color: ColorsConfig.colorBlue,
+                        size: 25,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -586,42 +639,20 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
         const SizedBox(
           height: 13,
         ),
-        Row(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: ColorsConfig.colorBlue,
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Text(
-                'Save Note',
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 15.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                color: ColorsConfig.colorBlue,
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Text(
-                'Share',
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 15.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
+        Container(
+          decoration: const BoxDecoration(
+            color: ColorsConfig.colorBlue,
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Text(
+            'Share',
+            style: TextStyle(
+                fontFamily: AppTextStyle.microsoftJhengHei,
+                fontSize: 15.0,
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );

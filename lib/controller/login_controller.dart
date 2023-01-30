@@ -11,13 +11,13 @@ class LoginController extends BaseController {
   @override
   void errorHandler(e) {}
   bool rememberPassSelected = false;
-  bool isLoading = false;
+  // RxBool isLoading = false.obs;
   int radioSelected = 1;
   void login(
     String email,
     String pass,
   ) async {
-    isLoading = true;
+    // isLoading.value = true;
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = radioSelected == 1
@@ -43,7 +43,7 @@ class LoginController extends BaseController {
           Common.displayMessage(jsonData["msg"] as String);
         }
       }
-      isLoading = false;
+      // isLoading.value = false;
     }
   }
 }

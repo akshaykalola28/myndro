@@ -288,7 +288,9 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
                           color: ColorsConfig.colorBlue,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Icon(
-                          callType == 'audio' ? Icons.phone : Icons.videocam,
+                          callType.toLowerCase().contains('audio')
+                              ? Icons.phone
+                              : Icons.videocam,
                           color: ColorsConfig.colorWhite,
                           size: 32),
                     ),

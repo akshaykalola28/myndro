@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:myndro/binding/patient_prescription_binding.dart';
 
 import 'binding/binding.dart';
 import 'screens/screens.dart';
@@ -119,6 +120,10 @@ final List<GetPage> appPages = [
   GetPage(
       name: PrescriptionScreen.pageId,
       page: () => const PrescriptionScreen(),
+      binding: PrescriptionDetailBinding()),
+  GetPage(
+      name: PrescriptionListScreen.pageId,
+      page: () => const PrescriptionListScreen(),
       binding: DoctorNotesBinding()),
   GetPage(
       name: OffersScreen.pageId,
@@ -214,6 +219,10 @@ final List<GetPage> appPages = [
       binding: ExpertAppoListBinding()),
   GetPage(
       name: CallScreen.pageId,
-      page: () => CallScreen(),
+      page: () => const CallScreen(),
       binding: CallScreenBinding()),
+  GetPage(
+      name: WebViewScreen.pageId,
+      page: () => const WebViewScreen(),
+      binding: WebViewScreenBinding()),
 ];

@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 20,
                           ),
                           loginButtonWidget(
-                            loginController.isLoading ? 'Loading' : 'SIGN IN',
+                            'SIGN IN',
                             () {
                               loginController.login(emailController.text.trim(),
                                   passController.text.trim());

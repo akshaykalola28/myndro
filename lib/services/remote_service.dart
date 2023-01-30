@@ -132,7 +132,7 @@ class RemoteServices {
     String email,
     String password,
   ) async {
-    Map<String, String> header = {'Content-Type': 'text/plain'};
+    Map<String, String> header = {'Content-Type': 'application/json'};
 
     String postBody = json.encode({"email": email, "password": password});
 
@@ -454,9 +454,8 @@ class RemoteServices {
   //get expert appointment list
   static Future<http.Response> getExpertAppointmentList(String doctorId) async {
     Map<String, String> header = {'Content-Type': 'application/json'};
-    String postBody = json.encode({
-      "doctor_id": doctorId,
-    });
+    String postBody = json.encode(
+        {"doctor_id": doctorId, "type": "", "case_no": "", "PatientName": ""});
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.expertAppointmentList),
@@ -537,12 +536,14 @@ class RemoteServices {
     String doctorId,
     String patientId,
     String docNotes,
+    String appointmentId,
   ) async {
     Map<String, String> header = {'Content-Type': 'application/json'};
     String postBody = json.encode({
       "patient_id": patientId,
       "doctoerNotes": docNotes,
-      "doctor_id": doctorId
+      "doctor_id": doctorId,
+      'appointment_id': appointmentId
     });
 
     http.Response response = await http.post(
@@ -644,6 +645,129 @@ class RemoteServices {
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.notesByAppoId),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get sevice expertise
+  static Future<http.Response> getServiceExpertise() async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.serviceExpertise),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get service_treatment_approach
+  static Future<http.Response> getServiceTreatmentApproach() async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.serviceTreatmentApproach),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get service_specializations
+  static Future<http.Response> getserviceSpecialization() async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.serviceSpecialization),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get Notes List for patientside
+  static Future<http.Response> getNotesForPatientSide(String patientId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"patient_id": patientId});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.notesByPatientId),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get Prescription List for patientside
+  static Future<http.Response> getPrescriptionForPatientSide(
+      String patientId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"patient_id": patientId});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.prescByPatientId),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get Prescription Detail for patientside
+  static Future<http.Response> getPrescriptionDetailForPatientSide(
+      String prescriptionId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"prescription_id": prescriptionId});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.prescDetailsByPresId),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+//get Prescription List for expertSide
+  static Future<http.Response> getPrescriptionForExpertSide(
+      int appointmentId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"appointment_id": appointmentId});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.prescByAppoId),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //Start meeting by Dr
+  static Future<http.Response> startMeetingByDr(String meetId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"meetingId": meetId});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.startMeetByDr),
       headers: header,
       body: postBody,
     );

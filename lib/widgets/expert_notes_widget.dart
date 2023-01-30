@@ -71,24 +71,24 @@ class ExpertNotesWidget extends StatelessWidget {
         ),
         Row(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: ColorsConfig.colorBlue,
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Text(
-                'Save Note',
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 15.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
+            // Container(
+            //   decoration: const BoxDecoration(
+            //     color: ColorsConfig.colorBlue,
+            //     borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            //   ),
+            //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            //   child: Text(
+            //     'Save Note',
+            //     style: TextStyle(
+            //         fontFamily: AppTextStyle.microsoftJhengHei,
+            //         fontSize: 15.0,
+            //         color: Colors.white,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   width: 15,
+            // ),
             Container(
               decoration: const BoxDecoration(
                 color: ColorsConfig.colorBlue,
