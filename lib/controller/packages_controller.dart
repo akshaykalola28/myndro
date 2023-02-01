@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../constant/constant.dart';
 import '../model/model.dart';
+import '../services/services.dart';
+import '../util/common.dart';
 import 'controller.dart';
 
 class PackagesController extends BaseController {
@@ -14,6 +18,33 @@ class PackagesController extends BaseController {
   final TextEditingController titleController = TextEditingController();
   final CarouselController carouselController = CarouselController();
   RxInt currentIndex = 0.obs;
+  RxBool isLoading = false.obs;
+  List<PackagesList> packagesList = <PackagesList>[].obs;
+  @override
+  void onInit() async {
+    super.onInit();
+    getPackagesList();
+  }
+
+  void getPackagesList() async {
+    bool status = await Common.checkInternetConnection();
+
+    isLoading.value = true;
+    if (status) {
+      var response = await RemoteServices.getPatientPackageList();
+      var jsonData = json.decode(response.body);
+      var data = jsonData["data"] as List;
+      if (response.statusCode == 200) {
+        packagesList.clear();
+        isLoading.value = false;
+        for (dynamic i in data) {
+          packagesList.add(PackagesList.fromJson(i));
+        }
+      } else {
+        Common.displayMessage(jsonData["messages"] as String);
+      }
+    }
+  }
 
   List<OnBoardingModel> sliderPages = [
     OnBoardingModel(imageAsset: ImagePath.pack1, name: 'Module based learning'),

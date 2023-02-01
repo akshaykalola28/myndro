@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../constant/constant.dart';
+import '../util/common.dart';
 
 class ExpertProfileCard extends StatelessWidget {
   const ExpertProfileCard(
-      {Key? key, this.text, this.subText, this.exp, this.onAppointment})
+      {Key? key,
+      this.text,
+      this.subText,
+      this.onAppointment,
+      this.language,
+      this.audioPrice,
+      this.videoPrice,
+      this.onInstantConnect})
       : super(key: key);
   final String? text;
   final String? subText;
-  final int? exp;
+  final String? language;
+  final String? audioPrice;
+  final String? videoPrice;
   final VoidCallback? onAppointment;
+  final VoidCallback? onInstantConnect;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +124,7 @@ class ExpertProfileCard extends StatelessWidget {
                       width: 10,
                     ), */
                     Text(
-                      'Exp: $exp',
+                      language!,
                       style: TextStyle(
                         fontFamily: AppTextStyle.microsoftJhengHei,
                         fontSize: 15.0,
@@ -122,9 +132,28 @@ class ExpertProfileCard extends StatelessWidget {
                         color: ColorsConfig.colorGreyy,
                       ),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                   ],
                 ),
               )
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Common.iconContainer(
+                    Icons.phone_in_talk_rounded, 'Audio call',
+                    isPriceVisible: true, subText: '\u{20B9}$audioPrice'),
+              ),
+              Expanded(
+                child: Common.iconContainer(Icons.videocam, 'Video call',
+                    isPriceVisible: true, subText: '\u{20B9}$videoPrice'),
+              ),
             ],
           ),
           const SizedBox(
@@ -139,7 +168,7 @@ class ExpertProfileCard extends StatelessWidget {
               Expanded(
                   child: textContainer(
                 'Instant Connect',
-                () {},
+                onInstantConnect!,
               )),
             ],
           )

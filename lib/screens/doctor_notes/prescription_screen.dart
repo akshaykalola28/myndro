@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../services/services.dart';
 import '../../widgets/widgets.dart';
 import '../screens.dart';
 
@@ -284,9 +285,12 @@ class PrescriptionScreen extends GetView<PrescriptionDetailController> {
                                             onTap: () {
                                               Get.toNamed(WebViewScreen.pageId,
                                                   arguments: {
-                                                    'meetDetail': controller
-                                                        .prescDetailList[index]
-                                                        .attachment,
+                                                    'meetDetail':
+                                                        '${Apis.webViewUrl}${controller.prescDetailList[index].attachment}'
+
+                                                    //  controller
+                                                    //     .prescDetailList[index]
+                                                    //     .attachment,
                                                   });
                                             },
                                             child: Container(

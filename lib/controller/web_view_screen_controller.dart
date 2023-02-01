@@ -49,8 +49,7 @@ class WebViewScreenController extends BaseController {
           Common.displayMessage(message.message);
         },
       )
-      ..loadRequest(
-          Uri.parse('${Apis.webViewUrl}${getMeetDetails['meetDetail']}'));
+      ..loadRequest(Uri.parse('${getMeetDetails['meetDetail']}'));
   }
 
   Future<bool> exitApp(BuildContext context) async {

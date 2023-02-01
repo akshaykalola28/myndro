@@ -226,14 +226,12 @@ class RemoteServices {
 
   //get assessment question
   static Future<http.Response> getAssessmentQuestion(
-    String token,
     String assessmentCategory,
   ) async {
-    Map<String, String> header = {'Content-Type': 'text/plain'};
+    Map<String, String> header = {'Content-Type': 'application/json'};
 
     String postBody = json.encode({
-      'jwt_token': token,
-      'assement_category': assessmentCategory,
+      'question_category_id': assessmentCategory,
     });
 
     http.Response response = await http.post(
@@ -492,6 +490,21 @@ class RemoteServices {
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.expertPackageList),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //get patient side package list
+  static Future<http.Response> getPatientPackageList() async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.packagesList),
       headers: header,
       body: postBody,
     );
@@ -768,6 +781,36 @@ class RemoteServices {
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.startMeetByDr),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //share Dr Note to patient
+  static Future<http.Response> shareDrNote(String noteId, int doctorId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"doctor_id": doctorId, "notes_id": noteId});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.shareDrNotes),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  //assessment category
+  static Future<http.Response> assessmentCategory() async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({});
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.assesmentCategory),
       headers: header,
       body: postBody,
     );

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../controller/controller.dart';
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
-import '../screens.dart';
 
 class ExpertPackages extends GetView<ExpertPackagesController> {
   static const pageId = "/ExpertPackages";

@@ -878,118 +878,136 @@ IconButton(onPressed: (){
                               ),
                               child: Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        15, 15, 0, 15),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            padding: const EdgeInsets.all(6),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: ColorsConfig.colorBlack,
-                                                style: BorderStyle.solid,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            child: Text(
-                                              'Wallet',
-                                              style: TextStyle(
-                                                fontFamily: AppTextStyle
-                                                    .microsoftJhengHei,
-                                                fontSize: 25.0,
-                                                color: ColorsConfig.colorBlack,
-                                              ),
-                                            )),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          'Myndro Balance',
-                                          style: TextStyle(
-                                              fontFamily: AppTextStyle
-                                                  .microsoftJhengHei,
-                                              fontSize: 20.0,
-                                              color: ColorsConfig.colorBlue,
-                                              fontWeight: FontWeight.w800),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          dashboardController
-                                              .walletAmount.value,
-                                          style: TextStyle(
-                                              fontFamily: AppTextStyle
-                                                  .microsoftJhengHei,
-                                              fontSize: 20.0,
-                                              color: ColorsConfig.colorBlack,
-                                              fontWeight: FontWeight.w800),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            // Get.toNamed(WalletScreen.pageId);
-                                            dashboardController
-                                                .displayDialog(context);
-                                          },
-                                          child: Container(
+                                  Expanded(
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 15, 0, 15),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
                                               padding: const EdgeInsets.all(6),
                                               decoration: BoxDecoration(
-                                                color: ColorsConfig.colorBlue,
                                                 border: Border.all(
-                                                  color: ColorsConfig.colorBlue,
+                                                  color:
+                                                      ColorsConfig.colorBlack,
                                                   style: BorderStyle.solid,
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
-                                              child: Row(
-                                                children: [
-                                                  const Icon(
-                                                    Icons.add,
+                                              child: Text(
+                                                'Wallet',
+                                                style: TextStyle(
+                                                  fontFamily: AppTextStyle
+                                                      .microsoftJhengHei,
+                                                  fontSize: 25.0,
+                                                  color:
+                                                      ColorsConfig.colorBlack,
+                                                ),
+                                              )),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                            'Myndro Balance',
+                                            style: TextStyle(
+                                                fontFamily: AppTextStyle
+                                                    .microsoftJhengHei,
+                                                fontSize: 20.0,
+                                                color: ColorsConfig.colorBlue,
+                                                fontWeight: FontWeight.w800),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                            dashboardController
+                                                .walletAmount.value,
+                                            maxLines: 3,
+                                            style: TextStyle(
+                                                fontFamily: AppTextStyle
+                                                    .microsoftJhengHei,
+                                                fontSize: 20.0,
+                                                color: ColorsConfig.colorBlack,
+                                                fontWeight: FontWeight.w800),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              // Get.toNamed(WalletScreen.pageId);
+                                              dashboardController
+                                                  .displayDialog(context);
+                                            },
+                                            child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(6),
+                                                decoration: BoxDecoration(
+                                                  color: ColorsConfig.colorBlue,
+                                                  border: Border.all(
                                                     color:
-                                                        ColorsConfig.colorWhite,
-                                                    size: 20,
+                                                        ColorsConfig.colorBlue,
+                                                    style: BorderStyle.solid,
+                                                    width: 1.0,
                                                   ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(
-                                                    'Add Money',
-                                                    style: TextStyle(
-                                                      fontFamily: AppTextStyle
-                                                          .microsoftJhengHei,
-                                                      fontSize: 18.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.add,
                                                       color: ColorsConfig
                                                           .colorWhite,
+                                                      size: 20,
                                                     ),
-                                                  ),
-                                                ],
-                                              )),
-                                        ),
-                                      ],
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      'Add Money',
+                                                      style: TextStyle(
+                                                        fontFamily: AppTextStyle
+                                                            .microsoftJhengHei,
+                                                        fontSize: 18.0,
+                                                        color: ColorsConfig
+                                                            .colorWhite,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  const Spacer(),
-                                  Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10, 20, 10, 20),
-                                      child: Image.asset(
-                                        ImagePath.addMoneyImg,
-                                        height: Get.height * 0.2,
-                                        width: Get.width * 0.36,
-                                        fit: BoxFit.fill,
-                                      )),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Image.asset(
+                                      ImagePath.addMoneyImg,
+                                      height: Get.height * 0.2,
+                                      width: Get.width * 0.36,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
                                 ],
                               )),
                         ),

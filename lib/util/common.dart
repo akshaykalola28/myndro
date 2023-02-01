@@ -78,6 +78,14 @@ class Common {
     }
   }
 
+  static String? validateOTP(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter OTP';
+    } else {
+      return null;
+    }
+  }
+
   static String? validatePhoneNo(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Phone Number';

@@ -81,7 +81,8 @@ class AssessmentStartScreen extends GetView<AssessmentController> {
               ),
             ],
           ),
-          text: 'Myndro Panic Disorder Test',
+          text:
+              'Myndro ${controller.getAssessmentData['assessmentData'].questionName} Test',
           isAssessment: true),
     ));
   }

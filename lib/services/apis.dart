@@ -3,6 +3,8 @@ mixin Apis {
   // static String baseUrl = 'https://myndro.com/api/';
   static String baseUrl = 'https://myndro.com/api/';
   static String webViewUrl = 'https://myndro.com/';
+  static String imageUrl =
+      'https://myndro.com/front_theme/images/question_cate/';
 
   // static String baseUrl = 'http://mynd.thepackaginghouse.in/api/';
   static String baseUrl1 = 'https://scrapbazar.in/mynd.manzanotech.com/api/';
@@ -15,14 +17,13 @@ mixin Apis {
   static const String stateList = 'state_list';
   static const String cityList = 'city_list';
   static const String patientLogin = 'patient_login';
-  static const String assessmentQuestion = 'assement_question';
+
   static const String postMndroLocker = 'create_patient_locker';
   static const String listPatientDocuments = 'list_patient_documents';
   static const String expertSignupCategory = 'expert_signup_category1';
   static const String expertSignupSubCategory = 'expert_signup_sub_category';
   static const String expertSigninCode = 'expert_signin_code';
 
-  // static const String expertSignupFinalCode = 'signup_expert_final_code';
   static const String expertSignupProfile = 'signup_expert_profile';
   static const String expertSignupDegreeCode = 'signup_expert_degree_code';
   static const String expertSignupBankCode = 'signup_expert_bank_code';
@@ -36,14 +37,16 @@ mixin Apis {
   static const String drSlotsList = 'doctor_slot_list';
   static const String saveDrSlots = 'save_doctor_slots_data';
   static const String createAppointment = 'create_appointment';
+  static const String instantConnectAppointment = 'instant_connect_appointment';
 
   static const String expertAppointmentList = 'expert_appointment_list';
   static const String patientAppointmentList = 'patient_appointment_list';
 
   static const String expertCreatePackage = 'create_package';
-  static const String expertPackageList = 'packages_list';
+  static const String expertPackageList = 'doctor_package_list_by_doctor_id';
 
   static const String createDrNotes = 'create_doctor_notes';
+  static const String shareDrNotes = 'share_notes_by_doctor';
   static const String notesByAppoId =
       'doctor_notes_list_for_patient_appointmentID';
   static const String notesByPatientId = 'doctor_notes_list_ByPatientID';
@@ -65,4 +68,14 @@ mixin Apis {
   static const String prescByAppoId = 'list_prescription_by_AppointmentID';
   static const String prescByPatientId = 'list_prescription';
   static const String prescDetailsByPresId = 'list_prescription_details';
+
+  static const String assesmentCategory = 'assesments_category_list';
+  static const String assessmentQuestion = 'assement_question_category_id';
+
+  static const String sendForgotPassOtp = 'send_forgot_password_OTP';
+  static const String checkForgotPassOtp =
+      'check_OTP_entered_By_User_forgot_password';
+  static const String updateForgotPass = 'update_password_forgot_password';
+
+  static const String packagesList = 'packages_list';
 }

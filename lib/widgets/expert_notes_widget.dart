@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import '../constant/constant.dart';
 
 class ExpertNotesWidget extends StatelessWidget {
-  const ExpertNotesWidget({Key? key, this.date, this.title, this.subject})
+  const ExpertNotesWidget(
+      {Key? key, this.date, this.title, this.subject, this.onShare})
       : super(key: key);
   final String? date;
   final String? title;
   final String? subject;
+  final VoidCallback? onShare;
 
   @override
   Widget build(BuildContext context) {
@@ -89,19 +91,24 @@ class ExpertNotesWidget extends StatelessWidget {
             // const SizedBox(
             //   width: 15,
             // ),
-            Container(
-              decoration: const BoxDecoration(
-                color: ColorsConfig.colorBlue,
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Text(
-                'Share',
-                style: TextStyle(
-                    fontFamily: AppTextStyle.microsoftJhengHei,
-                    fontSize: 15.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: onShare,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: ColorsConfig.colorBlue,
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Text(
+                  'Share',
+                  style: TextStyle(
+                      fontFamily: AppTextStyle.microsoftJhengHei,
+                      fontSize: 15.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],

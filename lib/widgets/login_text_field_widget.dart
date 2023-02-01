@@ -33,6 +33,14 @@ Widget loginTextFieldWidget(
       ),
       filled: true,
       fillColor: ColorsConfig.colorWhite,
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: ColorsConfig.colorBlue),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: ColorsConfig.colorBlue),
+      ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
         borderSide: const BorderSide(color: ColorsConfig.colorBlue),

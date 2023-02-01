@@ -1,6 +1,7 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myndro/controller/controller.dart';
 
 import '../../constant/constant.dart';
 import '../../model/model.dart';
@@ -13,13 +14,14 @@ class SearchScreen extends StatefulWidget {
   SearchScreen({Key? key, this.allTextList, this.selectedUserList})
       : super(key: key);
   final List<DoctorcategoryList>? allTextList;
-  List<DoctorcategoryList>? selectedUserList;
+  late List<DoctorcategoryList>? selectedUserList;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  HomeController homeController = HomeController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +123,24 @@ class _SearchScreenState extends State<SearchScreen> {
                           subText: widget
                                   .selectedUserList![index].doctorProfession ??
                               '',
-                          exp: 10,
+                          audioPrice: widget
+                                  .selectedUserList![index].doctorAudioCharge ??
+                              '',
+                          videoPrice: widget
+                                  .selectedUserList![index].doctorVideoCharge ??
+                              '',
+                          language:
+                              widget.selectedUserList![index].doctorLanguage ??
+                                  '',
+                          onInstantConnect: () => homeController.displayDialog(
+                              context,
+                              widget.selectedUserList![index]
+                                      .doctorVideoCharge ??
+                                  '',
+                              widget.selectedUserList![index]
+                                      .doctorAudioCharge ??
+                                  '',
+                              widget.selectedUserList![index].doctorId ?? ''),
                         );
                       },
                       itemCount: widget.selectedUserList!.length,

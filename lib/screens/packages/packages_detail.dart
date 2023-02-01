@@ -11,7 +11,7 @@ class PackagesDetailScreen extends GetView<PackagesController> {
   static const pageId = "/PackagesDetailScreen";
 
   PackagesDetailScreen({Key? key}) : super(key: key);
-  late List<Widget> imgData = controller.sliderPages
+  late final List<Widget> imgData = controller.sliderPages
       .map((item) => Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(

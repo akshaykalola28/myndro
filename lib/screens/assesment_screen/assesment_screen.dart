@@ -19,12 +19,12 @@ class AssessmentScreen extends GetView<AssessmentController> {
       onTap: () {
         Get.focusScope!.unfocus();
       },
-      child: LayoutWidget(
+      child: Obx(() => LayoutWidget(
           body: PageView.builder(
             physics: const NeverScrollableScrollPhysics(),
             controller: controller.pageController,
             onPageChanged: controller.onPageIndex,
-            itemCount: controller.questions.length,
+            itemCount: controller.assessmentQueList.length,
             itemBuilder: (context, index) {
               return Stack(
                 children: [
@@ -48,9 +48,10 @@ class AssessmentScreen extends GetView<AssessmentController> {
                             progressColor: ColorsConfig.colorBlue,
                             backgroundColor:
                                 ColorsConfig.colorBlue.withOpacity(0.2),
-                            percent: (100 / controller.questions.length) *
-                                (index + 1) /
-                                100,
+                            percent:
+                                (100 / controller.assessmentQueList.length) *
+                                    (index + 1) /
+                                    100,
                             center: Text(
                               (index + 1).toString(),
                               style: TextStyle(
@@ -68,7 +69,9 @@ class AssessmentScreen extends GetView<AssessmentController> {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 12),
                               child: Text(
-                                controller.questions[index].name,
+                                controller.assessmentQueList[index]
+                                        .assementQuestions ??
+                                    '',
                                 style: TextStyle(
                                   fontFamily: AppTextStyle.microsoftJhengHei,
                                   fontSize: 17.0,
@@ -148,8 +151,9 @@ class AssessmentScreen extends GetView<AssessmentController> {
               );
             },
           ),
-          text: 'Myndro Panic Disorder Test',
-          isAssessment: true),
+          text:
+              'Myndro ${controller.getAssessmentData['assessmentData'].questionName} Test',
+          isAssessment: true)),
     ));
   }
 }

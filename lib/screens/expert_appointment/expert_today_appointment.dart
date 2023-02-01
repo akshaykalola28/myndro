@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../services/services.dart';
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
 import '../screens.dart';
@@ -298,8 +299,7 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                                         arguments: {
                                           'meetDetail': controller
                                                   .prescByAppoId.isNotEmpty
-                                              ? controller.prescByAppoId[index]
-                                                  .attachment
+                                              ? '${Apis.webViewUrl}${controller.prescByAppoId[index].attachment}'
                                               : null,
                                         });
                                   },
@@ -330,6 +330,11 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                                   subject: controller
                                           .notesByAppoId[index].notesDesc ??
                                       '',
+                                  onShare: () => controller.shareExpertNote(
+                                    controller.notesByAppoId[index]
+                                            .appointmentNotesId ??
+                                        '',
+                                  ),
                                 );
                               }),
                     ][tabController!.index])
@@ -578,83 +583,5 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                 )
               ],
             )));
-  }
-
-  Widget dataContainer(String caseNo, String dateOfAppointment, String title,
-      String subject, String date) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          date,
-          style: TextStyle(
-              fontFamily: AppTextStyle.microsoftJhengHei,
-              fontSize: 12.0,
-              color: ColorsConfig.colorGreyy,
-              fontWeight: FontWeight.w800),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Material(
-          elevation: 5,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
-          child: Container(
-            width: Get.width,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            decoration: BoxDecoration(
-              color: ColorsConfig.colorWhite.withOpacity(0.5),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                      fontFamily: AppTextStyle.microsoftJhengHei,
-                      fontSize: 16.0,
-                      color: ColorsConfig.colorBlack,
-                      fontWeight: FontWeight.w400),
-                ),
-                Text(
-                  subject,
-                  softWrap: true,
-                  maxLines: 10,
-                  style: TextStyle(
-                      fontFamily: AppTextStyle.microsoftJhengHei,
-                      fontSize: 14.0,
-                      color: ColorsConfig.colorGreyy,
-                      fontWeight: FontWeight.w800),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 13,
-        ),
-        Container(
-          decoration: const BoxDecoration(
-            color: ColorsConfig.colorBlue,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Text(
-            'Share',
-            style: TextStyle(
-                fontFamily: AppTextStyle.microsoftJhengHei,
-                fontSize: 15.0,
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-      ],
-    );
   }
 }

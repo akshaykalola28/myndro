@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../constant/constant.dart';
 import '../model/model.dart';
 import '../screens/screens.dart';
 import '../services/services.dart';
@@ -13,9 +12,18 @@ import 'controller.dart';
 class AssessmentController extends BaseController {
   var pageController = PageController();
   var onPageIndex = 0.obs;
-
-  bool get isLastPage => onPageIndex.value == questions.length - 1;
+  List<AssessmentQuesList> assessmentQueList = <AssessmentQuesList>[].obs;
+  bool get isLastPage => onPageIndex.value == assessmentQueList.length - 1;
   RxBool isCompleted = false.obs;
+  RxBool isLoading = false.obs;
+  dynamic getAssessmentData;
+  @override
+  void onInit() async {
+    super.onInit();
+    getAssessmentData = Get.arguments;
+    getAssessmentQuestions(
+        getAssessmentData['assessmentData'].questionShortName);
+  }
 
   forward() {
     if (isLastPage) {
@@ -28,41 +36,24 @@ class AssessmentController extends BaseController {
   @override
   void errorHandler(e) {}
 
-  void getAssessmentQuestions() async {
-    var res = await Common.retrievePrefData(Common.strLoginRes);
-    var accessToken = res.isNotEmpty ? jsonDecode(res)['jwt_token'] : '';
+  void getAssessmentQuestions(String assessmentCat) async {
     bool status = await Common.checkInternetConnection();
+    isLoading.value = true;
     if (status) {
-      var response =
-          await RemoteServices.getAssessmentQuestion(accessToken, 'ST');
+      var response = await RemoteServices.getAssessmentQuestion(assessmentCat);
+      var jsonData = json.decode(response.body);
+      var data = jsonData["data"] as List;
       if (response.statusCode == 200) {
-        var jsonData = json.decode(response.body);
+        assessmentQueList.clear();
+        isLoading.value = false;
+        for (dynamic i in data) {
+          assessmentQueList.add(AssessmentQuesList.fromJson(i));
+        }
+      } else {
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }
-
-  List<OnBoardingModel> questions = [
-    OnBoardingModel(
-        imageAsset: ImagePath.onBoard1,
-        name:
-            "Do you face a trouble concentrating Do you face a trouble concentrating on things, such as reading the newspaper or watc things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watcDo you face a trouble concentrating on things, such as reading the newspaper or watching television"),
-    OnBoardingModel(
-        imageAsset: ImagePath.onBoard1,
-        name:
-            "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
-    OnBoardingModel(
-        imageAsset: ImagePath.onBoard1,
-        name:
-            "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
-    OnBoardingModel(
-        imageAsset: ImagePath.onBoard1,
-        name:
-            "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
-    OnBoardingModel(
-        imageAsset: ImagePath.onBoard1,
-        name:
-            "Do you face a trouble concentrating on things, such as reading the newspaper or watching television"),
-  ];
 
   void goToEnd() async {
     isCompleted.value = !isCompleted.value;

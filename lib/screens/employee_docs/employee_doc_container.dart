@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:myndro/constant/colors_config.dart';
 
 import '../../constant/constant.dart';
 
 class EmployeeDocContainer extends StatelessWidget {
-  EmployeeDocContainer(
+  const EmployeeDocContainer(
       {Key? key, this.patientName, this.age, this.packageName, this.caseNo})
       : super(key: key);
-  String? patientName;
-  String? age;
-  String? packageName;
-  String? caseNo;
+  final String? patientName;
+  final String? age;
+  final String? packageName;
+  final String? caseNo;
 
   @override
   Widget build(BuildContext context) {

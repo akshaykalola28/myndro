@@ -12,7 +12,7 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
   static const pageId = "/AssessmentEndScreen";
 
   AssessmentEndScreen({Key? key}) : super(key: key);
-  RxBool isLoading = false.obs;
+  final RxBool isLoading = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +215,8 @@ class AssessmentEndScreen extends GetView<AssessmentController> {
                       ),
                     ],
                   ),
-            text: 'Myndro Panic Disorder Test',
+            text:
+                'Myndro ${controller.getAssessmentData['assessmentData'].questionName} Test',
             isAssessment: true),
       );
     }));

@@ -51,7 +51,7 @@ class ExpertTodayAppoController extends BaseController {
           notesByAppoId.add(ExpertNotesForExpertList.fromJson(i));
         }
       } else {
-        Common.displayMessage(jsonData["messages"] as String);
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }
@@ -76,7 +76,7 @@ class ExpertTodayAppoController extends BaseController {
           prescByAppoId.add(PreDetail.fromJson(i));
         }
       } else {
-        Common.displayMessage(jsonData["messages"] as String);
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }
@@ -132,7 +132,24 @@ class ExpertTodayAppoController extends BaseController {
         getnotesByAppoId(appointmentId);
         noteTextEditingController.clear();
       } else {
-        Common.displayMessage(jsonData["messages"] as String);
+        Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+  void shareExpertNote(String noteId) async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    if (status) {
+      var response = await RemoteServices.shareDrNote(
+        noteId,
+        int.parse(res.isNotEmpty ? jsonDecode(res)['data']['doctor_id'] : ''),
+      );
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200) {
+        Common.displayMessage(jsonData["msg"] as String);
+      } else {
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }

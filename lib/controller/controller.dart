@@ -35,3 +35,4 @@ export 'expert_today_appo_controller.dart';
 export 'call_screen_controller.dart';
 export 'web_view_screen_controller.dart';
 export 'prescription_detail_screen_controller.dart';
+export 'assessment_cat_controller.dart';

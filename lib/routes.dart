@@ -84,7 +84,7 @@ final List<GetPage> appPages = [
   GetPage(
       name: AllAssessmentsNav.pageId,
       page: () => const AllAssessmentsNav(),
-      binding: AssessmentBinding()),
+      binding: AssessmentCatBinding()),
   GetPage(
       name: WalletScreen.pageId,
       page: () => const WalletScreen(),
