@@ -94,6 +94,8 @@ class RegistrationController extends BaseController {
   FilePickerResult? pickedgst;
   var gstCerti = 'upload Your copy of GST Registration Certificate '.obs;
 
+  RxBool isOTP2StepLoading = false.obs;
+
   @override
   void onInit() {
     fromOtpScreen = Get.arguments;
@@ -107,6 +109,7 @@ class RegistrationController extends BaseController {
     super.dispose();
   }
 
+//verify otp
   void verifyOtp(int patientId, String otp) async {
     bool status = await Common.checkInternetConnection();
     if (status) {
@@ -495,6 +498,54 @@ class RegistrationController extends BaseController {
       } else {
         print(response.reasonPhrase);
         Common.displayMessage(profileDataResponse["msg"] as String);
+      }
+    }
+  }
+
+  void getResendOtp() async {
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    resendOtp(jsonDecode(res)['PatientData']['patient_mobile'], '+91',
+        jsonDecode(res)['PatientData']['patient_id']);
+  }
+
+  //patient check login and send otp
+  void verifyOTPFromSetting(BuildContext context) async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    isOTP2StepLoading.value = true;
+    if (status) {
+      var request = http.MultipartRequest('POST',
+          Uri.parse(Apis.baseUrl + Apis.patientOtpVerificationForSetting));
+      request.fields.addAll({
+        'otp_code': otpController.text.trim(),
+        'patient_id': jsonDecode(res)['PatientData']['patient_id'],
+      });
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200 && jsonData["code"] == '4') {
+        isOTP2StepLoading.value = false;
+        print('jsonData $jsonData');
+
+        Common.displayMessage(jsonData["msg"] as String);
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (_) {
+              return AnimatedDialog(
+                outputText: 'Congratulations',
+                subText: 'Your 2-Step Verification is successfully completed.',
+                titleSubtext: '',
+                onClose: () {
+                  Get.offAllNamed(DashboardScreen.pageId);
+                },
+              );
+              // Timer(const Duration(seconds: 3), goToDashboard);
+            });
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }

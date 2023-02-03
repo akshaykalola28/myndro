@@ -18,6 +18,7 @@ class PatientAppoController extends BaseController {
 
   List<Appointment> expertsList = <Appointment>[].obs;
   RxBool isLoading = false.obs;
+
   void getPatientsList() async {
     bool status = await Common.checkInternetConnection();
     var res = await Common.retrievePrefData(Common.strLoginRes);

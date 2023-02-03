@@ -38,7 +38,7 @@ export 'registration/forgot_password.dart';
 export 'registration/login_screen.dart';
 export 'registration/registration.dart';
 export 'search_screen/search_screen.dart';
-export 'setting_screen/2_step_verification.dart';
+export 'setting_screen/two_step_verification.dart';
 export 'setting_screen/setting_screen.dart';
 export 'splash/splash_screen.dart';
 export 'upcoming_appointments/upcoming_appointments.dart';

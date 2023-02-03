@@ -252,8 +252,8 @@ class Common {
   static String? validatePassword(String? value) {
     if (value!.isEmpty) {
       return 'Enter valid Password!!!';
-    } else if (value.length < 6) {
-      return 'Password must be a 6 character';
+    } else if (value.length < 5) {
+      return 'Password must be a 5 character';
     }
     return null;
   }

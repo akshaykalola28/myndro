@@ -49,7 +49,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                   const SizedBox(
                     height: 30,
                   ),
-                  // bodyContent(context),
+                  bodyContent(context, true),
                 ],
               ),
               text: 'Settings',
@@ -60,7 +60,7 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
                 children: [
                   headerWidget(context),
                   const SizedBox(height: 20),
-                  bodyContent(context),
+                  bodyContent(context, false),
                 ],
               ),
             ),
@@ -108,19 +108,21 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
     );
   }
 
-  Widget bodyContent(context) {
+  Widget bodyContent(context, [bool fromVerification = false]) {
     return Form(
       key: formKey,
       child: Column(
         children: [
           if (MediaQuery.of(context).viewInsets.bottom == 0)
-            Text(
-              'The Verification code was sent to the phone\nnumber ${controller.fromOtpScreen['data']['patient_phone_no']} . please enter the code.',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(color: ColorsConfig.colorBlue),
-            ),
+            fromVerification
+                ? Container()
+                : Text(
+                    'The Verification code was sent to the phone\nnumber ${controller.fromOtpScreen['data']['patient_phone_no']} . please enter the code.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: ColorsConfig.colorBlue),
+                  ),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 25),
@@ -163,11 +165,16 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
           const SizedBox(height: 36),
           GestureDetector(
             onTap: () {
-              controller.otpController.clear();
-              controller.resendOtp(
-                  controller.fromOtpScreen['phone'],
-                  controller.fromOtpScreen['country'],
-                  controller.fromOtpScreen['data']['patient_id']);
+              if (fromVerification) {
+                controller.otpController.clear();
+                controller.getResendOtp();
+              } else {
+                controller.otpController.clear();
+                controller.resendOtp(
+                    controller.fromOtpScreen['phone'],
+                    controller.fromOtpScreen['country'],
+                    controller.fromOtpScreen['data']['patient_id']);
+              }
             },
             child: Text(
               'Resend Verification Code',
@@ -182,9 +189,13 @@ class VerificationCodeScreen extends GetView<RegistrationController> {
             child: loginButtonWidget('Submit', () {
               formKey.currentState?.validate();
               if (controller.otpController.text.isNotEmpty) {
-                controller.verifyOtp(
-                    controller.fromOtpScreen['data']['patient_id'],
-                    controller.otpController.text);
+                if (fromVerification) {
+                  controller.verifyOTPFromSetting(context);
+                } else {
+                  controller.verifyOtp(
+                      controller.fromOtpScreen['data']['patient_id'],
+                      controller.otpController.text.trim());
+                }
               }
             }),
           )

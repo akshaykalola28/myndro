@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 
 import '../constant/constant.dart';
+import '../model/model.dart';
 import '../screens/screens.dart';
 import '../services/services.dart';
 import '../util/common.dart';
@@ -14,7 +15,37 @@ import 'package:http/http.dart' as http;
 class HomeController extends BaseController {
   @override
   void errorHandler(e) {}
+  RxBool isLoading = false.obs;
+  List<Appointment> patientAppoList = <Appointment>[].obs;
+  @override
+  void onInit() async {
+    super.onInit();
+    getPatientsList();
+  }
+
   RxString audioVideoString = ''.obs;
+
+  void getPatientsList() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    isLoading.value = true;
+    if (status) {
+      var response = await RemoteServices.getPatientAppointmentList(
+          jsonDecode(res)['PatientData']['patient_id']);
+      var jsonData = json.decode(response.body);
+      var data = jsonData["data"]['appointment'] as List;
+      if (response.statusCode == 200) {
+        patientAppoList.clear();
+        isLoading.value = false;
+        for (dynamic i in data) {
+          patientAppoList.add(Appointment.fromJson(i));
+        }
+      } else {
+        Common.displayMessage(jsonData["messages"] as String);
+      }
+    }
+  }
+
   displayDialog(BuildContext context, String doctorVideoCharge,
       String doctorAudioCharge, String doctorId) async {
     return showDialog(

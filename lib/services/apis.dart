@@ -78,4 +78,9 @@ mixin Apis {
   static const String updateForgotPass = 'update_password_forgot_password';
 
   static const String packagesList = 'packages_list';
+
+  static const String patientChangePassword = 'patient_change_password';
+  static const String patientCheckLogin = 'patient_check_login_and_send_otp';
+  static const String patientOtpVerificationForSetting =
+      'last_step_verification_code';
 }

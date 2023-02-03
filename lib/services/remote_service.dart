@@ -818,4 +818,40 @@ class RemoteServices {
 
     return response;
   }
+
+  //patient change password
+  static Future<http.Response> patientChangePassword(
+      int patientId, String password, String confirmPassword) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({
+      "patient_id": patientId,
+      "password": password,
+      "conf_password": confirmPassword
+    });
+
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.patientChangePassword),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
+
+    return response;
+  }
+
+  // //patient check login and send otp
+  // static Future<http.Response> patientCheckLogin(
+  //     String email, String password) async {
+  //   Map<String, String> header = {'Content-Type': 'application/json'};
+  //   String postBody = json.encode({'email': email, 'password': password});
+
+  //   http.Response response = await http.post(
+  //     Uri.parse(Apis.baseUrl + Apis.patientCheckLogin),
+  //     headers: header,
+  //     body: postBody,
+  //   );
+  //   printResponse(header, postBody, response);
+
+  //   return response;
+  // }
 }
