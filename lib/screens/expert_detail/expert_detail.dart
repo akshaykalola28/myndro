@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../constant/constant.dart';
@@ -34,7 +35,7 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   dynamic getExpertData;
-  // final DashboardController dashboardController = Get.find();
+
   @override
   void initState() {
     super.initState();
@@ -250,6 +251,37 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                     const SizedBox(
                       height: 18,
                     ),
+                    SfCalendar(
+                      view: CalendarView.month,
+                      firstDayOfWeek: 1,
+                      onTap: (calendarTapDetails) {
+                        print('calendarTapDetails ${calendarTapDetails.date}');
+                        expertDetailController.getDrSlotList(
+                            int.parse(
+                                getExpertData['doctorDetail']?.doctorId ?? ''),
+                            DateFormat('yyyy-MM-dd').format(
+                                calendarTapDetails.date ?? DateTime.now()));
+                      },
+                      selectionDecoration: BoxDecoration(
+                        color: Colors.transparent,
+                        border:
+                            Border.all(color: ColorsConfig.colorBlue, width: 2),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4)),
+                        shape: BoxShape.rectangle,
+                      ),
+
+                      // dataSource: expertDetailController.getDrSlotList(
+                      //     int.parse(
+                      //         getExpertData['doctorDetail']?.doctorId ?? ''),
+                      //     '2022-12-22'),
+                      monthViewSettings: const MonthViewSettings(
+                          appointmentDisplayMode:
+                              MonthAppointmentDisplayMode.none),
+                    ),
+                    const SizedBox(
+                      height: 18,
+                    ),
                     Card(
                       color: ColorsConfig.colorLightGrey,
                       shape: RoundedRectangleBorder(
@@ -394,54 +426,87 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                             const SizedBox(
                               height: 12,
                             ),
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: (() {
-                                expertDetailController.dashboardController
-                                            .walletAmount.value.isNotEmpty &&
-                                        expertDetailController
+                              expertDetailController.isPromo.value ?
+                            loginTextFieldWidget(
+                                expertDetailController.promoController,
+                                false,
+                                (value) {},
+                                TextInputType.text,
+                                'Promo & Voucher Code',
+                                Icons.discount_rounded) : Container(),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: (() {
+                                    expertDetailController
                                                 .dashboardController
                                                 .walletAmount
-                                                .value !=
-                                            '0' &&
-                                        double.parse(expertDetailController.dashboardController.walletAmount.value) >=
-                                            double.parse(getExpertData['doctorDetail']?.doctorAudioCharge ??
-                                                '0') &&
-                                        double.parse(expertDetailController.dashboardController.walletAmount.value) >=
-                                            double.parse(getExpertData['doctorDetail']
-                                                    ?.doctorVideoCharge ??
-                                                '0')
-                                    ? //create
-                                    expertDetailController.createAppoitment(
-                                        expertDetailController.audioVideoString.value,
-                                        DateFormat('dd-MM-yyyy').format(DateTime.now()),
-                                        '${expertDetailController.expertSlot.value},${expertDetailController.expertSlotId.value}',
-                                        getExpertData['doctorDetail']?.doctorCategoryId ?? '',
-                                        getExpertData['doctorDetail']?.doctorSubcategoryIds ?? '',
-                                        getExpertData['doctorDetail']?.doctorId ?? '')
-                                    : expertDetailController.dashboardController.displayDialog(context);
-                              }),
-                              child: Container(
-                                // height: 45,
-                                // width: Get.width,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 15),
-                                decoration: const BoxDecoration(
-                                  color: ColorsConfig.colorBlue,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
+                                                .value
+                                                .isNotEmpty &&
+                                            expertDetailController
+                                                    .dashboardController
+                                                    .walletAmount
+                                                    .value !=
+                                                '0' &&
+                                            double.parse(expertDetailController.dashboardController.walletAmount.value) >=
+                                                double.parse(getExpertData['doctorDetail']?.doctorAudioCharge ??
+                                                    '0') &&
+                                            double.parse(expertDetailController.dashboardController.walletAmount.value) >=
+                                                double.parse(
+                                                    getExpertData['doctorDetail']?.doctorVideoCharge ??
+                                                        '0')
+                                        ? //create
+                                        expertDetailController.createAppoitment(
+                                            expertDetailController.audioVideoString.value,
+                                            DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                                            '${expertDetailController.expertSlot.value},${expertDetailController.expertSlotId.value}',
+                                            getExpertData['doctorDetail']?.doctorCategoryId ?? '',
+                                            getExpertData['doctorDetail']?.doctorSubcategoryIds ?? '',
+                                            getExpertData['doctorDetail']?.doctorId ?? '')
+                                        : expertDetailController.dashboardController.displayDialog(context);
+                                  }),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 15),
+                                    decoration: const BoxDecoration(
+                                      color: ColorsConfig.colorBlue,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'Book Appointment',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily:
+                                            AppTextStyle.microsoftJhengHei,
+                                        fontSize: 16.0,
+                                        color: ColorsConfig.colorWhite,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                child: Text(
-                                  'Book Appointment',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: AppTextStyle.microsoftJhengHei,
-                                    fontSize: 16.0,
-                                    color: ColorsConfig.colorWhite,
-                                  ),
+                                const Spacer(),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    expertDetailController.isPromo.value =
+                                        !expertDetailController.isPromo.value;
+                                  },
+                                  child: Text('Apply Promocode',
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        fontFamily:
+                                            AppTextStyle.microsoftJhengHei,
+                                        // fontSize: 10.0,
+                                        color: ColorsConfig.colorBlue,
+                                      )),
                                 ),
-                              ),
+                              ],
                             )
                           ],
                         ),
@@ -572,3 +637,57 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
     );
   }
 }
+
+// List<Meeting> _getDataSource() {
+//   final List<Meeting> meetings = <Meeting>[];
+//   final DateTime today = DateTime.now();
+//   final DateTime startTime =
+//       DateTime(today.year, today.month, today.day, 9, 0, 0);
+//   final DateTime endTime = startTime.add(const Duration(hours: 2));
+//   meetings.add(Meeting(
+//       "Conference", startTime, endTime, const Color(0xFF0F8644), false));
+//   return meetings;
+// }
+
+// class MeetingDataSource extends CalendarDataSource {
+//   expertDetailController.getDrSlotList(
+//         int.parse(getExpertData['doctorDetail']?.doctorId ?? ''),
+//   // MeetingDataSource(List<Meeting> source) {
+//   //   appointments = source;
+//   // }
+
+//   // @override
+//   // DateTime getStartTime(int index) {
+//   //   return appointments![index].from;
+//   // }
+
+//   // @override
+//   // DateTime getEndTime(int index) {
+//   //   return appointments![index].to;
+//   // }
+
+//   // @override
+//   // String getSubject(int index) {
+//   //   return appointments![index].eventName;
+//   // }
+
+//   // @override
+//   // Color getColor(int index) {
+//   //   return appointments![index].background;
+//   // }
+
+//   // @override
+//   // bool isAllDay(int index) {
+//   //   return appointments![index].isAllDay;
+//   // }
+// }
+
+// class Meeting {
+//   Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+
+//   String eventName;
+//   DateTime from;
+//   DateTime to;
+//   Color background;
+//   bool isAllDay;
+// }

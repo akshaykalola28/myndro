@@ -249,10 +249,15 @@ class _ExpertTodayAppointmentState extends State<ExpertTodayAppointment>
                                       .getExpertData['appoDetail'].audioVideo ??
                                   '',
                               controller.getExpertData['appoDetail'].type ?? '',
-                              () => Get.toNamed(CallScreen.pageId, arguments: {
+                              () => controller.startMeetByDr(
+                                  context,
+                                  controller.getExpertData['appoDetail']
+                                          .meetingId ??
+                                      ''));
+                          /*  Get.toNamed(CallScreen.pageId, arguments: {
                                     'meetDetail':
                                         controller.getExpertData['appoDetail'],
-                                  }));
+                                  })); */
                         })),
                     const SizedBox(
                       height: 10,

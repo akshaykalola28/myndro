@@ -79,6 +79,12 @@ mixin Apis {
 
   static const String packagesList = 'packages_list';
 
+  static const String expertToPatientReport = 'expert_to_patients_report';
+
+  static const String trainingCerti = 'change_Training_Certificate ';
+  static const String awardCerti = 'change_Award_Certificate ';
+  static const String workExpCerti = 'change_Work_Experince_Certificate ';
+
   static const String patientChangePassword = 'patient_change_password';
   static const String patientCheckLogin = 'patient_check_login_and_send_otp';
   static const String patientOtpVerificationForSetting =

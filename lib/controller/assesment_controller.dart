@@ -17,6 +17,7 @@ class AssessmentController extends BaseController {
   RxBool isCompleted = false.obs;
   RxBool isLoading = false.obs;
   dynamic getAssessmentData;
+  RxInt yesCount = 0.obs;
   @override
   void onInit() async {
     super.onInit();

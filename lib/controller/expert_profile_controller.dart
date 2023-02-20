@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -42,6 +43,12 @@ class ExpertProfileController extends GetxController
   RxInt radioSelected = 2.obs;
   String? radioVal;
   dynamic profileImage;
+  FilePickerResult? pickedWorkAttachment;
+  var workAttachmentTxt = 'Experience Certificate'.obs;
+  FilePickerResult? pickedAwardAttachment;
+  var awardAttachmentTxt = 'Award Certificate'.obs;
+  FilePickerResult? pickedTrainingAttachment;
+  var trainingAttachmentTxt = 'Training Certificate'.obs;
   @override
   void onClose() {
     tabController!.dispose();
@@ -210,6 +217,84 @@ class ExpertProfileController extends GetxController
     } on PlatformException catch (e) {
       Common.displayMessage('Failed to pick image: $e');
       print('Failed to pick image: $e');
+    }
+  }
+
+  void attachExpCerti() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.workExpCerti));
+      request.fields.addAll({
+        "doctor_id": jsonDecode(res)['data']['doctor_id'],
+        "work_experience_certificate":
+            pickedWorkAttachment?.files.single.path ?? ''
+      });
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200) {
+        print('jsonData $jsonData');
+
+        Common.displayMessage(jsonData["msg"] as String);
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+  void attachTrainingCerti() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.trainingCerti));
+      request.fields.addAll({
+        "doctor_id": jsonDecode(res)['data']['doctor_id'],
+        "doctor_traning_certificate_path":
+            pickedTrainingAttachment?.files.single.path ?? ''
+      });
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200) {
+        print('jsonData $jsonData');
+
+        Common.displayMessage(jsonData["msg"] as String);
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+  void attachAwardCerti() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.awardCerti));
+      request.fields.addAll({
+        "doctor_id": jsonDecode(res)['data']['doctor_id'],
+        "doctor_Awards_certificate":
+            pickedAwardAttachment?.files.single.path ?? ''
+      });
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200) {
+        print('jsonData $jsonData');
+
+        Common.displayMessage(jsonData["msg"] as String);
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(jsonData["msg"] as String);
+      }
     }
   }
 

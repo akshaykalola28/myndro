@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
@@ -95,12 +96,15 @@ class UpcomingAppointments extends GetView<HomeController> {
                                       Column(
                                         children: [
                                           Text(
-                                              Common.formatLockerDate(
-                                                controller
-                                                        .patientAppoList[index]
-                                                        .appointmentDate ??
-                                                    '',
-                                              ),
+                                              controller.patientAppoList[index]
+                                                      .appointmentDate ??
+                                                  '',
+                                              // Common.formatLockerDate(
+                                              //   controller
+                                              //           .patientAppoList[index]
+                                              //           .appointmentDate ??
+                                              //       '',
+                                              // ),
                                               style: TextStyle(
                                                 fontFamily: AppTextStyle
                                                     .microsoftJhengHei,
@@ -122,13 +126,18 @@ class UpcomingAppointments extends GetView<HomeController> {
                                       GestureDetector(
                                         behavior: HitTestBehavior.opaque,
                                         onTap: () {
-                                          Get.toNamed(WebViewScreen.pageId,
+                                          Common.launchCallURL(
+                                              context,
+                                              controller.patientAppoList[index]
+                                                      .appointmentLink ??
+                                                  '');
+                                          /*     Get.toNamed(WebViewScreen.pageId,
                                               arguments: {
                                                 'meetDetail': controller
                                                         .patientAppoList[index]
                                                         .appointmentLink ??
                                                     ''
-                                              });
+                                              }); */
                                         },
                                         child: Container(
                                           padding: const EdgeInsets.all(5),

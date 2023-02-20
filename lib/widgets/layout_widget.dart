@@ -5,13 +5,18 @@ import '../constant/constant.dart';
 import 'widgets.dart';
 
 class LayoutWidget extends StatelessWidget {
-  LayoutWidget({Key? key, required this.body, this.text, this.isAssessment})
+  LayoutWidget(
+      {Key? key,
+      required this.body,
+      this.text,
+      this.isAssessment,
+      this.isAssessBack})
       : super(key: key);
 
   final Widget body;
   final String? text;
   bool? isAssessment = false;
-
+  final VoidCallback? isAssessBack;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -42,7 +47,10 @@ class LayoutWidget extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          UserAppbar(text: text!, isAssessment: isAssessment),
+          UserAppbar(
+              text: text!,
+              isAssessment: isAssessment,
+              isAssessBack: isAssessBack),
           Expanded(child: body)
         ],
       ),

@@ -63,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       );
                     },
                     hideSelectedTextCount: true,
-                    listData: widget.allTextList?.take(10).toList(),
+                    listData: widget.allTextList?.toList(),
                     selectedListData: widget.selectedUserList,
                     onApplyButtonClick: (list) {
                       // Navigator.pop(context, list);

@@ -865,7 +865,6 @@ IconButton(onPressed: (){
                         // left: 0,
                         top: 95,
                         child: Container(
-                          height: 215,
                           width: Get.width,
                           padding: const EdgeInsets.only(left: 17, right: 17),
                           child: Card(

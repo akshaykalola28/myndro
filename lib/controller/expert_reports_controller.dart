@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import '../services/services.dart';
+import '../util/common.dart';
 
 class ExpertReportsController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -11,7 +16,7 @@ class ExpertReportsController extends GetxController
 
   void errorHandler(e) {}
   String? sortValue;
-
+  RxBool isLoading = false.obs;
   void setSelectedSortValue(String value) {
     sortValue = value;
     update();
@@ -58,6 +63,33 @@ class ExpertReportsController extends GetxController
     if (picked != null && picked != toDate.value) {
       toDate.value = picked;
       formattedToDate.value = DateFormat('dd-MM-yyyy').format(toDate.value);
+    }
+  }
+
+  void expertToPatientReport() async {
+    bool status = await Common.checkInternetConnection();
+
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.expertToPatientReport));
+      request.fields.addAll({
+        'doctor_id': '18',
+        'case_no': '',
+        'from_date': '2022-12-02',
+        'to_date': '2022-12-02'
+      });
+
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      var jsonData = jsonDecode(respStr);
+      if (response.statusCode == 200) {
+        print('jsonData $jsonData');
+
+        Common.displayMessage(jsonData["msg"] as String);
+      } else {
+        print(response.reasonPhrase);
+        Common.displayMessage(jsonData["msg"] as String);
+      }
     }
   }
 

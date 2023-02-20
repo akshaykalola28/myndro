@@ -91,7 +91,6 @@ class DashboardController extends BaseController {
         for (dynamic i in data) {
           transactionList.add(Wallet.fromJson(i));
         }
-
         walletAmount.value = jsonData["Slots"]['total_wallet_amount'];
       } else {
         Common.displayMessage(jsonData["messages"] as String);

@@ -56,6 +56,23 @@ class ExpertTodayAppoController extends BaseController {
     }
   }
 
+//start meet by doctor
+  void startMeetByDr(BuildContext context, String meetId) async {
+    bool status = await Common.checkInternetConnection();
+
+    if (status) {
+      var response = await RemoteServices.startMeetingByDr(meetId);
+      var jsonData = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        Common.displayMessage(jsonData["msg"] as String);
+        Common.launchCallURL(context, jsonData["url"]);
+      } else {
+        Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
 //expert presc list
   void getPrescriByAppoId(int appointmentId) async {
     bool status = await Common.checkInternetConnection();

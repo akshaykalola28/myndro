@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../services/services.dart';
 import '../util/common.dart';
 import 'controller.dart';
 

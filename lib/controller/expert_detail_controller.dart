@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myndro/screens/dashboard/dashboard.dart';
 
@@ -9,6 +10,8 @@ import '../util/common.dart';
 import 'controller.dart';
 
 class ExpertDetailController extends BaseController {
+  final TextEditingController promoController = TextEditingController();
+  RxBool isPromo = false.obs;
   @override
   void errorHandler(e) {}
   final DashboardController dashboardController = Get.find();
@@ -23,7 +26,7 @@ class ExpertDetailController extends BaseController {
     update();
   }
 
-  void getDrSlotList(int doctorId, String fromDate) async {
+  getDrSlotList(int doctorId, String fromDate) async {
     bool status = await Common.checkInternetConnection();
     if (status) {
       var response = await RemoteServices.getDrSlots(doctorId, fromDate);
@@ -55,7 +58,7 @@ class ExpertDetailController extends BaseController {
           docCat,
           docSubCat,
           doctorId,
-          'WINTER20');
+          promoController.text.toUpperCase().trim());
       var jsonData = json.decode(response.body);
       if (response.statusCode == 200 && jsonData['type'] != 'error') {
         Common.displayMessage(jsonData["msg"] as String);

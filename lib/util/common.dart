@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -54,9 +55,63 @@ class Common {
     }
   }
 
+  // static String? validateBio(String? value) {
+  //   if (value!.isEmpty) {
+  //     return 'Please Enter Bio';
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+  // static String? validateYear(String? value) {
+  //   if (value!.isEmpty) {
+  //     return 'Please Enter Year';
+  //   } else {
+  //     return null;
+  //   }
+  // }
+  //   static String? validateWorkExp(String? value) {
+  //   if (value!.isEmpty) {
+  //     return 'Please Work Experience Details';
+  //   } else {
+  //     return null;
+  //   }
+  // }
+  //     static String? validateAwards(String? value) {
+  //   if (value!.isEmpty) {
+  //     return 'Please Work Experience Details';
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+  //   static String? validateTraining(String? value) {
+  //   if (value!.isEmpty) {
+  //     return 'Please Work Experience Details';
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
   static String? validateCaseNo(String? value) {
     if (value!.isEmpty) {
       return 'Please Enter Case No';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateCall(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Call Price';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateVideoCall(String? value) {
+    if (value!.isEmpty) {
+      return 'Please Enter Video Call Price';
     } else {
       return null;
     }
@@ -363,5 +418,38 @@ class Common {
         ),
       ),
     );
+  }
+
+  static Future<void> launchCallURL(
+      BuildContext context, String callUrl) async {
+    final theme = Theme.of(context);
+    try {
+      await launch(
+        callUrl,
+        customTabsOption: CustomTabsOption(
+          toolbarColor: theme.primaryColor,
+          enableDefaultShare: true,
+          enableUrlBarHiding: true,
+          showPageTitle: true,
+          animation: CustomTabsSystemAnimation.slideIn(),
+          extraCustomTabs: const <String>[
+            // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
+            'org.mozilla.firefox',
+            // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx
+            'com.microsoft.emmx',
+          ],
+        ),
+        safariVCOption: SafariViewControllerOption(
+          preferredBarTintColor: theme.primaryColor,
+          preferredControlTintColor: Colors.white,
+          barCollapsingEnabled: true,
+          entersReaderIfAvailable: false,
+          dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
+        ),
+      );
+    } catch (e) {
+      // An exception is thrown if browser app is not installed on Android device.
+      debugPrint(e.toString());
+    }
   }
 }

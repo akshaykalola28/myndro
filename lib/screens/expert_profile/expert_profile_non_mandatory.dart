@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -67,8 +70,8 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                   const SizedBox(
                     height: 10,
                   ),
-                  outlinedTextField(controller.bioController, false,
-                      Common.validateName, TextInputType.multiline, 'Bio', 4),
+                  outlinedTextField(controller.bioController, false, (value) {},
+                      TextInputType.multiline, 'Bio', 4),
                   const SizedBox(
                     height: 10,
                   ),
@@ -77,10 +80,29 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                     height: 8,
                   ),
                   commonTextSubText(
-                      'Work Experience Details',
-                      controller.workController,
-                      'Experience Certificate',
-                      controller.workYearController),
+                    'Work Experience Details',
+                    controller.workController,
+                    controller.workAttachmentTxt.value,
+                    controller.workYearController,
+                    () async {
+                      controller.pickedWorkAttachment =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['jpg', 'pdf', 'png', 'jpeg'],
+                      );
+                      if (controller.pickedWorkAttachment != null) {
+                        File file = File(controller
+                                .pickedWorkAttachment?.files.single.path ??
+                            '');
+
+                        controller.workAttachmentTxt.value =
+                            file.path.split('/').last;
+                        controller.attachExpCerti();
+                      } else {
+                        // User canceled the picker
+                      }
+                    },
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -89,10 +111,29 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                     height: 8,
                   ),
                   commonTextSubText(
-                      'Awards & Recognitions Detail',
-                      controller.awardsController,
-                      'Award Certificate',
-                      controller.awardYearController),
+                    'Awards & Recognitions Detail',
+                    controller.awardsController,
+                    controller.awardAttachmentTxt.value,
+                    controller.awardYearController,
+                    () async {
+                      controller.pickedAwardAttachment =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['jpg', 'pdf', 'png', 'jpeg'],
+                      );
+                      if (controller.pickedWorkAttachment != null) {
+                        File file = File(controller
+                                .pickedAwardAttachment?.files.single.path ??
+                            '');
+
+                        controller.awardAttachmentTxt.value =
+                            file.path.split('/').last;
+                        controller.attachAwardCerti();
+                      } else {
+                        // User canceled the picker
+                      }
+                    },
+                  ),
                   const SizedBox(
                     height: 5,
                   ),
@@ -103,10 +144,29 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                     height: 5,
                   ),
                   commonTextSubText(
-                      'Training Certificate Detail',
-                      controller.trainingController,
-                      'Training Certificate',
-                      controller.trainingYearController),
+                    'Training Certificate Detail',
+                    controller.trainingController,
+                    controller.trainingAttachmentTxt.value,
+                    controller.trainingYearController,
+                    () async {
+                      controller.pickedTrainingAttachment =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['jpg', 'pdf', 'png', 'jpeg'],
+                      );
+                      if (controller.pickedTrainingAttachment != null) {
+                        File file = File(controller
+                                .pickedTrainingAttachment?.files.single.path ??
+                            '');
+
+                        controller.trainingAttachmentTxt.value =
+                            file.path.split('/').last;
+                        controller.attachTrainingCerti();
+                      } else {
+                        // User canceled the picker
+                      }
+                    },
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -335,7 +395,7 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                         child: outlinedTextField(
                             controller.callPriceController,
                             false,
-                            Common.validateName,
+                            Common.validateCall,
                             TextInputType.number,
                             'call price',
                             1),
@@ -362,7 +422,7 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
                         child: outlinedTextField(
                             controller.videCallPriceController,
                             false,
-                            Common.validateName,
+                            Common.validateVideoCall,
                             TextInputType.number,
                             'video call price',
                             1),
@@ -436,18 +496,22 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
   }
 
 //////TODO language API,non mandatory changes requred
-  Widget commonTextSubText(String title, TextEditingController textController,
-      String textattach, TextEditingController yearController) {
+  Widget commonTextSubText(
+      String title,
+      TextEditingController textController,
+      String textattach,
+      TextEditingController yearController,
+      VoidCallback onAttachClick) {
     return Column(children: [
-      outlinedTextField(textController, false, Common.validateName,
-          TextInputType.multiline, title, 2),
+      outlinedTextField(
+          textController, false, (value) {}, TextInputType.multiline, title, 2),
       const SizedBox(
         height: 5,
       ),
       Row(
         children: [
           Expanded(
-            child: outlinedTextField(yearController, false, Common.validateName,
+            child: outlinedTextField(yearController, false, (value) {},
                 TextInputType.multiline, 'year', 1),
           ),
           const SizedBox(
@@ -455,32 +519,37 @@ class ExpertProfileNonMandatory extends GetView<ExpertProfileController> {
           ),
           Expanded(
             flex: 2,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                border: Border.all(color: ColorsConfig.colorGreyy, width: 1.0),
-                borderRadius: const BorderRadius.all(
-                    Radius.circular(12.0)), // Set rounded corner radius
-              ),
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Text(
-                    'Attach $textattach',
-                    style: const TextStyle(
-                        color: ColorsConfig.colorGreyy,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Icon(
-                    Icons.attach_file,
-                    color: ColorsConfig.colorGreyy,
-                    size: 25,
-                  )
-                ],
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: onAttachClick,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border:
+                      Border.all(color: ColorsConfig.colorGreyy, width: 1.0),
+                  borderRadius: const BorderRadius.all(
+                      Radius.circular(12.0)), // Set rounded corner radius
+                ),
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    Text(
+                      textattach,
+                      style: const TextStyle(
+                          color: ColorsConfig.colorGreyy,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Icon(
+                      Icons.attach_file,
+                      color: ColorsConfig.colorGreyy,
+                      size: 25,
+                    )
+                  ],
+                ),
               ),
             ),
           ),

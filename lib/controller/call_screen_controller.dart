@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+// import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:get/get.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../services/services.dart';
@@ -18,13 +20,13 @@ class CallScreenController extends BaseController {
   void onInit() async {
     super.onInit();
     getMeetDetails = Get.arguments;
+
     startMeetByDr(getMeetDetails['meetDetail'].meetingId ?? '');
     webController = WebViewController();
   }
 
   Future<bool> exitApp(BuildContext context) async {
     if (await webController.canGoBack()) {
-      print("onwill goback");
       webController.goBack();
       return Future.value(true);
     } else {

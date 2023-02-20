@@ -48,10 +48,11 @@ class AssessmentScreen extends GetView<AssessmentController> {
                             progressColor: ColorsConfig.colorBlue,
                             backgroundColor:
                                 ColorsConfig.colorBlue.withOpacity(0.2),
-                            percent:
-                                (100 / controller.assessmentQueList.length) *
-                                    (index + 1) /
-                                    100,
+                            percent: double.parse(
+                                ((100 / controller.assessmentQueList.length) *
+                                        (index + 1) /
+                                        100)
+                                    .toStringAsFixed(1)),
                             center: Text(
                               (index + 1).toString(),
                               style: TextStyle(
@@ -94,6 +95,8 @@ class AssessmentScreen extends GetView<AssessmentController> {
                               ElevatedButton(
                                 child: const Text('Yes'),
                                 onPressed: () {
+                                  controller.yesCount++;
+                                  print(controller.yesCount);
                                   controller.forward();
                                 },
                                 style: ElevatedButton.styleFrom(

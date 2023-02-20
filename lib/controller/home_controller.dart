@@ -13,6 +13,7 @@ import 'controller.dart';
 import 'package:http/http.dart' as http;
 
 class HomeController extends BaseController {
+  final DashboardController dashboardController = Get.find();
   @override
   void errorHandler(e) {}
   RxBool isLoading = false.obs;
@@ -117,7 +118,7 @@ class HomeController extends BaseController {
                 ),
               ),
               onPressed: () {
-                instantConnectAppointment(doctorId);
+                instantConnectAppointment(doctorId, context);
               },
             ),
           ],
@@ -126,7 +127,7 @@ class HomeController extends BaseController {
     );
   }
 
-  void instantConnectAppointment(String doctorId) async {
+  void instantConnectAppointment(String doctorId, BuildContext context) async {
     bool status = await Common.checkInternetConnection();
     var res = await Common.retrievePrefData(Common.strLoginRes);
     if (status) {
@@ -156,9 +157,11 @@ class HomeController extends BaseController {
         if (jsonData["msg"].toString().toLowerCase().contains('connecting') &&
             jsonData["code"] == '4') {
           Get.back();
-          Get.toNamed(WebViewScreen.pageId, arguments: {
-            'meetDetail': jsonData["URL"],
-          });
+          Common.launchCallURL(context, jsonData["URL"]);
+          dashboardController.getTransactionsList();
+          // Get.toNamed(WebViewScreen.pageId, arguments: {
+          //   'meetDetail': jsonData["URL"],
+          // });
         }
       } else {
         print(response.reasonPhrase);

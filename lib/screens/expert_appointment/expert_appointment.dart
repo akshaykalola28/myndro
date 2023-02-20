@@ -4,6 +4,7 @@ import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../util/common.dart';
 import '../screens.dart';
 
 class ExpertAppointment extends GetView<ExpertAppointmentController> {
@@ -165,11 +166,13 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
                                         ? controller.appoList[index]
                                         : null,
                                   }),
-                              () => Get.toNamed(CallScreen.pageId, arguments: {
+                              () =>   controller.startMeetByDr(context,
+                                  controller.appoList[index].meetingId ?? '')
+                              /*  Get.toNamed(CallScreen.pageId, arguments: {
                                 'meetDetail': controller.appoList.isNotEmpty
                                     ? controller.appoList[index]
                                     : null,
-                              }),
+                              }),*/
                             );
                           }))
                 ],

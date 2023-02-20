@@ -154,7 +154,7 @@ class AllAssessmentsNav extends GetView<AssessmentCatController> {
                   ],
                 ))),
         isAssessment: false,
-        text: 'Assesment',
+        text: 'Assessment',
       )
 
           /* Column(

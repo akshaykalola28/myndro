@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import '../constant/constant.dart';
 
 class UserAppbar extends StatelessWidget {
-  UserAppbar({Key? key, this.text, this.isAssessment}) : super(key: key);
+  UserAppbar({Key? key, this.text, this.isAssessment, this.isAssessBack})
+      : super(key: key);
 
   final String? text;
   bool? isAssessment = false;
+  final VoidCallback? isAssessBack;
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +20,22 @@ class UserAppbar extends StatelessWidget {
       color: ColorsConfig.colorGrey,
       child: Row(
         children: [
-          IconButton(
-              onPressed: () => Get.back(),
-              icon: const Icon(
-                Icons.arrow_back,
-                color: ColorsConfig.colorBlue,
-                size: 30,
-              )),
+          if (isAssessment == true)
+            IconButton(
+                onPressed: isAssessBack,
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: ColorsConfig.colorBlue,
+                  size: 30,
+                ))
+          else
+            IconButton(
+                onPressed: () => Get.back(),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: ColorsConfig.colorBlue,
+                  size: 30,
+                )),
           Text(
             text!,
             style: TextStyle(

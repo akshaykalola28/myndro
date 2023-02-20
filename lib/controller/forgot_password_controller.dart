@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../screens/screens.dart';
 import '../services/services.dart';
 import '../util/common.dart';
 import 'base_controller.dart';
@@ -97,11 +98,43 @@ class ForgotPasswordController extends BaseController {
         print('jsonData $jsonData');
 
         Common.displayMessage(jsonData["msg"] as String);
+        /////TODO from response of API
+        // login(email, pass);
         Get.back();
       } else {
         print(response.reasonPhrase);
         Common.displayMessage(jsonData["msg"] as String);
       }
+    }
+  }
+
+  void login(
+    String email,
+    String pass,
+  ) async {
+    // isLoading.value = true;
+    bool status = await Common.checkInternetConnection();
+    if (status) {
+      var response = radioSelected.value == 1
+          ? await RemoteServices.patientLogin(email, pass)
+          : await RemoteServices.expertLogin(email, pass);
+
+      if (response.statusCode == 200) {
+        var jsonData = json.decode(response.body);
+        print("loginData $jsonData");
+
+        if (jsonData["type"] == 'success') {
+          print('00 login ');
+
+          Common.storePrefData(Common.strLoginRes, json.encode(jsonData));
+          radioSelected.value == 1
+              ? Get.offAllNamed(DashboardScreen.pageId)
+              : Get.offAllNamed(ExpertHome.pageId);
+        } else {
+          Common.displayMessage(jsonData["msg"] as String);
+        }
+      }
+      // isLoading.value = false;
     }
   }
 }

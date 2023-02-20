@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:get/get.dart';
 
 import '../model/model.dart';
@@ -45,6 +46,22 @@ class ExpertAppointmentController extends BaseController {
         }
       } else {
         Common.displayMessage(jsonData["messages"] as String);
+      }
+    }
+  }
+
+  void startMeetByDr(BuildContext context, String meetId) async {
+    bool status = await Common.checkInternetConnection();
+
+    if (status) {
+      var response = await RemoteServices.startMeetingByDr(meetId);
+      var jsonData = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        Common.displayMessage(jsonData["msg"] as String);
+        Common.launchCallURL(context, jsonData["url"]);
+      } else {
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }
