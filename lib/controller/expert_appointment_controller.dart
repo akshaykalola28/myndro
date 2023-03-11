@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:get/get.dart';
 
 import '../model/model.dart';
@@ -24,18 +23,27 @@ class ExpertAppointmentController extends BaseController {
   @override
   void onInit() async {
     super.onInit();
-    getAppointmentList();
+    getAppointmentList('');
   }
 
   List sortType = ['Individual', 'Package', 'Audio Call', 'Video Call'];
 
-  void getAppointmentList() async {
+  void getAppointmentList(String sortType) async {
     bool status = await Common.checkInternetConnection();
     var res = await Common.retrievePrefData(Common.strLoginRes);
     isLoading.value = true;
     if (status) {
-      var response = await RemoteServices.getExpertAppointmentList(
-          jsonDecode(res)['data']['doctor_id']);
+      dynamic response;
+      if (searchController.text.trim().isEmpty) {
+        response = await RemoteServices.getExpertAppointmentList(
+            jsonDecode(res)['data']['doctor_id'], sortType, '');
+      } else {
+        response = await RemoteServices.getExpertAppointmentList(
+          jsonDecode(res)['data']['doctor_id'],
+          sortType,
+          searchController.text.trim(),
+        );
+      }
       var jsonData = json.decode(response.body);
       var data = jsonData["data"]['appointment'] as List;
       if (response.statusCode == 200) {

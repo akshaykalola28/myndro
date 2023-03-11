@@ -27,77 +27,22 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
   late List<Widget> imgData =
       hosImg.map((item) => PackagesWidget(item: item)).toList();
   ExpertDetailController expertDetailController = ExpertDetailController();
-  late final ValueNotifier<List<Event>> _selectedEvents;
-  final CalendarFormat _calendarFormat = CalendarFormat.week;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  DateTime? _rangeStart;
-  DateTime? _rangeEnd;
+
   dynamic getExpertData;
 
   @override
   void initState() {
     super.initState();
     getExpertData = Get.arguments;
-    //////TODO dynamic date
+
     expertDetailController.getDrSlotList(
         int.parse(getExpertData['doctorDetail']?.doctorId ?? ''),
-        '2022-12-22' /*   DateFormat('yyyy-MM-dd').format(day ?? DateTime.now()) */);
-    _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+        DateFormat('yyyy-MM-dd').format(DateTime.now()));
   }
 
   @override
   void dispose() {
-    _selectedEvents.dispose();
     super.dispose();
-  }
-
-  List<Event> _getEventsForDay(DateTime day) {
-    return kEvents[day] ?? [];
-  }
-
-  List<Event> _getEventsForRange(DateTime start, DateTime end) {
-    // Implementation example
-    final days = daysInRange(start, end);
-
-    return [
-      for (final d in days) ..._getEventsForDay(d),
-    ];
-  }
-
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-        _rangeStart = null;
-        _rangeEnd = null;
-        _rangeSelectionMode = RangeSelectionMode.toggledOff;
-      });
-
-      _selectedEvents.value = _getEventsForDay(selectedDay);
-    }
-  }
-
-  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
-    setState(() {
-      _selectedDay = null;
-      _focusedDay = focusedDay;
-      _rangeStart = DateTime.now();
-      _rangeEnd = end;
-      _rangeSelectionMode = RangeSelectionMode.toggledOn;
-    });
-
-    // `start` or `end` could be null
-    if (start != null && end != null) {
-      _selectedEvents.value = _getEventsForRange(start, end);
-    } else if (start != null) {
-      _selectedEvents.value = _getEventsForDay(start);
-    } else if (end != null) {
-      _selectedEvents.value = _getEventsForDay(end);
-    }
   }
 
   @override
@@ -204,44 +149,6 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                                       shape: BoxShape.circle,
                                       color: ColorsConfig.colorBlue),
                                 ),
-                                /*   Expanded(
-                                  child: Column(
-                                    children: [
-                                      Common.iconContainer(
-                                          Icons.videocam, 'Video call',
-                                          isPriceVisible: true,
-                                          subText:
-                                              '\u{20B9}${getExpertData['doctorDetail']?.doctorVideoCharge}'),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.symmetric(
-                                      //       horizontal: 25),
-                                      //   child: dropDown(),
-                                      // )
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Column(
-                                  children: [
-                                    Common.iconContainer(
-                                        Icons.phone_in_talk_rounded,
-                                        'Audio call',
-                                        isPriceVisible: true,
-                                        subText:
-                                            '\u{20B9}${getExpertData['doctorDetail']?.doctorAudioCharge}'),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    // Padding(
-                                    //   padding: const EdgeInsets.symmetric(
-                                    //       horizontal: 25),
-                                    //   child: dropDown(),
-                                    // )
-                                  ],
-                                )) */
                               ],
                             ),
                           ],
@@ -254,13 +161,17 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                     SfCalendar(
                       view: CalendarView.month,
                       firstDayOfWeek: 1,
+                      todayHighlightColor: ColorsConfig.colorBlue,
+                      minDate: DateTime.now(),
                       onTap: (calendarTapDetails) {
                         print('calendarTapDetails ${calendarTapDetails.date}');
+
                         expertDetailController.getDrSlotList(
                             int.parse(
                                 getExpertData['doctorDetail']?.doctorId ?? ''),
                             DateFormat('yyyy-MM-dd').format(
                                 calendarTapDetails.date ?? DateTime.now()));
+                        setState(() {});
                       },
                       selectionDecoration: BoxDecoration(
                         color: Colors.transparent,
@@ -270,11 +181,6 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                             const BorderRadius.all(Radius.circular(4)),
                         shape: BoxShape.rectangle,
                       ),
-
-                      // dataSource: expertDetailController.getDrSlotList(
-                      //     int.parse(
-                      //         getExpertData['doctorDetail']?.doctorId ?? ''),
-                      //     '2022-12-22'),
                       monthViewSettings: const MonthViewSettings(
                           appointmentDisplayMode:
                               MonthAppointmentDisplayMode.none),
@@ -305,135 +211,52 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
                             const SizedBox(
                               height: 5,
                             ),
-////////TODO with date
                             expertDetailController.allDrSlots
                                     .map((e) => e.slots)
-                                    .isNotEmpty
-                                ? GroupButton(
-                                    buttons: expertDetailController.allDrSlots
-                                        .map((e) => e.slots)
-                                        .toList(),
-                                    options: GroupButtonOptions(
-                                      selectedShadow: const [],
-                                      unselectedShadow: const [],
-                                      unselectedColor: ColorsConfig.colorGrey,
-                                      selectedColor: ColorsConfig.colorBlue,
-                                      unselectedTextStyle: const TextStyle(
-                                        color: ColorsConfig.colorGreyy,
+                                    .isEmpty
+                                ? const Text('Slot Data Not Found..!')
+                                : expertDetailController.isSlotLoading.value
+                                    ? const Text('Slot Data Not Found..!')
+                                    : GroupButton(
+                                        buttons: expertDetailController
+                                            .allDrSlots
+                                            .map((e) => e.slots)
+                                            .toList(),
+                                        options: GroupButtonOptions(
+                                          selectedShadow: const [],
+                                          unselectedShadow: const [],
+                                          unselectedColor:
+                                              ColorsConfig.colorGrey,
+                                          selectedColor: ColorsConfig.colorBlue,
+                                          unselectedTextStyle: const TextStyle(
+                                            color: ColorsConfig.colorGreyy,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                        onSelected: (val, i, selected) {
+                                          debugPrint(
+                                              'Button: $val index: $i $selected');
+                                          expertDetailController.expertSlot
+                                              .value = val.toString();
+                                          expertDetailController.expertSlotId
+                                              .value = expertDetailController
+                                                  .allDrSlots[i].doctorSlotId ??
+                                              '';
+                                        },
                                       ),
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    onSelected: (val, i, selected) {
-                                      debugPrint(
-                                          'Button: $val index: $i $selected');
-                                      expertDetailController.expertSlot.value =
-                                          val.toString();
-                                      expertDetailController.expertSlotId
-                                          .value = expertDetailController
-                                              .allDrSlots[i].doctorSlotId ??
-                                          '';
-                                    },
-                                  )
-                                : const MyndroLoader(),
-
-                            //TODO calender is comment use it
-                            /*   TableCalendar<Event>(
-                            
-                            firstDay: kFirstDay,
-                            lastDay: kLastDay,
-                            focusedDay: _focusedDay,
-                            enabledDayPredicate: (date) {
-                              if (date.isBefore(DateTime.now()
-                                  .subtract(const Duration(days: 1)))) {
-                                return false;
-                              }
-                              return true;
-                            },
-                            selectedDayPredicate: (day) =>
-                                isSameDay(_selectedDay, day),
-                            rangeStartDay: _rangeStart,
-                            rangeEndDay: _rangeEnd,
-                            calendarFormat: _calendarFormat,
-                            rangeSelectionMode: _rangeSelectionMode,
-                            // eventLoader: _getEventsForDay,
-                            availableGestures: AvailableGestures.none,
-                            startingDayOfWeek: StartingDayOfWeek.monday,
-                            availableCalendarFormats: const {
-                              CalendarFormat.week: 'Week',
-                            },
-                            calendarStyle: CalendarStyle(
-                              outsideDaysVisible: false,
-                              todayDecoration: BoxDecoration(
-                                color: ColorsConfig.colorBlue.withOpacity(0.5),
-                                shape: BoxShape.circle,
-                              ),
-                              selectedDecoration: const BoxDecoration(
-                                color: ColorsConfig.colorBlue,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            onDaySelected: _onDaySelected,
-                            onRangeSelected: _onRangeSelected,
-                            onPageChanged: (focusedDay) {
-                              _focusedDay = focusedDay;
-                            },
-                          ),
-                          ValueListenableBuilder<List<Event>>(
-                            valueListenable: _selectedEvents,
-                            builder: (context, value, _) {
-                              return GridView.builder(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  crossAxisSpacing: 15.0,
-                                  mainAxisSpacing: 15.0,
-                                  childAspectRatio: (Get.width / 4) / 40,
-                                ),
-                                padding: EdgeInsets.zero,
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: value.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                      border: Border.all(
-                                        color: ColorsConfig.colorBlack,
-                                        style: BorderStyle.solid,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        '0$index:10',
-                                        style: TextStyle(
-                                            fontFamily:
-                                                AppTextStyle.microsoftJhengHei,
-                                            fontSize: 15.0,
-                                            color: ColorsConfig.colorBlack,
-                                            fontWeight: FontWeight.w600),
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ), */
                             const SizedBox(
                               height: 12,
                             ),
-                              expertDetailController.isPromo.value ?
-                            loginTextFieldWidget(
-                                expertDetailController.promoController,
-                                false,
-                                (value) {},
-                                TextInputType.text,
-                                'Promo & Voucher Code',
-                                Icons.discount_rounded) : Container(),
+                            expertDetailController.isPromo.value
+                                ? loginTextFieldWidget(
+                                    expertDetailController.promoController,
+                                    false,
+                                    (value) {},
+                                    TextInputType.text,
+                                    'Promo & Voucher Code',
+                                    Icons.discount_rounded)
+                                : Container(),
                             const SizedBox(
                               height: 12,
                             ),
@@ -572,122 +395,4 @@ class _ExpertDetailScreenState extends State<ExpertDetailScreen> {
     );
   }
 
-  Widget dropDown() {
-    return DropdownButtonFormField<String>(
-      iconDisabledColor: ColorsConfig.colorBlue,
-      iconEnabledColor: ColorsConfig.colorBlue,
-      isExpanded: false,
-      value: expertDetailController.dropdownValue,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-        hintText: 'Select',
-        // labelText: 'Select',
-        iconColor: ColorsConfig.colorGreyy,
-        hintStyle: TextStyle(
-          fontFamily: AppTextStyle.microsoftJhengHei,
-          fontSize: 15.0,
-          color: ColorsConfig.colorGreyy,
-        ),
-        labelStyle: TextStyle(
-          fontFamily: AppTextStyle.microsoftJhengHei,
-          fontSize: 15.0,
-          color: ColorsConfig.colorGreyy,
-        ),
-        filled: true,
-        fillColor: ColorsConfig.colorWhite,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(
-            color: ColorsConfig.colorGreyy,
-            width: 1.5,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(
-            color: ColorsConfig.colorGreyy,
-            width: 1.5,
-          ),
-        ),
-      ),
-      items: <String>[
-        'Lot 1',
-        'Lot 2',
-        'Lot 3',
-        'Lot 4',
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(
-            value,
-            style: TextStyle(
-              fontFamily: AppTextStyle.microsoftJhengHei,
-              fontSize: 13.0,
-              color: ColorsConfig.colorGreyy,
-            ),
-          ),
-        );
-      }).toList(),
-      onChanged: (String? newValue) {
-        setState(() {
-          expertDetailController.dropdownValue = newValue;
-        });
-      },
-    );
-  }
 }
-
-// List<Meeting> _getDataSource() {
-//   final List<Meeting> meetings = <Meeting>[];
-//   final DateTime today = DateTime.now();
-//   final DateTime startTime =
-//       DateTime(today.year, today.month, today.day, 9, 0, 0);
-//   final DateTime endTime = startTime.add(const Duration(hours: 2));
-//   meetings.add(Meeting(
-//       "Conference", startTime, endTime, const Color(0xFF0F8644), false));
-//   return meetings;
-// }
-
-// class MeetingDataSource extends CalendarDataSource {
-//   expertDetailController.getDrSlotList(
-//         int.parse(getExpertData['doctorDetail']?.doctorId ?? ''),
-//   // MeetingDataSource(List<Meeting> source) {
-//   //   appointments = source;
-//   // }
-
-//   // @override
-//   // DateTime getStartTime(int index) {
-//   //   return appointments![index].from;
-//   // }
-
-//   // @override
-//   // DateTime getEndTime(int index) {
-//   //   return appointments![index].to;
-//   // }
-
-//   // @override
-//   // String getSubject(int index) {
-//   //   return appointments![index].eventName;
-//   // }
-
-//   // @override
-//   // Color getColor(int index) {
-//   //   return appointments![index].background;
-//   // }
-
-//   // @override
-//   // bool isAllDay(int index) {
-//   //   return appointments![index].isAllDay;
-//   // }
-// }
-
-// class Meeting {
-//   Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
-
-//   String eventName;
-//   DateTime from;
-//   DateTime to;
-//   Color background;
-//   bool isAllDay;
-// }

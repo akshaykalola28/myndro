@@ -20,7 +20,7 @@ class DashboardController extends BaseController {
   List<RandDoctors> drKeywordsList = <RandDoctors>[].obs;
   List<DoctorcategoryList> allDoctors = <DoctorcategoryList>[].obs;
   List<Wallet> transactionList = <Wallet>[].obs;
-
+  RxBool isLoading = false.obs;
   RxString walletAmount = ''.obs;
   final TextEditingController walletAmt = TextEditingController();
   final razorpay = Razorpay();
@@ -33,8 +33,7 @@ class DashboardController extends BaseController {
   @override
   void onInit() async {
     getAllDoctorsList();
-
-    getTransactionsList();
+    getTransactionsList('today');
     super.onInit();
   }
 
@@ -77,17 +76,19 @@ class DashboardController extends BaseController {
     }
   }
 
-  void getTransactionsList() async {
+  void getTransactionsList(String walletParam) async {
     bool status = await Common.checkInternetConnection();
     var res = await Common.retrievePrefData(Common.strLoginRes);
+    isLoading.value = true;
     if (status) {
       var response = await RemoteServices.getWalletData(
-        res.isNotEmpty ? jsonDecode(res)['PatientData']['patient_id'] : '',
-      );
+          res.isNotEmpty ? jsonDecode(res)['PatientData']['patient_id'] : '',
+          walletParam);
       var jsonData = json.decode(response.body);
       var data = jsonData["Slots"]['wallet'];
       if (response.statusCode == 200) {
         transactionList.clear();
+        isLoading.value = false;
         for (dynamic i in data) {
           transactionList.add(Wallet.fromJson(i));
         }
@@ -172,7 +173,7 @@ class DashboardController extends BaseController {
   void handlePaymentSuccess(PaymentSuccessResponse response) {
     print(response);
     razorpayAddMoneyToWallet();
-    getTransactionsList();
+    getTransactionsList('today');
     Common.displayMessage('Amount Added to Wallet');
   }
 

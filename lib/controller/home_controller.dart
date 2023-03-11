@@ -158,7 +158,7 @@ class HomeController extends BaseController {
             jsonData["code"] == '4') {
           Get.back();
           Common.launchCallURL(context, jsonData["URL"]);
-          dashboardController.getTransactionsList();
+          dashboardController.getTransactionsList('today');
           // Get.toNamed(WebViewScreen.pageId, arguments: {
           //   'meetDetail': jsonData["URL"],
           // });

@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../services/services.dart';
 import '../../util/common.dart';
 import '../../widgets/widgets.dart';
 
@@ -28,8 +27,11 @@ class ExpertProfile extends GetView<ExpertProfileController> {
           child: Column(
             children: [
               GetBuilder<ExpertProfileController>(
-                  builder: (controller) => profileDataContainer(context,
-                      () => controller.pickImage(), controller.profileImage)),
+                  builder: (controller) => profileDataContainer(
+                      context,
+                      () => controller.pickImage(),
+                      controller.profileImage,
+                      '${Apis.webViewUrl}${controller.profileInfo.doctorProfileImage ?? ''}')),
               const SizedBox(
                 height: 5,
               ),
@@ -413,8 +415,8 @@ class ExpertProfile extends GetView<ExpertProfileController> {
     );
   }
 
-  Widget profileDataContainer(
-      BuildContext context, VoidCallback onClick, dynamic imageFile) {
+  Widget profileDataContainer(BuildContext context, VoidCallback onClick,
+      dynamic imageFile, String netImg) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),
       decoration: BoxDecoration(
@@ -444,8 +446,8 @@ class ExpertProfile extends GetView<ExpertProfileController> {
                             fit: BoxFit.cover,
                             width: Get.width * 0.3,
                           )
-                        : Image.asset(
-                            ImagePath.girl,
+                        : Image.network(
+                            netImg,
                             fit: BoxFit.cover,
                             // height: 80,
                             width: Get.width * 0.3,
@@ -467,7 +469,7 @@ class ExpertProfile extends GetView<ExpertProfileController> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Dr.Anil Patel',
+                            controller.profileInfo.doctorName ?? '',
                             style: TextStyle(
                               fontFamily: AppTextStyle.microsoftJhengHei,
                               fontSize: 18.0,
@@ -508,7 +510,7 @@ class ExpertProfile extends GetView<ExpertProfileController> {
                       ],
                     ),
                     Text(
-                      'psychiatrist',
+                      controller.profileInfo.doctorProfession ?? '',
                       style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
                           fontSize: 15.0,
@@ -530,7 +532,7 @@ class ExpertProfile extends GetView<ExpertProfileController> {
                       height: 5,
                     ),
                     Text(
-                      'psychiatrist',
+                      controller.profileSpecialities.value,
                       style: TextStyle(
                           fontFamily: AppTextStyle.microsoftJhengHei,
                           fontSize: 15.0,
@@ -550,11 +552,15 @@ class ExpertProfile extends GetView<ExpertProfileController> {
               Expanded(
                 child: Common.iconContainer(
                     Icons.phone_in_talk_rounded, 'Audio call',
-                    isPriceVisible: true, subText: '\u{20B9}${' 400'}'),
+                    isPriceVisible: true,
+                    subText:
+                        '\u{20B9}${controller.profileInfo.doctorAudioCharge ?? ''}'),
               ),
               Expanded(
                 child: Common.iconContainer(Icons.videocam, 'Video call',
-                    isPriceVisible: true, subText: '\u{20B9}${' 500'}'),
+                    isPriceVisible: true,
+                    subText:
+                        '\u{20B9}${controller.profileInfo.doctorVideoCharge ?? ''}'),
               ),
             ],
           ),

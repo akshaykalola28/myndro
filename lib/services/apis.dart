@@ -80,7 +80,9 @@ mixin Apis {
   static const String packagesList = 'packages_list';
 
   static const String expertToPatientReport = 'expert_to_patients_report';
+  static const String myndroToExpertReport = 'myndro_to_experts_report';
 
+  static const String doctorProfileById = 'doctor_profile_doctor_id ';
   static const String trainingCerti = 'change_Training_Certificate ';
   static const String awardCerti = 'change_Award_Certificate ';
   static const String workExpCerti = 'change_Work_Experince_Certificate ';

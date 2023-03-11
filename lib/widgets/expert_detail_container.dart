@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constant/constant.dart';
-import '../util/common.dart';
 
 class ExpertDetailContainer extends StatelessWidget {
   const ExpertDetailContainer(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/model.dart';
@@ -16,6 +17,7 @@ class ExpertAppoController extends BaseController {
     getPatientsList();
   }
 
+  TextEditingController searchController = TextEditingController();
   List<Appointment> patientsList = <Appointment>[].obs;
   RxBool isLoading = false.obs;
   void getPatientsList() async {
@@ -23,8 +25,17 @@ class ExpertAppoController extends BaseController {
     var res = await Common.retrievePrefData(Common.strLoginRes);
     isLoading.value = true;
     if (status) {
-      var response = await RemoteServices.getExpertAppointmentList(
-          jsonDecode(res)['data']['doctor_id']);
+      dynamic response;
+      if (searchController.text.trim().isEmpty) {
+        response = await RemoteServices.getExpertAppointmentList(
+            jsonDecode(res)['data']['doctor_id'], '', '');
+      } else {
+        response = await RemoteServices.getExpertAppointmentList(
+          jsonDecode(res)['data']['doctor_id'],
+          '',
+          searchController.text.trim(),
+        );
+      }
       var jsonData = json.decode(response.body);
       var data = jsonData["data"]['appointment'] as List;
       if (response.statusCode == 200) {

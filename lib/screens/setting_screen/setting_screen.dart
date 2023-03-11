@@ -77,12 +77,15 @@ class SettingScreen extends GetView<SettingController> {
                             const SizedBox(
                               width: 5,
                             ),
-                            settingButton(
-                              'Change',
-                              () {
-                                controller.isChangePass.value =
-                                    !controller.isChangePass.value;
-                              },
+                            Expanded(
+                              flex: 1,
+                              child: settingButton(
+                                'Change',
+                                () {
+                                  controller.isChangePass.value =
+                                      !controller.isChangePass.value;
+                                },
+                              ),
                             )
                           ],
                         ),
@@ -158,8 +161,13 @@ class SettingScreen extends GetView<SettingController> {
                             const SizedBox(
                               width: 5,
                             ),
-                            settingButton('Edit',
-                                () => Get.toNamed(TwoStepVerification.pageId))
+                            Expanded(
+                              flex: 1,
+                              child: settingButton(
+                                  'Edit',
+                                  () =>
+                                      Get.toNamed(TwoStepVerification.pageId)),
+                            )
                           ],
                         )
                       ],
@@ -238,7 +246,7 @@ Widget settingButton(String text, VoidCallback onClick) {
         text,
         style: TextStyle(
           fontFamily: AppTextStyle.microsoftJhengHei,
-          fontSize: 18.0,
+          fontSize: 16.0,
           color: ColorsConfig.colorBlue,
         ),
       ),

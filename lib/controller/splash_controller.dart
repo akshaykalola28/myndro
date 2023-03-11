@@ -37,4 +37,4 @@ class SplashController extends BaseController {
       }
     }
   }
-  }
+}

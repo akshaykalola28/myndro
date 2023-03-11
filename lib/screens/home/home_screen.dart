@@ -928,6 +928,10 @@ IconButton(onPressed: (){
                                           Text(
                                             dashboardController
                                                 .walletAmount.value,
+                                            /*   (num.parse(dashboardController
+                                                        .walletAmount.value)
+                                                    .toStringAsFixed(3))
+                                                .toString(), */
                                             maxLines: 3,
                                             style: TextStyle(
                                                 fontFamily: AppTextStyle

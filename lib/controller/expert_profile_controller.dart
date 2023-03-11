@@ -32,6 +32,7 @@ class ExpertProfileController extends GetxController
   ];
   TabController? tabController;
   bool isFromEdit = true;
+
   List<ServicesModel> expertiseList = <ServicesModel>[].obs;
   List<ServicesModel> specializationList = <ServicesModel>[].obs;
   List<ServicesModel> treatApproachList = <ServicesModel>[].obs;
@@ -40,6 +41,7 @@ class ExpertProfileController extends GetxController
   List<ServicesModel> selectedTreatApproach = [];
   List<OnBoardingModel> selectedLanguages = [];
   RxBool isLoading = false.obs;
+  RxBool isProfileLoading = false.obs;
   RxInt radioSelected = 2.obs;
   String? radioVal;
   dynamic profileImage;
@@ -49,6 +51,10 @@ class ExpertProfileController extends GetxController
   var awardAttachmentTxt = 'Award Certificate'.obs;
   FilePickerResult? pickedTrainingAttachment;
   var trainingAttachmentTxt = 'Training Certificate'.obs;
+  late DoctorInfoMyProfile profileInfo;
+
+  RxString profileSpecialities = ''.obs;
+
   @override
   void onClose() {
     tabController!.dispose();
@@ -61,9 +67,10 @@ class ExpertProfileController extends GetxController
   void onInit() {
     tabController = TabController(length: myTabs.length, vsync: this);
     tabController!.addListener(handleTabSelection);
-    getExpertiseList();
-    getSpecializationList();
-    getTreatmentApproachList();
+    getExpertProfileData();
+    // getExpertiseList();
+    // getSpecializationList();
+    // getTreatmentApproachList();
     super.onInit();
   }
 
@@ -118,6 +125,28 @@ class ExpertProfileController extends GetxController
         //code here
       }
     });
+  }
+
+//get expert profile data
+  void getExpertProfileData() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    isProfileLoading.value = true;
+    if (status) {
+      var response = await RemoteServices.getDrProfileById(
+          int.parse(jsonDecode(res)['data']['doctor_id']));
+      var jsonData = json.decode(response.body);
+      var data = jsonData["data"]["doctor_info_myProfile"];
+
+      var drSpecialities = jsonData["data"]["Doctor_Specialities"];
+      if (response.statusCode == 200) {
+        profileInfo = DoctorInfoMyProfile.fromJson(data);
+
+        profileSpecialities.value = drSpecialities;
+      } else {
+        Common.displayMessage(jsonData["messages"] as String);
+      }
+    }
   }
 
 //get expertise
@@ -226,11 +255,13 @@ class ExpertProfileController extends GetxController
     if (status) {
       var request = http.MultipartRequest(
           'POST', Uri.parse(Apis.baseUrl + Apis.workExpCerti));
+
       request.fields.addAll({
-        "doctor_id": jsonDecode(res)['data']['doctor_id'],
-        "work_experience_certificate":
-            pickedWorkAttachment?.files.single.path ?? ''
+        'doctor_id': jsonDecode(res)['data']['doctor_id'],
       });
+      request.files.add(await http.MultipartFile.fromPath(
+          'work_experience_certificate',
+          pickedWorkAttachment?.files.single.path ?? ''));
 
       http.StreamedResponse response = await request.send();
       final respStr = await response.stream.bytesToString();
@@ -252,12 +283,13 @@ class ExpertProfileController extends GetxController
     if (status) {
       var request = http.MultipartRequest(
           'POST', Uri.parse(Apis.baseUrl + Apis.trainingCerti));
-      request.fields.addAll({
-        "doctor_id": jsonDecode(res)['data']['doctor_id'],
-        "doctor_traning_certificate_path":
-            pickedTrainingAttachment?.files.single.path ?? ''
-      });
 
+      request.fields.addAll({
+        'doctor_id': jsonDecode(res)['data']['doctor_id'],
+      });
+      request.files.add(await http.MultipartFile.fromPath(
+          'doctor_traning_certificate_path',
+          pickedTrainingAttachment?.files.single.path ?? ''));
       http.StreamedResponse response = await request.send();
       final respStr = await response.stream.bytesToString();
       var jsonData = jsonDecode(respStr);
@@ -278,12 +310,13 @@ class ExpertProfileController extends GetxController
     if (status) {
       var request = http.MultipartRequest(
           'POST', Uri.parse(Apis.baseUrl + Apis.awardCerti));
-      request.fields.addAll({
-        "doctor_id": jsonDecode(res)['data']['doctor_id'],
-        "doctor_Awards_certificate":
-            pickedAwardAttachment?.files.single.path ?? ''
-      });
 
+      request.fields.addAll({
+        'doctor_id': jsonDecode(res)['data']['doctor_id'],
+      });
+      request.files.add(await http.MultipartFile.fromPath(
+          'doctor_Awards_certificate',
+          pickedAwardAttachment?.files.single.path ?? ''));
       http.StreamedResponse response = await request.send();
       final respStr = await response.stream.bytesToString();
       var jsonData = jsonDecode(respStr);
@@ -298,7 +331,6 @@ class ExpertProfileController extends GetxController
     }
   }
 
-///////TODO certificates add karvana
   //update non mandatory data
   void addNonMandatoryData() async {
     bool status = await Common.checkInternetConnection();

@@ -4,7 +4,6 @@ import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
-import '../../util/common.dart';
 import '../screens.dart';
 
 class ExpertAppointment extends GetView<ExpertAppointmentController> {
@@ -33,7 +32,9 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
                         fontSize: 18.0,
                         color: ColorsConfig.colorWhite.withOpacity(0.8),
                       ),
-                      onChanged: (_) {},
+                      onChanged: (_) {
+                        controller.getAppointmentList('');
+                      },
                       decoration: InputDecoration(
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 12),
@@ -108,6 +109,14 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
                             ),
                             onChanged: (String? newValue) {
                               controller.setSelected(newValue!);
+                              if (newValue == 'Audio Call') {
+                                newValue = 'audio';
+                              } else if (newValue == 'Video Call') {
+                                newValue = 'video';
+                              } else {
+                                newValue;
+                              }
+                              controller.getAppointmentList(newValue);
                             },
                             iconSize: 25,
                             iconEnabledColor: ColorsConfig.colorBlue,
@@ -155,25 +164,26 @@ class ExpertAppointment extends GetView<ExpertAppointmentController> {
                           itemBuilder: ((context, index) {
                             // if (controller.searchController.text.isEmpty) {
                             return appointmentContainer(
-                              controller.appoList[index].patientName ?? '',
-                              '${controller.appoList[index].appointmentDate ?? ''} ${controller.appoList[index].appointmentTime ?? ''}',
-                              controller.appoList[index].caseNo ?? '',
-                              controller.appoList[index].audioVideo ?? '',
-                              controller.appoList[index].type ?? '',
-                              () => Get.toNamed(ExpertTodayAppointment.pageId,
-                                  arguments: {
-                                    'appoDetail': controller.appoList.isNotEmpty
-                                        ? controller.appoList[index]
-                                        : null,
-                                  }),
-                              () =>   controller.startMeetByDr(context,
-                                  controller.appoList[index].meetingId ?? '')
-                              /*  Get.toNamed(CallScreen.pageId, arguments: {
+                                controller.appoList[index].patientName ?? '',
+                                '${controller.appoList[index].appointmentDate ?? ''} ${controller.appoList[index].appointmentTime ?? ''}',
+                                controller.appoList[index].caseNo ?? '',
+                                controller.appoList[index].audioVideo ?? '',
+                                controller.appoList[index].type ?? '',
+                                () => Get.toNamed(ExpertTodayAppointment.pageId,
+                                        arguments: {
+                                          'appoDetail':
+                                              controller.appoList.isNotEmpty
+                                                  ? controller.appoList[index]
+                                                  : null,
+                                        }),
+                                () => controller.startMeetByDr(context,
+                                    controller.appoList[index].meetingId ?? '')
+                                /*  Get.toNamed(CallScreen.pageId, arguments: {
                                 'meetDetail': controller.appoList.isNotEmpty
                                     ? controller.appoList[index]
                                     : null,
                               }),*/
-                            );
+                                );
                           }))
                 ],
               ),

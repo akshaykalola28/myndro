@@ -54,6 +54,13 @@ class _WalletScreenState extends State<WalletScreen>
 
   handleTabSelection() {
     if (tabController!.indexIsChanging) {
+      if (tabController?.index == 1) {
+        dashboardController.getTransactionsList('last7days');
+      } else if (tabController?.index == 0) {
+        dashboardController.getTransactionsList('last30days');
+      } else {
+        dashboardController.getTransactionsList('today');
+      }
       setState(() {});
     }
   }
@@ -115,7 +122,7 @@ class _WalletScreenState extends State<WalletScreen>
                             height: 5,
                           ),
                           Text(
-                            '\u{20B9}${dashboardController.walletAmount.value}',
+                            '\u{20B9}${num.parse(dashboardController.walletAmount.value).toStringAsFixed(3)}',
                             style: TextStyle(
                               fontFamily: AppTextStyle.microsoftJhengHei,
                               fontSize: 35.0,
@@ -200,7 +207,6 @@ class _WalletScreenState extends State<WalletScreen>
                         ),
                         // width: Get.width * 0.65,
                         child: TabBar(
-                            physics: const NeverScrollableScrollPhysics(),
                             controller: tabController,
                             isScrollable: false,
                             indicator: BoxDecoration(
@@ -226,31 +232,64 @@ class _WalletScreenState extends State<WalletScreen>
                               25.0,
                             ),
                           ),
-                          child: ListView.builder(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 5,
-                              itemBuilder: (BuildContext context, int index) {
-                                return ListTile(
-                                  visualDensity: const VisualDensity(
-                                      horizontal: -4, vertical: 0),
-                                  leading: const Icon(
-                                    Icons.add_circle,
-                                  ),
-                                  title: const Text('sakshi Agrawal'),
-                                  trailing: Wrap(
-                                    spacing: 12, // space between two icons
-                                    children: const <Widget>[
-                                      Text('15 june 2022, 4:00 PM'),
-                                      Text('${'+1000 '}\u{20B9}'), // icon-2
-                                    ],
-                                  ),
-                                );
-                              }),
-                        ),
-                        Container(
-                          color: Colors.yellow,
+                          child: dashboardController.isLoading.value
+                              ? const MyndroLoader()
+                              : dashboardController.transactionList.isEmpty
+                                  ? Container(
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(10),
+                                      width: Get.width,
+                                      child: Text('No Data Found',
+                                          style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 15.0,
+                                            color: ColorsConfig.colorBlack,
+                                          )))
+                                  : ListView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      reverse: true,
+                                      itemCount: dashboardController
+                                          .transactionList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return ListTile(
+                                          visualDensity: const VisualDensity(
+                                              horizontal: -4, vertical: 0),
+                                          leading: dashboardController
+                                                      .transactionList[index]
+                                                      .walletType ==
+                                                  'Credit'
+                                              ? const Icon(
+                                                  Icons.add_circle,
+                                                  color: Colors.green,
+                                                )
+                                              : const Icon(
+                                                  Icons.remove_circle,
+                                                  color: Colors.red,
+                                                ),
+                                          title: Text(
+                                            _username,
+                                          ),
+                                          trailing: Wrap(
+                                            spacing:
+                                                12, // space between two icons
+                                            children: <Widget>[
+                                              Text(Common.formatWalletDate(
+                                                  dashboardController
+                                                      .transactionList[index]
+                                                      .dateCreated)),
+                                              // Text('15 june 2022, 4:00 PM'),
+                                              Text(
+                                                  '${dashboardController.transactionList[index].walletType == 'Credit' ? '+' : '-'}${dashboardController.transactionList[index].walletAmount}\u{20B9}'), // icon-2
+                                            ],
+                                          ),
+                                        );
+                                      }),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -259,46 +298,130 @@ class _WalletScreenState extends State<WalletScreen>
                               25.0,
                             ),
                           ),
-                          child: ListView.builder(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              reverse: true,
-                              itemCount:
-                                  dashboardController.transactionList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return ListTile(
-                                  visualDensity: const VisualDensity(
-                                      horizontal: -4, vertical: 0),
-                                  leading: dashboardController
-                                              .transactionList[index]
-                                              .walletType ==
-                                          'Credit'
-                                      ? const Icon(
-                                          Icons.add_circle,
-                                          color: Colors.green,
-                                        )
-                                      : const Icon(
-                                          Icons.remove_circle,
-                                          color: Colors.red,
-                                        ),
-                                  title: Text(
-                                    _username,
-                                  ),
-                                  trailing: Wrap(
-                                    spacing: 12, // space between two icons
-                                    children: <Widget>[
-                                      Text(Common.formatWalletDate(
-                                          dashboardController
-                                              .transactionList[index]
-                                              .dateCreated)),
-                                      // Text('15 june 2022, 4:00 PM'),
-                                      Text(
-                                          '${dashboardController.transactionList[index].walletType == 'Credit' ? '+' : '-'}${dashboardController.transactionList[index].walletAmount}\u{20B9}'), // icon-2
-                                    ],
-                                  ),
-                                );
-                              }),
+                          child: dashboardController.isLoading.value
+                              ? const MyndroLoader()
+                              : dashboardController.transactionList.isEmpty
+                                  ? Container(
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(10),
+                                      width: Get.width,
+                                      child: Text('No Data Found',
+                                          style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 15.0,
+                                            color: ColorsConfig.colorBlack,
+                                          )))
+                                  : ListView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      reverse: true,
+                                      itemCount: dashboardController
+                                          .transactionList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return ListTile(
+                                          visualDensity: const VisualDensity(
+                                              horizontal: -4, vertical: 0),
+                                          leading: dashboardController
+                                                      .transactionList[index]
+                                                      .walletType ==
+                                                  'Credit'
+                                              ? const Icon(
+                                                  Icons.add_circle,
+                                                  color: Colors.green,
+                                                )
+                                              : const Icon(
+                                                  Icons.remove_circle,
+                                                  color: Colors.red,
+                                                ),
+                                          title: Text(
+                                            _username,
+                                          ),
+                                          trailing: Wrap(
+                                            spacing:
+                                                12, // space between two icons
+                                            children: <Widget>[
+                                              Text(Common.formatWalletDate(
+                                                  dashboardController
+                                                      .transactionList[index]
+                                                      .dateCreated)),
+                                              // Text('15 june 2022, 4:00 PM'),
+                                              Text(
+                                                  '${dashboardController.transactionList[index].walletType == 'Credit' ? '+' : '-'}${dashboardController.transactionList[index].walletAmount}\u{20B9}'), // icon-2
+                                            ],
+                                          ),
+                                        );
+                                      }),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: ColorsConfig.colorLightGrey,
+                            borderRadius: BorderRadius.circular(
+                              25.0,
+                            ),
+                          ),
+                          child: dashboardController.isLoading.value
+                              ? const MyndroLoader()
+                              : dashboardController.transactionList.isEmpty
+                                  ? Container(
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(10),
+                                      width: Get.width,
+                                      child: Text('No Data Found',
+                                          style: TextStyle(
+                                            fontFamily:
+                                                AppTextStyle.microsoftJhengHei,
+                                            fontSize: 15.0,
+                                            color: ColorsConfig.colorBlack,
+                                          )))
+                                  : ListView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      reverse: true,
+                                      itemCount: dashboardController
+                                          .transactionList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return ListTile(
+                                          visualDensity: const VisualDensity(
+                                              horizontal: -4, vertical: 0),
+                                          leading: dashboardController
+                                                      .transactionList[index]
+                                                      .walletType ==
+                                                  'Credit'
+                                              ? const Icon(
+                                                  Icons.add_circle,
+                                                  color: Colors.green,
+                                                )
+                                              : const Icon(
+                                                  Icons.remove_circle,
+                                                  color: Colors.red,
+                                                ),
+                                          title: Text(
+                                            _username,
+                                          ),
+                                          trailing: Wrap(
+                                            spacing:
+                                                12, // space between two icons
+                                            children: <Widget>[
+                                              Text(Common.formatWalletDate(
+                                                  dashboardController
+                                                      .transactionList[index]
+                                                      .dateCreated)),
+                                              // Text('15 june 2022, 4:00 PM'),
+                                              Text(
+                                                  '${dashboardController.transactionList[index].walletType == 'Credit' ? '+' : '-'}${dashboardController.transactionList[index].walletAmount}\u{20B9}'), // icon-2
+                                            ],
+                                          ),
+                                        );
+                                      }),
                         ),
                       ][tabController!.index],
                     ),

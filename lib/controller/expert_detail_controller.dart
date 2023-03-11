@@ -21,6 +21,8 @@ class ExpertDetailController extends BaseController {
   RxString expertSlot = ''.obs;
   RxString expertSlotId = ''.obs;
   RxString audioVideoString = ''.obs;
+  RxBool isSlotLoading = false.obs;
+
   void setSelected(String value) {
     dropdownValue = value;
     update();
@@ -28,17 +30,23 @@ class ExpertDetailController extends BaseController {
 
   getDrSlotList(int doctorId, String fromDate) async {
     bool status = await Common.checkInternetConnection();
+    isSlotLoading.value = true;
     if (status) {
+      dynamic data;
       var response = await RemoteServices.getDrSlots(doctorId, fromDate);
       var jsonData = json.decode(response.body);
-      var data = jsonData["Slots"] as List;
-      if (response.statusCode == 200) {
-        allDrSlots.clear();
-        for (dynamic i in data) {
-          allDrSlots.add(DrSlots.fromJson(i));
+      if (jsonData["Slots"] != null) {
+        data = jsonData["Slots"] as List;
+
+        if (response.statusCode == 200) {
+          isSlotLoading.value = false;
+          allDrSlots.clear();
+          for (dynamic i in data) {
+            allDrSlots.add(DrSlots.fromJson(i));
+          }
         }
       } else {
-        Common.displayMessage(jsonData["messages"] as String);
+        Common.displayMessage(jsonData["msg"] as String);
       }
     }
   }

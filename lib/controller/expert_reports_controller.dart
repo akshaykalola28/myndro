@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import '../model/model.dart';
 import '../services/services.dart';
 import '../util/common.dart';
 
@@ -11,12 +12,15 @@ class ExpertReportsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   Rx<DateTime> fromDate = DateTime.now().obs;
   Rx<DateTime> toDate = DateTime.now().obs;
-  RxString formattedToDate = 'To'.obs;
-  RxString formattedFromDate = 'From'.obs;
-
+  RxString formattedToDate = ''.obs;
+  RxString formattedFromDate = ''.obs;
+  List<Appointment> exToPatientList = <Appointment>[].obs;
+  List<Appointment> myToExpertList = <Appointment>[].obs;
+  TextEditingController searchController = TextEditingController();
   void errorHandler(e) {}
   String? sortValue;
   RxBool isLoading = false.obs;
+  RxBool isMyndroToExLoading = false.obs;
   void setSelectedSortValue(String value) {
     sortValue = value;
     update();
@@ -34,6 +38,8 @@ class ExpertReportsController extends GetxController
   void onInit() {
     super.onInit();
     tabController = TabController(vsync: this, length: myTabs.length);
+    expertToPatientReport();
+    myndroToExpertReport();
   }
 
   @override
@@ -66,26 +72,101 @@ class ExpertReportsController extends GetxController
     }
   }
 
-  void expertToPatientReport() async {
+  void startMeetByDr(BuildContext context, String meetId) async {
     bool status = await Common.checkInternetConnection();
 
     if (status) {
+      var response = await RemoteServices.startMeetingByDr(meetId);
+      var jsonData = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        Common.displayMessage(jsonData["msg"] as String);
+        Common.launchCallURL(context, jsonData["url"]);
+      } else {
+        Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+  void expertToPatientReport() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    isLoading.value = true;
+    if (status) {
       var request = http.MultipartRequest(
           'POST', Uri.parse(Apis.baseUrl + Apis.expertToPatientReport));
-      request.fields.addAll({
-        'doctor_id': '18',
-        'case_no': '',
-        'from_date': '2022-12-02',
-        'to_date': '2022-12-02'
-      });
-
+      if (searchController.text.trim().isNotEmpty) {
+        request.fields.addAll({
+          'doctor_id': jsonDecode(res)['data']['doctor_id'],
+          'searchstring': searchController.text.trim()
+        });
+      } else if (formattedFromDate.value != '' && formattedToDate.value != '') {
+        request.fields.addAll({
+          'doctor_id': jsonDecode(res)['data']['doctor_id'],
+          'from_date': formattedFromDate.value,
+          'to_date': formattedToDate.value
+        });
+      } else {
+        request.fields.addAll({
+          'doctor_id': jsonDecode(res)['data']['doctor_id'],
+        });
+      }
       http.StreamedResponse response = await request.send();
       final respStr = await response.stream.bytesToString();
-      var jsonData = jsonDecode(respStr);
-      if (response.statusCode == 200) {
-        print('jsonData $jsonData');
 
+      var jsonData = json.decode(respStr);
+      var data = jsonData["data"] as List;
+
+      if (response.statusCode == 200) {
+        exToPatientList.clear();
+        isLoading.value = false;
+        for (dynamic i in data) {
+          exToPatientList.add(Appointment.fromJson(i));
+        }
+      } else {
+        print(response.reasonPhrase);
         Common.displayMessage(jsonData["msg"] as String);
+      }
+    }
+  }
+
+//myndro to expert
+
+  void myndroToExpertReport() async {
+    bool status = await Common.checkInternetConnection();
+    var res = await Common.retrievePrefData(Common.strLoginRes);
+    isMyndroToExLoading.value = true;
+    if (status) {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Apis.baseUrl + Apis.myndroToExpertReport));
+      if (searchController.text.trim().isNotEmpty) {
+        request.fields.addAll({
+          'doctor_id': jsonDecode(res)['data']['doctor_id'],
+          'searchstring': searchController.text.trim()
+        });
+      } else if (formattedFromDate.value != '' && formattedToDate.value != '') {
+        request.fields.addAll({
+          'doctor_id': jsonDecode(res)['data']['doctor_id'],
+          'from_date': formattedFromDate.value,
+          'to_date': formattedToDate.value
+        });
+      } else {
+        request.fields.addAll({
+          'doctor_id': jsonDecode(res)['data']['doctor_id'],
+        });
+      }
+      http.StreamedResponse response = await request.send();
+      final respStr = await response.stream.bytesToString();
+
+      var jsonData = json.decode(respStr);
+      var data = jsonData["data"] as List;
+
+      if (response.statusCode == 200) {
+        myToExpertList.clear();
+        isMyndroToExLoading.value = false;
+        for (dynamic i in data) {
+          myToExpertList.add(Appointment.fromJson(i));
+        }
       } else {
         print(response.reasonPhrase);
         Common.displayMessage(jsonData["msg"] as String);

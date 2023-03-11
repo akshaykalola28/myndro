@@ -17,16 +17,6 @@ class RemoteServices {
     debugPrint('Response body: ${response.body}');
   }
 
-  // print response of api result
-  static void printMultipartResponse(Map<String, String> header, dynamic body,
-      http.StreamedResponse response) {
-    debugPrint('Header: $header');
-    debugPrint('Body : $body');
-    debugPrint('URL: ${response.stream}');
-    debugPrint('Response status: ${response.statusCode}');
-    debugPrint('Response body: ${response.stream.bytesToString()}');
-  }
-
   //get country list
   static Future<http.Response> getCountryList() async {
     Map<String, String> header = {
@@ -376,11 +366,10 @@ class RemoteServices {
   }
 
   //get wallet data
-  static Future<http.Response> getWalletData(String patientId) async {
+  static Future<http.Response> getWalletData(
+      String patientId, String param) async {
     Map<String, String> header = {'Content-Type': 'text/plain'};
-    String postBody = json.encode({
-      "patient_id": patientId,
-    });
+    String postBody = json.encode({"patient_id": patientId, "param": param});
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.walletTransactions),
@@ -450,10 +439,14 @@ class RemoteServices {
   }
 
   //get expert appointment list
-  static Future<http.Response> getExpertAppointmentList(String doctorId) async {
+  static Future<http.Response> getExpertAppointmentList(
+      String doctorId, String type, String searchString) async {
     Map<String, String> header = {'Content-Type': 'application/json'};
-    String postBody = json.encode(
-        {"doctor_id": doctorId, "type": "", "case_no": "", "PatientName": ""});
+    String postBody = json.encode({
+      "doctor_id": doctorId,
+      "type": type,
+      "searchstring": searchString,
+    });
 
     http.Response response = await http.post(
       Uri.parse(Apis.baseUrl + Apis.expertAppointmentList),
@@ -839,19 +832,18 @@ class RemoteServices {
     return response;
   }
 
-  // //patient check login and send otp
-  // static Future<http.Response> patientCheckLogin(
-  //     String email, String password) async {
-  //   Map<String, String> header = {'Content-Type': 'application/json'};
-  //   String postBody = json.encode({'email': email, 'password': password});
+//expert Profile by Expert ID
+  static Future<http.Response> getDrProfileById(int doctorId) async {
+    Map<String, String> header = {'Content-Type': 'application/json'};
+    String postBody = json.encode({"doctor_id": doctorId});
 
-  //   http.Response response = await http.post(
-  //     Uri.parse(Apis.baseUrl + Apis.patientCheckLogin),
-  //     headers: header,
-  //     body: postBody,
-  //   );
-  //   printResponse(header, postBody, response);
+    http.Response response = await http.post(
+      Uri.parse(Apis.baseUrl + Apis.doctorProfileById),
+      headers: header,
+      body: postBody,
+    );
+    printResponse(header, postBody, response);
 
-  //   return response;
-  // }
+    return response;
+  }
 }

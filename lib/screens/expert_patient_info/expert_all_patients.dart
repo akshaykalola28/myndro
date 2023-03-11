@@ -24,7 +24,7 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
             onTap: () {
               Get.focusScope!.unfocus();
             },
-            child: SingleChildScrollView(
+            child: Obx(() => SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                 child: Column(
                   children: [
@@ -38,7 +38,9 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
                                 fontSize: 15.0,
                                 color: ColorsConfig.colorWhite.withOpacity(0.8),
                               ),
-                              onChanged: (_) {},
+                              onChanged: (_) {
+                                controller.getPatientList('');
+                              },
                               decoration: InputDecoration(
                                 contentPadding:
                                     const EdgeInsets.symmetric(horizontal: 12),
@@ -87,6 +89,15 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
                                   ),
                                   onChanged: (String? newValue) {
                                     controller.setSelectedSortValue(newValue!);
+
+                                    if (newValue == 'Audio Call') {
+                                      newValue = 'audio';
+                                    } else if (newValue == 'Video Call') {
+                                      newValue = 'video';
+                                    } else {
+                                      newValue;
+                                    }
+                                    controller.getPatientList(newValue);
                                   },
                                   iconSize: 35,
                                   iconEnabledColor: ColorsConfig.colorBlack,
@@ -113,7 +124,9 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
                         ),
                       ],
                     ),
-                    const SizedBox(
+
+                    ///TODO if asks to change then
+                    /*   const SizedBox(
                       height: 15,
                     ),
                     Row(
@@ -133,34 +146,55 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
                               onClick: () => controller.selectToDate(context)),
                         ),
                       ],
-                    ),
+                    ), */
                     const SizedBox(
                       height: 10,
                     ),
-                    ListView.builder(
-                        padding: EdgeInsets.zero,
-                        primary: false,
-                        itemCount: 5,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: ((context, index) {
-                          return appointmentContainer(
-                            'abc',
-                            '19 jan',
-                            'M 001',
-                            () {
-                              Get.toNamed(ExpertPatientDetail.pageId);
-                            },
-                          );
-                        }))
+                    controller.isLoading.value
+                        ? const MyndroLoader()
+                        : ListView.builder(
+                            padding: EdgeInsets.zero,
+                            primary: false,
+                            itemCount: controller.patientInfoList.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: ((context, index) {
+                              return appointmentContainer(
+                                  controller
+                                          .patientInfoList[index].patientName ??
+                                      '',
+                                  controller.patientInfoList[index]
+                                          .appointmentDate ??
+                                      '',
+                                  controller.patientInfoList[index].caseNo ??
+                                      '',
+                                  controller
+                                          .patientInfoList[index].audioVideo ??
+                                      '',
+                                  controller.patientInfoList[index].type ?? '',
+                                  () {
+                                Get.toNamed(ExpertPatientDetail.pageId);
+                              },
+                                  () => controller.startMeetByDr(
+                                      context,
+                                      controller.patientInfoList[index]
+                                              .meetingId ??
+                                          ''));
+                            }))
                   ],
-                )),
+                ))),
           )),
     );
   }
 
   Widget appointmentContainer(
-      String name, String date, String caseNo, VoidCallback onCardClick) {
+      String name,
+      String date,
+      String caseNo,
+      String callType,
+      String appoType,
+      VoidCallback onCardClick,
+      VoidCallback onClickCall) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onCardClick,
@@ -225,7 +259,7 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
                                   color: ColorsConfig.colorBlue,
                                 )),
                             child: Text(
-                              'Package',
+                              appoType,
                               style: TextStyle(
                                   fontFamily: AppTextStyle.microsoftJhengHei,
                                   fontSize: 15.0,
@@ -247,14 +281,21 @@ class ExpertAllPatients extends GetView<ExpertPatientInfoController> {
                         ],
                       ),
                       const Spacer(),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(
-                            color: ColorsConfig.colorBlue,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: const Icon(Icons.videocam,
-                            color: ColorsConfig.colorWhite, size: 32),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: onClickCall,
+                        child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: const BoxDecoration(
+                                color: ColorsConfig.colorBlue,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Icon(
+                                callType.toLowerCase().contains('audio')
+                                    ? Icons.phone
+                                    : Icons.videocam,
+                                color: ColorsConfig.colorWhite,
+                                size: 32)),
                       ),
                     ],
                   ),

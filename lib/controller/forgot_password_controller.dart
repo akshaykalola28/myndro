@@ -98,8 +98,8 @@ class ForgotPasswordController extends BaseController {
         print('jsonData $jsonData');
 
         Common.displayMessage(jsonData["msg"] as String);
-        /////TODO from response of API
-        // login(email, pass);
+        /////TODO from response of API test it
+        login(jsonData["data"], confirmPassController.text.trim());
         Get.back();
       } else {
         print(response.reasonPhrase);

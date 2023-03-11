@@ -89,7 +89,7 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
                                     children: [
                                       loginTextFieldWidget(
                                         controller.passwordController,
-                                        false,
+                                        true,
                                         Common.validatePassword,
                                         TextInputType.text,
                                         'Enter Password',
@@ -100,7 +100,7 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
                                       ),
                                       loginTextFieldWidget(
                                         controller.confirmPassController,
-                                        false,
+                                        true,
                                         (value) {
                                           if (value!.isEmpty) {
                                             return 'Please Re-Enter New Password';

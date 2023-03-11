@@ -4,6 +4,8 @@ import 'package:myndro/widgets/widgets.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../services/services.dart';
+import '../../util/common.dart';
 
 class ExpertReports extends GetView<ExpertReportsController> {
   static const pageId = "/ExpertReports";
@@ -19,7 +21,7 @@ class ExpertReports extends GetView<ExpertReportsController> {
             Get.back();
           },
           text: 'Reports',
-          body: GestureDetector(
+          body: Obx(() => GestureDetector(
               onTap: () {
                 Get.focusScope!.unfocus();
               },
@@ -32,15 +34,22 @@ class ExpertReports extends GetView<ExpertReportsController> {
                       child: Row(
                         children: [
                           Expanded(
-                            flex: 2,
+                            // flex: 2,
                             child: TextField(
+                                controller: controller.searchController,
                                 style: TextStyle(
                                   fontFamily: AppTextStyle.microsoftJhengHei,
                                   fontSize: 15.0,
                                   color:
                                       ColorsConfig.colorWhite.withOpacity(0.8),
                                 ),
-                                onChanged: (_) {},
+                                onChanged: (_) {
+                                  if (controller.tabController.index == 0) {
+                                    controller.expertToPatientReport();
+                                  } else {
+                                    controller.myndroToExpertReport();
+                                  }
+                                },
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 12),
@@ -62,7 +71,7 @@ class ExpertReports extends GetView<ExpertReportsController> {
                                       borderSide: BorderSide.none),
                                 )),
                           ),
-                          Expanded(
+                          /*     Expanded(
                             child: GetBuilder<ExpertReportsController>(
                                 builder: (con) {
                               return Container(
@@ -113,37 +122,54 @@ class ExpertReports extends GetView<ExpertReportsController> {
                                 ),
                               );
                             }),
-                          ),
+                          ), */
                         ],
                       ),
                     )),
-                    Obx(
-                      () => SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: DateTimeFieldWidget(
-                                    dateText:
-                                        controller.formattedFromDate.value,
-                                    onClick: () =>
-                                        controller.selectFromDate(context)),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: DateTimeFieldWidget(
-                                    dateText: controller.formattedToDate.value,
-                                    onClick: () =>
-                                        controller.selectToDate(context)),
-                              ),
-                            ],
+                    Obx(() => SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: DateTimeFieldWidget(
+                                      dateText: controller
+                                                  .formattedFromDate.value !=
+                                              ''
+                                          ? controller.formattedFromDate.value
+                                          : 'From',
+                                      onClick: () =>
+                                          controller.selectFromDate(context)),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: DateTimeFieldWidget(
+                                      dateText:
+                                          controller.formattedToDate.value != ''
+                                              ? controller.formattedToDate.value
+                                              : 'To',
+                                      onClick: () {
+                                        controller.selectToDate(context);
+                                        if (controller
+                                                    .formattedFromDate.value !=
+                                                '' &&
+                                            controller.formattedToDate.value !=
+                                                '') {
+                                          if (controller.tabController.index ==
+                                              0) {
+                                            controller.expertToPatientReport();
+                                          } else {
+                                            controller.myndroToExpertReport();
+                                          }
+                                        }
+                                      }),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
+                        )),
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
@@ -152,6 +178,14 @@ class ExpertReports extends GetView<ExpertReportsController> {
                             child: TabBar(
                                 controller: controller.tabController,
                                 isScrollable: false,
+                                onTap: (value) {
+                                  controller.searchController.clear();
+                                  if (controller.tabController.index == 0) {
+                                    controller.expertToPatientReport();
+                                  } else {
+                                    controller.myndroToExpertReport();
+                                  }
+                                },
                                 indicator: BoxDecoration(
                                   borderRadius: BorderRadius.circular(
                                     25.0,
@@ -170,28 +204,100 @@ class ExpertReports extends GetView<ExpertReportsController> {
                 body: TabBarView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 30),
-                        primary: true,
-                        itemCount: 6,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: ((context, index) {
-                          return reportDataTile('abc', '19 jan', 'M 001');
-                        })),
-                    ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 30),
-                        primary: false,
-                        itemCount: 4,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: ((context, index) {
-                          return reportDataTile('abc', '19 jan', 'M 001');
-                        })),
+                    controller.isLoading.value
+                        ? const MyndroLoader()
+                        : controller.exToPatientList.isEmpty
+                            ? Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.all(10),
+                                width: Get.width,
+                                child: Text('No Data Found',
+                                    style: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontSize: 15.0,
+                                      color: ColorsConfig.colorBlack,
+                                    )))
+                            : ListView.builder(
+                                padding:
+                                    const EdgeInsets.fromLTRB(12, 12, 12, 30),
+                                primary: true,
+                                itemCount: controller.exToPatientList.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: ((context, index) {
+                                  return reportDataTile(
+                                      controller.exToPatientList[index]
+                                              .patientName ??
+                                          '',
+                                      controller.exToPatientList[index]
+                                              .appointmentDate ??
+                                          '',
+                                      controller
+                                              .exToPatientList[index].caseNo ??
+                                          '',
+                                      controller.exToPatientList[index]
+                                              .audioVideo ??
+                                          '',
+                                      controller.exToPatientList[index].type ??
+                                          '',
+                                      () => controller.startMeetByDr(
+                                          context,
+                                          controller.exToPatientList[index]
+                                                  .meetingId ??
+                                              ''),
+                                      () => Common.launchCallURL(context,
+                                          '${Apis.webViewUrl}${controller.exToPatientList[index].invoiceUrl ?? ''}'));
+                                })),
+                    controller.isMyndroToExLoading.value
+                        ? const MyndroLoader()
+                        : controller.myToExpertList.isEmpty
+                            ? Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.all(10),
+                                width: Get.width,
+                                child: Text('No Data Found',
+                                    style: TextStyle(
+                                      fontFamily:
+                                          AppTextStyle.microsoftJhengHei,
+                                      fontSize: 15.0,
+                                      color: ColorsConfig.colorBlack,
+                                    )))
+                            : ListView.builder(
+                                padding:
+                                    const EdgeInsets.fromLTRB(12, 12, 12, 30),
+                                primary: false,
+                                itemCount: controller.myToExpertList.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: ((context, index) {
+                                  return reportDataTile(
+                                      controller.myToExpertList[index]
+                                              .doctorName ??
+                                          '',
+                                      controller.myToExpertList[index]
+                                              .appointmentDate ??
+                                          '',
+                                      controller
+                                              .myToExpertList[index].caseNo ??
+                                          '',
+                                      controller.myToExpertList[index]
+                                              .audioVideo ??
+                                          '',
+                                      controller.myToExpertList[index].type ??
+                                          '',
+                                      () => controller.startMeetByDr(
+                                          context,
+                                          controller.myToExpertList[index]
+                                                  .meetingId ??
+                                              ''),
+                                      () => Common.launchCallURL(context,
+                                          ' ${Apis.webViewUrl}${controller.myToExpertList[index].invoiceUrl ?? ''}'));
+                                })),
                   ],
                   controller: controller.tabController,
                 ),
-              ))),
+              )))),
     );
   }
 
@@ -199,6 +305,10 @@ class ExpertReports extends GetView<ExpertReportsController> {
     String name,
     String date,
     String caseNo,
+    String callType,
+    String appoType,
+    VoidCallback onClickCall,
+    VoidCallback onClickFile,
   ) {
     return Card(
         elevation: 5,
@@ -220,74 +330,93 @@ class ExpertReports extends GetView<ExpertReportsController> {
               const SizedBox(
                 width: 8,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                        fontFamily: AppTextStyle.microsoftJhengHei,
-                        fontSize: 18.0,
-                        color: ColorsConfig.colorGreyy,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    date,
-                    style: TextStyle(
-                        fontFamily: AppTextStyle.microsoftJhengHei,
-                        fontSize: 14.0,
-                        color: ColorsConfig.colorGreyy.withOpacity(0.8),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'Case No.: $caseNo',
-                    style: TextStyle(
-                        fontFamily: AppTextStyle.microsoftJhengHei,
-                        fontSize: 14.0,
-                        color: ColorsConfig.colorGreyy,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 18.0,
+                          color: ColorsConfig.colorGreyy,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      date,
+                      style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 14.0,
+                          color: ColorsConfig.colorGreyy.withOpacity(0.8),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      'Case No.: $caseNo',
+                      style: TextStyle(
+                          fontFamily: AppTextStyle.microsoftJhengHei,
+                          fontSize: 14.0,
+                          color: ColorsConfig.colorGreyy,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
               Text(
-                'package',
+                appoType,
                 style: TextStyle(
                     fontFamily: AppTextStyle.microsoftJhengHei,
                     fontSize: 15.0,
                     color: ColorsConfig.colorBlue,
                     fontWeight: FontWeight.bold),
               ),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(
-                    color: ColorsConfig.colorBlue,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: const Icon(Icons.videocam,
-                    color: ColorsConfig.colorWhite, size: 23),
+              const SizedBox(
+                width: 10,
               ),
-              const Spacer(),
-              Image.asset(
-                ImagePath.pdfIconImg,
-                height: 40,
-                width: 40,
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: onClickCall,
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                      color: ColorsConfig.colorBlue,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Icon(
+                      callType.toLowerCase().contains('audio')
+                          ? Icons.phone
+                          : Icons.videocam,
+                      color: ColorsConfig.colorWhite,
+                      size: 23),
+                ),
               ),
-              const Spacer(),
+              const SizedBox(
+                width: 10,
+              ),
               IconButton(
-                onPressed: () {
-                  // controller.showPopupMenu(context, offset)
-                },
-                icon: const Icon(Icons.add),
-                color: ColorsConfig.colorGreyy,
-              )
+                  onPressed: onClickFile,
+                  icon: const Icon(
+                    Icons.file_copy_rounded,
+                    color: Colors.red,
+                    size: 30,
+                  ))
+              // Image.asset(
+              //   ImagePath.iconFile,
+              //   height: 40,
+              //   width: 40,
+              // ),
+              // IconButton(
+              //   onPressed: () {
+              //     // controller.showPopupMenu(context, offset)
+              //   },
+              //   icon: const Icon(Icons.add),
+              //   color: ColorsConfig.colorGreyy,
+              // )
             ],
           ),
         ));

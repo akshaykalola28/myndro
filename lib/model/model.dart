@@ -19,3 +19,4 @@ export 'prescription_detail_model.dart';
 export 'assessment_cat_model.dart';
 export 'assessment_questions.dart';
 export 'packages_list_model.dart';
+export 'expert_profile_model.dart';
